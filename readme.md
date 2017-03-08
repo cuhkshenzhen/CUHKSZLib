@@ -71,6 +71,7 @@ limited inside the library; do not leak the exceptions to the user.
 2. Safer random library with simple interface
  ([reference](http://en.cppreference.com/w/cpp/numeric/random))
 3. math functions (like gcd)
+4. build autograder
 
 ## Specs
 1. Implements with C++11
