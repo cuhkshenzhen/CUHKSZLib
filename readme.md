@@ -30,7 +30,7 @@ and make some other improvements:
 executable files.
 2. The library should have a minimized requirement. We should try to limit the
 use of external libraries especially the big ones.
-3. The library should use `cmake` or other cross-platform building tools to
+3. The library should use `cmake` to
 support as many platforms as possible. The code should not target on certain
 platform and the library should be tested on different systems before publishing.
 Also, the library should not target on certain IDE, it should be able to generate
@@ -84,7 +84,7 @@ limited inside the library; do not leak the exceptions to the user.
 3. Design library
 4. Implement library
 5. Learn and use unit test (e.g. googletest)
-6. Learn cmake (or other alternatives)
+6. Learn cmake
 7. Build publish version
 8. Final test
 
