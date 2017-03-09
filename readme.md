@@ -71,6 +71,9 @@ limited inside the library; do not leak the exceptions to the user.
 2. Safer random library with simple interface
  ([reference](http://en.cppreference.com/w/cpp/numeric/random))
 3. math functions (like gcd)
+4. threading library
+  1. simple threading/tasking
+  2. thread pool
 
 ## Specs
 1. Implements with C++11
