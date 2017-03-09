@@ -74,6 +74,8 @@ limited inside the library; do not leak the exceptions to the user.
 4. threading library
   1. simple threading/tasking
   2. thread pool
+5. Algorithms
+  1. Parallel algorithms
 
 ## Specs
 1. Implements with C++11
