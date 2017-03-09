@@ -65,11 +65,11 @@ limited inside the library; do not leak the exceptions to the user.
     3. queue and stack
     4. map and multimap (ordered and unordered)
     5. set and multiset
-		6. priority_queue (heap)
+    6. priority_queue (heap)
   2. Utility functions
     1. Array utils
     2. IO helper
-		3. string functions
+	  3. string functions
 2. Safer random library with simple interface
  ([reference](http://en.cppreference.com/w/cpp/numeric/random))
 3. math functions (like gcd)
