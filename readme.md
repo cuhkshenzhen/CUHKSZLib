@@ -64,17 +64,42 @@ limited inside the library; do not leak the exceptions to the user.
     2. linked list
     3. queue and stack
     4. map and multimap (ordered and unordered)
-    5. set
+    5. set and multiset
+    6. priority_queue (heap)
   2. Utility functions
     1. Array utils
     2. IO helper
+    3. string functions
 2. Safer random library with simple interface
  ([reference](http://en.cppreference.com/w/cpp/numeric/random))
 3. math functions (like gcd)
-4. *threading library (postponed)*
+4. More Data structure
+  1. math
+    1. matrix
+    2. 2D&3D space with Cartesian coordinates and polar coordinates
+      1. point
+      2. vector
+      3. polynomial
+      4. circle
+    3. graph
+      1. point
+      2. edge
+  2. string
+    1. Trie (prefix tree)
+    2. suffix array
+    3. Aho-Corasick automation
+  3. others
+    1. normal rooted tree
+    2. binary tree
+    3. segment tree
+    4. binary indexed tree
+    5. binary search tree
+    6. Disjoint-set data structure (并查集)
+5. build autograder
+6. *threading library (postponed)*
   1. simple threading/tasking
   2. thread pool
-5. Algorithms
+7. Algorithms
   1. *Parallel algorithms (postponed)*
 6. Utils
   1. zip
