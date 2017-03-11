@@ -101,7 +101,7 @@ limited inside the library; do not leak the exceptions to the user.
   2. thread pool
 7. Algorithms
   1. *Parallel algorithms (postponed)*
-6. Utils
+8. Utils
   1. zip
   2. json
 
