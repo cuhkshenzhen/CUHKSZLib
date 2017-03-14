@@ -31,90 +31,90 @@ Overcoming shortcomings
 ## Plans
 
 1. Simpler interface for standard library:
-    1. Containers
-        1. vector
-        2. linked list
-        3. queue and stack
-        4. map and multimap (ordered and unordered)
-        5. set and multiset
-        6. priority_queue (heap)
-    2.  Utility functions
-        1. Array utils
-        2. IO helper
-        3. string functions
+   1. Containers
+      1. vector
+      2. linked list
+      3. queue and stack
+      4. map and multimap (ordered and unordered)
+      5. set and multiset
+      6. priority_queue (heap)
+   2. Utility functions
+      1. Array utils
+      2. IO helper
+      3. string functions
 
 2. Safer random library with simple interface ([reference](http://en.cppreference.com/w/cpp/numeric/random))
-    1. distributions
+   1. distributions
 
 3. math functions
    1. gcd/lcm
    2. pow for int
 
-4.  More Data structure
-    1.  math
-        1.  matrix
-        2.  2D&3D space with Cartesian coordinates and polarcoordinates
-            1.  point
-            2.  vector
-            3.  polygon
-            4.  circle
-        3.  graph
-            1.  point
-            2.  edge
-        4.  BigNum
-        5.  fraction
-    2.  string
-        1.  Trie (prefix tree)
-        2.  *suffix array* *(postponed)*
-        3.  *Aho-Corasick automation* *(postponed)*
-    3.  others
-        1.  normal rooted tree
-        2.  binary tree
-        3.  segment tree
-        4.  binary indexed tree
-        5.  binary search tree
-        6.  Disjoint-set data structure (并查集)
+4. More Data structure
+   1. math
+      1. matrix
+      2. 2D&3D space with Cartesian coordinates and polarcoordinates
+         1. point
+         2. vector
+         3. polygon
+         4. circle
+      3. graph
+         1. point
+         2. edge
+      4. BigNum
+      5. fraction
+   2. string
+      1. Trie (prefix tree)
+      2. *suffix array* *(postponed)*
+      3. *Aho-Corasick automation* *(postponed)*
+   3. others
+      1. normal rooted tree
+      2. binary tree
+      3. segment tree
+      4. binary indexed tree
+      5. binary search tree
+      6. Disjoint-set data structure (并查集)
 
-5.  *build autograder (postponed)* (We actually don't know what's that)*
-6.  *threading library (postponed)*
-    1.  *simple threading/tasking*
-    2.  *thread pool*
+5. *build autograder (postponed)* (We actually don't know what's that)*
+6. *threading library (postponed)*
+   1. *simple threading/tasking*
+   2. *thread pool*
 
-7.  Algorithms
-    1.  *Parallel algorithms (postponed)*
-    2.  KMP algorithm
-    3.  DFS & BFS algorithm
-    4.  Simpson algorithm
-    5.  general sort function
-    6.  *Hungary algorithm (postponed)*
-    7.  (grab common algorithms out)
+7. Algorithms
+   1. *Parallel algorithms (postponed)*
+   2. KMP algorithm
+   3. DFS & BFS algorithm
+   4. Simpson algorithm
+   5. General sort function
+   6. *Hungary algorithm (postponed)*
+   7. (grab common algorithms out)
 
-8.  Utils
-    1.  zip
-    2.  json
-    3.  Network
-        1.  get
-        2.  post
-        3.  urlencode / urldecode
-    4.  base64 encoder & decoder (ref: http://libb64.sourceforge.net/[ ](http://libb64.sourceforge.net/)))
+8. Utils
+   1. zip
+   2. json
+   3. Network
+      1. get
+      2. post
+      3. urlencode / urldecode
+   4. base64 encoder & decoder (ref: http://libb64.sourceforge.net/[ ](http://libb64.sourceforge.net/)))
 
 ## Specs
 
-1.  Implements with C++11
-2.  `cmake`
-3.  Can be precompiled
-4.  Cross-platform
+1. Implements with C++11
+2. `cmake`
+3. Can be precompiled
+4. Cross-platform
 
 ## Schedule
 
-1.  Learn to use git
-2.  Decide coding style
-3.  Design library (prototypes)
-4.  Implement library
-5.  Learn and use unit test (e.g. googletest)
-6.  Learn cmake
-7.  Build publish version & Generate Documents
-8.  Final test
+1. Learn to use git
+2. Decide coding style
+3. Design library (prototypes)
+4. Implement library
+5. Learn and use unit test (e.g. googletest)
+6. Learn cmake
+7. Build publish version & Generate Documents
+8. Final test
 
 ## Other mentions
 
@@ -123,5 +123,5 @@ This library will become open source after this semester (to be posted on Github
 Contribution: https://github.com/cuhkshenzhen/CUHKSZLib 
 
 ## Problems
-1.  If we do not use Qt or java backend, it may be very hard to have GUI support part in our library.
-2.  We cannot develop a library as the same level as theStanford one in such short time. So this project is intended to be continuously developed.
+1. If we do not use Qt or java backend, it may be very hard to have GUI support part in our library.
+2. We cannot develop a library as the same level as theStanford one in such short time. So this project is intended to be continuously developed.
