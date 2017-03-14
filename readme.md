@@ -30,7 +30,7 @@ and make some other improvements:
 executable files.
 2. The library should have a minimized requirement. We should try to limit the
 use of external libraries especially the big ones.
-3. The library should use `cmake` or other cross-platform building tools to
+3. The library should use `cmake` to
 support as many platforms as possible. The code should not target on certain
 platform and the library should be tested on different systems before publishing.
 Also, the library should not target on certain IDE, it should be able to generate
@@ -64,13 +64,46 @@ limited inside the library; do not leak the exceptions to the user.
     2. linked list
     3. queue and stack
     4. map and multimap (ordered and unordered)
-    5. set
+    5. set and multiset
+    6. priority_queue (heap)
   2. Utility functions
     1. Array utils
     2. IO helper
+    3. string functions
 2. Safer random library with simple interface
  ([reference](http://en.cppreference.com/w/cpp/numeric/random))
 3. math functions (like gcd)
+4. More Data structure
+  1. math
+    1. matrix
+    2. 2D&3D space with Cartesian coordinates and polar coordinates
+      1. point
+      2. vector
+      3. polynomial
+      4. circle
+    3. graph
+      1. point
+      2. edge
+  2. string
+    1. Trie (prefix tree)
+    2. suffix array
+    3. Aho-Corasick automation
+  3. others
+    1. normal rooted tree
+    2. binary tree
+    3. segment tree
+    4. binary indexed tree
+    5. binary search tree
+    6. Disjoint-set data structure (并查集)
+5. build autograder
+6. *threading library (postponed)*
+  1. simple threading/tasking
+  2. thread pool
+7. Algorithms
+  1. *Parallel algorithms (postponed)*
+8. Utils
+  1. zip
+  2. json
 
 ## Specs
 1. Implements with C++11
@@ -84,7 +117,7 @@ limited inside the library; do not leak the exceptions to the user.
 3. Design library
 4. Implement library
 5. Learn and use unit test (e.g. googletest)
-6. Learn cmake (or other alternatives)
+6. Learn cmake
 7. Build publish version
 8. Final test
 
