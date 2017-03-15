@@ -1,6 +1,6 @@
 # Proposal for Project - CUHKSZ C++ Library
 
-## Motivation
+## Background & Problems
 
 We used Stanford C++ library in this semester, however, this library has several shortcomings:
 
@@ -11,26 +11,27 @@ We used Stanford C++ library in this semester, however, this library has several
 3. This library does not support Windows x64, as it is written for the gcc compatible toolchain. (Not exactly, but there is some code in the library which can only compile on 32bit Windows with mingw32).
 4. This library is not stand-alone, i.e. it needs an extra jdk environment to run the program.
 
-## Objects
+## Solution
 
-We want to design and implement a C++ library that overcome those shortcomings and make some other improvements:
+We want to design and implement a C++ library that overcome those shortcomings and make some other improvements.
 
-### Overcoming shortcomings
+## Benefits
 
-1. The library should be able to statically or dynamically link to the executable files.
-2. The library should have a minimized requirement. We should try to limit the use of external libraries especially the big ones.
-3. The library should use `cmake` to support as many platforms as possible. The code should not target on certain platform and the library should be tested on different systems before publishing. Also, the library should not target on certain IDE, it should be able to generate project files or makefiles for different building toolchains.
-4. The library should be totally in C++/C, which means that it is written with C++/C and do not need special environment (especially java or python, etc.) to run.
+1. The library will be able to statically or dynamically link to the executable files.
+2. The library  will have a minimized requirement. We will try to limit the use of external libraries especially the big ones.
+3. The library  will use `cmake` to support as many platforms as possible. The code willl not target on certain platform and the library will be tested on different systems before publishing. Also, the library will not target on certain IDE, it can generate project files or makefiles for different building toolchains.
+4. The library  will be written totally in C++/C, it does not need special environment (especially java or python, etc.) to run.
+5. We will add some useful but simple functionalities, so this library can be used by CSC3002 students in the future.
 
-### General Ideas
+## Implementations
 
-1. Do not include those functionalities that the standard library has. Try to make a user friendly or simple interface for the standard library.
+1. The functionalities that the standard library has will not be included, and we will make a user friendly or simple interface for the standard library.
 2. Be consistent in code style, especially the public interface (e.g. class names, free function names).
 3. Eliminate the use of C++ exceptions. C++ is not java: its supports for exceptions is not as user friendly as java. So the use of exceptions should be limited inside the library; do not leak the exceptions to the user.
 
-## Plans
+### Functionalities
 
-1. Simpler interface for standard library:
+1. Simpler interface for standard library
     1. Containers
         1. vector
         2. linked list
@@ -98,7 +99,7 @@ We want to design and implement a C++ library that overcome those shortcomings a
         3. urlencode / urldecode
     4. base64 encoder & decoder ([reference](http://libb64.sourceforge.net/)))
 
-## Specs
+### Specs
 
 1. Implements with C++11
 2. `cmake`
@@ -116,6 +117,24 @@ We want to design and implement a C++ library that overcome those shortcomings a
 7. Build publish version & Generate Documents
 8. Final test
 
+###  Assignment of responsibility
+#### Pengfei YU		
+- Safer random library
+- string
+- math functions
+- KMP algorithm
+
+#### Xiaoxing YE
+- Utils
+
+#### Xianggang YU (115010273)
+- Simpler interface for standard library
+
+#### Xuan HUANG
+- math
+- others
+- DFS & BFS algorithm
+
 ## Other mentions
 
 This library will become open source after this semester (to be posted on Github),so everyone including students, professors and TAs can make their contribution to the library to make it better and better.
@@ -123,6 +142,5 @@ This library will become open source after this semester (to be posted on Github
 Contribution: https://github.com/cuhkshenzhen/CUHKSZLib
 **Not Available Now**
 
-## Problems
 1. If we do not use Qt or java backend, it may be very hard to have GUI support part in our library.
 2. We cannot develop a library as the same level as theStanford one in such short time. So this project is intended to be continuously developed.
