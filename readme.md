@@ -1,28 +1,28 @@
-Proposal for Project - CUHKSZ 
+# Proposal for Project - CUHKSZ 
 
 ## Motivation
 
 We used Stanford C++ library in this semester, however, this library has several shortcomings:
 
--  This library is not precompiled, so the user needs to re-compile the whole library for each new project.
--  This library requires qmake for Makefile generating, and qmake requires the whole Qt package (for size around 1GB). But in fact, the library has nothing to do with the Qt library; the only thing it needs is qmake tool.
-   -  This 'requirement problem' is even more severe on macOS - Qt package requires Xcode on mac, so that we need to install Xcode + Qt (totally about 8GB) to use this small library.
-   -  The .pro file it provides seems to have some problems as many students encounters weird error messages when they try to use it with Qt Creator.
--  This library does not support Windows x64, as it is written for the gcc compatible toolchain. (Not exactly, but there is some code in the library which can only compile on 32bit Windows with mingw32).
--  This library is not stand-alone, i.e. it needs an extra jdk environment to run the program.
+1.  This library is not precompiled, so the user needs to re-compile the whole library for each new project.
+2.  This library requires qmake for Makefile generating, and qmake requires the whole Qt package (for size around 1GB). But in fact, the library has nothing to do with the Qt library; the only thing it needs is qmake tool.
+   - This 'requirement problem' is even more severe on macOS - Qt package requires Xcode on mac, so that we need to install Xcode + Qt (totally about 8GB) to use this small library.
+   - The .pro file it provides seems to have some problems as many students encounters weird error messages when they try to use it with Qt Creator.
+3.  This library does not support Windows x64, as it is written for the gcc compatible toolchain. (Not exactly, but there is some code in the library which can only compile on 32bit Windows with mingw32).
+4.  This library is not stand-alone, i.e. it needs an extra jdk environment to run the program.
 
 ## Objects
 
 We want to design and implement a C++ library that overcome those shortcomings and make some other improvements:
 
-Overcoming shortcomings
+### Overcoming shortcomings
 
 1. The library should be able to statically or dynamically link to the executable files.
 2. The library should have a minimized requirement. We should try to limit the use of external libraries especially the big ones.
 3. The library should use `cmake` to support as many platforms as possible. The code should not target on certain platform and the library should be tested on different systems before publishing. Also, the library should not target on certain IDE, it should be able to generate project files or makefiles for different building toolchains.
 4. The library should be totally in C++/C, which means that it is written with C++/C and do not need special environment (especially java or python, etc.) to run.
 
-## General Ideas
+### General Ideas
 
 1. Do not include those functionalities that the standard library has. Try to make a user friendly or simple interface for the standard library.
 2. Be consistent in code style, especially the public interface (e.g. class names, free function names).
@@ -75,7 +75,7 @@ Overcoming shortcomings
       5. binary search tree
       6. Disjoint-set data structure (并查集)
 
-5. *build autograder (postponed)* (We actually don't know what's that)*
+5. *build autograder (postponed) (We actually don't know what's that)*
 6. *threading library (postponed)*
    1. *simple threading/tasking*
    2. *thread pool*
@@ -96,7 +96,7 @@ Overcoming shortcomings
       1. get
       2. post
       3. urlencode / urldecode
-   4. base64 encoder & decoder (ref: http://libb64.sourceforge.net/[ ](http://libb64.sourceforge.net/)))
+   4. base64 encoder & decoder ([reference](http://libb64.sourceforge.net/)))
 
 ## Specs
 
@@ -120,7 +120,8 @@ Overcoming shortcomings
 
 This library will become open source after this semester (to be posted on Github),so everyone including students, professors and TAs can make their contribution to the library to make it better and better.
 
-Contribution: https://github.com/cuhkshenzhen/CUHKSZLib 
+Contribution: https://github.com/cuhkshenzhen/CUHKSZLib
+** Not Available Now**
 
 ## Problems
 1. If we do not use Qt or java backend, it may be very hard to have GUI support part in our library.
