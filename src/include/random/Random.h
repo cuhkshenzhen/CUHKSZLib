@@ -20,7 +20,6 @@ class Random {
 
  private:
   std::unique_ptr<std::mt19937_64> randomGenerator;
-  explicit Random(std::uint64_t);
 };
 }  // namespace cuhksz
 

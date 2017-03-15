@@ -5,13 +5,11 @@
 #include <limits>
 
 namespace cuhksz {
-Random::Random() : Random(static_cast<std::uint64_t>(std::time(nullptr))) {}
+Random::Random() : Random(static_cast<int>(std::time(nullptr))) {}
 
-Random::Random(int seed) : Random(static_cast<std::uint64_t>(seed)) {}
-
-Random::Random(std::uint64_t seed) {
+Random::Random(int seed) {
   randomGenerator.reset(new std::mt19937_64());
-  randomGenerator->seed(seed);
+  randomGenerator->seed(static_cast<std::uint64_t>(seed));
 }
 
 int Random::nextInt(int min, int max) {
