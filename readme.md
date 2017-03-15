@@ -1,4 +1,4 @@
-# Proposal for Project - CUHKSZ 
+# Proposal for Project - CUHKSZ C++ Library
 
 ## Motivation
 
@@ -121,7 +121,7 @@ We want to design and implement a C++ library that overcome those shortcomings a
 This library will become open source after this semester (to be posted on Github),so everyone including students, professors and TAs can make their contribution to the library to make it better and better.
 
 Contribution: https://github.com/cuhkshenzhen/CUHKSZLib
-** Not Available Now**
+**Not Available Now**
 
 ## Problems
 1. If we do not use Qt or java backend, it may be very hard to have GUI support part in our library.
