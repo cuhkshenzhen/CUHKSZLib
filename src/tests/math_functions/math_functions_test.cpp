@@ -20,5 +20,6 @@ TEST(MathFunctions, mean) {
 }
 
 TEST(MathFunctions, stddev) {
-  ASSERT_LT(cuhksz::stddev((double[]){1, 2, 3}, 3) - std::sqrt(2. / 3), 1e-14);
+  ASSERT_LT(cuhksz::stddev((const double[]){1, 2, 3}, 3) - std::sqrt(2. / 3),
+            1e-14);
 }
