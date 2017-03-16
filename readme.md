@@ -118,29 +118,31 @@ We want to design and implement a C++ library that overcome those shortcomings a
 8. Final test
 
 ###  Assignment of responsibility
-#### Pengfei YU		
+#### Xuan HUANG (115010159)
+- math
+- others
+- DFS & BFS algorithm
+
+#### Xiaoxing YE (115010270)
+- Utils
+
+#### Pengfei YU (115010271)
 - Safer random library
 - string
 - math functions
 - KMP algorithm
 
-#### Xiaoxing YE
-- Utils
-
 #### Xianggang YU (115010273)
 - Simpler interface for standard library
 
-#### Xuan HUANG
-- math
-- others
-- DFS & BFS algorithm
+
 
 ## Other mentions
 
-This library will become open source after this semester (to be posted on Github),so everyone including students, professors and TAs can make their contribution to the library to make it better and better.
+1. This library will become open source after this semester (to be posted on Github),so everyone including students, professors and TAs can make their contribution to the library to make it better and better.
 
-Contribution: https://github.com/cuhkshenzhen/CUHKSZLib
-**Not Available Now**
+    Contribution: https://github.com/cuhkshenzhen/CUHKSZLib
+    **(Not Available Now)**
 
-1. If we do not use Qt or java backend, it may be very hard to have GUI support part in our library.
-2. We cannot develop a library as the same level as theStanford one in such short time. So this project is intended to be continuously developed.
+2. If we do not use Qt or java backend, it may be very hard to have GUI support part in our library.
+3. We cannot develop a library as the same level as the Stanford one in such short time. So this project is intended to be continuously developed.
