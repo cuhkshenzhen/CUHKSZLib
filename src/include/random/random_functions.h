@@ -9,5 +9,5 @@ int randomInt(int min, int max);
 double randomDouble(double min, double max);
 double randomDouble(double max);
 double randomBool();
-}  // cuhksz
+}  // namespace cuhksz
 #endif  // CUHKSZ_RANDOM_RANDOMFUNCTIONS
