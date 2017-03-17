@@ -14,15 +14,15 @@ public:
 		memset(element, 0, N * sizeof(double));
 	}
 
-	explicit Point(double x) : element[0](x) {
+	explicit Point(double const x) : element[0](x) {
 		static_assert(N == 1, "X constructor only usable in 1D");
 	}
 
-	Point(double x, double y) : element[0](x), element[1](y) {
+	Point(double const x, double const y) : element[0](x), element[1](y) {
 		static_assert(N == 2, "XY constructor only usable in 2D");
 	}
 
-	Point(double x, double y, double z) : element[0](x), element[1](y), element[2](z) {
+	Point(double const x, double const y, double const z) : element[0](x), element[1](y), element[2](z) {
 		static_assert(N == 3, "XYZ constructor only usable in 3D");
 	}
 
@@ -48,12 +48,12 @@ public:
 		return ret;
 	}
 
-	void operator+=(Point const &other) const {
+	void operator+=(Point const &other) {
 		for (int i = 0; i < N; i ++)
 			element[i] += other.element[i];
 	}
 
-	void operator-=(Point const &other) const {
+	void operator-=(Point const &other) {
 		for (int i = 0; i < N; i ++)
 			element[i] -= other.element[i];
 	}
@@ -73,7 +73,7 @@ public:
 		return ret;
 	}
 
-	void operator*=(double const &constant) const {
+	void operator*=(double const &constant) {
 		for (int i = 0; i < N; i ++)
 			element[i] *= constant;
 	}
@@ -85,7 +85,7 @@ public:
 		return ret;
 	}
 
-	void operator/=(double const &constant) const {
+	void operator/=(double const &constant) {
 		for (int i = 0; i < N; i ++)
 			element[i] /= constant;
 	}
@@ -141,17 +141,11 @@ public:
 	}
 
 
-	friend ostream& operator<<(ostream& os, Point& const curPoint) {
-		os << "(" << curPoint.element[0];
+	friend ostream& operator<<(ostream& os, Point& const self) {
+		os << "(" << self.element[0];
 		for (int i = 1; i < N; i ++)
-			os << ", " << curPoint.element[i];
+			os << ", " << self.element[i];
 		return os << ")";
-	}
-
-	friend istream& operator>>(istream& is, Point& const curPoint) {
-		for (int i = 0; i < N; i ++)
-			is >> curPoint.element[i];
-		return is;
 	}
 
 	double len() {
