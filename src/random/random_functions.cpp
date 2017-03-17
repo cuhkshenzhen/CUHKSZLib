@@ -26,7 +26,7 @@ double randomDouble(double max) {
   auto& randomGenerator = getInitializedGenerator();
   return randomGenerator.nextDouble(max);
 }
-double randomBool() {
+bool randomBool() {
   auto& randomGenerator = getInitializedGenerator();
   return randomGenerator.nextBool();
 }
