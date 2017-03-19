@@ -1,5 +1,5 @@
 #include <cmath>
-#include "math_functions.h"
+#include "math/math_functions.h"
 
 namespace cuhksz {
 
