@@ -14,15 +14,18 @@ public:
 		memset(element, 0, N * sizeof(double));
 	}
 
-	explicit Point(double const x) : element[0](x) {
+	explicit Point(double const x) {
+		element[0] = x;
 		static_assert(N == 1, "X constructor only usable in 1D");
 	}
 
-	Point(double const x, double const y) : element[0](x), element[1](y) {
+	Point(double const x, double const y) {
+		element[0] = x, element[1] = y;
 		static_assert(N == 2, "XY constructor only usable in 2D");
 	}
 
-	Point(double const x, double const y, double const z) : element[0](x), element[1](y), element[2](z) {
+	Point(double const x, double const y, double const z) {
+		element[0] = x, element[1] = y, element[2] = z;
 		static_assert(N == 3, "XYZ constructor only usable in 3D");
 	}
 
@@ -141,7 +144,7 @@ public:
 	}
 
 
-	friend ostream& operator<<(ostream& os, Point& const self) {
+	friend std::ostream& operator<<(std::ostream& os, Point const self) {
 		os << "(" << self.element[0];
 		for (int i = 1; i < N; i ++)
 			os << ", " << self.element[i];
@@ -158,8 +161,6 @@ public:
 private:
 	double element[N];	// coordinates
 };
-
-typedef Point Vector;	// same class as Point
 
 }	// namespace cuhksz
 

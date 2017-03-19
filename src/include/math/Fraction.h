@@ -94,7 +94,7 @@ public:
 		return numerator * other.denominator >= denominator * other.numerator;
 	}
 
-	friend ostream& operator<<(ostream& os, Fraction const &self) {
+	friend std::ostream& operator<<(std::ostream& os, Fraction const &self) {
 		return os << self.numerator << "/" << self.denominator;
 	}
 
