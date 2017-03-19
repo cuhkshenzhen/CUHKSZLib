@@ -1,5 +1,5 @@
-#ifndef CUHKSZ_MATH_FUNCTIONS
-#define CUHKSZ_MATH_FUNCTIONS
+#ifndef CUHKSZ_MATH_MATH_FUNCTIONS
+#define CUHKSZ_MATH_MATH_FUNCTIONS
 
 #include <array>
 #include <cstdint>
@@ -48,4 +48,4 @@ double sample_stddev(const double*, int size);
 int64_t pow(int64_t, int);
 
 }  // namespace cuhksz
-#endif  // CUHKSZ_MATH_FUNCTIONS
+#endif  // CUHKSZ_MATH_MATH_FUNCTIONS
