@@ -2,6 +2,7 @@
 #define CUHKSZ_MATH_FUNCTIONS
 
 #include <array>
+#include <cstdint>
 #include <functional>
 
 namespace cuhksz {
@@ -26,9 +27,10 @@ DECLARE_SUM(double)
 
 #undef DECLARE_SUM
 
-template <typename Type>
-Type sum(const Type* arr, int size, const std::function<Type(Type)>& fn) {
-  Type sum = 0;
+template <typename ArrType, typename ReturnType>
+ReturnType sum(const ArrType* arr, int size,
+               const std::function<ReturnType(ArrType)>& fn) {
+  ReturnType sum = 0;
   for (int i = 0; i < size; i++) {
     sum += fn(arr[i]);
   }
@@ -40,9 +42,10 @@ double mean(const double*, int size);
 double variance(const double*, int size);
 double stddev(const double*, int size);
 
-// sample variance
-// sample stddev
-// int64 pow(int64, int)
+double sample_variance(const double*, int size);
+double sample_stddev(const double*, int size);
+
+int64_t pow(int64_t, int);
 
 }  // namespace cuhksz
 #endif  // CUHKSZ_MATH_FUNCTIONS
