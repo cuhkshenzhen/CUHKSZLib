@@ -1,7 +1,6 @@
 #ifndef CUHKSZ_RANDOM_RANDOM
 #define CUHKSZ_RANDOM_RANDOM
 
-#include <cstdint>
 #include <memory>
 #include <random>
 
