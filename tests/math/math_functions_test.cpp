@@ -37,6 +37,6 @@ TEST(MathFunctions, stddev) {
 TEST(MathFunctions, pow) {
   EXPECT_EQ(cuhksz::pow(100, 0), 1);
   EXPECT_EQ(cuhksz::pow(2, 32), 4294967296);
-  EXPECT_EQ(cuhksz::pow(2, 63), 9223372036854775808);
+  EXPECT_EQ(cuhksz::pow(2, 62), 4611686018427387904);
   EXPECT_EQ(cuhksz::pow(3, 27), 7625597484987);
 }
