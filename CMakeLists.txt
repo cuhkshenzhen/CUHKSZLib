@@ -13,11 +13,14 @@ aux_source_directory(./src/network NETWORK_SRC)
 include_directories(./src/include)
 add_library(cuhkszlib STATIC ${RANDOM_SRC} ${MATH_SRC} ${JSON_SRC} ${NETWORK_SRC})
 
+
 # TODO: Only enable testing when certain variable is set
 enable_testing ()
-add_subdirectory(./tests)
 
 option(BUILD_GTEST "Builds the googletest subproject" ON)
 option(BUILD_GMOCK "Builds the googlemock subproject" OFF)
 add_subdirectory(./external/gtest/)
+
+include_directories(./external/gtest/googletest/include)
+add_subdirectory(./tests)
 add_test (NAME TestAll COMMAND test_all)

@@ -8,6 +8,6 @@ int randomInt(int min);
 int randomInt(int min, int max);
 double randomDouble(double min, double max);
 double randomDouble(double max);
-double randomBool();
+bool randomBool();
 }  // namespace cuhksz
 #endif  // CUHKSZ_RANDOM_RANDOMFUNCTIONS
