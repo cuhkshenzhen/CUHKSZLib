@@ -4,8 +4,8 @@
 namespace cuhksz {
 std::string jsonEscape(const std::string &str) {
   std::string output;
-  for (unsigned i = 0; i < str.length(); ++i)
-    switch (str[i]) {
+  for (auto const &i: str)
+    switch (i) {
       case '\"':
         output += "\\\"";
         break;
@@ -28,7 +28,7 @@ std::string jsonEscape(const std::string &str) {
         output += "\\t";
         break;
       default  :
-        output += str[i];
+        output += i;
         break;
     }
   return std::move(output);

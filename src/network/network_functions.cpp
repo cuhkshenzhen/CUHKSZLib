@@ -10,9 +10,7 @@ std::string urlEncode(const std::string &value) {
   escaped.fill('0');
   escaped << std::hex;
 
-  for (std::string::const_iterator i = value.begin(), n = value.end(); i != n; ++i) {
-    std::string::value_type c = (*i);
-
+  for (auto const &c: value) {
     if (isalnum(c) || c == '-' || c == '_' || c == '.' || c == '~') {
       escaped << c;
       continue;
