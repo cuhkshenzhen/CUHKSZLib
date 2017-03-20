@@ -21,6 +21,6 @@ make -j4
 ```
 
 ### Use with your code
-The library file is the `build/libcuhkdzlib.a`, and the include directory
+The library file is the `build/libcuhkszlib.a`, and the include directory
 is `src/include`. So add `src/include` into your inlcude path and `build/` to
-your lib search path. And add `-lcuhkdzlib` to your link flags.
+your lib search path. And add `-lcuhkszlib` to your link flags.

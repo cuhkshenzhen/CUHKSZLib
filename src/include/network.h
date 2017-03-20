@@ -1,0 +1,4 @@
+#ifndef CUHKSZ_NETWORK
+#define CUHKSZ_NETWORK
+
+#endif //CUHKSZ_NETWORK
