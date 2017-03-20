@@ -45,7 +45,7 @@ double stddev(const double*, int size);
 double sample_variance(const double*, int size);
 double sample_stddev(const double*, int size);
 
-int64_t pow(int64_t, int);
+int64_t binary_pow(int64_t, int);
 
 }  // namespace cuhksz
 #endif  // CUHKSZ_MATH_MATH_FUNCTIONS
