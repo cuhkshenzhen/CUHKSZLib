@@ -34,9 +34,15 @@ TEST(MathFunctions, stddev) {
   EXPECT_DOUBLE_EQ(cuhksz::stddev(arr, 3), std::sqrt(2. / 3));
 }
 
-TEST(MathFunctions, binary_pow) {
-  EXPECT_EQ(cuhksz::binary_pow(100, 0), 1);
-  EXPECT_EQ(cuhksz::binary_pow(2, 32), 4294967296);
-  EXPECT_EQ(cuhksz::binary_pow(2, 62), 4611686018427387904);
-  EXPECT_EQ(cuhksz::binary_pow(3, 27), 7625597484987);
+TEST(MathFunctions, binaryPow) {
+  EXPECT_EQ(cuhksz::binaryPow(100, 0), 1);
+  EXPECT_EQ(cuhksz::binaryPow(2, 32), 4294967296);
+  EXPECT_EQ(cuhksz::binaryPow(2, 62), 4611686018427387904);
+  EXPECT_EQ(cuhksz::binaryPow(3, 27), 7625597484987);
+}
+
+TEST(MathFunctions, generalBinaryPow) {
+  EXPECT_EQ(cuhksz::generalBinaryPow(2LL, 32), 4294967296);
+  EXPECT_EQ(cuhksz::generalBinaryPow(2LL, 62), 4611686018427387904);
+  EXPECT_EQ(cuhksz::generalBinaryPow(3LL, 27), 7625597484987);
 }

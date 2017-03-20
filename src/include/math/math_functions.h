@@ -20,12 +20,8 @@ IntType lcm(IntType a, IntType b) {
   return a * b / gcd(a, b);
 }
 
-#define DECLARE_SUM(Type) Type sum(const Type*, int size);
-
-DECLARE_SUM(int)
-DECLARE_SUM(double)
-
-#undef DECLARE_SUM
+int sum(const int*, int size);
+double sum(const double*, int size);
 
 template <typename ArrType, typename ReturnType>
 ReturnType sum(const ArrType* arr, int size,
@@ -37,15 +33,43 @@ ReturnType sum(const ArrType* arr, int size,
   return sum;
 }
 
+// TODO: vector sum
+
 double mean(const double*, int size);
+double mean(const int*, int size);
 
 double variance(const double*, int size);
+double variance(const int*, int size);
+
 double stddev(const double*, int size);
+double stddev(const int*, int size);
 
 double sample_variance(const double*, int size);
-double sample_stddev(const double*, int size);
+double sample_variance(const int*, int size);
 
-int64_t binary_pow(int64_t, int);
+double sample_stddev(const double*, int size);
+double sample_stddev(const int*, int size);
+
+int64_t binaryPow(int64_t, int);
+
+template <typename BaseType, typename IntType>
+BaseType generalBinaryPow(BaseType base, IntType exp) {
+  // if (exp == 0) return 1;
+  if (exp == 1) return base;
+  if (exp < 0) return 0;  // TODO: raise error here
+  exp -= 1;
+
+  BaseType result = base;
+
+  while (exp != 0) {
+    if (exp % 2 == 1) {  // exp % 2 == 1
+      result *= base;
+    }
+    base *= base;
+    exp /= 2;
+  }
+  return result;
+}
 
 }  // namespace cuhksz
 #endif  // CUHKSZ_MATH_MATH_FUNCTIONS
