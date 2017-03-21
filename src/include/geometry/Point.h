@@ -113,10 +113,7 @@ public:
 	}
 
 	bool operator!=(Point const &other) const {
-		for (int i = 0; i < N; i ++)
-			if (element[i] != other.element[i])
-				return true;
-		return false;
+		return !(*this == other);
 	}
 
 	bool operator<(Point const &other) const {
