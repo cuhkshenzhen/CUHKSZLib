@@ -2,6 +2,9 @@
 #define CUHKSZ_MATH_FRACTION
 
 #include <cmath>
+#include <iostream>
+#include <fstream>
+#include "math/math_functions.h"
 
 namespace cuhksz {
 
@@ -18,56 +21,65 @@ public:
 			std::cerr << "Divide by Zero error" << '\n';
 			exit(1);
 		}
+		// TODO: signed judge
 		int divisor = gcd(numerator, denominator);
-		numerator /= divisor, denominator /= divisor;
+		Fraction::numerator /= divisor, Fraction::denominator /= divisor;
 	}
 
-	Fraction& operator+(Fraction const &other) const {
+	Fraction operator+(Fraction const &other) const {
 		return Fraction(numerator * other.denominator + denominator * other.numerator, denominator * other.denominator);
 	}
 
-	friend Fraction& operator+(int value, Fraction const &self) {
+	friend Fraction operator+(int value, Fraction const &self) {
 		return self + value;
 	}
 
 	void operator+=(Fraction const &other) {
-		this = &Fraction(numerator * other.denominator + denominator * other.numerator, denominator * other.denominator);
+		this->numerator = numerator * other.denominator + denominator * other.numerator;
+		this->denominator = denominator * other.denominator;
+		rmGCD();
 	}
 
-	Fraction& operator-(Fraction const &other) const {
+	Fraction operator-(Fraction const &other) const {
 		return Fraction(numerator * other.denominator - denominator * other.numerator, denominator * other.denominator);
 	}
 
-	friend Fraction& operator-(int value, Fraction const &self) {
+	friend Fraction operator-(int value, Fraction const &self) {
 		return self - value;
 	}
 
 	void operator-=(Fraction const &other) {
-		this = &Fraction(numerator * other.denominator - denominator * other.numerator, denominator * other.denominator);
+		this->numerator = numerator * other.denominator - denominator * other.numerator;
+		this->denominator = denominator * other.denominator;
+		rmGCD();
 	}
 
-	Fraction& operator*(Fraction const &other) const {
+	Fraction operator*(Fraction const &other) const {
 		return Fraction(numerator * other.numerator, denominator * other.denominator);
 	}
 
-	friend Fraction& operator*(int value, Fraction const &self) {
+	friend Fraction operator*(int value, Fraction const &self) {
 		return self * value;
 	}
 
 	void operator*=(Fraction const &other) {
-		this = &Fraction(numerator * other.numerator, denominator * other.denominator);
+		this->numerator *= other.numerator;
+		this->denominator *= other.denominator;
+		rmGCD();
 	}
 
-	Fraction& operator/(Fraction const &other) const {
+	Fraction operator/(Fraction const &other) const {
 		return Fraction(numerator * other.denominator, denominator * other.numerator);
 	}
 
-	friend Fraction& operator/(int value, Fraction const &self) {
+	friend Fraction operator/(int value, Fraction const &self) {
 		return self / value;
 	}
 
 	void operator/=(Fraction const &other) {
-		this = &Fraction(numerator * other.denominator, denominator * other.numerator);
+		this->numerator *= other.denominator;
+		this->denominator *= other.numerator;
+		rmGCD();
 	}
 
 	bool operator==(Fraction const &other) const {
@@ -100,6 +112,10 @@ public:
 
 private:
 	int numerator, denominator;
+	void rmGCD() {
+		int divisor = gcd(numerator, denominator);
+		numerator /= divisor, denominator /= divisor;
+	}
 };
 
 
