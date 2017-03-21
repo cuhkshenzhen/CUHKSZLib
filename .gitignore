@@ -27,3 +27,16 @@
 *.exe
 *.out
 *.app
+
+# cmake build dir
+build/
+cmake-build-debug/
+
+# Mac OS
+.DS_Store
+
+# YouCompleteMe
+.ycm_extra_conf.py
+
+# CLion cache
+.idea/
