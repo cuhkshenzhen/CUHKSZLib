@@ -7,6 +7,8 @@
 
 namespace cuhksz {
 
+#define EPS 1e-6
+
 template <int N=2>
 class Point {
 public:
@@ -107,7 +109,7 @@ public:
 
 	bool operator==(Point const &other) const {
 		for (int i = 0; i < N; i ++)
-			if (element[i] != other.element[i])
+			if (fabs(element[i] - other.element[i]) < EPS)
 				return false;
 		return true;
 	}
