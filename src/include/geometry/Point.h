@@ -76,6 +76,10 @@ public:
 		return ret;
 	}
 
+    friend Point operator*(double const &constant, Point const &self) {
+        return self * constant;
+    }
+
 	void operator*=(double const &constant) {
 		for (int i = 0; i < N; i ++)
 			element[i] *= constant;
@@ -87,6 +91,10 @@ public:
 			ret.element[i] /= constant;
 		return ret;
 	}
+
+    friend Point operator/(double const &constant, Point const &self) {
+        return self / constant;
+    }
 
 	void operator/=(double const &constant) {
 		for (int i = 0; i < N; i ++)
