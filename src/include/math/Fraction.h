@@ -21,9 +21,12 @@ public:
 			std::cerr << "Divide by Zero error" << '\n';
 			exit(1);
 		}
-		// TODO: signed judge
 		int divisor = gcd(numerator, denominator);
 		Fraction::numerator /= divisor, Fraction::denominator /= divisor;
+		if (Fraction::denominator < 0) {
+			Fraction::numerator *= -1;
+		}
+		Fraction::denominator = abs(Fraction::denominator);
 	}
 
 	Fraction operator+(Fraction const &other) const {
