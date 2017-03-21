@@ -3,8 +3,6 @@
 
 namespace cuhksz {
 
-#include "Point.h"
-
 class Polygon {
 private:
 
