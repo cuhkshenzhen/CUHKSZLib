@@ -53,13 +53,13 @@ public:
 		return ret;
 	}
 
-	Point operator+=(Point const &other) {
+	Point& operator+=(Point const &other) {
 		for (int i = 0; i < N; i ++)
 			element[i] += other.element[i];
         return *this;
 	}
 
-	Point operator-=(Point const &other) {
+	Point& operator-=(Point const &other) {
 		for (int i = 0; i < N; i ++)
 			element[i] -= other.element[i];
         return *this;
@@ -84,7 +84,7 @@ public:
         return self * constant;
     }
 
-	Point operator*=(double const &constant) {
+	Point& operator*=(double const &constant) {
 		for (int i = 0; i < N; i ++)
 			element[i] *= constant;
         return *this;
@@ -97,11 +97,7 @@ public:
 		return ret;
 	}
 
-    friend Point operator/(double const &constant, Point const &self) {
-        return self / constant;
-    }
-
-	Point operator/=(double const &constant) {
+	Point& operator/=(double const &constant) {
 		for (int i = 0; i < N; i ++)
 			element[i] /= constant;
         return *this;
