@@ -5,7 +5,7 @@
 #include "random/Random.h"
 
 namespace cuhksz {
-class UniformDistribution : public Distribution {
+class UniformDistribution : public Distribution<double> {
  public:
   UniformDistribution() : Distribution() { init(0, 1); }
 
@@ -17,7 +17,7 @@ class UniformDistribution : public Distribution {
   UniformDistribution(Random& r, double min, double max) : Distribution(r) {
     init(min, max);
   }
-  virtual ~UniformDistribution(){};
+  virtual ~UniformDistribution() {}
 
   double next() override;
   double min() { return min_; }

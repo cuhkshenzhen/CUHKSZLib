@@ -3,6 +3,7 @@
 #include "random/Random.h"
 
 namespace cuhksz {
+template <typename ResultType>
 class Distribution {
  public:
   Distribution() : Distribution(*(new Random())) { newedRandom = true; }
@@ -13,7 +14,8 @@ class Distribution {
   virtual ~Distribution() {
     if (newedRandom) delete randomGenerator;
   }
-  virtual double next() = 0;
+  virtual ResultType next() = 0;
+  
   virtual void setRandomGenerator(Random& random) {
     if (newedRandom) delete randomGenerator;
     newedRandom = false;
