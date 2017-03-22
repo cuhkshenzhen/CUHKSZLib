@@ -15,6 +15,7 @@ class Random {
   bool nextBool();
   double nextDouble(double min, double max);
   double nextDouble(double max);
+  double nextDouble();
   void setSeed(int seed);
 
  private:
