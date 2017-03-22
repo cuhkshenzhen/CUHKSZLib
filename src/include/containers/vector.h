@@ -2,6 +2,7 @@
 #define CUHKSZ_CONTAINERS_VECTOR
 
 #include <vector>
+#include <iostream>
 
 namespace cuhksz {
 
@@ -12,7 +13,7 @@ public:
     vector();
     explicit vector(int n, ValueType value = ValueType());
 
-    
+
     virtual ~vector();
 
 
@@ -47,10 +48,17 @@ public:
     bool operator >(const vector& v2);
     bool operator >=(const vector& v2);
 
+    auto begin() const {
+      return vec.begin();
+    }
 
-    //Also has << and >> operator, will be defined at last.
+    auto end() const {
+      return vec.end();
+    }
 
-    
+
+
+
 private:
     std::vector<ValueType> vec;
 };
@@ -78,81 +86,122 @@ const ValueType& vector<ValueType>::get(int index) const {
 }
 
 template <typename ValueType>
-ValueType& vector<Valuetype>::operator [](int index) {
+ValueType& vector<ValueType>::operator [](int index) {
     return vec.at(index);
 }
 
 template <typename ValueType>
-const ValueType& vector<Valuetype>::operator [](int index) const {
+const ValueType& vector<ValueType>::operator [](int index) const {
     return vec.at(index);
 }
 
 template <typename ValueType>
-bool vector<Valuetype>::isEmpty() const {
+bool vector<ValueType>::isEmpty() const {
     return vec.empty();
 }
 
 template <typename ValueType>
-int vector<Valuetype>::size() const {
+int vector<ValueType>::size() const {
     return vec.size();
 }
 
 template <typename ValueType>
-void vector<Valuetype>::clear() {
+void vector<ValueType>::clear() {
     vec.clear();
 }
 
 template <typename ValueType>
-void vector<Valuetype>::insert(int index, const ValueType& value) {
-    std::iterator begin = vec.begin();
+void vector<ValueType>::insert(int index, const ValueType& value) {
+    auto begin = vec.begin();
     vec.insert(begin + index, value);
 }
 
 template <typename ValueType>
-void vector<Valuetype>::erase(int index) {
-    std::iterator begin = vec.begin();
+void vector<ValueType>::erase(int index) {
+    auto begin = vec.begin();
     vec.erase(begin + index);
 }
 
 template <typename ValueType>
-void vector<Valuetype>::set(int index, const ValueType& value) {
-    std::iterator begin = vec.begin();
-    std::iterator followingElement;
-    followingElement = vec.erase(begin + index);
+void vector<ValueType>::set(int index, const ValueType& value) {
+    auto begin = vec.begin();
+    auto followingElement = vec.erase(begin + index);
     vec.insert(followingElement, value);
 }
 
-template <typename ValueType>   
-void vector<Valuetype>::push(const ValueType& value) {
+template <typename ValueType>
+void vector<ValueType>::push(const ValueType& value) {
     vec.push_back(value);
 }
 
 template <typename ValueType>
-ValueType& vector<Valuetype>::pop() {
-    Valuetype lastElement = vec.back();
+ValueType& vector<ValueType>::pop() {
+    ValueType lastElement = vec.back();
     vec.pop_back();
     return lastElement;
 }
 
 template <typename ValueType>
-bool vector<Valuetype>::operator ==(const vector& v2) {
-    return 
+bool vector<ValueType>::operator ==(const vector& v2) {
+    return vec == v2.vec;
 }
 
 template <typename ValueType>
-bool operator !=(const vector& v2);
+bool vector<ValueType>::operator !=(const vector& v2) {
+  return vec != v2.vec;
+}
 
 template <typename ValueType>
-bool operator <(const vector& v2);
+bool vector<ValueType>::operator <(const vector& v2) {
+  return vec < v2.vec;
+}
 
 template <typename ValueType>
-bool operator <=(const vector& v2);
+bool vector<ValueType>::operator <=(const vector& v2) {
+  return vec <= v2.vec;
+}
 
 template <typename ValueType>
-bool operator >(const vector& v2);
+bool vector<ValueType>::operator >(const vector& v2) {
+  return vec > v2.vec;
+}
 
 template <typename ValueType>
-bool operator >=(const vector& v2);
+bool vector<ValueType>::operator >=(const vector& v2) {
+  return vec >= v2.vec;
+}
+
+template <typename ValueType>
+std::ostream & operator <<(std::ostream& os, const vector<ValueType>& vec) {
+  return os << vec;
+}
+
+template <typename ValueType>
+std::istream & operator >>(std::istream & is, const vector<ValueType>& vec) {
+  char ch = '\0';
+  is >> ch;
+  if (ch != '{') {
+    std::cout << "Error: vector::operator >> : Missing {" << '\n';
+    return is;
+  }
+  vec.clear();
+  is >> ch;
+  if (ch != '}') {
+    is.unget();
+    while (true) {
+      ValueType value;
+      is >> value;
+      vec.push(value);
+      is >> ch;
+      if (ch == '}') {
+        break;
+      } else if (ch != ','){
+        std::cout << "Error: vector::operator >> : Unexpected character" << '\n';
+        return is;
+      }
+    }
+  }
+}
 
 } // end namespace cuhksz
 
