@@ -5,7 +5,6 @@
 #include <limits>
 #include <vector>
 namespace cuhksz {
-Random::Random() : Random((int)std::time(nullptr)) {}
 
 Random::Random(int seed) {
   randomGenerator.reset(new std::mt19937_64());

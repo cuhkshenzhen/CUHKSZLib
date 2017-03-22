@@ -7,7 +7,7 @@
 namespace cuhksz {
 class Random {
  public:
-  Random();
+  Random() : Random((int)std::time(nullptr)) {}
   explicit Random(int);
   int nextInt(int min, int max);
   int nextInt(int max);
