@@ -30,7 +30,7 @@ compiler:
   - clang
 script:
   - mkdir build && cd build
-  - cmake ..
+  - cmake -DTESTING=1 ..
   - make
   - CTEST_OUTPUT_ON_FAILURE=1 make test
 notifications:
