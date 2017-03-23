@@ -5,10 +5,25 @@
 #include <random>
 
 namespace cuhksz {
+/**
+  The `Random` class is the class used for general random number generating.
+**/
 class Random {
  public:
+  /**
+    Construct a `Random` class with current timestamps as random seed.
+  **/
   Random() : Random((int)std::time(nullptr)) {}
-  explicit Random(int);
+
+  /**
+    Construct a `Random` class with `seed` as random seed.
+  **/
+  explicit Random(int seed);
+
+  /**
+    Produce an `int` in the range [`min`, `max`), i.e. includes the `min` but
+    excludes the `max`.
+  **/
   int nextInt(int min, int max);
   int nextInt(int max);
   int nextInt();
