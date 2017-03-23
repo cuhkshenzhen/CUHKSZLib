@@ -7,7 +7,7 @@ if(MSVC)
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Zi -Od")
   set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Ox")
 else()
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wfloat-equal -std=c++11")
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -O0")
   set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
 endif()
@@ -23,14 +23,16 @@ aux_source_directory(./src/geometry GEOMETRY_SRC)
 include_directories(./src/include)
 add_library(cuhkszlib STATIC ${RANDOM_SRC} ${MATH_SRC} ${JSON_SRC} ${NETWORK_SRC} ${GRAPH_SRC} ${GEOMETRY_SRC})
 
+option(TESTING "Enable testing with googletest" ON) # TODO off if release version
 
-# TODO: Only enable testing when certain variable is set
-enable_testing ()
+if(TESTING)
+  enable_testing ()
 
-option(BUILD_GTEST "Builds the googletest subproject" ON)
-option(BUILD_GMOCK "Builds the googlemock subproject" OFF)
-add_subdirectory(./external/gtest/)
+  option(BUILD_GTEST "Builds the googletest subproject" ON)
+  option(BUILD_GMOCK "Builds the googlemock subproject" OFF)
+  add_subdirectory(./external/gtest/)
 
-include_directories(./external/gtest/googletest/include)
-add_subdirectory(./tests)
-add_test (NAME TestAll COMMAND test_all)
+  include_directories(./external/gtest/googletest/include)
+  add_subdirectory(./tests)
+  add_test (NAME TestAll COMMAND test_all)
+endif()

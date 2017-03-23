@@ -1,7 +1,7 @@
 #ifndef CUHKSZ_RANDOM_RANDOMFUNCTIONS
 #define CUHKSZ_RANDOM_RANDOMFUNCTIONS
 
-#include "./Random.h"
+#include "random/Random.h"
 namespace cuhksz {
 int randomInt();
 int randomInt(int min);

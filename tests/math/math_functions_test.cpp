@@ -1,5 +1,4 @@
 #include "math/math_functions.h"
-#include <cmath>
 #include "gtest/gtest.h"
 
 TEST(MathFunctions, gcd) {
@@ -24,14 +23,55 @@ TEST(MathFunctions, sum_double) {
   EXPECT_DOUBLE_EQ(cuhksz::sum(sum, 4), 10.5);
 }
 
-TEST(MathFunctions, mean) {
-  double arr[] = {1, 2, 3};
-  EXPECT_DOUBLE_EQ(cuhksz::mean(arr, 3), 2.0);
+TEST(MathFunctions, mean_int) {
+  int arr[] = {1, 2, 3, 4};
+  EXPECT_DOUBLE_EQ(cuhksz::mean(arr, 4), 2.5);
 }
 
-TEST(MathFunctions, stddev) {
-  double arr[] = {1, 2, 3};
-  EXPECT_DOUBLE_EQ(cuhksz::stddev(arr, 3), std::sqrt(2. / 3));
+TEST(MathFunctions, mean_double) {
+  double arr[] = {0.92478335, 0.83805631, 0.95966262, 0.95925219, 0.78004427};
+  EXPECT_DOUBLE_EQ(cuhksz::mean(arr, 5), 0.892359748);
+}
+
+TEST(MathFunctions, stddev_int) {
+  int arr[] = {1, 2, 3, 4};
+  EXPECT_DOUBLE_EQ(cuhksz::stddev(arr, 4), 1.1180339887498949);
+}
+
+TEST(MathFunctions, stddev_double) {
+  double arr[] = {0.92478335, 0.83805631, 0.95966262, 0.95925219, 0.78004427};
+  EXPECT_DOUBLE_EQ(cuhksz::stddev(arr, 5), 0.071580996528149116);
+}
+
+TEST(MathFunctions, variance_int) {
+  int arr[] = {1, 2, 3, 4};
+  EXPECT_DOUBLE_EQ(cuhksz::variance(arr, 4), 1.25);
+}
+
+TEST(MathFunctions, variance_double) {
+  double arr[] = {0.92478335, 0.83805631, 0.95966262, 0.95925219, 0.78004427};
+  EXPECT_DOUBLE_EQ(cuhksz::variance(arr, 5), 0.0051238390639628956);
+}
+
+TEST(MathFunctions, sample_stddev_int) {
+  int arr[] = {1, 2, 3, 4};
+  EXPECT_DOUBLE_EQ(cuhksz::sample_stddev(arr, 4), 1.2909944487358056);
+}
+
+TEST(MathFunctions, sample_stddev_double) {
+  double arr[] = {0.92478335, 0.83805631, 0.95966262, 0.95925219, 0.78004427};
+  EXPECT_DOUBLE_EQ(cuhksz::sample_stddev(arr, 5), 0.08002998706705892);
+}
+
+TEST(MathFunctions, sample_variance_int) {
+  int arr[] = {1, 2, 3, 4};
+  EXPECT_DOUBLE_EQ(cuhksz::sample_variance(arr, 4), 1.25 * 4 / 3);
+}
+
+TEST(MathFunctions, sample_variance_double) {
+  double arr[] = {0.92478335, 0.83805631, 0.95966262, 0.95925219, 0.78004427};
+  EXPECT_DOUBLE_EQ(cuhksz::sample_variance(arr, 5),
+                   0.0051238390639628956 * 5 / 4);
 }
 
 TEST(MathFunctions, binaryPow) {
