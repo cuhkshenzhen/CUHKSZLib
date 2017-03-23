@@ -33,7 +33,7 @@ cuhksz::Random& getInitializedGenerator() {
   static bool initialized;
   static std::unique_ptr<cuhksz::Random> randomGenerator;
   if (!initialized) {
-    randomGenerator.reset(new cuhksz::Random(std::time(nullptr)));
+    randomGenerator.reset(new cuhksz::Random());
     initialized = true;
   }
   return *randomGenerator;
