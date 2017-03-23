@@ -1,5 +1,5 @@
-#ifndef CUHKSZ_MATH_MATH_FUNCTIONS
-#define CUHKSZ_MATH_MATH_FUNCTIONS
+#ifndef CUHKSZ_MATH_MATHFUNCTIONS
+#define CUHKSZ_MATH_MATHFUNCTIONS
 
 #include <array>
 #include <cstdint>
@@ -72,4 +72,4 @@ BaseType generalBinaryPow(BaseType base, IntType exp) {
 }
 
 }  // namespace cuhksz
-#endif  // CUHKSZ_MATH_MATH_FUNCTIONS
+#endif  // CUHKSZ_MATH_MATHFUNCTIONS

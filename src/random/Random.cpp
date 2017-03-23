@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <limits>
-#include <vector>
+
 namespace cuhksz {
 Random::Random() : Random((int)std::time(nullptr)) {}
 
