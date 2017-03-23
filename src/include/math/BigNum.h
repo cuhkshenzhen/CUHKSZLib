@@ -5,13 +5,13 @@ namespace cuhksz {
 
 #include <iostream>
 #include <fstream>
+#include <string>
 
 class BigNum {
 public:
     BigNum();
     BigNum(char* input);
     BigNum(long long input);
-    BigNum(const BigNum &other);
 
     ~BigNum();
 
@@ -45,7 +45,7 @@ public:
 
     friend long long intval();
 private:
-    char* element;
+    string element;
 };
 
 
