@@ -22,16 +22,45 @@ class Random {
   explicit Random(int seed);
 
   /**
-    Produce an `int` in the range [`min`, `max`), i.e. includes the `min` but
-    excludes the `max`.
+    Produce a random `int` in the range [`min`, `max`), i.e. includes the `min`
+    but excludes the `max`.
   **/
   int nextInt(int min, int max);
+
+  /**
+    Produce a random `int` in the range [0, `max`), i.e. includes 0 but
+    excludes `max`.
+  **/
   int nextInt(int max);
+
+  /**
+    Produce a random `int` out of all possible `int` values.
+  **/
   int nextInt();
+
+  /**
+    Produce a random `bool` with the probability of 0.5 `true` and 0.5 `false`.
+  **/
   bool nextBool();
+
+  /**
+    Produce a random `double` in the range [`min`, `max`).
+  **/
   double nextDouble(double min, double max);
+
+  /**
+    Produce a random `double` in the range [0, `max`).
+  **/
   double nextDouble(double max);
+
+  /**
+    Produce a random `double` in the range [0, 1).
+  **/
   double nextDouble();
+
+  /**
+    Set the new `seed` for the random generator.
+  **/
   void setSeed(int seed);
 
  private:
