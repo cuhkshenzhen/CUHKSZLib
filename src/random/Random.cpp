@@ -16,8 +16,9 @@ int Random::nextInt(int min, int max) {
 }
 
 int Random::nextInt() {
-  return nextInt(std::numeric_limits<int>::min(),
-                 std::numeric_limits<int>::max());
+  int min = std::numeric_limits<int>::min();
+  int max = std::numeric_limits<int>::max();
+  return (int)((*randomGenerator)() % (std::uint64_t(max) + 1 - min)) + min;
 }
 
 int Random::nextInt(int max) { return nextInt(0, max); }

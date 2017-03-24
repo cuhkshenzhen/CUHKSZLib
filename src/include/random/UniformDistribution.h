@@ -7,13 +7,17 @@
 namespace cuhksz {
 class UniformDistribution : public Distribution<double> {
  public:
-  UniformDistribution() : Distribution() { init(0, 1); }
+  explicit UniformDistribution(double max = 1) : Distribution() {
+    init(0, max);
+  }
 
   UniformDistribution(double min, double max) : Distribution() {
     init(min, max);
   }
 
-  explicit UniformDistribution(Random& r) : Distribution(r) { init(0, 1); }
+  explicit UniformDistribution(Random& r, double max = 1) : Distribution(r) {
+    init(0, max);
+  }
   UniformDistribution(Random& r, double min, double max) : Distribution(r) {
     init(min, max);
   }

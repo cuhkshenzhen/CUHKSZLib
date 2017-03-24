@@ -15,7 +15,7 @@ class Distribution {
     if (newedRandom) delete randomGenerator;
   }
   virtual ResultType next() = 0;
-  
+
   virtual void setRandomGenerator(Random& random) {
     if (newedRandom) delete randomGenerator;
     newedRandom = false;
@@ -23,8 +23,10 @@ class Distribution {
   }
 
  protected:
-  bool newedRandom;
   Random* randomGenerator;
+
+ private:
+  bool newedRandom;
 };
 }  // namespace cuhksz
 
