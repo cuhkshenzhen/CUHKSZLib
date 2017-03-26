@@ -2,7 +2,7 @@
 
 namespace cuhksz {
 void BernoulliDistribution::init(double p) {
-  if (p < 0) {
+  if (p < 0 || p > 1) {
     exit(1);  // TODO: error here
   }
   p_ = p;

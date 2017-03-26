@@ -3,7 +3,7 @@
 namespace cuhksz {
 
 void UniformDistribution::init(double min, double max) {
-  if (min >= max) {
+  if (min > max) {
     exit(1);  // TODO: error here
   }
   min_ = min;

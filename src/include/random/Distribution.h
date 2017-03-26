@@ -1,5 +1,5 @@
-#ifndef RANDOM_DISTRIBUTION
-#define RANDOM_DISTRIBUTION
+#ifndef CUHKSZ_RANDOM_DISTRIBUTION
+#define CUHKSZ_RANDOM_DISTRIBUTION
 #include "random/Random.h"
 
 namespace cuhksz {
@@ -16,7 +16,7 @@ class Distribution {
   }
   virtual ResultType next() = 0;
 
-  virtual void setRandomGenerator(Random& random) {
+  void setRandomGenerator(Random& random) {
     if (newedRandom) delete randomGenerator;
     newedRandom = false;
     randomGenerator = &random;
@@ -30,4 +30,4 @@ class Distribution {
 };
 }  // namespace cuhksz
 
-#endif  // RANDOM_DISTRIBUTION
+#endif  // CUHKSZ_RANDOM_DISTRIBUTION

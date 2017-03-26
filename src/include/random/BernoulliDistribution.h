@@ -1,5 +1,5 @@
-#ifndef RANDOM_BERNOULLIDISTRIBUTION
-#define RANDOM_BERNOULLIDISTRIBUTION
+#ifndef CUHKSZ_RANDOM_BERNOULLIDISTRIBUTION
+#define CUHKSZ_RANDOM_BERNOULLIDISTRIBUTION
 
 #include "random/Distribution.h"
 namespace cuhksz {
@@ -11,7 +11,7 @@ class BernoulliDistribution : public Distribution<bool> {
   }
   virtual ~BernoulliDistribution() {}
 
-  bool next();
+  bool next() override;
 
   double p() { return p_; }
 
@@ -20,4 +20,4 @@ class BernoulliDistribution : public Distribution<bool> {
   void init(double p);
 };
 }  // namespace cuhksz
-#endif  // RANDOM_BERNOULLIDISTRIBUTION
+#endif  // CUHKSZ_RANDOM_BERNOULLIDISTRIBUTION

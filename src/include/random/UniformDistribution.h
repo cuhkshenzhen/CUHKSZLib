@@ -1,5 +1,5 @@
-#ifndef RANDOM_UNIFORMDISTRIBUTION
-#define RANDOM_UNIFORMDISTRIBUTION
+#ifndef CUHKSZ_RANDOM_UNIFORMDISTRIBUTION
+#define CUHKSZ_RANDOM_UNIFORMDISTRIBUTION
 
 #include "random/Distribution.h"
 #include "random/Random.h"
@@ -34,4 +34,4 @@ class UniformDistribution : public Distribution<double> {
 };
 }  // namespace cuhksz
 
-#endif  // RANDOM_UNIFORMDISTRIBUTION
+#endif  // CUHKSZ_RANDOM_UNIFORMDISTRIBUTION
