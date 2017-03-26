@@ -64,7 +64,7 @@ class Random {
   void setSeed(int seed);
 
  private:
-  std::unique_ptr<std::mt19937_64> randomGenerator;
+  std::mt19937_64 randomGenerator;
 };
 }  // namespace cuhksz
 
