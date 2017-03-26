@@ -13,7 +13,7 @@ else()
 endif()
 
 aux_source_directory(./src/random RANDOM_SRC)
-aux_source_directory(./src/math MATH_SRC)
+aux_source_directory(./src/math_utils MATHUTILS_SRC)
 aux_source_directory(./src/json JSON_SRC)
 aux_source_directory(./src/network NETWORK_SRC)
 aux_source_directory(./src/graph GRAPH_SRC)
@@ -21,7 +21,7 @@ aux_source_directory(./src/geometry GEOMETRY_SRC)
 
 
 include_directories(./src/include)
-add_library(cuhkszlib STATIC ${RANDOM_SRC} ${MATH_SRC} ${JSON_SRC} ${NETWORK_SRC} ${GRAPH_SRC} ${GEOMETRY_SRC})
+add_library(cuhkszlib STATIC ${RANDOM_SRC} ${MATHUTILS_SRC} ${JSON_SRC} ${NETWORK_SRC} ${GRAPH_SRC} ${GEOMETRY_SRC})
 
 option(TESTING "Enable testing with googletest" ON) # TODO off if release version
 

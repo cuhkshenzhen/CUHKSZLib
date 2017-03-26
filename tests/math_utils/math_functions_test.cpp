@@ -1,4 +1,4 @@
-#include "math/math_functions.h"
+#include "math_utils/math_functions.h"
 #include "gtest/gtest.h"
 
 TEST(MathFunctions, gcd) {
@@ -82,7 +82,7 @@ TEST(MathFunctions, binaryPow) {
 }
 
 TEST(MathFunctions, generalBinaryPow) {
-  EXPECT_EQ(cuhksz::generalBinaryPow(2LL, 32), 4294967296);
-  EXPECT_EQ(cuhksz::generalBinaryPow(2LL, 62), 4611686018427387904);
-  EXPECT_EQ(cuhksz::generalBinaryPow(3LL, 27), 7625597484987);
+  EXPECT_EQ(cuhksz::genericBinaryPow(2LL, 32), 4294967296);
+  EXPECT_EQ(cuhksz::genericBinaryPow(2LL, 62), 4611686018427387904);
+  EXPECT_EQ(cuhksz::genericBinaryPow(3LL, 27), 7625597484987);
 }
