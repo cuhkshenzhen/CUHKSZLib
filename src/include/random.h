@@ -3,6 +3,7 @@
 
 #include "random/BinomialDistribution.h"
 #include "random/Distribution.h"
+#include "random/NormalDistribution.h"
 #include "random/Random.h"
 #include "random/UniformDistribution.h"
 #include "random/UniformIntDistribution.h"
