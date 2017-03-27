@@ -13,15 +13,11 @@ void BinomialDistribution::init(int n, double p) {
 }
 
 int BinomialDistribution::next() {
-  double p_complement = 1.0 - p_;
-  double rnd = randomGenerator->nextDouble();
-
-  double threshold = 0;
+  if (n_ == 0) return 0;
+  int sum = 0;
   for (int i = 0; i < n_; i++) {
-    threshold +=
-        binomial(n_, i) * std::pow(p_, i) * std::pow(p_complement, n_ - i);
-    if (rnd < threshold) return i;
+    if (randomGenerator->nextDouble() > p_) sum++;
   }
-  return n_;
+  return sum;
 }
 }  // namespace cuhksz

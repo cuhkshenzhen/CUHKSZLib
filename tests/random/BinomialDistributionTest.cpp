@@ -14,10 +14,12 @@ TEST(BinomialDistribution, real_theory) {
   for (int i = 0; i < COUNT; i++) {
     bucket[binodist.next()] += 1;
   }
+  double error_sum = 0;
   for (int i = 0; i < 11; i++) {
     double real = double(bucket[i]) / COUNT;
     double theory =
         cuhksz::binomial(n, i) * std::pow(p, i) * std::pow(p_complement, n - i);
-    EXPECT_LT(std::abs(real - theory) / theory, 0.05);
+    error_sum += std::abs(real - theory) / theory;
   }
+  EXPECT_LT(error_sum / 11, 0.05);
 }
