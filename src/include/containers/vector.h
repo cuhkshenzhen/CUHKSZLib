@@ -178,10 +178,10 @@ std::ostream & operator <<(std::ostream& os, const vector<ValueType>& vec) {
 
 template <typename ValueType>
 std::istream & operator >>(std::istream & is, const vector<ValueType>& vec) {
-  char ch = '\0';
+  char ch;
   is >> ch;
   if (ch != '{') {
-    std::cout << "Error: vector::operator >> : Missing {" << '\n';
+    std::cout << "Error: The first character of a vector should be '{'" << '\n';
     return is;
   }
   vec.clear();
@@ -196,11 +196,12 @@ std::istream & operator >>(std::istream & is, const vector<ValueType>& vec) {
       if (ch == '}') {
         break;
       } else if (ch != ','){
-        std::cout << "Error: vector::operator >> : Unexpected character" << '\n';
+        std::cout << "Error: Unexpected character " << ch << " when input a vector" << '\n';
         return is;
       }
     }
   }
+  return is;
 }
 
 } // end namespace cuhksz
