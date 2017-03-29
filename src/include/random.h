@@ -3,6 +3,7 @@
 
 #include "random/BinomialDistribution.h"
 #include "random/Distribution.h"
+#include "random/GeometricDistribution.h"
 #include "random/NegativeBinomialDistribution.h"
 #include "random/NormalDistribution.h"
 #include "random/PoissonDistribution.h"
