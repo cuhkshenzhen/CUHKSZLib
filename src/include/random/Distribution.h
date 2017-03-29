@@ -23,7 +23,7 @@ class Distribution {
   }
 
  protected:
-  Random* randomGenerator;
+  Random* randomGenerator = nullptr;
 
  private:
   bool newedRandom;

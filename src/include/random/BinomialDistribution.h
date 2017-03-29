@@ -1,7 +1,9 @@
 #ifndef CUHKSZ_RANDOM_BINOMIALDISTRIBUTION
 #define CUHKSZ_RANDOM_BINOMIALDISTRIBUTION
 
+#include <memory>
 #include "random/Distribution.h"
+
 namespace cuhksz {
 class BinomialDistribution : public Distribution<int> {
  public:
@@ -21,6 +23,8 @@ class BinomialDistribution : public Distribution<int> {
  private:
   int n_;
   double p_;
+  std::unique_ptr<double[]> lookup_table = nullptr;
+
   void init(int n, double p);
 };
 }  // namespace cuhksz

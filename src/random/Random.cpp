@@ -21,7 +21,7 @@ int Random::nextInt() {
 int Random::nextInt(int max) { return nextInt(0, max); }
 
 double Random::nextDouble(double min, double max) {
-  auto rand_max = UINT64_MAX;
+  auto rand_max = std::numeric_limits<std::uint64_t>::max();
   return double(randomGenerator()) / rand_max * (max - min) + min;
 }
 
