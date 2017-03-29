@@ -27,7 +27,6 @@ class NegativeBinomialDistribution : public Distribution<int> {
   double p_;
 
   double pPowr;
-  double constant;
 
   void init(int r, double p);
 };

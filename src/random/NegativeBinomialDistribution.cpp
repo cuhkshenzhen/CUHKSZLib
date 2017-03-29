@@ -1,6 +1,5 @@
 #include "random/NegativeBinomialDistribution.h"
 
-#include <algorithm>
 #include <cmath>
 #include "math_utils/math_functions.h"
 
@@ -12,19 +11,19 @@ void NegativeBinomialDistribution::init(int r, double p) {
   r_ = r;
   p_ = p;
   pPowr = genericBinaryPow(p, r);
-  constant = pPowr / factorial(r - 1);
 }
 
 int NegativeBinomialDistribution::next() {
   double rnd = randomGenerator->nextDouble();
+
   int result = 0;
   double p_complement = 1 - p_;
-  double probability = constant;
+  double probability = pPowr;
   double threshold = pPowr;
   while (rnd >= threshold) {
     result += 1;
-    probability *= p_complement;
-    threshold += probability * permutation(result + r_ - 1, r_ - 1);
+    probability *= p_complement * (r_ + result - 1) / result;
+    threshold += probability;
   }
   return result;
 }
