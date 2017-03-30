@@ -1,6 +1,6 @@
 #include <cstdio>
 #include "gtest/gtest.h"
-#include "math/math_functions.h"
+#include "math_utils/math_functions.h"
 #include "random.h"
 
 TEST(Random, stddev) {
