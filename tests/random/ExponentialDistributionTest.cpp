@@ -21,5 +21,5 @@ TEST(ExponentialDistribution, real_theory) {
     double theory = std::exp(-lambda * i) - std::exp(-lambda * (i + 1));
     error_sum += std::abs(real - theory) / theory;
   }
-  EXPECT_LT(error_sum / 11, 0.05);
+  EXPECT_LT(error_sum / 6, 0.05);
 }
