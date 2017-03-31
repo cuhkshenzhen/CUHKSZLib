@@ -53,7 +53,7 @@ double sample_stddev(const int*, int size);
 int64_t binaryPow(int64_t, int);
 
 template <typename BaseType, typename IntType>
-BaseType generalBinaryPow(BaseType base, IntType exp) {
+BaseType genericBinaryPow(BaseType base, IntType exp) {
   // if (exp == 0) return 1;
   if (exp == 1) return base;
   if (exp < 0) return 0;  // TODO: raise error here
@@ -70,6 +70,5 @@ BaseType generalBinaryPow(BaseType base, IntType exp) {
   }
   return result;
 }
-
 }  // namespace cuhksz
 #endif  // CUHKSZ_MATH_MATHFUNCTIONS

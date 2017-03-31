@@ -4,7 +4,7 @@
 #include <cmath>
 #include <iostream>
 #include <fstream>
-#include "math/math_functions.h"
+#include "math_utils/math_functions.h"
 
 namespace cuhksz {
 

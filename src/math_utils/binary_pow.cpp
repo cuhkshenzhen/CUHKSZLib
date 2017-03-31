@@ -1,4 +1,4 @@
-#include "math/math_functions.h"
+#include "math_utils/math_functions.h"
 
 namespace cuhksz {
 int64_t binaryPow(int64_t base, int exp) {
