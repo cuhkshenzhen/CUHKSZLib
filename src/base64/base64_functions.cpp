@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <sstream>
 #include <string>
+#include <bitset>
 #include "base64/base64_functions.h"
 
 namespace cuhksz {
