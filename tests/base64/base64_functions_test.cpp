@@ -6,7 +6,10 @@ TEST(Base64FunctionsTest, base64Encode) {
   ASSERT_EQ(cuhksz::base64Encode(""), "");
   ASSERT_EQ(cuhksz::base64Encode("any carnal pleasure"), "YW55IGNhcm5hbCBwbGVhc3VyZQ==");
 }
-//
-//TEST(Base64FunctionsTest, base64Decode) {
-//  ASSERT_EQ(cuhksz::base64decode("Man==="), "TWFuPT09");
-//}
+
+TEST(Base64FunctionsTest, base64Decode) {
+  ASSERT_EQ(cuhksz::base64Decode("QmFzZTY0IGVuY29kZSB0aGlzIHN0cmluZyE="), "Base64 encode this string!");
+  ASSERT_EQ(cuhksz::base64Decode("QmFzZTY0IGVuY29kZSB0aGlzIHN0cmluZyE"), "Base64 encode this string!");
+  ASSERT_EQ(cuhksz::base64Decode("===="), "");
+  ASSERT_EQ(cuhksz::base64Decode("YW55IGNhcm5hbCBwbGVhc3VyZQ"), "any carnal pleasure");
+}

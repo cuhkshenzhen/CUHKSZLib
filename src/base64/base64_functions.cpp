@@ -8,6 +8,7 @@
 namespace cuhksz {
 static const std::string codes = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 
+// Note: this is not essicient but enough for simple usage.
 std::string base64Encode(std::string str, int length) {
   if (length < -1) {
     return "";
@@ -22,7 +23,7 @@ std::string base64Encode(std::string str, int length) {
   }
   auto size = binaryStr.length();
   for (int i = 0; i < size; i += 6) {
-    int index = (int) std::bitset<8>(binaryStr.substr((unsigned long) i, 6)).to_ulong();
+    int index = (int) std::bitset<6>(binaryStr.substr((unsigned long) i, 6)).to_ulong();
 
     encoded << codes[index];
   }
@@ -48,4 +49,24 @@ std::string base64Encode(std::string str, int length) {
   }
   return encodedStr;
 };
+
+std::string base64Decode(std::string decodeStr){
+  std::string binaryDecodeStr;
+  std::ostringstream decoded;
+  for (char &c: decodeStr) {
+    if (c != '=') {
+      binaryDecodeStr += std::bitset<6>(codes.find(c)).to_string();
+    }
+  }
+  if (binaryDecodeStr.length() % 8) {
+    binaryDecodeStr += std::string(8 - binaryDecodeStr.length() % 8, '0');
+  }
+  for (int i = 0; i < binaryDecodeStr.length(); i += 8) {
+    int index = (int) std::bitset<8>(binaryDecodeStr.substr((unsigned long) i, 8)).to_ulong();
+    if (index != 0) {
+      decoded << char(index);
+    }
+  }
+  return decoded.str();
+}
 }
