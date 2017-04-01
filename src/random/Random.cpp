@@ -2,7 +2,6 @@
 
 #include <cstdlib>
 #include <ctime>
-#include <limits>
 
 namespace cuhksz {
 
@@ -13,16 +12,14 @@ int Random::nextInt(int min, int max) {
 }
 
 int Random::nextInt() {
-  int min = std::numeric_limits<int>::min();
-  int max = std::numeric_limits<int>::max();
-  return (int)(randomGenerator() % (std::uint64_t(max) + 1 - min)) + min;
+  return (int)(randomGenerator() % (std::uint64_t(intMax) + 1 - intMin)) +
+         intMin;
 }
 
 int Random::nextInt(int max) { return nextInt(0, max); }
 
 double Random::nextDouble(double min, double max) {
-  auto rand_max = std::numeric_limits<std::uint64_t>::max();
-  return double(randomGenerator()) / rand_max * (max - min) + min;
+  return double(randomGenerator()) / int64Max * (max - min) + min;
 }
 
 double Random::nextDouble(double max) { return nextDouble(0.0, max); }

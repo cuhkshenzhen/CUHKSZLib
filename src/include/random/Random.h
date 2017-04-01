@@ -2,6 +2,7 @@
 #define CUHKSZ_RANDOM_RANDOM
 
 #include <ctime>
+#include <limits>
 #include <memory>
 #include <random>
 
@@ -65,6 +66,9 @@ class Random {
 
  private:
   std::mt19937_64 randomGenerator;
+  static const auto intMax = std::numeric_limits<int>::max();
+  static const auto intMin = std::numeric_limits<int>::min();
+  static const auto int64Max = std::numeric_limits<std::uint64_t>::max();
 };
 }  // namespace cuhksz
 

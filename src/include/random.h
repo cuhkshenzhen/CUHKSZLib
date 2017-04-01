@@ -2,6 +2,7 @@
 #define CUHKSZ_RANDOM
 
 #include "random/BinomialDistribution.h"
+#include "random/ChiSquaredDistribution.h"
 #include "random/Distribution.h"
 #include "random/ExponentialDistribution.h"
 #include "random/GeometricDistribution.h"
