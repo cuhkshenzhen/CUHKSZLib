@@ -5,12 +5,12 @@
 namespace cuhksz {
 class ChiSquaredDistribution : public GammaDistribution {
  public:
-  explicit ChiSquaredDistribution(int r) : GammaDistribution(r / 2.0, 2.0) {}
-  ChiSquaredDistribution(Random& rnd, int r)
+  explicit ChiSquaredDistribution(double r) : GammaDistribution(r / 2.0, 2.0) {}
+  ChiSquaredDistribution(Random& rnd, double r)
       : GammaDistribution(rnd, r / 2.0, 2.0) {}
   virtual ~ChiSquaredDistribution() {}
 
-  int r() { return GammaDistribution::k() * 2; }
+  double r() { return GammaDistribution::k() * 2; }
 };
 }  // namespace cuhksz
 

@@ -4,7 +4,7 @@
 #include "random.h"
 
 TEST(ChiSquaredDistribution, real_theory) {
-  int r = 4;
+  double r = 4;
   const int COUNT = 100000;
   cuhksz::ChiSquaredDistribution chi2(r);
   int bucket[11];

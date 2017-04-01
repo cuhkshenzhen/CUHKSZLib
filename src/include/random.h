@@ -10,6 +10,7 @@
 #include "random/NormalDistribution.h"
 #include "random/PoissonDistribution.h"
 #include "random/Random.h"
+#include "random/StudentTDistribution.h"
 #include "random/UniformDistribution.h"
 #include "random/UniformIntDistribution.h"
 #include "random/random_functions.h"
