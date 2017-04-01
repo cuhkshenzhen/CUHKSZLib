@@ -7,8 +7,9 @@ aux_source_directory(./network NETWORK_TESTS)
 aux_source_directory(./json JSON_TESTS)
 aux_source_directory(./containers CONTAINERS_TESTS)
 
-include_directories(../include)
+include_directories(../src/include)
+include_directories(../external/gtest/googletest/include)
 
 
-add_executable(test_all ${CONTAINERS_TESTS} )
-target_link_libraries(test_all gtest gtest_main cuhkszlib)
+add_executable(test_containers ${CONTAINERS_TESTS} )
+target_link_libraries(test_containers gtest gtest_main cuhkszlib)

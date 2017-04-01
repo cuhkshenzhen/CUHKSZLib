@@ -48,11 +48,13 @@ public:
     bool operator >(const vector& v2);
     bool operator >=(const vector& v2);
 
-    auto begin() const {
+    typedef typename std::vector<ValueType>::const_iterator const_iterator;
+
+    const_iterator begin() const {
       return vec.begin();
     }
 
-    auto end() const {
+    const_iterator end() const {
       return vec.end();
     }
 
