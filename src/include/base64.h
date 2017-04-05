@@ -1,0 +1,4 @@
+#ifndef CUHKSZ_BASE64
+#define CUHKSZ_BASE64
+
+#endif //CUHKSZ_BASE64
