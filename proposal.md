@@ -127,9 +127,9 @@ We want to design and implement a C++ library that overcome those shortcomings a
 - Utils
 
 #### Pengfei YU (115010271)
-- Safer random library
+- ~~Safer random library~~
 - string
-- math functions
+- ~~math functions~~
 - KMP algorithm
 
 #### Xianggang YU (115010273)
