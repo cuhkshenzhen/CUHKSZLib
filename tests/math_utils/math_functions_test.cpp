@@ -1,4 +1,4 @@
-#include "math/math_functions.h"
+#include "math_utils/math_functions.h"
 #include "gtest/gtest.h"
 
 TEST(MathFunctions, gcd) {
@@ -82,7 +82,24 @@ TEST(MathFunctions, binaryPow) {
 }
 
 TEST(MathFunctions, generalBinaryPow) {
-  EXPECT_EQ(cuhksz::generalBinaryPow(2LL, 32), 4294967296);
-  EXPECT_EQ(cuhksz::generalBinaryPow(2LL, 62), 4611686018427387904);
-  EXPECT_EQ(cuhksz::generalBinaryPow(3LL, 27), 7625597484987);
+  EXPECT_EQ(cuhksz::genericBinaryPow(2LL, 32), 4294967296);
+  EXPECT_EQ(cuhksz::genericBinaryPow(2LL, 62), 4611686018427387904);
+  EXPECT_EQ(cuhksz::genericBinaryPow(3LL, 27), 7625597484987);
+}
+
+TEST(MathFunctions, factorial) {
+  EXPECT_EQ(cuhksz::factorial(10LL), 3628800);
+  EXPECT_EQ(cuhksz::factorial(20LL), 2432902008176640000);
+}
+
+TEST(MathFunctions, permutation) {
+  EXPECT_EQ(cuhksz::permutation(5, 2), 20);
+  EXPECT_EQ(cuhksz::permutation(20LL, 5LL), 1860480);
+}
+
+TEST(MathFunctions, combination) {
+  EXPECT_EQ(cuhksz::binomial(5, 2), 10);
+  EXPECT_EQ(cuhksz::binomial(20LL, 15LL), 15504);
+  EXPECT_EQ(cuhksz::binomial(10, 6), cuhksz::binomial(10, 4));
+  EXPECT_EQ(cuhksz::binomial(11, 5), cuhksz::binomial(11, 6));
 }
