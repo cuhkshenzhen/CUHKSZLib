@@ -25,13 +25,14 @@ public:
             elem[len ++] = i % BigNum::base;
     }
 
-    // TODO: use 短除法
     BigNum(const std::string & s) {
         sign = s[0] == '-' ? -1 : 1;
         len = 0;
         memset(elem, 0, MAX_SIZE * sizeof(int));
-        for (int i = s.size() - 1; i >= (s[0] == '-'); i --)
-            elem[len ++] = s[i];
+        for (int i = s.size() - 1; i >= BigNum::order - 1 + (s[0] == '-'); i -= BigNum::order)
+            elem[len ++] = s.substr(i - BigNum::order + 1, BigNum::order);
+        if ((s.size() - (s[0] == '-')) % BigNum::order)
+            elem[len ++] = s.substr((s[0] == '-'), (s.size() - (s[0] == '-')) % BigNum::order);
     }
 
     BigNum(const BigNum &src) {
@@ -338,10 +339,14 @@ private:
     int len;
     int sign;
     static int base;
+    static int order;
 };
 
 template<int MAX_SIZE>
 int BigNum<MAX_SIZE>::base = 10;
+
+template<int MAX_SIZE>
+int BigNum<MAX_SIZE>::order = 1;
 
 }	// namespace cuhksz
 
