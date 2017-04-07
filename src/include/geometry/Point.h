@@ -13,55 +13,64 @@ template <int N=2>
 class Point {
 public:
 	Point() {
-		memset(element, 0, N * sizeof(double));
+		memset(elem, 0, N * sizeof(double));
 	}
 
 	explicit Point(double const x) {
-		element[0] = x;
+		elem[0] = x;
 		static_assert(N == 1, "X constructor only usable in 1D");
 	}
 
 	Point(double const x, double const y) {
-		element[0] = x, element[1] = y;
+		elem[0] = x, elem[1] = y;
 		static_assert(N == 2, "XY constructor only usable in 2D");
 	}
 
 	Point(double const x, double const y, double const z) {
-		element[0] = x, element[1] = y, element[2] = z;
+		elem[0] = x, elem[1] = y, elem[2] = z;
 		static_assert(N == 3, "XYZ constructor only usable in 3D");
 	}
 
+    Point(const Point& src) {
+        memcpy(elem, src.elem, N * sizeof(double));
+    }
+
 	~Point() { }
 
-	// element can be change directly
+    Point& operator=(const Point& src) {
+        Point ret = Point(src);
+        return ret;
+    }
+
+	// elem can be change directly
 	double& operator[](int const &index) const {
-		return element[index];
+		return elem[index];
 	}
 
-	// TODO: what about init a null Point then assign to element[i] + other.element[i]
+	// TODO: what about init a null Point then assign to elem[i] + other.elem[i]
 	Point& operator+(Point const &other) const {
-		Point ret(this);
+		Point ret;
 		for (int i = 0; i < N; i ++)
-			ret.element[i] += other.element[i];
+			ret.elem[i] = elem[i] + other.elem[i];
 		return ret;
 	}
 
 	Point& operator-(Point const &other) const {
-		Point ret(this);
+		Point ret;
 		for (int i = 0; i < N; i ++)
-			ret.element[i] -= other.element[i];
+			ret.elem[i] = elem[i] - other.elem[i];
 		return ret;
 	}
 
 	Point& operator+=(Point const &other) {
 		for (int i = 0; i < N; i ++)
-			element[i] += other.element[i];
+			elem[i] += other.elem[i];
         return *this;
 	}
 
 	Point& operator-=(Point const &other) {
 		for (int i = 0; i < N; i ++)
-			element[i] -= other.element[i];
+			elem[i] -= other.elem[i];
         return *this;
 	}
 
@@ -69,14 +78,14 @@ public:
 	double operator*(Point const &other) const {
 		double ret = 0.0;
 		for (int i = 0; i < N; i ++)
-			ret += element[i] * other.element[i];
+			ret += elem[i] * other.elem[i];
 		return ret;
 	}
 
 	Point& operator*(double const &constant) const {
-		Point ret(this);
+		Point ret;
 		for (int i = 0; i < N; i ++)
-			ret.element[i] *= constant;
+			ret.elem[i] = elem[i] * constant;
 		return ret;
 	}
 
@@ -86,26 +95,26 @@ public:
 
 	Point& operator*=(double const &constant) {
 		for (int i = 0; i < N; i ++)
-			element[i] *= constant;
+			elem[i] *= constant;
         return *this;
 	}
 
 	Point& operator/(double const &constant) const {
-		Point ret(this);
+		Point ret;
 		for (int i = 0; i < N; i ++)
-			ret.element[i] /= constant;
+			ret.elem[i] = elem[i] / constant;
 		return ret;
 	}
 
 	Point& operator/=(double const &constant) {
 		for (int i = 0; i < N; i ++)
-			element[i] /= constant;
+			elem[i] /= constant;
         return *this;
 	}
 
 	bool operator==(Point const &other) const {
 		for (int i = 0; i < N; i ++)
-			if (fabs(element[i] - other.element[i]) < EPS)
+			if (fabs(elem[i] - other.elem[i]) < EPS)
 				return false;
 		return true;
 	}
@@ -116,29 +125,29 @@ public:
 
 	bool operator<(Point const &other) const {
 		for (int i = 0; i < N; i ++)
-			if (element[i] != other.element[i])
-				return element[i] < other.element[i];
+			if (elem[i] != other.elem[i])
+				return elem[i] < other.elem[i];
 		return false;
 	}
 
 	bool operator<=(Point const &other) const {
 		for (int i = 0; i < N; i ++)
-			if (element[i] != other.element[i])
-				return element[i] < other.element[i];
+			if (elem[i] != other.elem[i])
+				return elem[i] < other.elem[i];
 		return true;
 	}
 
 	bool operator>(Point const &other) const {
 		for (int i = 0; i < N; i ++)
-			if (element[i] != other.element[i])
-				return element[i] > other.element[i];
+			if (elem[i] != other.elem[i])
+				return elem[i] > other.elem[i];
 		return false;
 	}
 
 	bool operator>=(Point const &other) const {
 		for (int i = 0; i < N; i ++)
-			if (element[i] != other.element[i])
-				return element[i] > other.element[i];
+			if (elem[i] != other.elem[i])
+				return elem[i] > other.elem[i];
 		return true;
 	}
 
@@ -147,26 +156,26 @@ public:
 	// cross product
 	double operator^(Point const other) const {
 		static_assert(N == 2, "cross product only apply to 2D");
-		return element[0] * other.element[1] - element[1] * other.element[0];
+		return elem[0] * other.elem[1] - elem[1] * other.elem[0];
 	}
 
 
 	friend std::ostream& operator<<(std::ostream& os, Point const self) {
-		os << "(" << self.element[0];
+		os << "(" << self.elem[0];
 		for (int i = 1; i < N; i ++)
-			os << ", " << self.element[i];
+			os << ", " << self.elem[i];
 		return os << ")";
 	}
 
 	double len() {
 		double ret = 0.0;
 		for (int i = 0; i < N; i ++)
-			ret += element[i] * element[i];
+			ret += elem[i] * elem[i];
 		return sqrt(ret);
 	}
 
 private:
-	double element[N];	// coordinates
+	double elem[N];	// coordinates
 };
 
 }	// namespace cuhksz
