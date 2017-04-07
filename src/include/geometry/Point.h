@@ -178,6 +178,8 @@ private:
 	double elem[N];	// coordinates
 };
 
+#define Vector Point
+
 }	// namespace cuhksz
 
 

@@ -6,6 +6,7 @@
 #include <cmath>
 #include <fstream>
 #include <string>
+#include <cstdlib>
 
 namespace cuhksz {
 
@@ -49,7 +50,7 @@ public:
         return elem[i];
     }
 
-    friend std::ostream& operator<< (const std::ostream& os, const Matrix& src) {
+    friend std::ostream& operator<< (std::ostream& os, const Matrix& src) {
         os << src.toString();
         return os;
     }
@@ -140,7 +141,7 @@ public:
         return ret;
     }
 
-    int reduce() {
+    void reduce() {
         Matrix& A = *this;
         for (int i = 0, r = 0; i < row; i ++) {
             int nonZeroRow;
@@ -154,11 +155,11 @@ public:
                 if (nonZeroRow < 0)
                     r ++;
                 else {
-                    swap(A[nonZeroRow], A[i]);
+                    std::swap(A.elem[nonZeroRow], A.elem[i]);
                     break;
                 }
             }
-            if (nonZeroRow < 0) return i;
+            if (nonZeroRow < 0) return ;
             for (int j = col - 1; j > r; j --)
                 A[i][j] /= A[i][r];
             A[i][r] = 1.0;
@@ -172,9 +173,9 @@ public:
         return ;
     }
 
-    std::string toString() {
+    std::string toString() const {
         std::string s;
-        Matrix& A = *this;
+        const Matrix& A = *this;
         for (int i = 0; i < row; i ++) {
             s += std::to_string(A[i][0]);
             for (int j = 1; j < col; j ++)
