@@ -21,8 +21,8 @@ IntType lcm(IntType a, IntType b) {
   return a * b / gcd(a, b);
 }
 
-int sum(const int*, int size);
-double sum(const double*, int size);
+template <typename Type>
+Type sum(const Type* arr, int size);
 
 template <typename ArrType, typename ReturnType>
 ReturnType sum(const ArrType* arr, int size,
