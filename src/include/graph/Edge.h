@@ -24,6 +24,7 @@ public:
     Edge& operator= (const Edge & src);
     bool operator== (const Edge& other) const;
     bool operator!= (const Edge& other) const;
+    bool operator< (const Edge& other) const;
 
 private:
     Vertex* from;
