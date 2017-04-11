@@ -1,4 +1,5 @@
 #include "graph/Vertex.h"
+#include "graph/Edge.h"
 
 namespace cuhksz {
 
@@ -19,33 +20,37 @@ Vertex::Vertex(int val) : val(val) {
     outEdges.clear();
 }
 
-Vertex::Vertex(const Vertex& src) {
+Vertex::Vertex(Vertex& src) {
     val = src.val;
     use = src.use;
     id = Vertex::nextVertexID ++;
     inEdges.clear();
     outEdges.clear();
-    for (list<Edge*>::iterator it = src.inEdges.begin(); it != src.inEdges.end(); ++ it)
+    for (std::list<Edge*>::iterator it = src.inEdges.begin(); it != src.inEdges.end(); ++ it)
         inEdges.push_back(*it);
-    for (list<Edge*>::iterator it = src.outEdges.begin(); it != src.outEdges.end(); ++ it)
+    for (std::list<Edge*>::iterator it = src.outEdges.begin(); it != src.outEdges.end(); ++ it)
         outEdges.push_back(*it);
 }
 
 Vertex::~Vertex() {
-    edges.clear();
-    for (list<Edge*>::iterator it = inEdges.begin(); it != inEdges.end(); ++ it)
+    for (std::list<Edge*>::iterator it = inEdges.begin(); it != inEdges.end(); ++ it)
         if (*it != NULL)
             delete *it;
+    for (std::list<Edge*>::iterator it = outEdges.begin(); it != outEdges.end(); ++ it)
+        if (*it != NULL)
+            delete *it;
+    inEdges.clear();
+    outEdges.clear();
 }
 
-Vertex& Vertex::operator= (const Vertex& src) {
+Vertex& Vertex::operator= (Vertex& src) {
     val = src.val;
     use = src.use;
     inEdges.clear();
     outEdges.clear();
-    for (list<Edge*>::iterator it = src.inEdges.begin(); it != src.inEdges.end(); ++ it)
+    for (std::list<Edge*>::iterator it = src.inEdges.begin(); it != src.inEdges.end(); ++ it)
         inEdges.push_back(*it);
-    for (list<Edge*>::iterator it = src.outEdges.begin(); it != src.outEdges.end(); ++ it)
+    for (std::list<Edge*>::iterator it = src.outEdges.begin(); it != src.outEdges.end(); ++ it)
         outEdges.push_back(*it);
 }
 
@@ -53,7 +58,7 @@ bool Vertex::operator< (const Vertex& src) const {
     return val < src.val;
 }
 
-void addEdge(Vertex& to, int val) {
+void Vertex::addEdge(Vertex& to, int val) {
     Edge* e = new Edge(this, &to, val);
     outEdges.push_back(e);
     to.inEdges.push_back(e);

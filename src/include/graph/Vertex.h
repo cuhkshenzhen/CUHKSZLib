@@ -11,26 +11,25 @@ class Vertex {
 public:
     Vertex();
     Vertex(int val);
-    Vertex(const Vertex& src);
+    Vertex(Vertex& src);
     ~Vertex();
 
     int getVal() { return val; }
-    int val() { return val; }
     void setVal(int newVal) { val = newVal; }
     bool isValid() { return use; }
     void setValid() { use = true; }
     void setInvalid() { use = false; }
     int getID() { return id; }
 
-    Vertex& operator= (const Vertex& src);
+    Vertex& operator= (Vertex& src);
     bool operator< (const Vertex& src) const; // for sort
 
     void addEdge(Vertex& to, int val=0);
     int getInDegree() { return inEdges.size(); }
     int getOutDegree() { return outEdges.size(); }
 
-    list<Edge*> inEdges;
-    list<Edge*> outEdges;
+    std::list<Edge*> inEdges;
+    std::list<Edge*> outEdges;
 
 private:
     int val;

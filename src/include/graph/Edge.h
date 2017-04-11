@@ -13,10 +13,7 @@ public:
 
     Vertex* getFrom() { return from; }
     Vertex* getTo() { return to; }
-    Vertex* from() { return from; }
-    Vertex* to() { return to; }
     int getVal() { return val; }
-    int val() { return val; }
     void setVal(int newVal) { val = newVal; }
     bool isValid() { return use; }
     void setValid() { use = true; }
