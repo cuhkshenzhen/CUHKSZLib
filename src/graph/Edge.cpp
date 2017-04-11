@@ -4,12 +4,6 @@ namespace cuhksz {
 
 int Edge::nextEdgeID = 0;
 
-Edge::Edge(Vertex* from, Vertex* to) : from(from), to(to) {
-    val = 0;
-    use = true;
-    id = Edge::nextEdgeID ++;
-}
-
 Edge::Edge(Vertex* from, Vertex* to, int val) : from(from), to(to), val(val) {
     use = true;
     id = Edge::nextEdgeID ++;

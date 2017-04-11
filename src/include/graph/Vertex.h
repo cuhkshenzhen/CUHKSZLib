@@ -15,6 +15,7 @@ public:
     ~Vertex();
 
     int getVal() { return val; }
+    int val() { return val; }
     void setVal(int newVal) { val = newVal; }
     bool isValid() { return use; }
     void setValid() { use = true; }
@@ -22,10 +23,11 @@ public:
     int getID() { return id; }
 
     Vertex& operator= (const Vertex& src);
-    bool operator< (const Vertex& src) const;
+    bool operator< (const Vertex& src) const; // for sort
 
     void addEdge(Vertex& to, int val=0);
-    int getDegree() { return inEdges.size() + outEdges.size(); }
+    int getInDegree() { return inEdges.size(); }
+    int getOutDegree() { return outEdges.size(); }
 
     list<Edge*> inEdges;
     list<Edge*> outEdges;
