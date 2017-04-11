@@ -1,14 +1,40 @@
 #ifndef CUHKSZ_GRAPH_VERTEX
 #define CUHKSZ_GRAPH_VERTEX
 
+#include <list>
+
 namespace cuhksz {
 
 class Edge;
 
 class Vertex {
+public:
+    Vertex();
+    Vertex(int val);
+    Vertex(const Vertex& src);
+    ~Vertex();
+
+    int getVal() { return val; }
+    void setVal(int newVal) { val = newVal; }
+    bool isValid() { return use; }
+    void setValid() { use = true; }
+    void setInvalid() { use = false; }
+    int getID() { return id; }
+
+    Vertex& operator= (const Vertex& src);
+    bool operator< (const Vertex& src) const;
+
+    void addEdge(Vertex& to, int val=0);
+    int getDegree() { return inEdges.size() + outEdges.size(); }
+
+    list<Edge*> inEdges;
+    list<Edge*> outEdges;
+
 private:
-    Edge* e;
     int val;
+    bool use;
+    int id;
+    static int nextVertexID;
 };
 
 }	// namespace cuhksz
