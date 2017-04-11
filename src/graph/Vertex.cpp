@@ -1,4 +1,4 @@
-#include "graph/Point.h"
+#include "graph/Vertex.h"
 
 namespace cuhksz {
 
