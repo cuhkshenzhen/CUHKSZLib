@@ -22,6 +22,11 @@ class Distribution {
     randomGenerator = &random;
   }
 
+  Distribution(Distribution&) = delete;
+  Distribution(Distribution&&) = delete;
+  Distribution& operator=(Distribution&) = delete;
+  Distribution& operator=(Distribution&&) = delete;
+
  protected:
   Random* randomGenerator = nullptr;
 
