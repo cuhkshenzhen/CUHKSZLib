@@ -20,15 +20,15 @@ Vertex::Vertex(int val) : val(val) {
     outEdges.clear();
 }
 
-Vertex::Vertex(Vertex& src) {
+Vertex::Vertex(const Vertex& src) {
     val = src.val;
     use = src.use;
     id = Vertex::nextVertexID ++;
     inEdges.clear();
     outEdges.clear();
-    for (std::list<Edge*>::iterator it = src.inEdges.begin(); it != src.inEdges.end(); ++ it)
+    for (std::list<Edge*>::const_iterator it = src.inEdges.begin(); it != src.inEdges.end(); ++ it)
         inEdges.push_back(*it);
-    for (std::list<Edge*>::iterator it = src.outEdges.begin(); it != src.outEdges.end(); ++ it)
+    for (std::list<Edge*>::const_iterator it = src.outEdges.begin(); it != src.outEdges.end(); ++ it)
         outEdges.push_back(*it);
 }
 
@@ -43,15 +43,24 @@ Vertex::~Vertex() {
     outEdges.clear();
 }
 
-Vertex& Vertex::operator= (Vertex& src) {
+Vertex& Vertex::operator= (const Vertex& src) {
     val = src.val;
     use = src.use;
     inEdges.clear();
     outEdges.clear();
-    for (std::list<Edge*>::iterator it = src.inEdges.begin(); it != src.inEdges.end(); ++ it)
+    for (std::list<Edge*>::const_iterator it = src.inEdges.begin(); it != src.inEdges.end(); ++ it)
         inEdges.push_back(*it);
-    for (std::list<Edge*>::iterator it = src.outEdges.begin(); it != src.outEdges.end(); ++ it)
+    for (std::list<Edge*>::const_iterator it = src.outEdges.begin(); it != src.outEdges.end(); ++ it)
         outEdges.push_back(*it);
+    return *this;
+}
+
+bool Vertex::operator== (const Vertex& src) const {
+    return id == src.id;
+}
+
+bool Vertex::operator!= (const Vertex& src) const {
+    return !(*this == src);
 }
 
 bool Vertex::operator< (const Vertex& src) const {

@@ -24,6 +24,7 @@ Edge& Edge::operator= (const Edge & src) {
     to = src.to;
     val = src.val;
     use = src.use;
+    return *this;
 }
 
 bool Edge::operator== (const Edge& other) const {

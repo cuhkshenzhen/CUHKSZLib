@@ -11,7 +11,7 @@ class Vertex {
 public:
     Vertex();
     Vertex(int val);
-    Vertex(Vertex& src);
+    Vertex(const Vertex& src);
     ~Vertex();
 
     int getVal() { return val; }
@@ -21,7 +21,9 @@ public:
     void setInvalid() { use = false; }
     int getID() { return id; }
 
-    Vertex& operator= (Vertex& src);
+    Vertex& operator= (const Vertex& src);
+    bool operator== (const Vertex& src) const;
+    bool operator!= (const Vertex& src) const;
     bool operator< (const Vertex& src) const; // for sort
 
     void addEdge(Vertex& to, int val=0);
