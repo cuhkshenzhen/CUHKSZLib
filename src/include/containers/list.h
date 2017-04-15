@@ -88,7 +88,7 @@ list<ValueType>::~list() {
 }
 
 template <typename ValueType>
-list& list<ValueType>::operator =(const list& list2) {
+list<ValueType>& list<ValueType>::operator =(const list& list2) {
 	privateList = list2.privateList;
 }
 
@@ -151,7 +151,7 @@ template <typename ValueType>
 void list<ValueType>::insert(int index, ValueType& value) {
 	auto iterator = privateList.begin();
 	std::advance(iterator, index);
-	privateList.insert(iterator);
+	privateList.insert(iterator, value);
 }
 
 template <typename ValueType>
