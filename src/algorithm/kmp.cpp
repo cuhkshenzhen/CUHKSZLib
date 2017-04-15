@@ -4,7 +4,8 @@
 #include <string>
 
 namespace cuhksz {
-int kmpSearch(std::string base, std::string pattern, std::size_t start) {
+int kmpSearch(const std::string& base, const std::string& pattern,
+              std::size_t start) {
   // generate next table
   int psize = pattern.size();
   std::unique_ptr<int[]> next = std::unique_ptr<int[]>(new int[psize]);
