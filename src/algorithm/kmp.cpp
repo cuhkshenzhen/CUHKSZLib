@@ -1,0 +1,42 @@
+#include "algorithm.h"
+
+#include <memory>
+#include <string>
+
+namespace cuhksz {
+int kmpSearch(std::string base, std::string pattern, std::size_t start) {
+  // generate next table
+  int psize = pattern.size();
+  std::unique_ptr<int[]> next = std::unique_ptr<int[]>(new int[psize]);
+  next[0] = -1;
+  int j = 0;
+  int k = -1;
+  while (j < psize - 1) {
+    if (k == -1 || pattern[j] == pattern[k]) {
+      j++;
+      k++;
+      if (pattern[j] == pattern[k]) {
+        next[j] = next[k];
+      } else {
+        next[j] = k;
+      }
+    } else {
+      k = next[k];
+    }
+  }
+
+  int m = start;
+  int i = 0;
+  int bsize = base.size();
+  while (m < bsize && i < psize) {
+    if (base[m] == pattern[i] || i == -1) {
+      m++;
+      i++;
+    } else {
+      i = next[i];
+    }
+  }
+  if (i == psize) return m - i;
+  return -1;
+}
+}  // namespace cuhksz
