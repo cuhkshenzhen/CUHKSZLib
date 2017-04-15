@@ -38,8 +38,8 @@ public:
 	~Point() { }
 
     Point& operator=(const Point& src) {
-        Point ret = Point(src);
-        return ret;
+        memcpy(elem, src.elem, N * sizeof(double));
+        return *this;
     }
 
 	// elem can be change directly
@@ -49,14 +49,14 @@ public:
 
 	// TODO: what about init a null Point then assign to elem[i] + other.elem[i]
 	Point& operator+(Point const &other) const {
-		Point ret;
+		Point& ret = *(new Point);
 		for (int i = 0; i < N; i ++)
 			ret.elem[i] = elem[i] + other.elem[i];
 		return ret;
 	}
 
 	Point& operator-(Point const &other) const {
-		Point ret;
+		Point& ret = *(new Point);
 		for (int i = 0; i < N; i ++)
 			ret.elem[i] = elem[i] - other.elem[i];
 		return ret;
@@ -83,7 +83,7 @@ public:
 	}
 
 	Point& operator*(double const &constant) const {
-		Point ret;
+		Point& ret = *(new Point);
 		for (int i = 0; i < N; i ++)
 			ret.elem[i] = elem[i] * constant;
 		return ret;
@@ -100,7 +100,7 @@ public:
 	}
 
 	Point& operator/(double const &constant) const {
-		Point ret;
+		Point& ret = *(new Point);
 		for (int i = 0; i < N; i ++)
 			ret.elem[i] = elem[i] / constant;
 		return ret;
@@ -151,20 +151,17 @@ public:
 		return true;
 	}
 
-
-
-	// cross product
-	double operator^(Point const other) const {
-		static_assert(N == 2, "cross product only apply to 2D");
-		return elem[0] * other.elem[1] - elem[1] * other.elem[0];
-	}
-
-
 	friend std::ostream& operator<<(std::ostream& os, Point const self) {
 		os << "(" << self.elem[0];
 		for (int i = 1; i < N; i ++)
 			os << ", " << self.elem[i];
 		return os << ")";
+	}
+
+    // cross product
+	friend double cross(const Point& v, const Point& w) {
+		static_assert(N == 2, "cross product only apply to 2D");
+		return v.elem[0] * w.elem[1] - v.elem[1] * w.elem[0];
 	}
 
 	double len() {
@@ -173,6 +170,12 @@ public:
 			ret += elem[i] * elem[i];
 		return sqrt(ret);
 	}
+
+    void normalize() {
+        double l = len();
+        for (int i = 0; i < N; i ++)
+            elem[i] /= l;
+    }
 
 private:
 	double elem[N];	// coordinates
