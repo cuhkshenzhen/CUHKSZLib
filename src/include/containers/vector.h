@@ -39,7 +39,7 @@ public:
 
     void push(const ValueType& value);
 
-    ValueType& pop();
+    ValueType pop();
 
     bool operator ==(const vector& v2);
     bool operator !=(const vector& v2);
@@ -114,20 +114,23 @@ void vector<ValueType>::clear() {
 
 template <typename ValueType>
 void vector<ValueType>::insert(int index, const ValueType& value) {
-    auto begin = vec.begin();
-    vec.insert(begin + index, value);
+    auto iterator = vec.begin();
+    std::advance(iterator, index);
+    vec.insert(iterator, value);
 }
 
 template <typename ValueType>
 void vector<ValueType>::erase(int index) {
-    auto begin = vec.begin();
-    vec.erase(begin + index);
+    auto iterator = vec.begin();
+    std::advance(iterator, index);
+    vec.erase(iterator);
 }
 
 template <typename ValueType>
 void vector<ValueType>::set(int index, const ValueType& value) {
-    auto begin = vec.begin();
-    auto followingElement = vec.erase(begin + index);
+    auto iterator = vec.begin();
+    std::advance(iterator, index);
+    auto followingElement = vec.erase(iterator);
     vec.insert(followingElement, value);
 }
 
@@ -137,7 +140,7 @@ void vector<ValueType>::push(const ValueType& value) {
 }
 
 template <typename ValueType>
-ValueType& vector<ValueType>::pop() {
+ValueType vector<ValueType>::pop() {
     ValueType lastElement = vec.back();
     vec.pop_back();
     return lastElement;
