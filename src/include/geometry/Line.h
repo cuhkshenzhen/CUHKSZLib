@@ -17,6 +17,8 @@ public:
     double len() { return v.len(); }
 
     friend Point<2> getIntersection(const Line& l1, const Line& l2);
+    friend double disToLine(Point<2> P, Line l);
+    friend double disToSegment(Point<2> P, Line l);
 
 private:
     Point<2> A;

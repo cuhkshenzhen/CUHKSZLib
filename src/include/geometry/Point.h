@@ -183,6 +183,8 @@ private:
 
 #define Vector Point
 
+#undef EPS
+
 }	// namespace cuhksz
 
 
