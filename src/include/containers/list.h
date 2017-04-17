@@ -95,6 +95,7 @@ list<ValueType>::~list() {
 template <typename ValueType>
 list<ValueType>& list<ValueType>::operator =(const list& list2) {
 	privateList = list2.privateList;
+	return *this;
 }
 
 template <typename ValueType>
