@@ -23,6 +23,9 @@ public:
 	ValueType& last();
 	const ValueType& last() const;
 
+	ValueType& operator [](int index);
+	const ValueType& operator [](int index) const;
+
 	bool isEmpty();
 
 	int size() const;
@@ -65,6 +68,8 @@ public:
 
 private:
 	std::list<ValueType> privateList;
+	void boundaryCheck(int index);
+	void emptyCheck();
 
 	}; //end list class
 
@@ -94,43 +99,48 @@ list<ValueType>& list<ValueType>::operator =(const list& list2) {
 
 template <typename ValueType>
 ValueType& list<ValueType>::first() {
-	if (privateList.size() == 0) {
-		std::cout << "The list is empty!" << '\n';
-		std::exit(EXIT_FAILURE);
-	} else {
-		return privateList.front();
-	}
+	emptyCheck();
+	return privateList.front();
 }
 
 template <typename ValueType>
 const ValueType& list<ValueType>::first() const {
-	if (privateList.size() == 0) {
-		std::cout << "The list is empty!" << '\n';
-		std::exit(EXIT_FAILURE);
-	} else {
-		return privateList.front();
-	}
+	emptyCheck();	
+	return privateList.front();
 }
 
 template <typename ValueType>
 ValueType& list<ValueType>::last() {
-	if (privateList.size() == 0) {
-		std::cout << "The list is empty!" << '\n';
-		std::exit(EXIT_FAILURE);
-	} else {
-		return privateList.back();
-	}
+	emptyCheck();
+	return privateList.back();
 }
 
 template <typename ValueType>
 const ValueType& list<ValueType>::last() const {
-	if (privateList.size() == 0) {
-		std::cout << "The list is empty!" << '\n';
-		std::exit(EXIT_FAILURE);
-	} else {
-		return privateList.back();
-	}
+	emptyCheck();
+	return privateList.back();
 }
+
+template <typename ValueType>
+ValueType& list<ValueType>::operator [](int index) {
+	boundaryCheck(index);
+	auto iterator = privateList.begin();
+	for (int i = 0; i != index; i++) {
+		++iterator;
+	}
+	return *iterator;
+}
+
+template <typename ValueType>
+const ValueType& list<ValueType>::operator [](int index) const {
+	boundaryCheck(index);
+	auto iterator = privateList.begin();
+	for (int i = 0; i != index; i++) {
+		++iterator;
+	}
+	return *iterator;
+}
+
 
 template <typename ValueType>
 bool list<ValueType>::isEmpty() {
@@ -149,6 +159,7 @@ void list<ValueType>::clear() {
 
 template <typename ValueType>
 void list<ValueType>::insert(int index, ValueType& value) {
+	boundaryCheck(index);
 	auto iterator = privateList.begin();
 	std::advance(iterator, index);
 	privateList.insert(iterator, value);
@@ -156,6 +167,7 @@ void list<ValueType>::insert(int index, ValueType& value) {
 
 template <typename ValueType>
 void list<ValueType>::erase(int index) {
+	boundaryCheck(index);
 	auto iterator = privateList.begin();
     std::advance(iterator, index);
     privateList.erase(iterator);
@@ -173,6 +185,7 @@ void list<ValueType>::push_front(const ValueType& value) {
 
 template <typename ValueType>
 ValueType list<ValueType>::pop() {
+	emptyCheck();
 	ValueType lastElement = privateList.back();
     privateList.pop_back();
     return lastElement;
@@ -180,6 +193,7 @@ ValueType list<ValueType>::pop() {
 
 template <typename ValueType>
 ValueType list<ValueType>::pop_front() {
+	emptyCheck();
 	firstElement = privateList.front();
 	privateList.pop_front();
 	return firstElement;
@@ -230,7 +244,19 @@ bool list<ValueType>::operator >=(const list& list2) {
 	return privateList >= list2.privateList;
 }
 
+void list<ValueType>::boundaryCheck(int index) {
+	if (index >= privateList.size() or index < 0) {
+		std::cout << "The index out of range!" << '\n';
+		std::exit(EXIT_FAILURE);
+	}
+}
 
+void list<ValueType>::emptyCheck() {
+	if (privateList.empty()) {
+		std::cout << "The list is empty!" << '\n';
+		std::exit(EXIT_FAILURE);
+	}
+}
 
 } //end namespace
 
