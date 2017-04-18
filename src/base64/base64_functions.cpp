@@ -21,15 +21,15 @@ std::string base64Encode(std::string str, int length) {
   if (binaryStr.length() % 6) {
     binaryStr += std::string(6 - binaryStr.length() % 6, '0');
   }
-  auto size = binaryStr.length();
-  for (auto i = 0; i < size; i += 6) {
+  std::size_t size = binaryStr.length();
+  for (std::size_t i = 0; i < size; i += 6) {
     int index = (int) std::bitset<6>(binaryStr.substr((unsigned long) i, 6)).to_ulong();
 
     encoded << codes[index];
   }
   std::string encodedStr = encoded.str();
   if (length != -1) {
-    if (length < encodedStr.length()) {
+    if (length < (int)encodedStr.length()) {
       return (std::string) "";
     }
     encodedStr += std::string(length - encodedStr.length(), '=');
@@ -43,6 +43,8 @@ std::string base64Encode(std::string str, int length) {
         break;
       case 3:
         encodedStr += "=";
+        break;
+      default:
         break;
     }
 
@@ -61,7 +63,7 @@ std::string base64Decode(std::string decodeStr){
   if (binaryDecodeStr.length() % 8) {
     binaryDecodeStr += std::string(8 - binaryDecodeStr.length() % 8, '0');
   }
-  for (int i = 0; i < binaryDecodeStr.length(); i += 8) {
+  for (std::size_t i = 0; i < binaryDecodeStr.length(); i += 8) {
     int index = (int) std::bitset<8>(binaryDecodeStr.substr((unsigned long) i, 8)).to_ulong();
     if (index != 0) {
       decoded << char(index);

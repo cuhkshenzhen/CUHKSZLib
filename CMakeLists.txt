@@ -2,6 +2,7 @@ cmake_minimum_required (VERSION 2.8)
 
 project (cuhksz-cpp-lib)
 
+
 if(MSVC)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W4")
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Zi -Od")
@@ -19,10 +20,12 @@ aux_source_directory(./src/network NETWORK_SRC)
 aux_source_directory(./src/graph GRAPH_SRC)
 aux_source_directory(./src/geometry GEOMETRY_SRC)
 aux_source_directory(./src/base64 BASE64_SRC)
+aux_source_directory(./src/string STRING_SRC)
+aux_source_directory(./src/zip ZIP_SRC)
 
 
 include_directories(./src/include)
-add_library(cuhkszlib STATIC ${RANDOM_SRC} ${MATHUTILS_SRC} ${JSON_SRC} ${NETWORK_SRC} ${GRAPH_SRC} ${GEOMETRY_SRC} ${BASE64_SRC} src/zip/zip_functions.cpp src/include/zip/zip_functions.h src/string/string_functions.cpp src/include/string/string_functions.h)
+add_library(cuhkszlib STATIC ${RANDOM_SRC} ${MATHUTILS_SRC} ${JSON_SRC} ${NETWORK_SRC} ${GRAPH_SRC} ${GEOMETRY_SRC} ${BASE64_SRC} ${STRING_SRC} ${ZIP_SRC} )
 
 option(TESTING "Enable testing with googletest" ON) # TODO off if release version
 
