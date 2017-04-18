@@ -10,5 +10,5 @@ aux_source_directory(./base64 BASE64_TESTS)
 include_directories(../include)
 
 
-add_executable(test_all ${TESTS} ${RANDOM_TESTS} ${MATHUTILS_TESTS} ${NETWORK_TESTS} ${JSON_TESTS} ${BASE64_TESTS} )
+add_executable(test_all ${TESTS} ${RANDOM_TESTS} ${MATHUTILS_TESTS} ${NETWORK_TESTS} ${JSON_TESTS} ${BASE64_TESTS} string/string_functions_test.cpp)
 target_link_libraries(test_all gtest gtest_main cuhkszlib)

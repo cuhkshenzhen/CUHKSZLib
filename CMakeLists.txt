@@ -16,7 +16,7 @@ aux_source_directory(./src/base64 BASE64_SRC)
 
 
 include_directories(./src/include)
-add_library(cuhkszlib STATIC ${RANDOM_SRC} ${MATHUTILS_SRC} ${JSON_SRC} ${NETWORK_SRC} ${GRAPH_SRC} ${GEOMETRY_SRC} ${BASE64_SRC})
+add_library(cuhkszlib STATIC ${RANDOM_SRC} ${MATHUTILS_SRC} ${JSON_SRC} ${NETWORK_SRC} ${GRAPH_SRC} ${GEOMETRY_SRC} ${BASE64_SRC} src/zip/zip_functions.cpp src/include/zip/zip_functions.h src/string/string_functions.cpp src/include/string/string_functions.h)
 
 option(TESTING "Enable testing with googletest" ON) # TODO off if release version
 

@@ -22,7 +22,7 @@ std::string base64Encode(std::string str, int length) {
     binaryStr += std::string(6 - binaryStr.length() % 6, '0');
   }
   auto size = binaryStr.length();
-  for (int i = 0; i < size; i += 6) {
+  for (auto i = 0; i < size; i += 6) {
     int index = (int) std::bitset<6>(binaryStr.substr((unsigned long) i, 6)).to_ulong();
 
     encoded << codes[index];
