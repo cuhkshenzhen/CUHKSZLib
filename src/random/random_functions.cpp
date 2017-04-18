@@ -22,10 +22,8 @@ double randomDouble(double min, double max) {
   auto& randomGenerator = getInitializedGenerator();
   return randomGenerator.nextDouble(min, max);
 }
-double randomDouble(double max) {
-  auto& randomGenerator = getInitializedGenerator();
-  return randomGenerator.nextDouble(max);
-}
+double randomDouble(double max) { return randomDouble(0, max); }
+double randomDouble() { return randomDouble(0, 1); }
 bool randomBool() {
   auto& randomGenerator = getInitializedGenerator();
   return randomGenerator.nextBool();
@@ -35,7 +33,7 @@ cuhksz::Random& getInitializedGenerator() {
   static bool initialized;
   static std::unique_ptr<cuhksz::Random> randomGenerator;
   if (!initialized) {
-    randomGenerator.reset(new cuhksz::Random(std::time(nullptr)));
+    randomGenerator.reset(new cuhksz::Random());
     initialized = true;
   }
   return *randomGenerator;

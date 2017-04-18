@@ -4,6 +4,7 @@
 #include <array>
 #include <cstdint>
 #include <functional>
+#include <memory>
 
 namespace cuhksz {
 
@@ -69,6 +70,46 @@ BaseType genericBinaryPow(BaseType base, IntType exp) {
     exp /= 2;
   }
   return result;
+}
+
+template <typename IntType>
+IntType factorial(IntType n) {
+  if (n < 0) return 0;  // TODO: raise error here
+  IntType fac = 1;
+  for (IntType i = 2; i <= n; i++) fac *= i;
+  return fac;
+}
+
+// TODO: name may need change
+template <typename IntType>
+IntType permutation(IntType n, IntType r) {
+  if (n < 0 || r < 0 || r > n) return 0;  // TODO: raise error here
+  IntType result = n;
+  n--;
+  for (; r > 1; r--, n--) {
+    result *= n;
+  }
+  return result;
+}
+
+template <typename IntType>
+IntType binomial(IntType n, IntType r) {
+  if (n < 0 || r < 0 || r > n) return 0;  // TODO: raise error here
+  if (r == 0) return 1;
+  if (r > n / 2) return binomial(n, n - r);
+  std::unique_ptr<IntType[]> combination(new IntType[r]);
+  for (int i = 0; i < r; i++) combination[i] = 1;
+  for (int i = 0; i < n - r; i++) {
+    for (int j = 0; j < r; j++) {
+      if (j == 0) {
+        combination[j] += 1;
+      } else {
+        combination[j] += combination[j - 1];
+      }
+    }
+  }
+
+  return combination[r - 1];
 }
 }  // namespace cuhksz
 #endif  // CUHKSZ_MATH_MATHFUNCTIONS
