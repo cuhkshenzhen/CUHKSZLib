@@ -5,7 +5,14 @@
 
 namespace cuhksz {
 
-constexpr int min3(int a, int b, int c);
+namespace {
+constexpr int min3(int a, int b, int c) {
+  return /*if*/ a < b ?
+                      /*then*/ (a < c ? a : c)
+                      :
+                      /*else*/ (b < c ? b : c);
+}
+}  // namespace
 
 int editDistance(const std::string& str1, const std::string& str2) {
   int m = str1.size();
@@ -33,10 +40,4 @@ int editDistance(const std::string& str1, const std::string& str2) {
   return matrix[m][n];
 }
 
-constexpr int min3(int a, int b, int c) {
-  return /*if*/ a < b ?
-                      /*then*/ (a < c ? a : c)
-                      :
-                      /*else*/ (b < c ? b : c);
-}
 }  // namespace cuhksz

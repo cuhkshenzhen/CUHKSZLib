@@ -130,7 +130,7 @@ We want to design and implement a C++ library that overcome those shortcomings a
 - ~~Safer random library~~
 - string
 - ~~math functions~~
-- KMP algorithm
+- ~~KMP algorithm~~
 
 #### Xianggang YU (115010273)
 - Simpler interface for standard library
