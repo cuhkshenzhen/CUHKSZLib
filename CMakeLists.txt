@@ -20,12 +20,10 @@ aux_source_directory(./src/network NETWORK_SRC)
 aux_source_directory(./src/graph GRAPH_SRC)
 aux_source_directory(./src/geometry GEOMETRY_SRC)
 aux_source_directory(./src/base64 BASE64_SRC)
-aux_source_directory(./src/string STRING_SRC)
-aux_source_directory(./src/zip ZIP_SRC)
 
 
 include_directories(./src/include)
-add_library(cuhkszlib STATIC ${RANDOM_SRC} ${MATHUTILS_SRC} ${JSON_SRC} ${NETWORK_SRC} ${GRAPH_SRC} ${GEOMETRY_SRC} ${BASE64_SRC} ${STRING_SRC} ${ZIP_SRC} )
+add_library(cuhkszlib STATIC ${RANDOM_SRC} ${MATHUTILS_SRC} ${JSON_SRC} ${NETWORK_SRC} ${GRAPH_SRC} ${GEOMETRY_SRC} ${BASE64_SRC})
 
 option(TESTING "Enable testing with googletest" ON) # TODO off if release version
 

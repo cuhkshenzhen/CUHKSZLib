@@ -1,9 +1,5 @@
-//
-// Created by Xiaoxing Ye on 19/04/2017.
-//
-
-#ifndef CUHKSZ_STRING_FUNCTIONS_H
-#define CUHKSZ_STRING_FUNCTIONS_H
+#ifndef CUHKSZ_STRING_STRINGFUNCTIONS
+#define CUHKSZ_STRING_STRINGFUNCTIONS
 #include <exception>
 #include <string>
 #include <sstream>
@@ -28,4 +24,4 @@ private:
   const std::string &m_from;
 };
 }
-#endif //CUHKSZ_STRING_FUNCTIONS_H
+#endif //CUHKSZ_STRING_STRINGFUNCTIONS

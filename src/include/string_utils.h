@@ -1,6 +1,6 @@
-#ifndef CUHKSZ_MATH
-#define CUHKSZ_MATH
+#ifndef CUHKSZ_STRING
+#define CUHKSZ_STRING
 
-#include "string/string_functions.h"
+#include "string_utils/string_functions.h"
 
-#endif  // CUHKSZ_MATH
+#endif  // CUHKSZ_STRING

@@ -1,7 +1,3 @@
-//
-// Created by Xiaoxing Ye on 18/04/2017.
-//
-
 #ifndef CUHKSZ_ZIP_ZIPFUNCTIONS
 #define CUHKSZ_ZIP_ZIPFUNCTIONS
 #include <iterator>
@@ -52,7 +48,9 @@ class Zip {
 };
 
 template<typename T, typename... Args>
-typename Zip<T>::container zip(const T &head, const Args &... tail);
+typename Zip<T>::container zip(const T &head, const Args &... tail) {
+  return Zip<T>(head, tail...);
+};
 }
 
 #endif //CUHKSZ_ZIP_ZIPFUNCTIONS
