@@ -11,8 +11,5 @@ include_directories(../src/include)
 include_directories(../external/gtest/googletest/include)
 
 
-<<<<<<< HEAD
-=======
 add_executable(test_all ${TESTS} ${RANDOM_TESTS} ${MATHUTILS_TESTS} ${NETWORK_TESTS} ${JSON_TESTS} ${CONTAINERS_TESTS})
 target_link_libraries(test_all gtest gtest_main cuhkszlib)
->>>>>>> upstream/master

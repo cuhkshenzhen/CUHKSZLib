@@ -13,7 +13,7 @@ public:
 	List(); //constructor
 	explicit List(int n, ValueType value = ValueType());
 
-	virtual ~List(); //deconstructor
+	~List(); //deconstructor
 
 	List& operator =(const List& list2);
 

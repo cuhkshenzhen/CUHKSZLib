@@ -1,11 +1,9 @@
 #include <iostream>
 #include "gtest/gtest.h"
-#include "containers/vector.h"
-
-using namespace cuhksz;
+#include "containers/Vector.h"
 
 TEST(vector, vectorTest) {
-    cuhksz::vector<int> testVector;
+    cuhksz::Vector<int> testVector;
     testVector.push(1);
     testVector.push(2);
     testVector.push(3);

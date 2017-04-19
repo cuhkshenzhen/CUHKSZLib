@@ -12,7 +12,7 @@ class Stack {
 public:
 	Stack();
 
-	virtual ~Stack();
+	~Stack();
 
 	Stack& operator =(const Stack& stack2);
 

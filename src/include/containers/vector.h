@@ -14,7 +14,7 @@ public:
     explicit Vector(int n, ValueType value = ValueType());
 
 
-    virtual ~Vector();
+    ~Vector();
 
 
     const ValueType& get(int index) const;
@@ -211,4 +211,4 @@ std::istream & operator >>(std::istream & is, const Vector<ValueType>& vec) {
 
 } // end namespace cuhksz
 
-#endif
+#endif //CUHKSZ_CONTAINERS_VECTOR
