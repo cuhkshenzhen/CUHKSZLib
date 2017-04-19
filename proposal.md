@@ -93,7 +93,7 @@ We want to design and implement a C++ library that overcome those shortcomings a
 8. Utils
     1. zip
     2. json
-    3. Network
+    3. Network (postponed)
         1. get
         2. post
         3. urlencode / urldecode
