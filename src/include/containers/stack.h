@@ -8,13 +8,13 @@
 namespace cuhksz {
 
 template <typename ValueType>
-class stack {
+class Stack {
 public:
-	stack();
+	Stack();
 
-	virtual ~stack();
+	virtual ~Stack();
 
-	stack& operator =(const stack& stack2);
+	Stack& operator =(const Stack& stack2);
 
 	int size() const;
 
@@ -34,55 +34,55 @@ private:
 };
 
 template <typename ValueType>
-stack<ValueType>::stack() {
+Stack<ValueType>::Stack() {
 	//do nothing
 }
 
 template <typename ValueType>
-stack<ValueType>::~stack() {
+Stack<ValueType>::~Stack() {
 	//do nothing
 }
 
 template <typename ValueType>
-stack<ValueType> stack<ValueType>::operator =(const stack& stack2) {
+Stack<ValueType> Stack<ValueType>::operator =(const Stack& stack2) {
 	privateStack = stack2.privateStack;
 	return *this;
 }
 
 template <typename ValueType>
-int stack<ValueType>::size() const {
+int Stack<ValueType>::size() const {
 	return privateStack.size();
 }
 
 template <typename ValueType>
-ValueType& stack<ValueType>::top() {
+ValueType& Stack<ValueType>::top() {
 	return privateStack.top();
 }
 
 template <typename ValueType>
-const ValueType& stack<ValueType>::top() const {
+const ValueType& Stack<ValueType>::top() const {
 	return privateStack.top();
 }
 
 template <typename ValueType>
-bool stack<ValueType>::isEmpty() {
+bool Stack<ValueType>::isEmpty() {
 	return privateStack.empty();
 }
 
 template <typename ValueType>
-void stack<ValueType>::push(const ValueType& value) {
+void Stack<ValueType>::push(const ValueType& value) {
 	privateStack.push(value);
 }
 
 template <typename ValueType>
-ValueType stack<ValueType>::pop() {
+ValueType Stack<ValueType>::pop() {
 	emptyCheck();
 	ValueType lastElement = privateStack.top();
 	privateStack.pop();
 	return lastElement;
 }
 
-void stack<ValueType>::emptyCheck() {
+void Stack<ValueType>::emptyCheck() {
 	if(privateStack.empty()) {
 		std::cout << "The stack is empty!" << '\n';
 		std::exit(EXIT_FAILURE);

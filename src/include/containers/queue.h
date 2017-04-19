@@ -9,12 +9,12 @@
 namespace cuhksz {
 
 template <typename ValueType>
-class queue {
+class Queue {
 public:
-	queue();
-	~queue();
-	
-	queue operator =(const queue& queue2);
+	Queue();
+	~Queue();
+
+	Queue operator =(const Queue& queue2);
 
 	ValueType& first();
 	const ValueType& first() const;
@@ -40,58 +40,58 @@ private:
 };
 
 template <typename ValueType>
-queue<ValueType>::queue() {
+Queue<ValueType>::Queue() {
 	//do nothing
 }
 
 template <typename ValueType>
-queue<ValueType>::~queue(){
+Queue<ValueType>::~Queue(){
 	//do nothing
 }
 
 template <typename ValueType>
-queue<ValueType> queue::operator =(const queue& queue2) {
+Queue<ValueType> Queue::operator =(const Queue& queue2) {
 	privateQueue = queue2.privateQueue;
 	return *this;
 }
 
 template <typename ValueType>
-ValueType& queue<ValueType>::first() {
+ValueType& Queue<ValueType>::first() {
 	return privateQueue.front();
 }
 
 template <typename ValueType>
-const ValueType& queue<ValueType>::first() const {
+const ValueType& Queue<ValueType>::first() const {
 	return privateQueue.front();
 }
 
 template <typename ValueType>
-ValueType& queue<ValueType>::last() {
+ValueType& Queue<ValueType>::last() {
 	return privateQueue.back();
 }
 
 template <typename ValueType>
-const ValueType& queue<ValueType>::last() const {
+const ValueType& Queue<ValueType>::last() const {
 	return privateQueue.back();
 }
 
 template <typename ValueType>
-int queue<ValueType>::size() const {
+int Queue<ValueType>::size() const {
 	return privateQueue.size();
 }
 
 template <typename ValueType>
-bool queue<ValueType>::isEmpty() {
+bool Queue<ValueType>::isEmpty() {
 	return privateQueue.empty();
 }
 
 template <typename ValueType>
-void queue<ValueType>::push(const ValueType& value) {
+void Queue<ValueType>::push(const ValueType& value) {
 	privateQueue.push(value);
 }
 
 template <typename ValueType>
-ValueType queue<ValueType>::pop() {
+ValueType Queue<ValueType>::pop() {
 	emptyCheck();
 	ValueType lastElement = privateQueue.back();
 	privateQueue.pop();
@@ -99,7 +99,7 @@ ValueType queue<ValueType>::pop() {
 }
 
 template <typename ValueType>
-void queue<ValueType>::clear() {
+void Queue<ValueType>::clear() {
 	if(!privateQueue.empty()) {
 		privateQueue.pop();
 	}

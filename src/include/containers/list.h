@@ -8,14 +8,14 @@
 namespace cuhksz {
 
 template <typename ValueType>
-class list {
+class List {
 public:
-	list(); //constructor
-	explicit list(int n, ValueType value = ValueType());
+	List(); //constructor
+	explicit List(int n, ValueType value = ValueType());
 
-	virtual ~list(); //deconstructor
+	virtual ~List(); //deconstructor
 
-	list& operator =(const list& list2);
+	List& operator =(const List& list2);
 
 	ValueType& first();
 	const ValueType& first() const;
@@ -47,14 +47,14 @@ public:
 
 	void reverse();
 
-	void merge(list& list2);
+	void merge(List& list2);
 
-	bool operator ==(const list& list2);
-	bool operator !=(const list& list2);
-	bool operator <(const list& list2);
-	bool operator <=(const list& list2);
-	bool operator >(const list& list2);
-	bool operator >=(const list& list2);
+	bool operator ==(const List& list2);
+	bool operator !=(const List& list2);
+	bool operator <(const List& list2);
+	bool operator <=(const List& list2);
+	bool operator >(const List& list2);
+	bool operator >=(const List& list2);
 
 	typedef typename std::list<ValueType>::const_iterator const_iterator;
 
@@ -76,54 +76,54 @@ private:
 /*-------Implementation-------*/
 
 template <typename ValueType>
-list<ValueType>::list() {
+List<ValueType>::List() {
 	//do nothing
 }
 
 template <typename ValueType>
-list<ValueType>::list(int n, ValueType value) {
+List<ValueType>::List(int n, ValueType value) {
 	for (int i = 0; i < n; i++) {
 		privateList.push_back(value);
 	}
 }
 
 template <typename ValueType>
-list<ValueType>::~list() {
+List<ValueType>::~List() {
 	//do nothing
 }
 
 template <typename ValueType>
-list<ValueType>& list<ValueType>::operator =(const list& list2) {
+List<ValueType>& List<ValueType>::operator =(const List& list2) {
 	privateList = list2.privateList;
 	return *this;
 }
 
 template <typename ValueType>
-ValueType& list<ValueType>::first() {
+ValueType& List<ValueType>::first() {
 	emptyCheck();
 	return privateList.front();
 }
 
 template <typename ValueType>
-const ValueType& list<ValueType>::first() const {
-	emptyCheck();	
+const ValueType& List<ValueType>::first() const {
+	emptyCheck();
 	return privateList.front();
 }
 
 template <typename ValueType>
-ValueType& list<ValueType>::last() {
+ValueType& List<ValueType>::last() {
 	emptyCheck();
 	return privateList.back();
 }
 
 template <typename ValueType>
-const ValueType& list<ValueType>::last() const {
+const ValueType& List<ValueType>::last() const {
 	emptyCheck();
 	return privateList.back();
 }
 
 template <typename ValueType>
-ValueType& list<ValueType>::operator [](int index) {
+ValueType& List<ValueType>::operator [](int index) {
 	boundaryCheck(index);
 	auto iterator = privateList.begin();
 	for (int i = 0; i != index; i++) {
@@ -133,7 +133,7 @@ ValueType& list<ValueType>::operator [](int index) {
 }
 
 template <typename ValueType>
-const ValueType& list<ValueType>::operator [](int index) const {
+const ValueType& List<ValueType>::operator [](int index) const {
 	boundaryCheck(index);
 	auto iterator = privateList.begin();
 	for (int i = 0; i != index; i++) {
@@ -144,22 +144,22 @@ const ValueType& list<ValueType>::operator [](int index) const {
 
 
 template <typename ValueType>
-bool list<ValueType>::isEmpty() {
+bool List<ValueType>::isEmpty() {
 	 return privateList.empty();
 }
 
 template <typename ValueType>
-int list<ValueType>::size() const {
+int List<ValueType>::size() const {
 	return privateList.size();
 }
 
 template <typename ValueType>
-void list<ValueType>::clear() {
+void List<ValueType>::clear() {
 	privateList.clear();
 }
 
 template <typename ValueType>
-void list<ValueType>::insert(int index, ValueType& value) {
+void List<ValueType>::insert(int index, ValueType& value) {
 	boundaryCheck(index);
 	auto iterator = privateList.begin();
 	std::advance(iterator, index);
@@ -167,7 +167,7 @@ void list<ValueType>::insert(int index, ValueType& value) {
 }
 
 template <typename ValueType>
-void list<ValueType>::erase(int index) {
+void List<ValueType>::erase(int index) {
 	boundaryCheck(index);
 	auto iterator = privateList.begin();
     std::advance(iterator, index);
@@ -175,17 +175,17 @@ void list<ValueType>::erase(int index) {
 }
 
 template <typename ValueType>
-void list<ValueType>::push(const ValueType& value) {
+void List<ValueType>::push(const ValueType& value) {
 	privateList.push_back(value);
 }
 
 template <typename ValueType>
-void list<ValueType>::push_front(const ValueType& value) {
+void List<ValueType>::push_front(const ValueType& value) {
 	privateList.push_front(value);
 }
 
 template <typename ValueType>
-ValueType list<ValueType>::pop() {
+ValueType List<ValueType>::pop() {
 	emptyCheck();
 	ValueType lastElement = privateList.back();
     privateList.pop_back();
@@ -193,7 +193,7 @@ ValueType list<ValueType>::pop() {
 }
 
 template <typename ValueType>
-ValueType list<ValueType>::pop_front() {
+ValueType List<ValueType>::pop_front() {
 	emptyCheck();
 	firstElement = privateList.front();
 	privateList.pop_front();
@@ -201,58 +201,58 @@ ValueType list<ValueType>::pop_front() {
 }
 
 template <typename ValueType>
-void list<ValueType>::sort() {
+void List<ValueType>::sort() {
 	privateList.sort();
 }
 
 template <typename ValueType>
-void list<ValueType>::reverse() {
+void List<ValueType>::reverse() {
 	privateList.reverse();
 }
 
 template <typename ValueType>
-void list<ValueType>::merge(list& list2) {
+void List<ValueType>::merge(List& list2) {
 	privateList.merge(list2.privateList);
 }
 
 template <typename ValueType>
-bool list<ValueType>::operator ==(const list& list2) {
+bool List<ValueType>::operator ==(const List& list2) {
 	return privateList == list2.privateList;
 }
 
 template <typename ValueType>
-bool list<ValueType>::operator !=(const list& list2) {
+bool List<ValueType>::operator !=(const List& list2) {
 	return privateList != list2.privateList;
 }
 
 template <typename ValueType>
-bool list<ValueType>::operator <(const list& list2) {
+bool List<ValueType>::operator <(const List& list2) {
 	return privateList < list2.privateList;
 }
 
 template <typename ValueType>
-bool list<ValueType>::operator <=(const list& list2) {
+bool List<ValueType>::operator <=(const List& list2) {
 	return privateList <= list2.privateList;
 }
 
 template <typename ValueType>
-bool list<ValueType>::operator >(const list& list2) {
+bool List<ValueType>::operator >(const List& list2) {
 	return privateList > list2.privateList;
 }
 
 template <typename ValueType>
-bool list<ValueType>::operator >=(const list& list2) {
+bool List<ValueType>::operator >=(const List& list2) {
 	return privateList >= list2.privateList;
 }
 
-void list<ValueType>::boundaryCheck(int index) {
+void List<ValueType>::boundaryCheck(int index) {
 	if (index >= privateList.size() or index < 0) {
 		std::cout << "The index out of range!" << '\n';
 		std::exit(EXIT_FAILURE);
 	}
 }
 
-void list<ValueType>::emptyCheck() {
+void List<ValueType>::emptyCheck() {
 	if (privateList.empty()) {
 		std::cout << "The list is empty!" << '\n';
 		std::exit(EXIT_FAILURE);

@@ -6,7 +6,6 @@
 
 namespace cuhksz {
 
-template <typename ValueType>    
-class map {
+template <typename ValueType>
+class Map {
 public:
-    

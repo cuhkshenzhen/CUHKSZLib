@@ -7,14 +7,14 @@
 namespace cuhksz {
 
 template <typename ValueType>
-class vector {
+class Vector {
 public:
 
-    vector();
-    explicit vector(int n, ValueType value = ValueType());
+    Vector();
+    explicit Vector(int n, ValueType value = ValueType());
 
 
-    virtual ~vector();
+    virtual ~Vector();
 
 
     const ValueType& get(int index) const;
@@ -41,12 +41,12 @@ public:
 
     ValueType pop();
 
-    bool operator ==(const vector& v2);
-    bool operator !=(const vector& v2);
-    bool operator <(const vector& v2);
-    bool operator <=(const vector& v2);
-    bool operator >(const vector& v2);
-    bool operator >=(const vector& v2);
+    bool operator ==(const Vector& v2);
+    bool operator !=(const Vector& v2);
+    bool operator <(const Vector& v2);
+    bool operator <=(const Vector& v2);
+    bool operator >(const Vector& v2);
+    bool operator >=(const Vector& v2);
 
     typedef typename std::vector<ValueType>::const_iterator const_iterator;
 
@@ -67,12 +67,12 @@ private:
 
 //constructor
 template <typename ValueType>
-vector<ValueType>::vector() {
+Vector<ValueType>::Vector() {
 
 }
 
 template <typename ValueType>
-vector<ValueType>::vector(int n, ValueType value) {
+Vector<ValueType>::Vector(int n, ValueType value) {
     if (n == 0) {
         vec.clear();
     } else {
@@ -83,51 +83,51 @@ vector<ValueType>::vector(int n, ValueType value) {
 }
 
 template <typename ValueType>
-const ValueType& vector<ValueType>::get(int index) const {
+const ValueType& Vector<ValueType>::get(int index) const {
     return vec.at(index);
 }
 
 template <typename ValueType>
-ValueType& vector<ValueType>::operator [](int index) {
+ValueType& Vector<ValueType>::operator [](int index) {
     return vec.at(index);
 }
 
 template <typename ValueType>
-const ValueType& vector<ValueType>::operator [](int index) const {
+const ValueType& Vector<ValueType>::operator [](int index) const {
     return vec.at(index);
 }
 
 template <typename ValueType>
-bool vector<ValueType>::isEmpty() const {
+bool Vector<ValueType>::isEmpty() const {
     return vec.empty();
 }
 
 template <typename ValueType>
-int vector<ValueType>::size() const {
+int Vector<ValueType>::size() const {
     return vec.size();
 }
 
 template <typename ValueType>
-void vector<ValueType>::clear() {
+void Vector<ValueType>::clear() {
     vec.clear();
 }
 
 template <typename ValueType>
-void vector<ValueType>::insert(int index, const ValueType& value) {
+void Vector<ValueType>::insert(int index, const ValueType& value) {
     auto iterator = vec.begin();
     std::advance(iterator, index);
     vec.insert(iterator, value);
 }
 
 template <typename ValueType>
-void vector<ValueType>::erase(int index) {
+void Vector<ValueType>::erase(int index) {
     auto iterator = vec.begin();
     std::advance(iterator, index);
     vec.erase(iterator);
 }
 
 template <typename ValueType>
-void vector<ValueType>::set(int index, const ValueType& value) {
+void Vector<ValueType>::set(int index, const ValueType& value) {
     auto iterator = vec.begin();
     std::advance(iterator, index);
     auto followingElement = vec.erase(iterator);
@@ -135,54 +135,54 @@ void vector<ValueType>::set(int index, const ValueType& value) {
 }
 
 template <typename ValueType>
-void vector<ValueType>::push(const ValueType& value) {
+void Vector<ValueType>::push(const ValueType& value) {
     vec.push_back(value);
 }
 
 template <typename ValueType>
-ValueType vector<ValueType>::pop() {
+ValueType Vector<ValueType>::pop() {
     ValueType lastElement = vec.back();
     vec.pop_back();
     return lastElement;
 }
 
 template <typename ValueType>
-bool vector<ValueType>::operator ==(const vector& v2) {
+bool Vector<ValueType>::operator ==(const Vector& v2) {
     return vec == v2.vec;
 }
 
 template <typename ValueType>
-bool vector<ValueType>::operator !=(const vector& v2) {
+bool Vector<ValueType>::operator !=(const Vector& v2) {
   return vec != v2.vec;
 }
 
 template <typename ValueType>
-bool vector<ValueType>::operator <(const vector& v2) {
+bool Vector<ValueType>::operator <(const Vector& v2) {
   return vec < v2.vec;
 }
 
 template <typename ValueType>
-bool vector<ValueType>::operator <=(const vector& v2) {
+bool Vector<ValueType>::operator <=(const Vector& v2) {
   return vec <= v2.vec;
 }
 
 template <typename ValueType>
-bool vector<ValueType>::operator >(const vector& v2) {
+bool Vector<ValueType>::operator >(const Vector& v2) {
   return vec > v2.vec;
 }
 
 template <typename ValueType>
-bool vector<ValueType>::operator >=(const vector& v2) {
+bool Vector<ValueType>::operator >=(const Vector& v2) {
   return vec >= v2.vec;
 }
 
 template <typename ValueType>
-std::ostream & operator <<(std::ostream& os, const vector<ValueType>& vec) {
+std::ostream & operator <<(std::ostream& os, const Vector<ValueType>& vec) {
   return os << vec;
 }
 
 template <typename ValueType>
-std::istream & operator >>(std::istream & is, const vector<ValueType>& vec) {
+std::istream & operator >>(std::istream & is, const Vector<ValueType>& vec) {
   char ch;
   is >> ch;
   if (ch != '{') {
@@ -201,7 +201,7 @@ std::istream & operator >>(std::istream & is, const vector<ValueType>& vec) {
       if (ch == '}') {
         break;
       } else if (ch != ','){
-        std::cout << "Error: Unexpected character " << ch << " when input a vector" << '\n';
+        std::cout << "Error: Unexpected character " << ch << " when input a s" << '\n';
         return is;
       }
     }
