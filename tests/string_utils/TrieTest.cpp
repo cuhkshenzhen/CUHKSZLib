@@ -40,3 +40,20 @@ TEST(Trie, travel) {
     i++;
   }
 }
+
+TEST(Trie, size) {
+  cuhksz::Trie trie;
+  EXPECT_EQ(trie.size(), 0);
+  trie.insert("abc");
+  EXPECT_EQ(trie.size(), 1);
+  trie.insert("abc");
+  EXPECT_EQ(trie.size(), 1);
+  trie.insert("bca");
+  EXPECT_EQ(trie.size(), 2);
+  trie.remove("abc");
+  EXPECT_EQ(trie.size(), 1);
+  trie.remove("aaa");
+  EXPECT_EQ(trie.size(), 1);
+  trie.remove("bca");
+  EXPECT_EQ(trie.size(), 0);
+}

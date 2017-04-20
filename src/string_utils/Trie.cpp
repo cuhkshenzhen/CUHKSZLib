@@ -56,6 +56,7 @@ Trie::Trie(int (*mapChar)(char), char (*mapInt)(int)) {
   this->mapChar = mapChar;
   this->mapInt = mapInt;
   StringAdapter::mapChar = mapChar;
+  size_ = 0;
 }
 
 bool Trie::retrieve(const std::string& word) {
@@ -73,7 +74,7 @@ bool Trie::retrieve(const std::string& word) {
   return tail.getWithCheck(-base.get(n) - 2) == word.substr(ind);
 }
 
-bool Trie::travel(int* n, int* offset, std::vector<int>* buffer) {
+bool Trie::visit(int* n, int* offset, std::vector<int>* buffer) {
   for (; *offset < 28; (*offset)++) {
     int next = base.getWithCheck(*n) + *offset;
     if (check.getWithCheck(next) != *n) continue;
@@ -90,7 +91,7 @@ bool Trie::travel(int* n, int* offset, std::vector<int>* buffer) {
     }
     *offset = 1;
     *n = next;
-    return travel(n, offset, buffer);
+    return visit(n, offset, buffer);
   }
   if (buffer->size() == 1 || buffer->empty()) {
     return false;
@@ -98,7 +99,7 @@ bool Trie::travel(int* n, int* offset, std::vector<int>* buffer) {
     buffer->pop_back();
     *offset = buffer->back() + 1;
     *n = check.getWithCheck(*n);
-    return travel(n, offset, buffer);
+    return visit(n, offset, buffer);
   }
 }
 
@@ -203,24 +204,26 @@ void Trie::insert_(const std::string& word) {
   }
 }
 
-void Trie::remove_(const std::string& word) {
+bool Trie::remove_(const std::string& word) {
   int n = 0;
   StringAdapter adapter(word);
   int ind = 0;
   for (int i : adapter) {
     ind++;
     int next = base.get(n) + i;
-    if (check.get(next) != n) return;  // failed to find
+    if (check.get(next) != n) return false;
     n = next;
     if (base.get(n) < -1) {
       if (tail.getWithCheck(-base.get(n) - 2) == word.substr(ind)) {
         base.set(n, -1);
         check.set(n, -1);
+        return true;
       }
-      return;
+      return false;
     }
   }
   check.set(n, -1);
+  return true;
 }
 
 inline int Trie::checkAvailable(const std::vector<int>& list) {
@@ -274,8 +277,14 @@ int Trie::nextTail() {
   return rtn;
 }
 
-void Trie::insert(const std::string& str) { insert_(str + endChar); }
+void Trie::insert(const std::string& str) {
+  if (contain(str)) return;
+  insert_(str + endChar);
+  size_++;
+}
 bool Trie::contain(const std::string& str) { return retrieve(str + endChar); }
-void Trie::remove(const std::string& str) { remove_(str + endChar); }
+void Trie::remove(const std::string& str) {
+  if (remove_(str + endChar)) size_--;
+}
 
 }  // namespace cuhksz

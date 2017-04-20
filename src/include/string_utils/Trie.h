@@ -53,6 +53,9 @@ class Trie {
  public:
   Trie() : Trie(private_::mapChar, private_::mapInt) {}
   Trie(int (*mapChar)(char), char (*mapInt)(int));
+
+  int size() { return size_; }
+
   void insert(const std::string& str);
   bool contain(const std::string& str);
   void remove(const std::string& str);
@@ -66,11 +69,12 @@ class Trie {
   int (*mapChar)(char);
   char (*mapInt)(int);
   std::queue<int> tailList;
+  int size_;
 
   bool retrieve(const std::string&);
   void insert_(const std::string&);
-  void remove_(const std::string&);
-  bool travel(int* n, int* offset, std::vector<int>*);
+  bool remove_(const std::string&);
+  bool visit(int* n, int* offset, std::vector<int>*);
 
   int checkAvailable(const std::vector<int>&);
   int checkAvailable(int);
@@ -155,7 +159,7 @@ class Trie {
         buffer_.pop_back();
         buffer_.pop_back();
       }
-      bool result = trie_->travel(&n_, &offset_, &buffer_);
+      bool result = trie_->visit(&n_, &offset_, &buffer_);
       if (!result) end_ = true;
       return *this;
     }
