@@ -68,7 +68,7 @@ private:
 //constructor
 template <typename ValueType>
 Vector<ValueType>::Vector() {
-
+    //do nothing
 }
 
 template <typename ValueType>
@@ -80,6 +80,11 @@ Vector<ValueType>::Vector(int n, ValueType value) {
             vec.push_back(value);
         }
     }
+}
+
+template <typename ValueType>
+Vector<ValueType>::~Vector() {
+    //do nothing
 }
 
 template <typename ValueType>
