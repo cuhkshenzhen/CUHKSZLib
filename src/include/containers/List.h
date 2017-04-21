@@ -32,7 +32,7 @@ public:
 
 	void clear();
 
-	void insert(int index, ValueType& value);
+	void insert(int index, ValueType value);
 
 	void erase(int index);
 
@@ -159,7 +159,7 @@ void List<ValueType>::clear() {
 }
 
 template <typename ValueType>
-void List<ValueType>::insert(int index, ValueType& value) {
+void List<ValueType>::insert(int index, ValueType value) {
 	boundaryCheck(index);
 	auto iterator = privateList.begin();
 	std::advance(iterator, index);
@@ -195,7 +195,7 @@ ValueType List<ValueType>::pop() {
 template <typename ValueType>
 ValueType List<ValueType>::pop_front() {
 	emptyCheck();
-	firstElement = privateList.front();
+	ValueType firstElement = privateList.front();
 	privateList.pop_front();
 	return firstElement;
 }
@@ -245,6 +245,7 @@ bool List<ValueType>::operator >=(const List& list2) {
 	return privateList >= list2.privateList;
 }
 
+template <typename ValueType>
 void List<ValueType>::boundaryCheck(int index) {
 	if (index >= privateList.size() or index < 0) {
 		std::cout << "The index out of range!" << '\n';
@@ -252,6 +253,7 @@ void List<ValueType>::boundaryCheck(int index) {
 	}
 }
 
+template <typename ValueType>
 void List<ValueType>::emptyCheck() {
 	if (privateList.empty()) {
 		std::cout << "The list is empty!" << '\n';

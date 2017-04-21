@@ -35,13 +35,10 @@ TEST(vectorTest, clear) {
     EXPECT_TRUE(testVector.isEmpty());
 }
 
-TEST(forDeathTest, rangeForLoop) {
-	EXPECT_EXIT(
-		for (auto x:testVector) {continue;},
-		testing::ExitedWithCode(0), 
-		""	
-		);
-}
-
-
-
+// TEST(forDeathTest, rangeForLoop) {
+// 	EXPECT_EXIT(
+// 		for (auto x:testVector) {continue;},
+// 		testing::ExitedWithCode(0),
+// 		""
+// 		);
+// }
