@@ -45,6 +45,7 @@ class AutoArray {
 }  // namespace private_
 
 /**
+  https://en.wikipedia.org/wiki/Trie
   The implementation is a DAT(double array trie),
   by J. Aoe, K. Morimoto and K. Sato. *An efficient implementation of trie
    structures*. 1992.
@@ -88,7 +89,6 @@ class Trie {
    public:
     explicit StringAdapter(const std::string& str) : underlying(str) {}
     static int (*mapChar)(char);
-    // static std::function<int(char)> mapChar;
 
    private:
     const std::string& underlying;

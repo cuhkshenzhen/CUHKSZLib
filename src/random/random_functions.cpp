@@ -4,7 +4,18 @@
 #include "random/Random.h"
 
 namespace cuhksz {
-cuhksz::Random& getInitializedGenerator();
+namespace {
+cuhksz::Random& getInitializedGenerator() {
+  static bool initialized;
+  static std::unique_ptr<cuhksz::Random> randomGenerator;
+  if (!initialized) {
+    randomGenerator.reset(new cuhksz::Random());
+    initialized = true;
+  }
+  return *randomGenerator;
+}
+}  // namespace
+
 int randomInt() {
   auto& randomGenerator = getInitializedGenerator();
   return randomGenerator.nextInt();
@@ -29,13 +40,4 @@ bool randomBool() {
   return randomGenerator.nextBool();
 }
 
-cuhksz::Random& getInitializedGenerator() {
-  static bool initialized;
-  static std::unique_ptr<cuhksz::Random> randomGenerator;
-  if (!initialized) {
-    randomGenerator.reset(new cuhksz::Random());
-    initialized = true;
-  }
-  return *randomGenerator;
-}
 }  // namespace cuhksz
