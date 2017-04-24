@@ -2,6 +2,7 @@ cmake_minimum_required (VERSION 2.8)
 
 project (cuhksz-cpp-lib)
 
+
 if(MSVC)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W4")
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Zi -Od")
