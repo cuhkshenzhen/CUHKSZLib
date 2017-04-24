@@ -28,6 +28,8 @@ include_directories(./src/include)
 add_library(cuhkszlib STATIC ${RANDOM_SRC} ${MATHUTILS_SRC} ${JSON_SRC} ${NETWORK_SRC} ${GRAPH_SRC} ${GEOMETRY_SRC} ${BASE64_SRC} ${ALGORITHM_SRC} ${STRINGUTILS_SRC})
 
 option(TESTING "Enable testing with googletest" ON) # TODO off if release version
+option(SAMPLES "Compile samples" ON)
+
 
 if(TESTING)
   enable_testing ()
@@ -39,4 +41,14 @@ if(TESTING)
   include_directories(./external/gtest/googletest/include)
   add_subdirectory(./tests)
   add_test (NAME TestAll COMMAND test_all)
+endif()
+
+if(SAMPLES)
+  aux_source_directory(./samples SAMPLE_SOURCES)
+  foreach(sample_source ${SAMPLE_SOURCES})
+    string(REPLACE ".cpp" "" sample_bin ${sample_source})
+    string(REPLACE "./samples/" "" sample_bin ${sample_bin})
+    add_executable(${sample_bin} ${sample_source})
+    target_link_libraries(${sample_bin} cuhkszlib)
+  endforeach()
 endif()
