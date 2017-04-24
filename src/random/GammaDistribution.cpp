@@ -22,8 +22,13 @@ double GammaDistribution::next() {
     sum_k += std::log(rnd);
   }
   double delta = k_ - std::floor(k_);
+
+// disable gcc's warning for comparing with 0.0
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wfloat-equal"
   if (delta == 0.0) {  // integer k
     return theta_ * -sum_k;
+#pragma GCC diagnostic pop
   } else {
     // Ahrens-Dieter acceptance–rejection method
     // https://en.wikipedia.org/wiki/Gamma_distribution#Generating_gamma-distributed_random_variables

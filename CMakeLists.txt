@@ -4,7 +4,7 @@ project (cuhksz-cpp-lib)
 
 
 if(MSVC)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W4")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W4 -wd4244 -wd4267 -wd4800")
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Zi -Od")
   set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Ox")
 else()
@@ -36,6 +36,9 @@ if(TESTING)
 
   option(BUILD_GTEST "Builds the googletest subproject" ON)
   option(BUILD_GMOCK "Builds the googlemock subproject" OFF)
+  if(MSVC)
+    option(BUILD_SHARED_LIBS "Build shared libraries (DLLs)." ON)
+  endif()
   add_subdirectory(./external/gtest/)
 
   include_directories(./external/gtest/googletest/include)
