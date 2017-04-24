@@ -43,7 +43,7 @@ TEST(rangeDeathTest, outrangeDeath) {
     EXPECT_DEATH(testList[8] = 1, "");
 }
 
-TEST(popDeathTest, emptypopDeath) {
+TEST(listDeathTest, emptyPopDeath) {
     EXPECT_DEATH(testList.pop(), "");
 }
 

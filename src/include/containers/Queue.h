@@ -26,9 +26,9 @@ public:
 
 	bool isEmpty();
 
-	void push(const ValueType& value);
+	void enqueue(const ValueType& value);
 
-	ValueType pop();
+	ValueType dequeue();
 
 	void clear();
 
@@ -50,7 +50,7 @@ Queue<ValueType>::~Queue(){
 }
 
 template <typename ValueType>
-Queue<ValueType> Queue::operator =(const Queue& queue2) {
+Queue<ValueType> Queue<ValueType>::operator =(const Queue& queue2) {
 	privateQueue = queue2.privateQueue;
 	return *this;
 }
@@ -86,30 +86,32 @@ bool Queue<ValueType>::isEmpty() {
 }
 
 template <typename ValueType>
-void Queue<ValueType>::push(const ValueType& value) {
+void Queue<ValueType>::enqueue(const ValueType& value) {
 	privateQueue.push(value);
 }
 
 template <typename ValueType>
-ValueType Queue<ValueType>::pop() {
+ValueType Queue<ValueType>::dequeue() {
 	emptyCheck();
-	ValueType lastElement = privateQueue.back();
+	ValueType firstElement = privateQueue.front();
 	privateQueue.pop();
-	return lastElement;
+	return firstElement;
 }
 
 template <typename ValueType>
 void Queue<ValueType>::clear() {
-	if(!privateQueue.empty()) {
+	int size = privateQueue.size();
+	for (int i = 0; i != size; i++) {
 		privateQueue.pop();
 	}
 }
 
-void emptyCheck() {
+template <typename ValueType>
+void Queue<ValueType>::emptyCheck() {
 	if (privateQueue.empty()) {
 		std::cout << "The queue is empty!" << '\n';
+		std::exit(EXIT_FAILURE);
 	}
-	std::exit(EXIT_FAILURE);
 }
 
 } //end namespace

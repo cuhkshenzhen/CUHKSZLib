@@ -14,7 +14,7 @@ public:
 
 	~Stack();
 
-	Stack& operator =(const Stack& stack2);
+	Stack operator =(const Stack& stack2);
 
 	int size() const;
 
@@ -26,6 +26,8 @@ public:
 	void push(const ValueType& value);
 
 	ValueType pop();
+
+	void clear();
 
 private:
 	std::stack<ValueType> privateStack;
@@ -56,11 +58,13 @@ int Stack<ValueType>::size() const {
 
 template <typename ValueType>
 ValueType& Stack<ValueType>::top() {
+	emptyCheck();
 	return privateStack.top();
 }
 
 template <typename ValueType>
 const ValueType& Stack<ValueType>::top() const {
+	emptyCheck();
 	return privateStack.top();
 }
 
@@ -82,6 +86,15 @@ ValueType Stack<ValueType>::pop() {
 	return lastElement;
 }
 
+template <typename ValueType>
+void Stack<ValueType>::clear() {
+	int size = privateStack.size();
+	for (int i = 0; i != size; i++) {
+		privateStack.pop();
+	}
+}
+
+template <typename ValueType>
 void Stack<ValueType>::emptyCheck() {
 	if(privateStack.empty()) {
 		std::cout << "The stack is empty!" << '\n';
