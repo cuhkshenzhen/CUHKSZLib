@@ -2,6 +2,7 @@
 #define CUHKSZ_ALGORITHM
 
 #include <string>
+#include "algorithm/Zip.h"
 
 namespace cuhksz {
 /**
