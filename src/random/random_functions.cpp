@@ -21,9 +21,9 @@ int randomInt() {
   return randomGenerator.nextInt();
 }
 
-int randomInt(int min) {
+int randomInt(int max) {
   auto& randomGenerator = getInitializedGenerator();
-  return randomGenerator.nextInt(min);
+  return randomGenerator.nextInt(max);
 }
 int randomInt(int min, int max) {
   auto& randomGenerator = getInitializedGenerator();
