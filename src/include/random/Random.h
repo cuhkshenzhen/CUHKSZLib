@@ -37,42 +37,42 @@ class Random {
     Produce a random `int` in the range [0, `max`), i.e. includes 0 but
     excludes `max`.
 
-    See also: randomInt(int max)
+    @sa randomInt(int max)
   **/
   int nextInt(int max);
 
   /**
     Produce a random `int` out of all possible `int` values.
 
-    See also: randomInt()
+    @sa randomInt()
   **/
   int nextInt();
 
   /**
     Produce a random `bool` with the probability of 0.5 `true` and 0.5 `false`.
 
-    See also: randomBool()
+    @sa randomBool()
   **/
   bool nextBool();
 
   /**
     Produce a random `double` in the range [`min`, `max`).
 
-    See also: randomDouble(double min, double max)
+    @sa randomDouble(double min, double max)
   **/
   double nextDouble(double min, double max);
 
   /**
     Produce a random `double` in the range [0, `max`).
 
-    See also: randomDouble(double max)
+    @sa randomDouble(double max)
   **/
   double nextDouble(double max);
 
   /**
     Produce a random `double` in the range [0, 1).
 
-    See also: randomDouble()
+    @sa randomDouble()
   **/
   double nextDouble();
 

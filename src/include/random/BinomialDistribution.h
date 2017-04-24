@@ -6,7 +6,7 @@
 
 namespace cuhksz {
 /**
-  Sampling the random integer according to [Binomial
+  Samples the random integer according to [Binomial
   distribution](https://en.wikipedia.org/wiki/Binomial_distribution).
   It has parameters `n` as the number of Bernoulli trials and `p` as the
   probability of success.

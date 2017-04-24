@@ -1,4 +1,4 @@
-#ifdef _MSC_VER  // use e constant on msvc
+#if defined(_MSC_VER) || defined(__MINGW32__)  // use e constant on windows
 #define _USE_MATH_DEFINES
 #endif
 

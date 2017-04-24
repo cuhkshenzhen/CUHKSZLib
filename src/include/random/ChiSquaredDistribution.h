@@ -4,7 +4,7 @@
 #include "random/GammaDistribution.h"
 namespace cuhksz {
 /**
-  Sampling the random real numbers according to [Chi-squared
+  Samples the random real number according to [Chi-squared
   distribution](https://en.wikipedia.org/wiki/Chi-squared_distribution).
   It has parameter `r`, the "degrees of freedom" parameter. The Chi-squared
   distribution is a special case of Gamma distribution as \f$k=r/2\f$ and

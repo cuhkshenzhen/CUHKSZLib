@@ -5,7 +5,7 @@
 namespace cuhksz {
 
 /**
-  Sampling the random real numbers according to [Gamma
+  Samples the random real numbers according to [Gamma
   distribution](https://en.wikipedia.org/wiki/Gamma_distribution).
   It has `k` as the **shape** parameter and `theta` as the **scale** parameter.
   See the `PDF` part for the details of the parameters.
@@ -53,7 +53,7 @@ class GammaDistribution : public Distribution<double> {
   double k() { return k_; }
 
   /**
-    Returns the **scale** parameter `theta`
+    Returns the **scale** parameter `theta`.
   **/
   double theta() { return theta_; }
 

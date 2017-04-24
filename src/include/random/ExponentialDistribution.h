@@ -5,7 +5,7 @@
 namespace cuhksz {
 
 /**
-  Sampling the random real numbers according to [Exponential
+  Samples the random real number according to [Exponential
   distribution](https://en.wikipedia.org/wiki/Exponential_distribution).
   It has parameter `lambda`, the rate. The Exponential
   distribution is a special case of Gamma distribution as \f$k=1\f$ and
