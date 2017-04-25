@@ -26,7 +26,7 @@ public:
 	ValueType& operator [](int index);
 	const ValueType& operator [](int index) const;
 
-	bool isEmpty();
+	bool isEmpty() const;
 
 	int size() const;
 
@@ -57,14 +57,23 @@ public:
 	bool operator >=(const List& list2);
 
 	typedef typename std::list<ValueType>::const_iterator const_iterator;
+	typedef typename std::list<ValueType>::iterator iterator;
+	
+	iterator begin() {
+      	  return privateList.begin();
+      }
 
-    const_iterator begin() const {
-      return privateList.begin();
-    }
+    	const_iterator begin() const {
+      	  return privateList.begin();
+      }
 
-    const_iterator end() const {
-      return privateList.end();
-    }
+	iterator end() {
+      	  return privateList.end();
+      }
+
+    	const_iterator end() const {
+      	  return privateList.end();
+      }
 
 private:
 	std::list<ValueType> privateList;
@@ -82,9 +91,7 @@ List<ValueType>::List() {
 
 template <typename ValueType>
 List<ValueType>::List(int n, ValueType value) {
-	for (int i = 0; i < n; i++) {
-		privateList.push_back(value);
-	}
+	privateList.resize(n, value);
 }
 
 template <typename ValueType>
@@ -144,7 +151,7 @@ const ValueType& List<ValueType>::operator [](int index) const {
 
 
 template <typename ValueType>
-bool List<ValueType>::isEmpty() {
+bool List<ValueType>::isEmpty() const {
 	 return privateList.empty();
 }
 
@@ -247,7 +254,7 @@ bool List<ValueType>::operator >=(const List& list2) {
 
 template <typename ValueType>
 void List<ValueType>::boundaryCheck(int index) {
-	if (index >= privateList.size() or index < 0) {
+	if (index < 0 || index >= privateList.size()) {
 		std::cout << "The index out of range!" << '\n';
 		std::exit(EXIT_FAILURE);
 	}
