@@ -1,5 +1,5 @@
-#ifndef CUHKSZ_CONTAINERS_MAP
-#define CUHKSZ_CONTAINERS_MAP
+#ifndef CUHKSZ_CONTAINERS_MultiMap
+#define CUHKSZ_CONTAINERS_MultiMap
 
 #include <map>
 #include <utility>
@@ -121,4 +121,4 @@ int MultiMap<KeyType, ValueType>::count(const KeyType& key) const {
 
 } //end namespace
 
-#endif //CUHKSZ_CONTAINERS_MAP
+#endif //CUHKSZ_CONTAINERS_MultiMap
