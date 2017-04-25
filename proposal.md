@@ -93,7 +93,7 @@ We want to design and implement a C++ library that overcome those shortcomings a
 8. Utils
     1. zip
     2. json
-    3. Network
+    3. Network (postponed)
         1. get
         2. post
         3. urlencode / urldecode
@@ -127,10 +127,10 @@ We want to design and implement a C++ library that overcome those shortcomings a
 - Utils
 
 #### Pengfei YU (115010271)
-- Safer random library
+- ~~Safer random library~~
 - string
-- math functions
-- KMP algorithm
+- ~~math functions~~
+- ~~KMP algorithm~~
 
 #### Xianggang YU (115010273)
 - Simpler interface for standard library

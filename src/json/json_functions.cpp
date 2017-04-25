@@ -31,6 +31,6 @@ std::string jsonEscape(const std::string &str) {
         output += i;
         break;
     }
-  return std::move(output);
+  return output;
 }
 }
