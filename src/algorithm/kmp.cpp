@@ -30,7 +30,7 @@ int kmpSearch(const std::string& base, const std::string& pattern,
   int i = 0;
   int bsize = base.size();
   while (m < bsize && i < psize) {
-    if (base[m] == pattern[i] || i == -1) {
+    if (i == -1 || base[m] == pattern[i]) {
       m++;
       i++;
     } else {

@@ -8,7 +8,10 @@
 
 namespace cuhksz {
 /**
-  The `Random` class is the class used for general random number generating.
+  The `Random` class is used for general random number generating.
+  It has some fundamental methods to generate random integers, real numbers
+  (float point numbers) and boolean values. The random seed can also be
+  customized to generate pseudorandom numbers of the same sequence.
 **/
 class Random {
  public:
@@ -25,37 +28,51 @@ class Random {
   /**
     Produce a random `int` in the range [`min`, `max`), i.e. includes the `min`
     but excludes the `max`.
+
+    See also randomInt(int min, int max)
   **/
   int nextInt(int min, int max);
 
   /**
     Produce a random `int` in the range [0, `max`), i.e. includes 0 but
     excludes `max`.
+
+    @sa randomInt(int max)
   **/
   int nextInt(int max);
 
   /**
     Produce a random `int` out of all possible `int` values.
+
+    @sa randomInt()
   **/
   int nextInt();
 
   /**
     Produce a random `bool` with the probability of 0.5 `true` and 0.5 `false`.
+
+    @sa randomBool()
   **/
   bool nextBool();
 
   /**
     Produce a random `double` in the range [`min`, `max`).
+
+    @sa randomDouble(double min, double max)
   **/
   double nextDouble(double min, double max);
 
   /**
     Produce a random `double` in the range [0, `max`).
+
+    @sa randomDouble(double max)
   **/
   double nextDouble(double max);
 
   /**
     Produce a random `double` in the range [0, 1).
+
+    @sa randomDouble()
   **/
   double nextDouble();
 

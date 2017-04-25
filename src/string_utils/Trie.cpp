@@ -119,11 +119,11 @@ void Trie::insert_(const std::string& word) {
       auto prefix = commonPrefix(word.substr(ind), tail_temp);
       int prefix_length = prefix.size();
 
-      for (int i : StringAdapter(prefix)) {
-        int available = checkAvailable(i);
+      for (int j : StringAdapter(prefix)) {
+        int available = checkAvailable(j);
         base.set(next, available);
-        check.set(available + i, next);
-        next = base.get(next) + i;
+        check.set(available + j, next);
+        next = base.get(next) + j;
       }
 
       int char_val_tail = mapChar(tail_temp[prefix_length]);
