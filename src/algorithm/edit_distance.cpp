@@ -15,10 +15,10 @@ constexpr int min3(int a, int b, int c) {
 }  // namespace
 
 int editDistance(const std::string& str1, const std::string& str2) {
-  int m = str1.size();
-  int n = str2.size();
+  unsigned long m = str1.size();
+  unsigned long n = str2.size();
   if (m == 0 || n == 0) {
-    return m + n;
+    return (int) (m + n);
   }
 
   std::unique_ptr<std::unique_ptr<int[]>[]> matrix(

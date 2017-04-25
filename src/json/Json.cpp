@@ -145,25 +145,19 @@ const JSONObject &JSONObject::at(unsigned index) const {
 }
 
 unsigned long JSONObject::length() const {
-  if (objType == Type::Array)
-    return Data.List->size();
-  else
-    return (unsigned long) -1;
+  return objType == Type::Array ? Data.List->size() : (unsigned long) -1;
 }
 
 bool JSONObject::hasKey(const std::string &key) const {
-  if (objType == Type::Object)
-    return Data.Map->find(key) != Data.Map->end();
-  return false;
+  return objType == Type::Object ? Data.Map->find(key) != Data.Map->end() : false;
 }
 
 unsigned long JSONObject::size() const {
-  if (objType == Type::Object)
-    return Data.Map->size();
-  else if (objType == Type::Array)
-    return Data.List->size();
-  else
-    return (unsigned long) -1;
+  return objType == Type::Object ?
+         Data.Map->size() :
+         objType == Type::Array ?
+         Data.List->size() :
+         (unsigned long) -1;
 }
 
 std::string JSONObject::toString() const {

@@ -30,9 +30,9 @@ std::string commonPrefix(const std::string& string1,
     str1 = &string1;
     str2 = &string2;
   }
-  int size = str1->size();
+  unsigned long size = str1->size();
   bool flag = false;
-  for (int i = 0; i < size; i++) {
+  for (unsigned long i = 0; i < size; i++) {
     if ((*str1)[i] != (*str2)[i]) {
       rtn = str1->substr(0, i);
       flag = true;

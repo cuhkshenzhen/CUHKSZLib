@@ -16,7 +16,7 @@ std::string base64Encode(std::string str, int length) {
   std::ostringstream encoded;
   std::string binaryStr = "";
   for (char &c: str) {
-    binaryStr += std::bitset<8>(c).to_string();
+    binaryStr += std::bitset<8>((unsigned long) c).to_string();
   }
   if (binaryStr.length() % 6) {
     binaryStr += std::string(6 - binaryStr.length() % 6, '0');
