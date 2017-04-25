@@ -90,6 +90,8 @@ class JSONObject {
   JSONObject(T s, typename std::enable_if<std::is_convertible<T, std::string>::value>::type * = nullptr)
       : Data(std::string(s)), objType(Type::String) {}
 
+  JSONObject(std::nullptr_t) : Data(), objType(Type::Null) {}
+
   // Destructor
   ~JSONObject();
 
@@ -176,7 +178,30 @@ class JSONObject {
 
   Type getType() const { return objType; }
 
-  /// Functions for getting primitives from the JSON object.
+  JSONWrapper<std::map<std::string, JSONObject>> ObjectRange() {
+    return objType == Type::Object ?
+           JSONWrapper<std::map<std::string, JSONObject>>(Data.Map) :
+           JSONWrapper<std::map<std::string, JSONObject>>(nullptr);
+  }
+
+  JSONWrapper<std::deque<JSONObject>> ArrayRange() {
+    return objType == Type::Array ?
+           JSONWrapper<std::deque<JSONObject>>(Data.List) :
+           JSONWrapper<std::deque<JSONObject>>(nullptr);
+  }
+
+  JSONConstWrapper<std::map<std::string, JSONObject>> ObjectRange() const {
+    return objType == Type::Object ?
+           JSONConstWrapper<std::map<std::string, JSONObject>>(Data.Map) :
+           JSONConstWrapper<std::map<std::string, JSONObject>>(nullptr);
+  }
+
+  JSONConstWrapper<std::deque<JSONObject>> ArrayRange() const {
+    return objType == Type::Array ?
+           JSONConstWrapper<std::deque<JSONObject>>(Data.List) :
+           JSONConstWrapper<std::deque<JSONObject>>(nullptr);
+  }
+
   bool isNull() const { return objType == Type::Null; }
 
   std::string dump(int depth = 1, std::string tab = "  ") const;
