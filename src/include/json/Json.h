@@ -4,6 +4,7 @@
 
 #include <string>
 #include <deque>
+#include <initializer_list>
 #include <map>
 #include <type_traits>
 #include "json_functions.h"
@@ -17,7 +18,6 @@ class JSONWrapper {
  public:
   JSONWrapper(Container *val) : object(val) {}
   JSONWrapper(std::nullptr_t) : object(nullptr) {}
-  JSONWrapper() : object(nullptr) {}
 
   typename Container::iterator begin() { return object ? object->begin() : typename Container::iterator(); }
   typename Container::iterator end() { return object ? object->end() : typename Container::iterator(); }
@@ -70,32 +70,32 @@ class JSONObject {
 
   // Initializers
   JSONObject();
-  JSONObject(std::deque<JSONObject> list);
+  JSONObject(std::initializer_list<JSONObject> list);
   JSONObject(JSONObject &&other);
 
   template<typename T>
   JSONObject(T b, typename std::enable_if<std::is_same<T, bool>::value>::type * = nullptr)
-      : Data(b), Type(Type::Boolean) {}
+      : Data(b), objType(Type::Boolean) {}
 
   template<typename T>
   JSONObject(T i,
              typename std::enable_if<std::is_integral<T>::value && !std::is_same<T, bool>::value>::type * = nullptr)
-      : Data((int) i), Type(Type::Integral) {}
+      : Data((int) i), objType(Type::Integral) {}
 
   template<typename T>
   JSONObject(T f, typename std::enable_if<std::is_floating_point<T>::value>::type * = nullptr)
-      : Data((double) f), Type(Type::Float) {}
+      : Data((double) f), objType(Type::Float) {}
 
   template<typename T>
   JSONObject(T s, typename std::enable_if<std::is_convertible<T, std::string>::value>::type * = nullptr)
-      : Data(std::string(s)), Type(Type::String) {}
+      : Data(std::string(s)), objType(Type::String) {}
 
   // Destructor
   ~JSONObject();
 
   // Copy Operator
   JSONObject &operator=(JSONObject &&src);
-  JSONObject &operator=(JSONObject &src);
+  JSONObject &operator=(const JSONObject &src);
   JSONObject(const JSONObject &src);
 
   // Equal Operator
@@ -174,10 +174,10 @@ class JSONObject {
   operator int() const;
   operator bool() const;
 
-  Type getType() const { return Type; }
+  Type getType() const { return objType; }
 
   /// Functions for getting primitives from the JSON object.
-  bool isNull() const { return Type == Type::Null; }
+  bool isNull() const { return objType == Type::Null; }
 
   std::string dump(int depth = 1, std::string tab = "  ") const;
 
@@ -187,7 +187,7 @@ class JSONObject {
   void clearData();
   void setType(Type type);
 
-  Type Type = Type::Null;
+  Type objType = Type::Null;
 };
 
 // Parsers

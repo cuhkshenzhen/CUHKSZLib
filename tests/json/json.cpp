@@ -59,3 +59,22 @@ TEST(Json, LoadJson) {
   auto jsonObject = cuhksz::JSON::load(json);
   EXPECT_EQ((std::string)jsonObject["new"]["some"]["deep"]["key"], "Value");
 }
+
+TEST(Json, loadWithInitList) {
+  cuhksz::JSON::JSONObject obj = {
+      "array", cuhksz::JSON::Array( true, "Two", 3, 4.0 ),
+      "obj", {
+          "inner", "Inside"
+      },
+      "new", {
+          "some", {
+              "deep", {
+                  "key", "Value"
+              }
+          }
+      },
+      "array2", cuhksz::JSON::Array( false, "three" ),
+      "s", "string"
+  };
+  EXPECT_EQ((std::string)obj["obj"]["inner"], "Inside");
+}

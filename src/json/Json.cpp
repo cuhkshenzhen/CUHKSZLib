@@ -8,9 +8,9 @@
 
 namespace cuhksz {
 namespace JSON {
-JSONObject::JSONObject() : Data(), Type(Type::Null) {}
+JSONObject::JSONObject() : Data(), objType(Type::Null) {}
 
-JSONObject::JSONObject(std::deque<JSONObject> list)
+JSONObject::JSONObject(std::initializer_list<JSONObject> list)
     : JSONObject() {
   setType(Type::Object);
   for (auto i = list.begin(), e = list.end(); i != e; ++i, ++i)
@@ -18,8 +18,8 @@ JSONObject::JSONObject(std::deque<JSONObject> list)
 }
 
 JSONObject::JSONObject(JSONObject &&other)
-    : Data(other.Data), Type(other.Type) {
-  other.Type = Type::Null;
+    : Data(other.Data), objType(other.objType) {
+  other.objType = Type::Null;
   other.Data.Map = nullptr;
 }
 
@@ -27,8 +27,8 @@ JSONObject::~JSONObject() {
   clearData();
 }
 
-void JSONObject::setType(enum Type type) {
-  if (type == Type)
+void JSONObject::setType(Type type) {
+  if (type == objType)
     return;
 
   clearData();
@@ -49,11 +49,11 @@ void JSONObject::setType(enum Type type) {
     case Type::Boolean: Data.Bool = false;
       break;
   }
-  Type = type;
+  objType = type;
 }
 
 void JSONObject::clearData() {
-  switch (Type) {
+  switch (objType) {
     case Type::Object: delete Data.Map;
       break;
     case Type::Array: delete Data.List;
@@ -65,7 +65,7 @@ void JSONObject::clearData() {
 };
 
 JSONObject::JSONObject(const JSONObject &src) {
-  switch (src.Type) {
+  switch (src.objType) {
     case Type::Object:
       Data.Map = new std::map<std::string, JSONObject>(src.Data.Map->begin(),
                                                        src.Data.Map->end());
@@ -78,23 +78,23 @@ JSONObject::JSONObject(const JSONObject &src) {
       break;
     default:Data = src.Data;
   }
-  Type = src.Type;
+  objType = src.objType;
 }
 
 JSONObject &JSONObject::operator=(JSONObject &&src) {
 
   clearData();
   Data = src.Data;
-  Type = src.Type;
+  objType = src.objType;
   src.Data.Map = nullptr;
-  src.Type = Type::Null;
+  src.objType = Type::Null;
   return *this;
 
 }
 
-JSONObject &JSONObject::operator=(JSONObject &src) {
+JSONObject &JSONObject::operator=(const JSONObject &src) {
   clearData();
-  switch (src.Type) {
+  switch (src.objType) {
     case Type::Object:
       Data.Map = new std::map<std::string, JSONObject>(src.Data.Map->begin(),
                                                        src.Data.Map->end());
@@ -107,13 +107,14 @@ JSONObject &JSONObject::operator=(JSONObject &src) {
       break;
     default:Data = src.Data;
   }
-  Type = src.Type;
+  objType = src.objType;
   return *this;
 }
 
 JSONObject &JSONObject::operator[](const char key[]) {
   setType(Type::Object);
-  return Data.Map->operator[](std::string(key));
+  std::string k = std::string(key);
+  return Data.Map->operator[](k);
 }
 
 JSONObject &JSONObject::operator[](const std::string &key) {
@@ -123,8 +124,8 @@ JSONObject &JSONObject::operator[](const std::string &key) {
 
 JSONObject &JSONObject::operator[](int index) {
   setType(Type::Array);
-  if (index >= (int) Data.List->size()) Data.List->resize(index + 1);
-  return Data.List->operator[](index);
+  if (index >= (int) Data.List->size()) Data.List->resize((unsigned long) (index + 1));
+  return Data.List->operator[]((unsigned long) index);
 }
 
 JSONObject &JSONObject::at(const std::string &key) {
@@ -144,49 +145,49 @@ const JSONObject &JSONObject::at(unsigned index) const {
 }
 
 unsigned long JSONObject::length() const {
-  if (Type == Type::Array)
+  if (objType == Type::Array)
     return Data.List->size();
   else
     return (unsigned long) -1;
 }
 
 bool JSONObject::hasKey(const std::string &key) const {
-  if (Type == Type::Object)
+  if (objType == Type::Object)
     return Data.Map->find(key) != Data.Map->end();
   return false;
 }
 
 unsigned long JSONObject::size() const {
-  if (Type == Type::Object)
+  if (objType == Type::Object)
     return Data.Map->size();
-  else if (Type == Type::Array)
+  else if (objType == Type::Array)
     return Data.List->size();
   else
     return (unsigned long) -1;
 }
 
 std::string JSONObject::toString() const {
-  return Type == Type::String ? jsonEscape(*Data.String) : std::string("");
+  return objType == Type::String ? jsonEscape(*Data.String) : std::string("");
 }
 
 double JSONObject::toDouble() const {
-  return Type == Type::Float ? Data.Float : 0.0;
+  return objType == Type::Float ? Data.Float : 0.0;
 }
 
 float JSONObject::toFloat() const {
-  return (float) (Type == Type::Float ? Data.Float : 0.0);
+  return (float) (objType == Type::Float ? Data.Float : 0.0);
 }
 
 int JSONObject::toInt() const {
-  return Type == Type::Integral ? Data.Int : 0;
+  return objType == Type::Integral ? Data.Int : 0;
 }
 
 long JSONObject::toLong() const {
-  return (long) (Type == Type::Integral ? Data.Int : 0);
+  return (long) (objType == Type::Integral ? Data.Int : 0);
 }
 
 bool JSONObject::toBool() const {
-  return Type == Type::Boolean ? Data.Bool : false;
+  return objType == Type::Boolean ? Data.Bool : false;
 }
 
 JSONObject::operator std::string() const {
@@ -217,7 +218,7 @@ std::string JSONObject::dump(int depth, std::string tab) const {
   std::string pad = "";
   for (int i = 0; i < depth; ++i, pad += tab);
 
-  switch (Type) {
+  switch (objType) {
     case Type::Null:return "null";
     case Type::Object: {
       std::string s = "{\n";
@@ -245,9 +246,7 @@ std::string JSONObject::dump(int depth, std::string tab) const {
     case Type::Float:return std::to_string(Data.Float);
     case Type::Integral:return std::to_string(Data.Int);
     case Type::Boolean:return Data.Bool ? "true" : "false";
-    default:return "";
   }
-  return "";
 }
 
 void skip_whitespaces(const std::string &str, size_t &offset) {
