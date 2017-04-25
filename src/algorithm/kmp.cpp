@@ -7,7 +7,7 @@ namespace cuhksz {
 int kmpSearch(const std::string& base, const std::string& pattern,
               std::size_t start) {
   // generate next table
-  unsigned long psize = pattern.size();
+  int psize = pattern.size();
   std::unique_ptr<int[]> next = std::unique_ptr<int[]>(new int[psize]);
   next[0] = -1;
   int j = 0;
@@ -26,9 +26,9 @@ int kmpSearch(const std::string& base, const std::string& pattern,
     }
   }
 
-  size_t m = start;
+  int m = start;
   int i = 0;
-  unsigned long bsize = base.size();
+  int bsize = base.size();
   while (m < bsize && i < psize) {
     if (i == -1 || base[m] == pattern[i]) {
       m++;
@@ -37,7 +37,7 @@ int kmpSearch(const std::string& base, const std::string& pattern,
       i = next[i];
     }
   }
-  if (i == psize) return (int) (m - i);
+  if (i == psize) return m - i;
   return -1;
 }
 }  // namespace cuhksz

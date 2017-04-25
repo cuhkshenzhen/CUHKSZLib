@@ -26,7 +26,7 @@ double Random::nextDouble(double max) { return nextDouble(0.0, max); }
 
 double Random::nextDouble() { return nextDouble(0.0, 1.0); }
 
-bool Random::nextBool() { return (bool) nextInt(2); }
+bool Random::nextBool() { return nextInt(2); }
 
 void Random::setSeed(int seed) { randomGenerator.seed(std::uint64_t(seed)); }
 
