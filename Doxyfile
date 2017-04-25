@@ -1049,7 +1049,7 @@ SOURCE_TOOLTIPS        = YES
 # To use it do the following:
 # - Install the latest version of global
 # - Enable SOURCE_BROWSER and USE_HTAGS in the config file
-# - Make sure the INPUT points to the root of the source tree
+# - Build sure the INPUT points to the root of the source tree
 # - Run doxygen as normal
 #
 # Doxygen will invoke htags (and that will in turn invoke gtags), so these
