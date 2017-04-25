@@ -263,4 +263,5 @@ void List<ValueType>::emptyCheck() {
 
 } //end namespace
 
-#endif
+#endif //CUHKSZ_CONTAINERS_LIST
+
