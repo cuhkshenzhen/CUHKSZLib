@@ -32,7 +32,7 @@ option(SAMPLES "Compile samples" ON)
 
 
 if(TESTING)
-  enable_testing ()
+  enable_testing()
 
   option(BUILD_GTEST "Builds the googletest subproject" ON)
   option(BUILD_GMOCK "Builds the googlemock subproject" OFF)
@@ -47,11 +47,5 @@ if(TESTING)
 endif()
 
 if(SAMPLES)
-  aux_source_directory(./samples SAMPLE_SOURCES)
-  foreach(sample_source ${SAMPLE_SOURCES})
-    string(REPLACE ".cpp" "" sample_bin ${sample_source})
-    string(REPLACE "./samples/" "" sample_bin ${sample_bin})
-    add_executable(${sample_bin} ${sample_source})
-    target_link_libraries(${sample_bin} cuhkszlib)
-  endforeach()
+  add_subdirectory(./samples)
 endif()
