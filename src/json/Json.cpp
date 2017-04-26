@@ -261,7 +261,7 @@ JSONObject parse_object(const std::string &str, size_t &offset) {
     JSONObject Key = parse_next(str, offset);
     skip_whitespaces(str, offset);
     if (str[offset] != ':') {
-      cuhksz::error("ERROR: Object: Expected colon, found '" + std::string(1, str[offset]) + "'");
+      error("ERROR: Object: Expected colon, found '" + std::string(1, str[offset]) + "'");
       break;
     }
     skip_whitespaces(str, ++offset);
@@ -276,7 +276,7 @@ JSONObject parse_object(const std::string &str, size_t &offset) {
       ++offset;
       break;
     } else {
-      cuhksz::error("ERROR: Object: Expected comma, found '" + std::string(1, str[offset]) + "'");
+      error("ERROR: Object: Expected comma, found '" + std::string(1, str[offset]) + "'");
       break;
     }
   }
@@ -306,7 +306,7 @@ JSONObject parse_array(const std::string &str, size_t &offset) {
       ++offset;
       break;
     } else {
-      cuhksz::error("Array: Expected ',' or ']', found '" + std::string(1, str[offset]) + "'");
+      error("Array: Expected ',' or ']', found '" + std::string(1, str[offset]) + "'");
     }
   }
 
@@ -342,7 +342,7 @@ JSONObject parse_string(const std::string &str, size_t &offset) {
             if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F'))
               val += c;
             else {
-              cuhksz::error("String: Expected hex character in unicode escape, found '" + std::string(1, c) + "'");
+              error("String: Expected hex character in unicode escape, found '" + std::string(1, c) + "'");
             }
           }
           offset += 4;
@@ -386,13 +386,13 @@ JSONObject parse_number(const std::string &str, size_t &offset) {
       if (c >= '0' && c <= '9')
         exp_str += c;
       else if (!isspace(c) && c != ',' && c != ']' && c != '}') {
-        cuhksz::error("Number: Expected a number for exponent, found '" + std::string(1, c) + "'");
+        error("Number: Expected a number for exponent, found '" + std::string(1, c) + "'");
       } else
         break;
     }
     exp = cuhksz::stringCast<long>(exp_str);
   } else if (!isspace(c) && c != ',' && c != ']' && c != '}') {
-    cuhksz::error("Number: unexpected character '" + std::string(1, c) + "'");
+    error("Number: unexpected character '" + std::string(1, c) + "'");
   }
   --offset;
 
@@ -412,7 +412,7 @@ JSONObject parse_bool(const std::string &str, size_t &offset) {
   else if (str.substr(offset, 5) == "false")
     Bool = false;
   else {
-    cuhksz::error("Bool: Expected 'true' or 'false', found '" + str.substr(offset, 5) + "'");
+    error("Bool: Expected 'true' or 'false', found '" + str.substr(offset, 5) + "'");
   }
   offset += (Bool.toBool() ? 4 : 5);
   return Bool;
@@ -420,7 +420,7 @@ JSONObject parse_bool(const std::string &str, size_t &offset) {
 
 JSONObject parse_null(const std::string &str, size_t &offset) {
   JSONObject Null;
-  if (str.substr(offset, 4) != "null") cuhksz::error("Null: Expected 'null', found '" + str.substr(offset, 4) + "'");
+  if (str.substr(offset, 4) != "null") error("Null: Expected 'null', found '" + str.substr(offset, 4) + "'");
   offset += 4;
   return Null;
 }
@@ -440,7 +440,7 @@ JSONObject parse_next(const std::string &str, size_t &offset) {
       if ((value <= '9' && value >= '0') || value == '-')
         return parse_number(str, offset);
   }
-  cuhksz::error("Parse: Unknown starting character '" + std::string(1, value) + "'");
+  error("Parse: Unknown starting character '" + std::string(1, value) + "'");
   return JSONObject();
 }
 
