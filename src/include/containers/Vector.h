@@ -48,10 +48,18 @@ public:
     bool operator >(const Vector& v2);
     bool operator >=(const Vector& v2);
 
+    typedef typename std::vector<ValueType>::iterator iterator;
     typedef typename std::vector<ValueType>::const_iterator const_iterator;
 
+    iterator begin() {
+      return vec.begin();
+    }
     const_iterator begin() const {
       return vec.begin();
+    }
+
+    iterator end() {
+      return vec.end();
     }
 
     const_iterator end() const {
@@ -65,7 +73,6 @@ private:
     std::vector<ValueType> vec;
 };
 
-//constructor
 template <typename ValueType>
 Vector<ValueType>::Vector() {
     //do nothing
@@ -73,13 +80,7 @@ Vector<ValueType>::Vector() {
 
 template <typename ValueType>
 Vector<ValueType>::Vector(int n, ValueType value) {
-    if (n == 0) {
-        vec.clear();
-    } else {
-        for (int i = 0; i < n; i++) {
-            vec.push_back(value);
-        }
-    }
+    vec.resiz(n, value);
 }
 
 template <typename ValueType>
@@ -133,10 +134,7 @@ void Vector<ValueType>::erase(int index) {
 
 template <typename ValueType>
 void Vector<ValueType>::set(int index, const ValueType& value) {
-    auto iterator = vec.begin();
-    std::advance(iterator, index);
-    auto followingElement = vec.erase(iterator);
-    vec.insert(followingElement, value);
+    vec[index] = value;
 }
 
 template <typename ValueType>

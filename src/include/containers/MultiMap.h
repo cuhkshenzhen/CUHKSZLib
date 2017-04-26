@@ -2,7 +2,10 @@
 #define CUHKSZ_CONTAINERS_MultiMap
 
 #include <map>
+#include <set>
 #include <utility>
+
+using std::set;
 
 namespace cuhksz {
 
@@ -18,7 +21,7 @@ public:
 
     MultiMap& operator =(MultiMap& multimap2);
 
-    bool isEmpty();
+    bool isEmpty() const;
 
     int size() const;
 
@@ -45,22 +48,15 @@ public:
         return privateMultiMap.end();
     }
 
-    iterator find(const KeyType& key) {
-        return privateMultiMap.find(key);
-    }
-    const_iterator find(const KeyType& key) const {
-        return privateMultiMap.find(key);
-    }
 
-    typedef typename std::pair<iterator, iterator> pair;
-    typedef typename std::pair<const_iterator, const_iterator> constPair;
+    set<ValueType>& find(const KeyType& key);
 
-    pair equal_range(const KeyType& key) {
-        return privateMultiMap.equal_range(key);
-    }
-    constPair equal_range(const KeyType& key) const {
-        return privateMultiMap.equal_range(key);
-    }
+    bool operator ==(const MultiMap& multimap2);
+    bool operator !=(const MultiMap& multimap2);
+    bool operator <(const MultiMap& multimap2);
+    bool operator <=(const MultiMap& multimap2);
+    bool operator >(const MultiMap& multimap2);
+    bool operator >=(const MultiMap& multimap2);
 
 private:
     std::multimap<KeyType, ValueType> privateMultiMap;
@@ -95,7 +91,7 @@ MultiMap<KeyType, ValueType>::operator =(MultiMap& multimap2) {
 }
 
 template <typename KeyType, typename ValueType>
-bool MultiMap<KeyType, ValueType>::isEmpty() {
+bool MultiMap<KeyType, ValueType>::isEmpty() const {
     return privateMultiMap.empty();
 }
 
@@ -117,6 +113,47 @@ void MultiMap<KeyType, ValueType>::erase(const KeyType& key) {
 template <typename KeyType, typename ValueType>
 int MultiMap<KeyType, ValueType>::count(const KeyType& key) const {
     return privateMultiMap.count(key);
+}
+
+
+template <typename KeyType, typename ValueType>
+set<ValueType>& MultiMap<KeyType, ValueType>::find(const KeyType& key) {
+    static set<ValueType> valueSet;
+    auto elementsFound = privateMultiMap.equal_range(key);
+    for (auto i = elementsFound.first; i != elementsFound.second; ++i) {
+        valueSet.insert(i->second());
+    }
+    return valueSet;
+}
+
+template <typename KeyType, typename ValueType>
+bool MultiMap<ValueType>::operator ==(const MultiMap& multimap2) {
+    return privateMultiMap == multimap2.privateMultiMap;
+}
+
+template <typename KeyType, typename ValueType>
+bool MultiMap<ValueType>::operator !=(const MultiMap& multimap2) {
+  return privateMultiMap != multimap2.privateMultiMap;
+}
+
+template <typename KeyType, typename ValueType>
+bool MultiMap<ValueType>::operator <(const MultiMap& multimap2) {
+  return privateMultiMap < multimap2.privateMultiMap;
+}
+
+template <typename KeyType, typename ValueType>
+bool MultiMap<ValueType>::operator <=(const MultiMap& multimap2) {
+  return privateMultiMap <= multimap2.privateMultiMap;
+}
+
+template <typename KeyType, typename ValueType>
+bool MultiMap<ValueType>::operator >(const MultiMap& multimap2) {
+  return privateMultiMap > multimap2.privateMultiMap;
+}
+
+template <typename KeyType, typename ValueType>
+bool MultiMap<ValueType>::operator >=(const MultiMap& multimap2) {
+  return privateMultiMap >= multimap2.privateMultiMap;
 }
 
 } //end namespace

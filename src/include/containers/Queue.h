@@ -32,6 +32,13 @@ public:
 
 	void clear();
 
+	bool operator ==(const Queue& queue2);
+    bool operator !=(const Queue& queue2);
+    bool operator <(const Queue& queue2);
+    bool operator <=(const Queue& queue2);
+    bool operator >(const Queue& queue2);
+    bool operator >=(const Queue& queue2);
+
 private:
 	std::queue<ValueType> privateQueue;
 	void emptyCheck();
@@ -104,6 +111,36 @@ void Queue<ValueType>::clear() {
 	for (int i = 0; i != size; i++) {
 		privateQueue.pop();
 	}
+}
+
+template <typename ValueType>
+bool Queue<ValueType>::operator ==(const Queue& queue2) {
+    return privateQueue == queue2.privateQueue;
+}
+
+template <typename ValueType>
+bool Queue<ValueType>::operator !=(const Queue& queue2) {
+  return privateQueue != queue2.privateQueue;
+}
+
+template <typename ValueType>
+bool Queue<ValueType>::operator <(const Queue& queue2) {
+  return privateQueue < queue2.privateQueue;
+}
+
+template <typename ValueType>
+bool Queue<ValueType>::operator <=(const Queue& queue2) {
+  return privateQueue <= queue2.privateQueue;
+}
+
+template <typename ValueType>
+bool Queue<ValueType>::operator >(const Queue& queue2) {
+  return privateQueue > queue2.privateQueue;
+}
+
+template <typename ValueType>
+bool Queue<ValueType>::operator >=(const Queue& queue2) {
+  return privateQueue >= queue2.privateQueue;
 }
 
 template <typename ValueType>

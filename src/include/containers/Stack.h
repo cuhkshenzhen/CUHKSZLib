@@ -29,6 +29,13 @@ public:
 
 	void clear();
 
+	bool operator ==(const Stack& stack2);
+    bool operator !=(const Stack& stack2);
+    bool operator <(const Stack& stack2);
+    bool operator <=(const Stack& stack2);
+    bool operator >(const Stack& stack2);
+    bool operator >=(const Stack& stack2);
+
 private:
 	std::stack<ValueType> privateStack;
 	void emptyCheck();
@@ -92,6 +99,36 @@ void Stack<ValueType>::clear() {
 	for (int i = 0; i != size; i++) {
 		privateStack.pop();
 	}
+}
+
+template <typename ValueType>
+bool Stack<ValueType>::operator ==(const Stack& stack2) {
+    return privateStack == stack2.privateStack;
+}
+
+template <typename ValueType>
+bool Stack<ValueType>::operator !=(const Stack& stack2) {
+  return privateStack != stack2.privateStack;
+}
+
+template <typename ValueType>
+bool Stack<ValueType>::operator <(const Stack& stack2) {
+  return privateStack < stack2.privateStack;
+}
+
+template <typename ValueType>
+bool Stack<ValueType>::operator <=(const Stack& stack2) {
+  return privateStack <= stack2.privateStack;
+}
+
+template <typename ValueType>
+bool Stack<ValueType>::operator >(const Stack& stack2) {
+  return privateStack > stack2.privateStack;
+}
+
+template <typename ValueType>
+bool Stack<ValueType>::operator >=(const Stack& stack2) {
+  return privateStack >= stack2.privateStack;
 }
 
 template <typename ValueType>
