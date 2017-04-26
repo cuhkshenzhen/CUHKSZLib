@@ -19,7 +19,7 @@ public:
 		numerator(numerator), denominator(denominator)
 	{
 		if (denominator == 0) {
-			cuhksz::error("Divide by Zero error");
+			error("Divide by Zero error");
 		}
 		int divisor = gcd(numerator, denominator);
 		Fraction::numerator /= divisor, Fraction::denominator /= divisor;
