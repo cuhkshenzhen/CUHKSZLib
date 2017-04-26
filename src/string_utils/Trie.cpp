@@ -66,9 +66,9 @@ bool Trie::retrieve(const std::string& word) {
   for (int i : adapter) {
     ind++;
     int next = base.get(n) + i;
-    if (check.get(next) != n) return false;
+    if (check.getWithCheck(next) != n) return false;
     n = next;
-    if (base.get(n) < -1) break;
+    if (base.getWithCheck(n) < -1) break;
   }
   if (ind == (int)word.size()) return true;
   return tail.getWithCheck(-base.get(n) - 2) == word.substr(ind);
