@@ -1,3 +1,6 @@
+**Under Development**
+**Pull requests other from the maintainers will be closed**
+
 # CUHKSZ C++ Library
 
 [![Build Status](https://travis-ci.com/cuhkshenzhen/CUHKSZLib.svg?token=kxDsMLq7xgDRN8B69SQ6&branch=master)](https://travis-ci.com/cuhkshenzhen/CUHKSZLib)
