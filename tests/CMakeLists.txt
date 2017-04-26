@@ -9,9 +9,6 @@ aux_source_directory(./base64 BASE64_TESTS)
 aux_source_directory(./string_utils STRING_UTILS_TESTS)
 aux_source_directory(./algorithm ALGORITHM_TESTS)
 
-if(MSVC)
-    add_definitions(-DUNICODE -D_UNICODE)
-endif()
 
 add_executable(test_all ${TESTS} ${RANDOM_TESTS} ${MATHUTILS_TESTS} ${NETWORK_TESTS} ${JSON_TESTS} ${BASE64_TESTS} ${ALGORITHM_TESTS} ${STRING_UTILS_TESTS})
 

@@ -17,45 +17,45 @@ TEST(Json, DumpJson) {
   // We can also parse a string into a JSON object:
   obj["parsed"] = cuhksz::JSON::load("[ { \"Key\" : \"Value\" }, false ]");
 
-  std::string result = "{\n"
-      "  \"array\" : [true, \"Two\", 3, 4.000000],\n"
-      "  \"array2\" : [false, \"three\"],\n"
-      "  \"new\" : {\n"
-      "    \"some\" : {\n"
-      "      \"deep\" : {\n"
-      "        \"key\" : \"Value\"\n"
-      "      }\n"
-      "    }\n"
-      "  },\n"
-      "  \"obj\" : {\n"
-      "    \"inner\" : \"Inside\"\n"
-      "  },\n"
-      "  \"parsed\" : [{\n"
-      "      \"Key\" : \"Value\"\n"
-      "    }, false]\n"
-      "}";
+  std::string result = R"({
+  "array" : [true, "Two", 3, 4.000000],
+  "array2" : [false, "three"],
+  "new" : {
+    "some" : {
+      "deep" : {
+        "key" : "Value"
+      }
+    }
+  },
+  "obj" : {
+    "inner" : "Inside"
+  },
+  "parsed" : [{
+      "Key" : "Value"
+    }, false]
+})";
   std::string dump = obj.dump();
   EXPECT_EQ(dump, result);
 }
 
 TEST(Json, LoadJson) {
-  std::string json = "{\n"
-      "  \"array\" : [true, \"Two\", 3, 4.000000],\n"
-      "  \"array2\" : [false, \"three\"],\n"
-      "  \"new\" : {\n"
-      "    \"some\" : {\n"
-      "      \"deep\" : {\n"
-      "        \"key\" : \"Value\"\n"
-      "      }\n"
-      "    }\n"
-      "  },\n"
-      "  \"obj\" : {\n"
-      "    \"inner\" : \"Inside\"\n"
-      "  },\n"
-      "  \"parsed\" : [{\n"
-      "      \"Key\" : \"Value\"\n"
-      "    }, false]\n"
-      "}";
+  std::string json = R"({
+  "array" : [true, "Two", 3, 4.000000],
+  "array2" : [false, "three"],
+  "new" : {
+    "some" : {
+      "deep" : {
+        "key" : "Value"
+      }
+    }
+  },
+  "obj" : {
+    "inner" : "Inside"
+  },
+  "parsed" : [{
+      "Key" : "Value"
+    }, false]
+})";
   auto jsonObject = cuhksz::JSON::load(json);
   EXPECT_EQ((std::string) jsonObject["new"]["some"]["deep"]["key"], "Value");
 }
