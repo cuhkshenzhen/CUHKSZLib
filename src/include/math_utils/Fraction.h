@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include "math_utils/math_functions.h"
+#include "utils.h"
 
 namespace cuhksz {
 
@@ -18,8 +19,7 @@ public:
 		numerator(numerator), denominator(denominator)
 	{
 		if (denominator == 0) {
-			std::cerr << "Divide by Zero error" << '\n';
-			exit(1);
+			cuhksz::error("Divide by Zero error");
 		}
 		int divisor = gcd(numerator, denominator);
 		Fraction::numerator /= divisor, Fraction::denominator /= divisor;

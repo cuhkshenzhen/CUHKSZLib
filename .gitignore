@@ -40,3 +40,4 @@ cmake-build-debug/
 
 # CLion cache
 .idea/
+.vscode/
