@@ -241,6 +241,7 @@ std::string JSONObject::dump(int depth, std::string tab) const {
     case Type::Integral:return std::to_string(Data.Int);
     case Type::Boolean:return Data.Bool ? "true" : "false";
   }
+  return "";
 }
 
 void skip_whitespaces(const std::string &str, size_t &offset) {
