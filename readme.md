@@ -4,7 +4,7 @@
 
 # CUHKSZ C++ Library
 
-[![Build Status](https://travis-ci.com/cuhkshenzhen/CUHKSZLib.svg?token=kxDsMLq7xgDRN8B69SQ6&branch=master)](https://travis-ci.com/cuhkshenzhen/CUHKSZLib)
+[![Build Status](https://travis-ci.org/cuhkshenzhen/CUHKSZLib.svg?branch=master)](https://travis-ci.org/cuhkshenzhen/CUHKSZLib)
 
 ## Requirements
 1. cmake >= 2.8
