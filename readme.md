@@ -1,6 +1,11 @@
+**Under Development**
+
+**Pull requests other from the maintainers will be closed**
+
 # CUHKSZ C++ Library
 
-[![Build Status](https://travis-ci.com/cuhkshenzhen/CUHKSZLib.svg?token=kxDsMLq7xgDRN8B69SQ6&branch=master)](https://travis-ci.com/cuhkshenzhen/CUHKSZLib)
+[![Build Status](https://travis-ci.org/cuhkshenzhen/CUHKSZLib.svg?branch=master)](https://travis-ci.org/cuhkshenzhen/CUHKSZLib)
+[![Build status](https://ci.appveyor.com/api/projects/status/634a6wrw9xheiu0e/branch/master?svg=true)](https://ci.appveyor.com/project/alesiong/cuhkszlib-cmxvy/branch/master)
 
 ## Requirements
 1. cmake >= 2.8
