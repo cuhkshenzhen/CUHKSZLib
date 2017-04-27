@@ -10,6 +10,7 @@ env:
     - GH_REPO_NAME: CUHKSZLib
     - DOXYFILE: $TRAVIS_BUILD_DIR/Doxyfile
     - GH_REPO_REF: github.com/alesiong/CUHKSZLib.git
+    - secure: "bHEg1V4hfIhSWdJUB3KF7Hc3Zk0NpLdmu6Bw381ExJSXjZjzPGzr/I636Rtirfkn5ra0qsinaBynsyfV6fDlcndXWgIhhDKYHKjE4eb89sW8CiDW2IVXcixF+LrhPtfVkeGl3K3sBP6CrPI+yH9IWxYeo8GlM1PM2xgy2haZrIputbgoJNNOfOY6diQtVhLDAKaOoPZ08W4T+ddhDCOgjc9vWqCnNyNah2Fpamc4N1MqW6efCcNNZ04Yfzi49cucKXOFKIfPpqOjCAqKJ1L6rPgu6zktdez+wnEmisdMYxUWyqk2FYvZGDKsZLtKuNKFv1ojxU+rEE1Alr/OuCWGD32t0NcAfcsmDW43sabPv22OHjj9gBpdQ0UoCEzXAjJmWR3PcjNo6KZTn6t7FQteDJTsG79RQH96nBlfD9uKtV7f8PCiYYRm44VsgpfD2bjZZampsrDs3tDYcBxhI4luJMTK7yoygBJ/KE8ienQRT+aKhbkdVPwq/ZxhTyDZOn4zGV+4/GRHdfg2DBQfTAnLkuGrB13E7P9aj4ULGxL2Kdz8z1TGfPQg2p4f2t3Zepk2CxK3anZ/InBo9FwDjGALWKXnsEwIhqe2thK4T3zL1twR+lk5qP29OLYyFJr8MEq0WE+Ujnn5L16P6JfkXBmZVrBFJsANcuGGtezX1MwHZCo="
 
 install:
 # /usr/bin/gcc is 4.6 always, but gcc-X.Y is available.
