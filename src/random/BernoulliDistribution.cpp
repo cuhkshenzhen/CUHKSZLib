@@ -1,9 +1,10 @@
 #include "random/BernoulliDistribution.h"
+#include "utils/error.h"
 
 namespace cuhksz {
 void BernoulliDistribution::init(double p) {
   if (p < 0 || p > 1) {
-    exit(1);  // TODO: error here
+    error("Invalid parameter for BernoulliDistribution");
   }
   p_ = p;
 }

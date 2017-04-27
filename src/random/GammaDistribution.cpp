@@ -6,10 +6,12 @@
 
 #include <cmath>
 
+#include "utils/error.h"
+
 namespace cuhksz {
 void GammaDistribution::init(double k, double theta) {
   if (k <= 0 || theta <= 0) {
-    exit(1);  // TODO: error here
+    error("Invalid parameter(s) for GammaDistribution");
   }
   k_ = k;
   theta_ = theta;

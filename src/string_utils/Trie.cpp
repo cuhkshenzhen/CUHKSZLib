@@ -3,11 +3,14 @@
 #include <string>
 #include <vector>
 
+#include "utils/error.h"
+
 namespace cuhksz {
 
 namespace private_ {
 int mapChar(char ch) {
   if (ch == '\001') return 1;
+  if (ch < 'a' || ch > 'z') error("Trie only accept lower letter a-z.");
   return ch - 'a' + 2;
 }
 

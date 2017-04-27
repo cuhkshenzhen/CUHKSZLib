@@ -3,7 +3,7 @@
 namespace cuhksz {
 int64_t binaryPow(int64_t base, int exp) {
   if (exp == 0) return 1;
-  if (exp < 0) return 0;  // TODO: raise error here
+  if (exp < 0) error("The Exponent for binaryPow cannot be negative.");
   if (base == 1) return 1;
   if (base == 2) return base << (exp - 1);
 

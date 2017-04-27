@@ -2,11 +2,12 @@
 
 #include <cmath>
 #include "math_utils/math_functions.h"
+#include "utils/error.h"
 
 namespace cuhksz {
 void BinomialDistribution::init(int n, double p) {
   if (n < 0 || p < 0 || p > 1) {
-    exit(1);  // TODO: error here
+    error("Invalid parameter(s) for BinomialDistribution");
   }
   n_ = n;
   p_ = p;

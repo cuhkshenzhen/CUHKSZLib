@@ -1,9 +1,12 @@
 #include "random/NormalDistribution.h"
 #include <cmath>
+
+#include "utils/error.h"
+
 namespace cuhksz {
 void NormalDistribution::init(double mean, double stddev) {
   if (stddev <= 0) {
-    exit(1);  // TODO: error here
+    error("Invalid parameter `stddev` for NormalDistribution");
   }
   mean_ = mean;
   stddev_ = stddev;

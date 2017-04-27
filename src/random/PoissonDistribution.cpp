@@ -2,10 +2,12 @@
 
 #include <cmath>
 
+#include "utils/error.h"
+
 namespace cuhksz {
 void PoissonDistribution::init(double lambda) {
   if (lambda <= 0) {
-    exit(1);  // TODO: error here
+    error("Invalid parameter for PoissonDistribution");
   }
   lambda_ = lambda;
   expLambda = std::exp(-lambda_);
