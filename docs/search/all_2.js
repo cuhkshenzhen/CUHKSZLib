@@ -6,6 +6,5 @@ var searchData=
   ['circle_2eh',['Circle.h',['../_circle_8h.html',1,'']]],
   ['contain',['contain',['../classcuhksz_1_1_trie.html#a758d5dad1c4c8d3d4868c6a4c93c9a4f',1,'cuhksz::Trie']]],
   ['container',['container',['../classcuhksz_1_1_zip.html#ade14d4c5c0e6d93d99cf5936fd3cfbfc',1,'cuhksz::Zip']]],
-  ['cuhksz',['cuhksz',['../namespacecuhksz.html',1,'']]],
-  ['json',['JSON',['../namespacecuhksz_1_1_j_s_o_n.html',1,'cuhksz']]]
+  ['cuhksz',['cuhksz',['../namespacecuhksz.html',1,'']]]
 ];

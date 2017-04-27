@@ -23,9 +23,9 @@ var hierarchy =
       [ "UniformIntDistribution", "classcuhksz_1_1_uniform_int_distribution.html", null ]
     ] ],
     [ "Fraction", "classcuhksz_1_1_fraction.html", null ],
-    [ "JSONConstWrapper< Container >", "classcuhksz_1_1_j_s_o_n_1_1_j_s_o_n_const_wrapper.html", null ],
-    [ "JSONObject", "classcuhksz_1_1_j_s_o_n_1_1_j_s_o_n_object.html", null ],
-    [ "JSONWrapper< Container >", "classcuhksz_1_1_j_s_o_n_1_1_j_s_o_n_wrapper.html", null ],
+    [ "JSONConstWrapper< Container >", "classcuhksz_1_1_j_s_o_n_const_wrapper.html", null ],
+    [ "JSONObject", "classcuhksz_1_1_j_s_o_n_object.html", null ],
+    [ "JSONWrapper< Container >", "classcuhksz_1_1_j_s_o_n_wrapper.html", null ],
     [ "Point< N >", "classcuhksz_1_1_point.html", null ],
     [ "Polygon", "classcuhksz_1_1_polygon.html", null ],
     [ "Random", "classcuhksz_1_1_random.html", null ],

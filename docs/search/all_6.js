@@ -7,6 +7,6 @@ var searchData=
   ['geometricdistribution',['GeometricDistribution',['../classcuhksz_1_1_geometric_distribution.html',1,'GeometricDistribution'],['../classcuhksz_1_1_geometric_distribution.html#afc0da6626d7a01565adc1b77b859ced4',1,'cuhksz::GeometricDistribution::GeometricDistribution(double p=0.5)'],['../classcuhksz_1_1_geometric_distribution.html#a795294d5832667a7d203457b053e1da1',1,'cuhksz::GeometricDistribution::GeometricDistribution(Random &amp;r, double p=0.5)']]],
   ['geometricdistribution_2eh',['GeometricDistribution.h',['../_geometric_distribution_8h.html',1,'']]],
   ['geometry_2eh',['geometry.h',['../geometry_8h.html',1,'']]],
-  ['gettype',['getType',['../classcuhksz_1_1_j_s_o_n_1_1_j_s_o_n_object.html#a97c56d51eec84be3e856eb0ca6ebd3d4',1,'cuhksz::JSON::JSONObject']]],
+  ['gettype',['getType',['../classcuhksz_1_1_j_s_o_n_object.html#a97c56d51eec84be3e856eb0ca6ebd3d4',1,'cuhksz::JSONObject']]],
   ['graph_2eh',['graph.h',['../graph_8h.html',1,'']]]
 ];

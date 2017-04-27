@@ -1,4 +1,4 @@
 var namespaces =
 [
-    [ "cuhksz", "namespacecuhksz.html", "namespacecuhksz" ]
+    [ "cuhksz", "namespacecuhksz.html", null ]
 ];

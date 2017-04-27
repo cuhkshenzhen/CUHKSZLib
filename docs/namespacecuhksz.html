@@ -86,7 +86,6 @@ $(document).ready(function(){initNavTree('namespacecuhksz.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
@@ -94,11 +93,6 @@ $(document).ready(function(){initNavTree('namespacecuhksz.html','');});
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:namespacecuhksz_1_1_j_s_o_n"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecuhksz_1_1_j_s_o_n.html">JSON</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuhksz_1_1_bernoulli_distribution.html">BernoulliDistribution</a></td></tr>
@@ -125,6 +119,12 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuhksz_1_1_geometric_distribution.html">GeometricDistribution</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Samples the random integer according to <a href="https://en.wikipedia.org/wiki/Geometric_distribution">Geometric distribution</a>.  <a href="classcuhksz_1_1_geometric_distribution.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuhksz_1_1_j_s_o_n_const_wrapper.html">JSONConstWrapper</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuhksz_1_1_j_s_o_n_object.html">JSONObject</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuhksz_1_1_j_s_o_n_wrapper.html">JSONWrapper</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuhksz_1_1_negative_binomial_distribution.html">NegativeBinomialDistribution</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Samples the random integer according to <a href="https://en.wikipedia.org/wiki/Negative_binomial_distribution">Negative binomial distribution</a>.  <a href="classcuhksz_1_1_negative_binomial_distribution.html#details">More...</a><br /></td></tr>
@@ -174,6 +174,8 @@ Functions</h2></td></tr>
 <tr class="separator:aaaa6cb075746965083feb49776b46980"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb8ecb5174fd26a11f95704f7138074e"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecuhksz.html#adb8ecb5174fd26a11f95704f7138074e">base64Decode</a> (std::string decodeStr)</td></tr>
 <tr class="separator:adb8ecb5174fd26a11f95704f7138074e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2f25022af3cf27661b44c138f558692"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcuhksz_1_1_j_s_o_n_object.html">JSONObject</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecuhksz.html#ab2f25022af3cf27661b44c138f558692">loadJSON</a> (const std::string &amp;str)</td></tr>
+<tr class="separator:ab2f25022af3cf27661b44c138f558692"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d833864d8650696aee8e1841a9b6112"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecuhksz.html#a7d833864d8650696aee8e1841a9b6112">jsonEscape</a> (const std::string &amp;ptr)</td></tr>
 <tr class="separator:a7d833864d8650696aee8e1841a9b6112"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8678a1d65e3d64811f7750e1233046a"><td class="memTemplParams" colspan="2">template&lt;typename IntType &gt; </td></tr>
@@ -529,6 +531,24 @@ Functions</h2></td></tr>
           <td></td>
           <td>)</td>
           <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab2f25022af3cf27661b44c138f558692"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2f25022af3cf27661b44c138f558692">&#9670;&nbsp;</a></span>loadJSON()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcuhksz_1_1_j_s_o_n_object.html">JSONObject</a> cuhksz::loadJSON </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">

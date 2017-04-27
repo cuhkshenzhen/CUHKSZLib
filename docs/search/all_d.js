@@ -11,5 +11,5 @@ var searchData=
   ['nextint',['nextInt',['../classcuhksz_1_1_random.html#a94dfb9644342af51cdc54d2e3f4fe924',1,'cuhksz::Random::nextInt(int min, int max)'],['../classcuhksz_1_1_random.html#afde3a3053d50bdfd814cccfa1753bc09',1,'cuhksz::Random::nextInt(int max)'],['../classcuhksz_1_1_random.html#a370fa1c82b9113ed4f2d373a72544757',1,'cuhksz::Random::nextInt()']]],
   ['normaldistribution',['NormalDistribution',['../classcuhksz_1_1_normal_distribution.html',1,'NormalDistribution'],['../classcuhksz_1_1_normal_distribution.html#a57b438f481a02a2e0a3092212a335f77',1,'cuhksz::NormalDistribution::NormalDistribution(double mean=0, double stddev=1)'],['../classcuhksz_1_1_normal_distribution.html#a1223aa57ec74c4b5815e08dfc62ee256',1,'cuhksz::NormalDistribution::NormalDistribution(Random &amp;r, double mean=0, double stddev=1)']]],
   ['normaldistribution_2eh',['NormalDistribution.h',['../_normal_distribution_8h.html',1,'']]],
-  ['null',['Null',['../classcuhksz_1_1_j_s_o_n_1_1_j_s_o_n_object.html#a1d1cfd8ffb84e947f82999c682b666a7abbb93ef26e3c101ff11cdd21cab08a94',1,'cuhksz::JSON::JSONObject']]]
+  ['null',['Null',['../classcuhksz_1_1_j_s_o_n_object.html#a1d1cfd8ffb84e947f82999c682b666a7abbb93ef26e3c101ff11cdd21cab08a94',1,'cuhksz::JSONObject']]]
 ];

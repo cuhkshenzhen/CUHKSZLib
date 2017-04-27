@@ -1,6 +1,5 @@
 var namespacecuhksz =
 [
-    [ "JSON", "namespacecuhksz_1_1_j_s_o_n.html", "namespacecuhksz_1_1_j_s_o_n" ],
     [ "BernoulliDistribution", "classcuhksz_1_1_bernoulli_distribution.html", "classcuhksz_1_1_bernoulli_distribution" ],
     [ "BinomialDistribution", "classcuhksz_1_1_binomial_distribution.html", "classcuhksz_1_1_binomial_distribution" ],
     [ "ChiSquaredDistribution", "classcuhksz_1_1_chi_squared_distribution.html", "classcuhksz_1_1_chi_squared_distribution" ],
@@ -10,6 +9,9 @@ var namespacecuhksz =
     [ "Fraction", "classcuhksz_1_1_fraction.html", "classcuhksz_1_1_fraction" ],
     [ "GammaDistribution", "classcuhksz_1_1_gamma_distribution.html", "classcuhksz_1_1_gamma_distribution" ],
     [ "GeometricDistribution", "classcuhksz_1_1_geometric_distribution.html", "classcuhksz_1_1_geometric_distribution" ],
+    [ "JSONConstWrapper", "classcuhksz_1_1_j_s_o_n_const_wrapper.html", "classcuhksz_1_1_j_s_o_n_const_wrapper" ],
+    [ "JSONObject", "classcuhksz_1_1_j_s_o_n_object.html", "classcuhksz_1_1_j_s_o_n_object" ],
+    [ "JSONWrapper", "classcuhksz_1_1_j_s_o_n_wrapper.html", "classcuhksz_1_1_j_s_o_n_wrapper" ],
     [ "NegativeBinomialDistribution", "classcuhksz_1_1_negative_binomial_distribution.html", "classcuhksz_1_1_negative_binomial_distribution" ],
     [ "NormalDistribution", "classcuhksz_1_1_normal_distribution.html", "classcuhksz_1_1_normal_distribution" ],
     [ "Point", "classcuhksz_1_1_point.html", "classcuhksz_1_1_point" ],
