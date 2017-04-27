@@ -16,7 +16,7 @@ class stringCast {
       strStream >> casted;
     }
     catch (std::exception &e) {
-      std::cout << "not able to cast: " << e.what() << std::endl;
+      std::cerr << "not able to cast: " << e.what() << std::endl;
       return T(0);
     }
     return casted;
