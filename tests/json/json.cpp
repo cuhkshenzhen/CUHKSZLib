@@ -2,11 +2,12 @@
 #include "gtest/gtest.h"
 
 TEST(Json, DumpJson) {
-  cuhksz::JSON::JSONObject obj;
+  cuhksz::JSONObject obj;
   // Create a new Array as a field of an Object.
-  obj["array"] = cuhksz::JSON::Array(true, "Two", 3, 4.0);
+  obj["array"] = cuhksz::JSONObject::Array(true, "Two", 3, 4.0);
+
   // Create a new Object as a field of another Object.
-  obj["obj"] = cuhksz::JSON::Object();
+  obj["obj"] = cuhksz::JSONObject::Object();
   // Assign to one of the inner object's fields
   obj["obj"]["inner"] = "Inside";
 
@@ -15,7 +16,7 @@ TEST(Json, DumpJson) {
   obj["array2"].append(false, "three");
 
   // We can also parse a string into a JSON object:
-  obj["parsed"] = cuhksz::JSON::load("[ { \"Key\" : \"Value\" }, false ]");
+  obj["parsed"] = cuhksz::loadJSON("[ { \"Key\" : \"Value\" }, false ]");
 
   std::string result = R"({
   "array" : [true, "Two", 3, 4.000000],
@@ -56,13 +57,13 @@ TEST(Json, LoadJson) {
       "Key" : "Value"
     }, false]
 })";
-  auto jsonObject = cuhksz::JSON::load(json);
+  auto jsonObject = cuhksz::loadJSON(json);
   EXPECT_EQ((std::string) jsonObject["new"]["some"]["deep"]["key"], "Value");
 }
 
 TEST(Json, loadWithInitList) {
-  cuhksz::JSON::JSONObject obj = {
-      "array", cuhksz::JSON::Array(true, "Two", 3, 4.0),
+  cuhksz::JSONObject obj = {
+      "array", cuhksz::JSONObject::Array(true, "Two", 3, 4.0),
       "obj", {
           "inner", "Inside"
       },
@@ -73,16 +74,16 @@ TEST(Json, loadWithInitList) {
               }
           }
       },
-      "array2", cuhksz::JSON::Array(false, "three"),
+      "array2", cuhksz::JSONObject::Array(false, "three"),
       "s", "string"
   };
-  cuhksz::JSON::JSONObject obj2 = {
+  cuhksz::JSONObject obj2 = {
       "Key", 1,
       "Key3", true,
       "Key4", nullptr,
       "Key2", {
           "Key4", "VALUE",
-          "Arr", cuhksz::JSON::Array(1, "Str", false)
+          "Arr", cuhksz::JSONObject::Array(1, "Str", false)
       }
   };
   EXPECT_EQ((std::string) obj["obj"]["inner"], "Inside");
@@ -90,7 +91,7 @@ TEST(Json, loadWithInitList) {
 }
 
 TEST(Json, arrayTest) {
-  cuhksz::JSON::JSONObject array;
+  cuhksz::JSONObject array;
 
   array[2] = "Test2";
   array[1] = "Test1";
@@ -103,7 +104,7 @@ TEST(Json, arrayTest) {
 
 
   // Arrays can be nested:
-  cuhksz::JSON::JSONObject Array2;
+  cuhksz::JSONObject Array2;
 
   Array2[2][0][1] = true;
 
@@ -112,7 +113,7 @@ TEST(Json, arrayTest) {
 }
 
 TEST(Json, primTest) {
-  cuhksz::JSON::JSONObject obj;
+  cuhksz::JSONObject obj;
   obj = false;
   EXPECT_EQ((bool)obj, false);
   obj = "Test String";

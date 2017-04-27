@@ -37,9 +37,9 @@ make -j4
 #### macOS
 1. Install brew
 2. Run `brew install doxygen`
-3. Make a directory called `build`
+3. Make a directory called `docs`
 4. Run `doxygen Doxyfile` in the repository root.
-5. Open `build/doc-build/html/index.html` with browser.
+5. Open `docs/index.html` with browser.
 
 ### Use with your code
 The library file is the `build/libcuhkszlib.a`, and the include directory
