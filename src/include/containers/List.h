@@ -4,6 +4,7 @@
 #include <list>
 #include <iostream>
 #include <cstdlib>
+#include <utility>
 
 namespace cuhksz {
 
@@ -11,7 +12,8 @@ template <typename ValueType>
 class List {
 public:
 	List(); //constructor
-	explicit List(int n, ValueType value = ValueType());
+	List(int n, ValueType value = ValueType());
+	List(std::initializer_list<ValueType> init);
 
 	~List(); //deconstructor
 
@@ -49,6 +51,9 @@ public:
 
 	void merge(List& list2);
 
+	std::list<ValueType> toStlList(const List& originList);
+
+
 	bool operator ==(const List& list2);
 	bool operator !=(const List& list2);
 	bool operator <(const List& list2);
@@ -58,7 +63,7 @@ public:
 
 	typedef typename std::list<ValueType>::const_iterator const_iterator;
 	typedef typename std::list<ValueType>::iterator iterator;
-	
+
 	iterator begin() {
       	  return privateList.begin();
       }
@@ -93,6 +98,12 @@ template <typename ValueType>
 List<ValueType>::List(int n, ValueType value) {
 	privateList.resize(n, value);
 }
+
+template <typename ValueType>
+List<ValueType>::List(std::initializer_list<ValueType> init) {
+	privateList = init;
+}
+
 
 template <typename ValueType>
 List<ValueType>::~List() {
@@ -223,6 +234,12 @@ void List<ValueType>::merge(List& list2) {
 }
 
 template <typename ValueType>
+std::list<ValueType>
+List<ValueType>::toStlList(const List& originList) {
+	return originList.privateList;
+}
+
+template <typename ValueType>
 bool List<ValueType>::operator ==(const List& list2) {
 	return privateList == list2.privateList;
 }
@@ -271,4 +288,3 @@ void List<ValueType>::emptyCheck() {
 } //end namespace
 
 #endif //CUHKSZ_CONTAINERS_LIST
-

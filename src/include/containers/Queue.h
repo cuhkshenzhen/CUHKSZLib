@@ -32,6 +32,8 @@ public:
 
 	void clear();
 
+	std::queue<ValueType> toStlQueue(const Queue& originQueue);
+
 	bool operator ==(const Queue& queue2);
     bool operator !=(const Queue& queue2);
     bool operator <(const Queue& queue2);
@@ -112,6 +114,13 @@ void Queue<ValueType>::clear() {
 		privateQueue.pop();
 	}
 }
+
+template <typename ValueType>
+std::queue<ValueType>
+Queue<ValueType>::toStlQueue(const Queue& originQueue) {
+	return originQueue.privateQueue;
+}
+
 
 template <typename ValueType>
 bool Queue<ValueType>::operator ==(const Queue& queue2) {

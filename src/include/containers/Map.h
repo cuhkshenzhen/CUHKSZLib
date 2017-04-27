@@ -5,7 +5,7 @@
 #include <utility>
 #include <set>
 
-using std::set
+using std::set;
 
 namespace cuhksz {
 
@@ -14,7 +14,7 @@ class Map {
 public:
 	typedef std::pair<const KeyType, ValueType> StdValueType;
 	Map();
-	Map(const std::map<KeyType, ValueType>& other);
+	Map(const Map& other);
 	Map( std::initializer_list<StdValueType> init );
 
 	~Map();
@@ -34,16 +34,26 @@ public:
 
 	void erase(const KeyType& key);
 
+	bool contains(const KeyType& key);
+
 	typedef typename std::map<KeyType, ValueType>::iterator iterator;
 	typedef typename std::map<KeyType, ValueType>::const_iterator const_iterator;
 
-	iterator begin();
-	const_iterator begin() const;
+	iterator begin() {
+		return privateMap.begin();
+	}
+	const_iterator begin() const {
+		return privateMap.begin();
+	}
 
-	iterator end();
-	const_iterator end() const;
+	iterator end() {
+		return privateMap.end();
+	}
+	const_iterator end() const {
+		return privateMap.end();
+	}
 
-	set<ValueType>& find(const KeyType& key);
+	std::map<KeyType, ValueType> toStlMap(const Map& originMap);
 
 	bool operator ==(const Map& map2);
     bool operator !=(const Map& map2);
@@ -63,8 +73,8 @@ Map<KeyType, ValueType>::Map(){
 }
 
 template <typename KeyType, typename ValueType>
-Map<KeyType, ValueType>::Map(const std::map<KeyType, ValueType>& other) {
-	privateMap = other;
+Map<KeyType, ValueType>::Map(const Map& other) {
+	privateMap = other.privateMap;
 }
 
 template <typename KeyType, typename ValueType>
@@ -120,63 +130,44 @@ void Map<KeyType, ValueType>::erase(const KeyType& key) {
 }
 
 template <typename KeyType, typename ValueType>
-iterator Map<KeyType, ValueType>::begin() {
-	return privateMap.begin();
+std::map<KeyType, ValueType>
+Map<KeyType, ValueType>::toStlMap(const Map& originMap) {
+	return originMap.privateMap;
+}
+
+
+template <typename KeyType, typename ValueType>
+bool Map<KeyType, ValueType>::contains(const KeyType& key) {
+	return (privateMap.find(key) != privateMap.end())? true : false;
 }
 
 template <typename KeyType, typename ValueType>
-const_iterator Map<KeyType, ValueType>::begin() const {
-	return privateMap.begin();
-}
-
-template <typename KeyType, typename ValueType>
-iterator Map<KeyType, ValueType>::end() {
-	return privateMap.end();
-}
-
-template <typename KeyType, typename ValueType>
-const_iterator Map<KeyType, ValueType>::end() const {
-	return privateMap.end();
-}
-
-template <typename KeyType, typename ValueType>
-set<ValueType>& Map<KeyType, ValueType>::find(const KeyType& key) {
-	static set<ValueType> valueSet;
-	auto pairFound = privateMap.find(key);
-	if (pariFound != privateMap.end()) {
-		valueSet.insert(pariFound->second);
-		return valueSet;
-	}
-	return valueSet;
-}  
-
-template <typename ValueType>
-bool Map<ValueType>::operator ==(const Map& map2) {
+bool Map<KeyType, ValueType>::operator ==(const Map& map2) {
     return privateMap == map2.privateMap;
 }
 
-template <typename ValueType>
-bool Map<ValueType>::operator !=(const Map& map2) {
+template <typename KeyType, typename ValueType>
+bool Map<KeyType, ValueType>::operator !=(const Map& map2) {
   return privateMap != map2.privateMap;
 }
 
-template <typename ValueType>
-bool Map<ValueType>::operator <(const Map& map2) {
+template <typename KeyType, typename ValueType>
+bool Map<KeyType, ValueType>::operator <(const Map& map2) {
   return privateMap < map2.privateMap;
 }
 
-template <typename ValueType>
-bool Map<ValueType>::operator <=(const Map& map2) {
+template <typename KeyType, typename ValueType>
+bool Map<KeyType, ValueType>::operator <=(const Map& map2) {
   return privateMap <= map2.privateMap;
 }
 
-template <typename ValueType>
-bool Map<ValueType>::operator >(const Map& map2) {
+template <typename KeyType, typename ValueType>
+bool Map<KeyType, ValueType>::operator >(const Map& map2) {
   return privateMap > map2.privateMap;
 }
 
-template <typename ValueType>
-bool Map<ValueType>::operator >=(const Map& map2) {
+template <typename KeyType, typename ValueType>
+bool Map<KeyType, ValueType>::operator >=(const Map& map2) {
   return privateMap >= map2.privateMap;
 }
 

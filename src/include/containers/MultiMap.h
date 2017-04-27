@@ -1,25 +1,23 @@
-#ifndef CUHKSZ_CONTAINERS_MultiMap
-#define CUHKSZ_CONTAINERS_MultiMap
+#ifndef CUHKSZ_CONTAINERS_MULTIMAP
+#define CUHKSZ_CONTAINERS_MULTIMAP
 
 #include <map>
-#include <set>
+#include "Set.h"
 #include <utility>
-
-using std::set;
 
 namespace cuhksz {
 
 template <typename KeyType, typename ValueType>
-class MultiMap {
+class Multimap {
 public:
     typedef std::pair<const KeyType, ValueType> StdValueType;
-    MultiMap();
-    MultiMap(const std::multimap<KeyType, ValueType>& other);
-    MultiMap( std::initializer_list<StdValueType> init );
+    Multimap();
+    Multimap(const Multimap& other);
+    Multimap( std::initializer_list<StdValueType> init );
 
-    ~MultiMap();
+    ~Multimap();
 
-    MultiMap& operator =(MultiMap& multimap2);
+    Multimap& operator =(Multimap& multimap2);
 
     bool isEmpty() const;
 
@@ -35,91 +33,93 @@ public:
     typedef typename std::multimap<KeyType, ValueType>::const_iterator const_iterator;
 
     iterator begin() {
-        return privateMultiMap.begin();
+        return privateMultimap.begin();
     }
     const_iterator begin() const {
-        return privateMultiMap.begin();
+        return privateMultimap.begin();
     }
 
     iterator end() {
-        return privateMultiMap.end();
+        return privateMultimap.end();
     }
     const_iterator end() const {
-        return privateMultiMap.end();
+        return privateMultimap.end();
     }
 
 
-    set<ValueType>& find(const KeyType& key);
+    Set<ValueType> find(const KeyType& key);
 
-    bool operator ==(const MultiMap& multimap2);
-    bool operator !=(const MultiMap& multimap2);
-    bool operator <(const MultiMap& multimap2);
-    bool operator <=(const MultiMap& multimap2);
-    bool operator >(const MultiMap& multimap2);
-    bool operator >=(const MultiMap& multimap2);
+    std::multimap<KeyType, ValueType> toStlMultimap(const Multimap& originMultiMap);
+
+    bool operator ==(const Multimap& multimap2);
+    bool operator !=(const Multimap& multimap2);
+    bool operator <(const Multimap& multimap2);
+    bool operator <=(const Multimap& multimap2);
+    bool operator >(const Multimap& multimap2);
+    bool operator >=(const Multimap& multimap2);
 
 private:
-    std::multimap<KeyType, ValueType> privateMultiMap;
+    std::multimap<KeyType, ValueType> privateMultimap;
 };
 
 template <typename KeyType, typename ValueType>
-MultiMap<KeyType, ValueType>::MultiMap() {
+Multimap<KeyType, ValueType>::Multimap() {
     //do nothing
 }
 
 template <typename KeyType, typename ValueType>
-MultiMap<KeyType, ValueType>::MultiMap(const std::multimap<KeyType, ValueType>& other) {
-    privateMultiMap = other;
+Multimap<KeyType, ValueType>::Multimap(const Multimap& other) {
+    privateMultimap = other.privateMultimap;
 }
 
 // typedef std::pair<const KeyType, ValueType> StdValueType;
 template <typename KeyType, typename ValueType>
-MultiMap<KeyType, ValueType>::MultiMap( std::initializer_list<StdValueType> init) {
-    privateMultiMap = init;
+Multimap<KeyType, ValueType>::Multimap( std::initializer_list<StdValueType> init) {
+    privateMultimap = init;
 }
 
 template <typename KeyType, typename ValueType>
-MultiMap<KeyType, ValueType>::~MultiMap() {
+Multimap<KeyType, ValueType>::~Multimap() {
     //do nothing
 }
 
 template <typename KeyType, typename ValueType>
-MultiMap<KeyType, ValueType>&
-MultiMap<KeyType, ValueType>::operator =(MultiMap& multimap2) {
-    privateMultiMap = multimap2.privateMultiMap;
+Multimap<KeyType, ValueType>&
+Multimap<KeyType, ValueType>::operator =(Multimap& multimap2) {
+    privateMultimap = multimap2.privateMultimap;
     return *this;
 }
 
 template <typename KeyType, typename ValueType>
-bool MultiMap<KeyType, ValueType>::isEmpty() const {
-    return privateMultiMap.empty();
+bool Multimap<KeyType, ValueType>::isEmpty() const {
+    return privateMultimap.empty();
 }
 
 template <typename KeyType, typename ValueType>
-int MultiMap<KeyType, ValueType>::size() const {
-    return privateMultiMap.size();
+int Multimap<KeyType, ValueType>::size() const {
+    return privateMultimap.size();
 }
 
 template <typename KeyType, typename ValueType>
-void MultiMap<KeyType, ValueType>::clear() {
-    privateMultiMap.clear();
+void Multimap<KeyType, ValueType>::clear() {
+    privateMultimap.clear();
 }
 
 template <typename KeyType, typename ValueType>
-void MultiMap<KeyType, ValueType>::erase(const KeyType& key) {
-    privateMultiMap.erase(key);
+void Multimap<KeyType, ValueType>::erase(const KeyType& key) {
+    privateMultimap.erase(key);
 }
 
 template <typename KeyType, typename ValueType>
-int MultiMap<KeyType, ValueType>::count(const KeyType& key) const {
-    return privateMultiMap.count(key);
+int Multimap<KeyType, ValueType>::count(const KeyType& key) const {
+    return privateMultimap.count(key);
 }
 
 
 template <typename KeyType, typename ValueType>
-set<ValueType>& MultiMap<KeyType, ValueType>::find(const KeyType& key) {
-    static set<ValueType> valueSet;
-    auto elementsFound = privateMultiMap.equal_range(key);
+Set<ValueType> Multimap<KeyType, ValueType>::find(const KeyType& key) {
+    Set<ValueType> valueSet;
+    auto elementsFound = privateMultimap.equal_range(key);
     for (auto i = elementsFound.first; i != elementsFound.second; ++i) {
         valueSet.insert(i->second());
     }
@@ -127,35 +127,42 @@ set<ValueType>& MultiMap<KeyType, ValueType>::find(const KeyType& key) {
 }
 
 template <typename KeyType, typename ValueType>
-bool MultiMap<ValueType>::operator ==(const MultiMap& multimap2) {
-    return privateMultiMap == multimap2.privateMultiMap;
+std::multimap<KeyType, ValueType>
+Multimap<KeyType, ValueType>::toStlMultimap(const Multimap& originMultiMap) {
+    return originMultiMap.privateMultimap;
+}
+
+
+template <typename KeyType, typename ValueType>
+bool Multimap<KeyType, ValueType>::operator ==(const Multimap& multimap2) {
+    return privateMultimap == multimap2.privateMultimap;
 }
 
 template <typename KeyType, typename ValueType>
-bool MultiMap<ValueType>::operator !=(const MultiMap& multimap2) {
-  return privateMultiMap != multimap2.privateMultiMap;
+bool Multimap<KeyType, ValueType>::operator !=(const Multimap& multimap2) {
+  return privateMultimap != multimap2.privateMultimap;
 }
 
 template <typename KeyType, typename ValueType>
-bool MultiMap<ValueType>::operator <(const MultiMap& multimap2) {
-  return privateMultiMap < multimap2.privateMultiMap;
+bool Multimap<KeyType, ValueType>::operator <(const Multimap& multimap2) {
+  return privateMultimap < multimap2.privateMultimap;
 }
 
 template <typename KeyType, typename ValueType>
-bool MultiMap<ValueType>::operator <=(const MultiMap& multimap2) {
-  return privateMultiMap <= multimap2.privateMultiMap;
+bool Multimap<KeyType, ValueType>::operator <=(const Multimap& multimap2) {
+  return privateMultimap <= multimap2.privateMultimap;
 }
 
 template <typename KeyType, typename ValueType>
-bool MultiMap<ValueType>::operator >(const MultiMap& multimap2) {
-  return privateMultiMap > multimap2.privateMultiMap;
+bool Multimap<KeyType, ValueType>::operator >(const Multimap& multimap2) {
+  return privateMultimap > multimap2.privateMultimap;
 }
 
 template <typename KeyType, typename ValueType>
-bool MultiMap<ValueType>::operator >=(const MultiMap& multimap2) {
-  return privateMultiMap >= multimap2.privateMultiMap;
+bool Multimap<KeyType, ValueType>::operator >=(const Multimap& multimap2) {
+  return privateMultimap >= multimap2.privateMultimap;
 }
 
 } //end namespace
 
-#endif //CUHKSZ_CONTAINERS_MultiMap
+#endif //CUHKSZ_CONTAINERS_MULTIMAP

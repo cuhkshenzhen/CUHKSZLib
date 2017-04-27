@@ -9,10 +9,9 @@ namespace cuhksz {
 template <typename ValueType>
 class Vector {
 public:
-
     Vector();
-    explicit Vector(int n, ValueType value = ValueType());
-
+    Vector(int n, ValueType value = ValueType());
+    Vector(std::initializer_list<ValueType> init);
 
     ~Vector();
 
@@ -40,6 +39,8 @@ public:
     void push(const ValueType& value);
 
     ValueType pop();
+
+    std::vector<ValueType> toStlVector(const Vector& originVec);
 
     bool operator ==(const Vector& v2);
     bool operator !=(const Vector& v2);
@@ -80,8 +81,14 @@ Vector<ValueType>::Vector() {
 
 template <typename ValueType>
 Vector<ValueType>::Vector(int n, ValueType value) {
-    vec.resiz(n, value);
+    vec.resize(n, value);
 }
+
+template <typename ValueType>
+Vector<ValueType>::Vector(std::initializer_list<ValueType> init) {
+    vec = init;
+}
+
 
 template <typename ValueType>
 Vector<ValueType>::~Vector() {
@@ -148,6 +155,13 @@ ValueType Vector<ValueType>::pop() {
     vec.pop_back();
     return lastElement;
 }
+
+template <typename ValueType>
+std::vector<ValueType>
+Vector<ValueType>::toStlVector(const Vector& originVec) {
+    return originVec.vec;
+}
+
 
 template <typename ValueType>
 bool Vector<ValueType>::operator ==(const Vector& v2) {

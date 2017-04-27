@@ -29,6 +29,8 @@ public:
 
 	void clear();
 
+	std::stack<ValueType> toStlStack(const Stack& originStack);
+
 	bool operator ==(const Stack& stack2);
     bool operator !=(const Stack& stack2);
     bool operator <(const Stack& stack2);
@@ -100,6 +102,13 @@ void Stack<ValueType>::clear() {
 		privateStack.pop();
 	}
 }
+
+template <typename ValueType>
+std::stack<ValueType>
+Stack<ValueType>::toStlStack(const Stack& originStack) {
+	return originStack.privateStack;
+}
+
 
 template <typename ValueType>
 bool Stack<ValueType>::operator ==(const Stack& stack2) {
