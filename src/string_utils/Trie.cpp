@@ -2,7 +2,6 @@
 
 #include <string>
 #include <vector>
-
 #include "utils/error.h"
 
 namespace cuhksz {
