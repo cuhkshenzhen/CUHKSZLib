@@ -7,7 +7,208 @@
 #include "utils.h"
 
 namespace cuhksz {
-namespace JSON {
+namespace private_ {
+void skip_whitespaces(const std::string &str, size_t &offset) {
+  while (isspace(str[offset])) ++offset;
+}
+
+JSONObject parse_object(const std::string &str, size_t &offset) {
+  JSONObject Object = JSONObject::Build(JSONObject::Type::Object);
+
+  ++offset;
+  skip_whitespaces(str, offset);
+  if (str[offset] == '}') {
+    ++offset;
+    return Object;
+  }
+
+  while (true) {
+    JSONObject Key = parse_next(str, offset);
+    skip_whitespaces(str, offset);
+    if (str[offset] != ':') {
+      error("ERROR: Object: Expected colon, found '" + std::string(1, str[offset]) + "'");
+      break;
+    }
+    skip_whitespaces(str, ++offset);
+    JSONObject Value = parse_next(str, offset);
+    Object[Key.toString()] = Value;
+
+    skip_whitespaces(str, offset);
+    if (str[offset] == ',') {
+      ++offset;
+      continue;
+    } else if (str[offset] == '}') {
+      ++offset;
+      break;
+    } else {
+      error("ERROR: Object: Expected comma, found '" + std::string(1, str[offset]) + "'");
+      break;
+    }
+  }
+
+  return Object;
+}
+
+JSONObject parse_array(const std::string &str, size_t &offset) {
+  JSONObject Array = JSONObject::Build(JSONObject::Type::Array);
+  unsigned index = 0;
+
+  ++offset;
+  skip_whitespaces(str, offset);
+  if (str[offset] == ']') {
+    ++offset;
+    return Array;
+  }
+
+  while (true) {
+    Array[index++] = parse_next(str, offset);
+    skip_whitespaces(str, offset);
+
+    if (str[offset] == ',') {
+      ++offset;
+      continue;
+    } else if (str[offset] == ']') {
+      ++offset;
+      break;
+    } else {
+      error("Array: Expected ',' or ']', found '" + std::string(1, str[offset]) + "'");
+    }
+  }
+
+  return Array;
+}
+
+JSONObject parse_string(const std::string &str, size_t &offset) {
+  JSONObject String;
+  std::string val;
+  for (char c = str[++offset]; c != '\"'; c = str[++offset]) {
+    if (c == '\\') {
+      switch (str[++offset]) {
+        case '\"': val += '\"';
+          break;
+        case '\\': val += '\\';
+          break;
+        case '/' : val += '/';
+          break;
+        case 'b' : val += '\b';
+          break;
+        case 'f' : val += '\f';
+          break;
+        case 'n' : val += '\n';
+          break;
+        case 'r' : val += '\r';
+          break;
+        case 't' : val += '\t';
+          break;
+        case 'u' : {
+          val += "\\u";
+          for (unsigned i = 1; i <= 4; ++i) {
+            c = str[offset + i];
+            if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F'))
+              val += c;
+            else {
+              error("String: Expected hex character in unicode escape, found '" + std::string(1, c) + "'");
+            }
+          }
+          offset += 4;
+        }
+          break;
+        default  : val += '\\';
+          break;
+      }
+    } else
+      val += c;
+  }
+  ++offset;
+  String = val;
+  return String;
+}
+
+JSONObject parse_number(const std::string &str, size_t &offset) {
+  JSONObject Number;
+  std::string val, exp_str;
+  char c;
+  bool isDouble = false;
+  long exp = 0;
+  while (true) {
+    c = str[offset++];
+    if ((c == '-') || (c >= '0' && c <= '9'))
+      val += c;
+    else if (c == '.') {
+      val += c;
+      isDouble = true;
+    } else
+      break;
+  }
+  if (c == 'E' || c == 'e') {
+    c = str[offset++];
+    if (c == '-') {
+      ++offset;
+      exp_str += '-';
+    }
+    while (true) {
+      c = str[offset++];
+      if (c >= '0' && c <= '9')
+        exp_str += c;
+      else if (!isspace(c) && c != ',' && c != ']' && c != '}') {
+        error("Number: Expected a number for exponent, found '" + std::string(1, c) + "'");
+      } else
+        break;
+    }
+    exp = cuhksz::stringCast<long>(exp_str);
+  } else if (!isspace(c) && c != ',' && c != ']' && c != '}') {
+    error("Number: unexpected character '" + std::string(1, c) + "'");
+  }
+  --offset;
+
+  if (isDouble)
+    Number = (int) cuhksz::stringCast<int>(val) * std::pow(10, exp);
+  else if (!exp_str.empty())
+    Number = (int) cuhksz::stringCast<int>(val) * std::pow(10, exp);
+  else
+    Number = (int) cuhksz::stringCast<int>(val);
+  return Number;
+}
+
+JSONObject parse_bool(const std::string &str, size_t &offset) {
+  JSONObject Bool;
+  if (str.substr(offset, 4) == "true")
+    Bool = true;
+  else if (str.substr(offset, 5) == "false")
+    Bool = false;
+  else {
+    error("Bool: Expected 'true' or 'false', found '" + str.substr(offset, 5) + "'");
+  }
+  offset += (Bool.toBool() ? 4 : 5);
+  return Bool;
+}
+
+JSONObject parse_null(const std::string &str, size_t &offset) {
+  JSONObject Null;
+  if (str.substr(offset, 4) != "null") error("Null: Expected 'null', found '" + str.substr(offset, 4) + "'");
+  offset += 4;
+  return Null;
+}
+
+JSONObject parse_next(const std::string &str, size_t &offset) {
+  char value;
+  skip_whitespaces(str, offset);
+  value = str[offset];
+  switch (value) {
+    case '[' : return parse_array(str, offset);
+    case '{' : return parse_object(str, offset);
+    case '\"': return parse_string(str, offset);
+    case 't' :
+    case 'f' : return parse_bool(str, offset);
+    case 'n' : return parse_null(str, offset);
+    default  :
+      if ((value <= '9' && value >= '0') || value == '-')
+        return parse_number(str, offset);
+  }
+  error("Parse: Unknown starting character '" + std::string(1, value) + "'");
+  return JSONObject();
+}
+}
 JSONObject::JSONObject() : Data(), objType(Type::Null) {}
 
 JSONObject::JSONObject(std::initializer_list<JSONObject> list)
@@ -241,212 +442,7 @@ std::string JSONObject::dump(int depth, std::string tab) const {
     case Type::Integral:return std::to_string(Data.Int);
     case Type::Boolean:return Data.Bool ? "true" : "false";
   }
-}
-
-void skip_whitespaces(const std::string &str, size_t &offset) {
-  while (isspace(str[offset])) ++offset;
-}
-
-JSONObject parse_object(const std::string &str, size_t &offset) {
-  JSONObject Object = JSONObject::Build(JSONObject::Type::Object);
-
-  ++offset;
-  skip_whitespaces(str, offset);
-  if (str[offset] == '}') {
-    ++offset;
-    return Object;
-  }
-
-  while (true) {
-    JSONObject Key = parse_next(str, offset);
-    skip_whitespaces(str, offset);
-    if (str[offset] != ':') {
-      error("ERROR: Object: Expected colon, found '" + std::string(1, str[offset]) + "'");
-      break;
-    }
-    skip_whitespaces(str, ++offset);
-    JSONObject Value = parse_next(str, offset);
-    Object[Key.toString()] = Value;
-
-    skip_whitespaces(str, offset);
-    if (str[offset] == ',') {
-      ++offset;
-      continue;
-    } else if (str[offset] == '}') {
-      ++offset;
-      break;
-    } else {
-      error("ERROR: Object: Expected comma, found '" + std::string(1, str[offset]) + "'");
-      break;
-    }
-  }
-
-  return Object;
-}
-
-JSONObject parse_array(const std::string &str, size_t &offset) {
-  JSONObject Array = JSONObject::Build(JSONObject::Type::Array);
-  unsigned index = 0;
-
-  ++offset;
-  skip_whitespaces(str, offset);
-  if (str[offset] == ']') {
-    ++offset;
-    return Array;
-  }
-
-  while (true) {
-    Array[index++] = parse_next(str, offset);
-    skip_whitespaces(str, offset);
-
-    if (str[offset] == ',') {
-      ++offset;
-      continue;
-    } else if (str[offset] == ']') {
-      ++offset;
-      break;
-    } else {
-      error("Array: Expected ',' or ']', found '" + std::string(1, str[offset]) + "'");
-    }
-  }
-
-  return Array;
-}
-
-JSONObject parse_string(const std::string &str, size_t &offset) {
-  JSONObject String;
-  std::string val;
-  for (char c = str[++offset]; c != '\"'; c = str[++offset]) {
-    if (c == '\\') {
-      switch (str[++offset]) {
-        case '\"': val += '\"';
-          break;
-        case '\\': val += '\\';
-          break;
-        case '/' : val += '/';
-          break;
-        case 'b' : val += '\b';
-          break;
-        case 'f' : val += '\f';
-          break;
-        case 'n' : val += '\n';
-          break;
-        case 'r' : val += '\r';
-          break;
-        case 't' : val += '\t';
-          break;
-        case 'u' : {
-          val += "\\u";
-          for (unsigned i = 1; i <= 4; ++i) {
-            c = str[offset + i];
-            if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F'))
-              val += c;
-            else {
-              error("String: Expected hex character in unicode escape, found '" + std::string(1, c) + "'");
-            }
-          }
-          offset += 4;
-        }
-          break;
-        default  : val += '\\';
-          break;
-      }
-    } else
-      val += c;
-  }
-  ++offset;
-  String = val;
-  return String;
-}
-
-JSONObject parse_number(const std::string &str, size_t &offset) {
-  JSONObject Number;
-  std::string val, exp_str;
-  char c;
-  bool isDouble = false;
-  long exp = 0;
-  while (true) {
-    c = str[offset++];
-    if ((c == '-') || (c >= '0' && c <= '9'))
-      val += c;
-    else if (c == '.') {
-      val += c;
-      isDouble = true;
-    } else
-      break;
-  }
-  if (c == 'E' || c == 'e') {
-    c = str[offset++];
-    if (c == '-') {
-      ++offset;
-      exp_str += '-';
-    }
-    while (true) {
-      c = str[offset++];
-      if (c >= '0' && c <= '9')
-        exp_str += c;
-      else if (!isspace(c) && c != ',' && c != ']' && c != '}') {
-        error("Number: Expected a number for exponent, found '" + std::string(1, c) + "'");
-      } else
-        break;
-    }
-    exp = cuhksz::stringCast<long>(exp_str);
-  } else if (!isspace(c) && c != ',' && c != ']' && c != '}') {
-    error("Number: unexpected character '" + std::string(1, c) + "'");
-  }
-  --offset;
-
-  if (isDouble)
-    Number = (int) cuhksz::stringCast<int>(val) * std::pow(10, exp);
-  else if (!exp_str.empty())
-    Number = (int) cuhksz::stringCast<int>(val) * std::pow(10, exp);
-  else
-    Number = (int) cuhksz::stringCast<int>(val);
-  return Number;
-}
-
-JSONObject parse_bool(const std::string &str, size_t &offset) {
-  JSONObject Bool;
-  if (str.substr(offset, 4) == "true")
-    Bool = true;
-  else if (str.substr(offset, 5) == "false")
-    Bool = false;
-  else {
-    error("Bool: Expected 'true' or 'false', found '" + str.substr(offset, 5) + "'");
-  }
-  offset += (Bool.toBool() ? 4 : 5);
-  return Bool;
-}
-
-JSONObject parse_null(const std::string &str, size_t &offset) {
-  JSONObject Null;
-  if (str.substr(offset, 4) != "null") error("Null: Expected 'null', found '" + str.substr(offset, 4) + "'");
-  offset += 4;
-  return Null;
-}
-
-JSONObject parse_next(const std::string &str, size_t &offset) {
-  char value;
-  skip_whitespaces(str, offset);
-  value = str[offset];
-  switch (value) {
-    case '[' : return parse_array(str, offset);
-    case '{' : return parse_object(str, offset);
-    case '\"': return parse_string(str, offset);
-    case 't' :
-    case 'f' : return parse_bool(str, offset);
-    case 'n' : return parse_null(str, offset);
-    default  :
-      if ((value <= '9' && value >= '0') || value == '-')
-        return parse_number(str, offset);
-  }
-  error("Parse: Unknown starting character '" + std::string(1, value) + "'");
-  return JSONObject();
-}
-
-JSONObject load(const std::string &str) {
-  size_t offset = 0;
-  return parse_next(str, offset);
+  return "";
 }
 
 std::ostream &operator<<(std::ostream &os, const JSONObject &json) {
@@ -454,12 +450,15 @@ std::ostream &operator<<(std::ostream &os, const JSONObject &json) {
   return os;
 }
 
-JSONObject Array() {
+JSONObject JSONObject::Array() {
   return JSONObject::Build(JSONObject::Type::Array);
 }
 
-JSONObject Object() {
+JSONObject JSONObject::Object() {
   return JSONObject::Build(JSONObject::Type::Object);
 }
+JSONObject loadJSON(const std::string &str) {
+  size_t offset = 0;
+  return private_::parse_next(str, offset);
 }
 }
