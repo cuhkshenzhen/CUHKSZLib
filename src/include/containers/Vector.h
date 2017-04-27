@@ -2,7 +2,7 @@
 #define CUHKSZ_CONTAINERS_VECTOR
 
 #include <vector>
-#include <iostream>
+#include "utils/error.h"
 
 namespace cuhksz {
 
@@ -72,6 +72,8 @@ public:
 
 private:
     std::vector<ValueType> vec;
+    void boundaryCheck(int index);
+    void emptyCheck();
 };
 
 template <typename ValueType>
@@ -97,16 +99,19 @@ Vector<ValueType>::~Vector() {
 
 template <typename ValueType>
 const ValueType& Vector<ValueType>::get(int index) const {
+    boundaryCheck(index);
     return vec.at(index);
 }
 
 template <typename ValueType>
 ValueType& Vector<ValueType>::operator [](int index) {
+    boundaryCheck(index);
     return vec.at(index);
 }
 
 template <typename ValueType>
 const ValueType& Vector<ValueType>::operator [](int index) const {
+    boundaryCheck(index);
     return vec.at(index);
 }
 
@@ -127,6 +132,7 @@ void Vector<ValueType>::clear() {
 
 template <typename ValueType>
 void Vector<ValueType>::insert(int index, const ValueType& value) {
+    boundaryCheck(index);
     auto iterator = vec.begin();
     std::advance(iterator, index);
     vec.insert(iterator, value);
@@ -134,6 +140,7 @@ void Vector<ValueType>::insert(int index, const ValueType& value) {
 
 template <typename ValueType>
 void Vector<ValueType>::erase(int index) {
+    boundaryCheck(index);
     auto iterator = vec.begin();
     std::advance(iterator, index);
     vec.erase(iterator);
@@ -141,6 +148,7 @@ void Vector<ValueType>::erase(int index) {
 
 template <typename ValueType>
 void Vector<ValueType>::set(int index, const ValueType& value) {
+    boundaryCheck(index);
     vec[index] = value;
 }
 
@@ -151,6 +159,7 @@ void Vector<ValueType>::push(const ValueType& value) {
 
 template <typename ValueType>
 ValueType Vector<ValueType>::pop() {
+    emptyCheck();
     ValueType lastElement = vec.back();
     vec.pop_back();
     return lastElement;
@@ -191,6 +200,20 @@ bool Vector<ValueType>::operator >(const Vector& v2) {
 template <typename ValueType>
 bool Vector<ValueType>::operator >=(const Vector& v2) {
   return vec >= v2.vec;
+}
+
+template <typename ValueType>
+void Vector<ValueType>::boundaryCheck(int index) {
+	if (index < 0 || index >= vec.size()) {
+		error("The index out of range!");
+	}
+}
+
+template <typename ValueType>
+void Vector<ValueType>::emptyCheck() {
+	if (vec.empty()) {
+		error("The vector is empty!");
+	}
 }
 
 template <typename ValueType>

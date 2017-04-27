@@ -2,9 +2,7 @@
 #define CUHKSZ_CONTAINERS_QUEUE
 
 #include <queue>
-#include <iostream>
-#include <cstdlib>
-
+#include "utils/error.h"
 
 namespace cuhksz {
 
@@ -155,8 +153,7 @@ bool Queue<ValueType>::operator >=(const Queue& queue2) {
 template <typename ValueType>
 void Queue<ValueType>::emptyCheck() {
 	if (privateQueue.empty()) {
-		std::cout << "The queue is empty!" << '\n';
-		std::exit(EXIT_FAILURE);
+		error("The queue is empty!");
 	}
 }
 

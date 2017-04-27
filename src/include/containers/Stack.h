@@ -2,8 +2,7 @@
 #define CUHKSZ_CONTAINERS_STACK
 
 #include <stack>
-#include <iostream>
-#include <cstdlib>
+#include "utils/error.h"
 
 namespace cuhksz {
 
@@ -143,8 +142,7 @@ bool Stack<ValueType>::operator >=(const Stack& stack2) {
 template <typename ValueType>
 void Stack<ValueType>::emptyCheck() {
 	if(privateStack.empty()) {
-		std::cout << "The stack is empty!" << '\n';
-		std::exit(EXIT_FAILURE);
+		error("The stack is empty!");
 	}
 
 }

@@ -3,9 +3,6 @@
 
 #include <map>
 #include <utility>
-#include <set>
-
-using std::set;
 
 namespace cuhksz {
 

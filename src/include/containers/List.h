@@ -2,9 +2,8 @@
 #define CUHKSZ_CONTAINERS_LIST
 
 #include <list>
-#include <iostream>
-#include <cstdlib>
 #include <utility>
+#include "utils/error.h"
 
 namespace cuhksz {
 
@@ -85,7 +84,7 @@ private:
 	void boundaryCheck(int index);
 	void emptyCheck();
 
-	}; //end list class
+}; //end list class
 
 /*-------Implementation-------*/
 
@@ -272,16 +271,14 @@ bool List<ValueType>::operator >=(const List& list2) {
 template <typename ValueType>
 void List<ValueType>::boundaryCheck(int index) {
 	if (index < 0 || index >= privateList.size()) {
-		std::cout << "The index out of range!" << '\n';
-		std::exit(EXIT_FAILURE);
+		error("The index out of range!");
 	}
 }
 
 template <typename ValueType>
 void List<ValueType>::emptyCheck() {
 	if (privateList.empty()) {
-		std::cout << "The list is empty!" << '\n';
-		std::exit(EXIT_FAILURE);
+		error("The list is empty!");
 	}
 }
 
