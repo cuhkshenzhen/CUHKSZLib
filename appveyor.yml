@@ -68,9 +68,8 @@ build:
   verbosity: minimal
 
 build_script:
-- ps: |
-    cd build
-    & cmake --build . --config $env:CONFIGURATION
+  - cd build && cmake --build . --config $env:CONFIGURATION
+
 test_script:
 - ps: |
     if ($env:TOOLSET -eq "mingw")
