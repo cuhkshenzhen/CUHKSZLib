@@ -5,6 +5,7 @@ TEST(Json, DumpJson) {
   cuhksz::JSONObject obj;
   // Create a new Array as a field of an Object.
   obj["array"] = cuhksz::JSONObject::Array(true, "Two", 3, 4.0);
+
   // Create a new Object as a field of another Object.
   obj["obj"] = cuhksz::JSONObject::Object();
   // Assign to one of the inner object's fields
