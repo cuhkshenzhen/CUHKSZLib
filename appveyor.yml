@@ -68,7 +68,7 @@ build:
   verbosity: minimal
 
 build_script:
-  - cd build && cmake --build . --config $env:CONFIGURATION
+  - cd build && cmake --build . --config %CONFIGURATION%
 
 test_script:
 - ps: |
