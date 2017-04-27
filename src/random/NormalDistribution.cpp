@@ -1,6 +1,6 @@
 #include "random/NormalDistribution.h"
-#include <cmath>
 
+#include <cmath>
 #include "utils/error.h"
 
 namespace cuhksz {

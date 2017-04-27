@@ -1,8 +1,9 @@
 #include "random/StudentTDistribution.h"
+
 #include <cmath>
+
 #include "random/ChiSquaredDistribution.h"
 #include "random/NormalDistribution.h"
-
 #include "utils/error.h"
 
 namespace cuhksz {

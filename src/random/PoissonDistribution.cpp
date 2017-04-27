@@ -1,7 +1,6 @@
 #include "random/PoissonDistribution.h"
 
 #include <cmath>
-
 #include "utils/error.h"
 
 namespace cuhksz {

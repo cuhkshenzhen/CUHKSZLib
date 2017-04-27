@@ -5,7 +5,6 @@
 #include "random/GammaDistribution.h"
 
 #include <cmath>
-
 #include "utils/error.h"
 
 namespace cuhksz {
