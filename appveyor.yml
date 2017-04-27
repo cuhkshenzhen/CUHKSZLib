@@ -71,9 +71,6 @@ build_script:
 - ps: |
     cd build
     & cmake --build . --config $env:CONFIGURATION
-    if ($LastExitCode -ne 0) {
-        throw "Exec: $ErrorMessage"
-    }
 test_script:
 - ps: |
     if ($env:TOOLSET -eq "mingw")
