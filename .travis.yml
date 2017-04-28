@@ -1,15 +1,20 @@
 git:
   depth: 10
 install:
+# /usr/bin/gcc is 4.6 always, but gcc-X.Y is available.
 - if [ "$CXX" = "g++" ]; then export CXX="g++-4.9" CC="gcc-4.9"; fi
-- if [ "$CXX" = "clang++" ] && [ "$TRAVIS_OS_NAME" = "linux" ]; then export CXX="clang++-3.7"
-  CC="clang-3.7"; fi
+# /usr/bin/clang is 3.4, lets override with modern one.
+- if [ "$CXX" = "clang++" ] && [ "$TRAVIS_OS_NAME" = "linux" ]; then export CXX="clang++-3.7" CC="clang-3.7"; fi
 - echo ${PATH}
 - echo ${CXX}
 - ${CXX} --version
 - ${CXX} -v
 addons:
   apt:
+    # List of whitelisted in travis packages for ubuntu-precise can be found here:
+    #   https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-precise
+    # List of whitelisted in travis apt-sources:
+    #   https://github.com/travis-ci/apt-source-whitelist/blob/master/ubuntu.json
     sources:
     - ubuntu-toolchain-r-test
     - llvm-toolchain-precise-3.7
@@ -17,22 +22,19 @@ addons:
     - gcc-4.9
     - g++-4.9
     - clang-3.7
+
 os:
-- linux
-- osx
+  - linux
+  - osx
 language: cpp
 compiler:
-- gcc
-- clang
+  - gcc
+  - clang
 script:
-- mkdir build && cd build
-- cmake -DTESTING=1 ..
-- make
-- CTEST_OUTPUT_ON_FAILURE=1 make test
+  - mkdir build && cd build
+  - cmake -DTESTING=1 ..
+  - make
+  - CTEST_OUTPUT_ON_FAILURE=1 make test
 notifications:
   email: false
 sudo: false
-before_install:
-- openssl aes-256-cbc -K $encrypted_94acff848013_key -iv $encrypted_94acff848013_iv
-  -in travisci_rsa.enc -out ~\/.ssh/travisci_rsa -d
-- mv ~/.ssh/travisci_rsa ~/.ss/id_rsa
