@@ -10,7 +10,7 @@ env:
     - GH_REPO_NAME: CUHKSZLib
     - DOXYFILE: $TRAVIS_BUILD_DIR/Doxyfile
     - GH_REPO_REF: github.com/cuhkshenzhen/CUHKSZLib.git
-    - ENCRYPTION_LABEL: c8affa483b8f
+    - ENCRYPTION_LABEL: "c8affa483b8f"
 
 install:
 # /usr/bin/gcc is 4.6 always, but gcc-X.Y is available.
