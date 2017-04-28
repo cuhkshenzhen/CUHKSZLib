@@ -28,17 +28,16 @@ make -j4
 #### Windows (MSVC)
 1. Download and install `cmake` from https://cmake.org/download/, make sure to choose the windows installer.
 2. Make sure you have installed the Visual Studio with C++ component and it works.
-3. Clone or download this repository
+3. Clone or download this repository 
 4. Open Cmake GUI, choose this repository as source and `CUHKSZLib/build` as build. (TODO: details and pics to be added)
 5. Click `Configure`, and then click `Open Project`
 6. Build with Visual Studio.
 
 ### Generate Documentation with Doxygen
 #### macOS
-** This is not available as the document will be generate by travis-ci**
 1. Install brew
 2. Run `brew install doxygen`
-3. Make a directory called `docs` and enter the `doc`
+3. Make a directory called `docs`
 4. Run `doxygen Doxyfile` in the repository root.
 5. Open `docs/index.html` with browser.
 
