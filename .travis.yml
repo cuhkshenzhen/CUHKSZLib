@@ -1,17 +1,5 @@
-branches:
-  except:
-    - gh-pages
-
 git:
   depth: 10
-
-env:
-  global:
-    - GH_REPO_NAME: CUHKSZLib
-    - DOXYFILE: $TRAVIS_BUILD_DIR/Doxyfile
-    - GH_REPO_REF: github.com/cuhkshenzhen/CUHKSZLib.git
-    - ENCRYPTION_LABEL: "c8affa483b8f"
-
 install:
 # /usr/bin/gcc is 4.6 always, but gcc-X.Y is available.
 - if [ "$CXX" = "g++" ]; then export CXX="g++-4.9" CC="gcc-4.9"; fi
@@ -34,17 +22,6 @@ addons:
     - gcc-4.9
     - g++-4.9
     - clang-3.7
-    - doxygen
-
-# generateDocument.sh is from https://gist.github.com/vidavidorra/548ffbcdae99d752da02
-after_success: |
-  if  [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-    if [[ "$CXX" == "g++-4.9" ]]; then
-      cd $TRAVIS_BUILD_DIR
-      chmod +x generateDocument.sh
-      ./generateDocument.sh
-    fi
-  fi
 
 os:
   - linux
