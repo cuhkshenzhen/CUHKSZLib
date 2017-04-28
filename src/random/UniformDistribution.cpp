@@ -1,10 +1,12 @@
 #include "random/UniformDistribution.h"
 
+#include "utils/error.h"
+
 namespace cuhksz {
 
 void UniformDistribution::init(double min, double max) {
   if (min > max) {
-    exit(1);  // TODO: error here
+    error("Invalid parameter(s) for UniformDistribution");
   }
   min_ = min;
   max_ = max;

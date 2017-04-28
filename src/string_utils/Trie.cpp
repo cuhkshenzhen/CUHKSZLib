@@ -2,12 +2,14 @@
 
 #include <string>
 #include <vector>
+#include "utils/error.h"
 
 namespace cuhksz {
 
 namespace private_ {
 int mapChar(char ch) {
   if (ch == '\001') return 1;
+  if (ch < 'a' || ch > 'z') error("Trie only accept lower letter a-z.");
   return ch - 'a' + 2;
 }
 
@@ -30,9 +32,9 @@ std::string commonPrefix(const std::string& string1,
     str1 = &string1;
     str2 = &string2;
   }
-  unsigned long size = str1->size();
+  size_t size = str1->size();
   bool flag = false;
-  for (unsigned long i = 0; i < size; i++) {
+  for (size_t i = 0; i < size; i++) {
     if ((*str1)[i] != (*str2)[i]) {
       rtn = str1->substr(0, i);
       flag = true;

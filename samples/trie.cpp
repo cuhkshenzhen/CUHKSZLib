@@ -3,14 +3,14 @@
 #include <set>
 #include <string>
 #include "string_utils/Trie.h"
+#include "utils/error.h"
 
 int main() {
   // Words are from https://github.com/dwyl/english-words
   // preprocessed to remove words that have digits
   std::ifstream fin("EnglishWords.txt");
   if (!fin) {
-    printf("Cannot open `EnglishWords.txt`!\n");
-    exit(1);
+    error("Cannot open `EnglishWords.txt`!");
   }
   std::string tmp;
 

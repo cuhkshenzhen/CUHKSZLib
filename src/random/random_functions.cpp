@@ -1,4 +1,5 @@
 #include "random/random_functions.h"
+
 #include <ctime>
 #include <memory>
 #include "random/Random.h"
