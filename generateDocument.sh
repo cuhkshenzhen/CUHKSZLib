@@ -105,20 +105,7 @@ if [ -f "index.html" ]; then
     # Force push to the remote gh-pages branch.
     # The ouput is redirected to /dev/null to hide any sensitive credential data
     # that might otherwise be exposed.
-    # git push --force "https://${GH_REPO_TOKEN}@${GH_REPO_REF}" > /dev/null 2>&1
-		ENCRYPTED_KEY_VAR="encrypted_${ENCRYPTION_LABEL}_key"
-		ENCRYPTED_IV_VAR="encrypted_${ENCRYPTION_LABEL}_iv"
-		ENCRYPTED_KEY=${!ENCRYPTED_KEY_VAR}
-		ENCRYPTED_IV=${!ENCRYPTED_IV_VAR}
-		# openssl aes-256-cbc -K $ENCRYPTED_KEY -iv $ENCRYPTED_IV -in $TRAVIS_BUILD_DIR/deploy_key.enc -out deploy_key -d
-		openssl aes-256-cbc -K $encrypted_c8affa483b8f_key -iv $encrypted_c8affa483b8f_iv -in $TRAVIS_BUILD_DIR/deploy_key.enc -out deploy_key -d
-		chmod 600 deploy_key
-		eval `ssh-agent -s`
-		ssh-add deploy_key
-
-		# Now that we're all set up, we can push.
-		git push --force $SSH_REPO gh-pages
-
+    git push --force "https://${GH_REPO_TOKEN}@${GH_REPO_REF}" > /dev/null 2>&1
 else
     echo '' >&2
     echo 'Warning: No documentation (html) files have been found!' >&2
