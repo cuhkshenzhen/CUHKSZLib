@@ -55,6 +55,9 @@ cd code_docs
 git clone -b gh-pages https://git@$GH_REPO_REF
 cd $GH_REPO_NAME
 
+REPO=`git config remote.origin.url`
+SSH_REPO=${REPO/https:\/\/github.com\//git@github.com:}
+
 ##### Configure git.
 # Set the push default to simple i.e. push only the current branch.
 git config --global push.default simple
@@ -102,7 +105,19 @@ if [ -f "index.html" ]; then
     # Force push to the remote gh-pages branch.
     # The ouput is redirected to /dev/null to hide any sensitive credential data
     # that might otherwise be exposed.
-    git push --force "https://${GH_REPO_TOKEN}@${GH_REPO_REF}"# > /dev/null 2>&1
+    # git push --force "https://${GH_REPO_TOKEN}@${GH_REPO_REF}" > /dev/null 2>&1
+		ENCRYPTED_KEY_VAR="encrypted_${ENCRYPTION_LABEL}_key"
+		ENCRYPTED_IV_VAR="encrypted_${ENCRYPTION_LABEL}_iv"
+		ENCRYPTED_KEY=${!ENCRYPTED_KEY_VAR}
+		ENCRYPTED_IV=${!ENCRYPTED_IV_VAR}
+		openssl aes-256-cbc -K $ENCRYPTED_KEY -iv $ENCRYPTED_IV -in deploy_key.enc -out deploy_key -d
+		chmod 600 deploy_key
+		eval `ssh-agent -s`
+		ssh-add deploy_key
+
+		# Now that we're all set up, we can push.
+		git push $SSH_REPO gh-pages
+
 else
     echo '' >&2
     echo 'Warning: No documentation (html) files have been found!' >&2
