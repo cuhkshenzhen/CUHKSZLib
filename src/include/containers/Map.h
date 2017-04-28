@@ -3,6 +3,7 @@
 
 #include <map>
 #include <utility>
+#include "utils/error.h"
 
 namespace cuhksz {
 
@@ -10,9 +11,12 @@ template <typename KeyType, typename ValueType>
 class Map {
 public:
 	typedef std::pair<const KeyType, ValueType> StdValueType;
+	typedef typename std::map<KeyType, ValueType> stlMap;
+
 	Map();
 	Map(const Map& other);
 	Map( std::initializer_list<StdValueType> init );
+	Map( stlMap& stlMap2 );
 
 	~Map();
 
@@ -50,7 +54,11 @@ public:
 		return privateMap.end();
 	}
 
-	std::map<KeyType, ValueType> toStlMap(const Map& originMap);
+	stlMap toStlMap() {
+		return privateMap;
+	}
+
+	operator stlMap() { return privateMap; }
 
 	bool operator ==(const Map& map2);
     bool operator !=(const Map& map2);
@@ -61,6 +69,7 @@ public:
 
 private:
 	std::map<KeyType, ValueType> privateMap;
+	void keyCheck(const KeyType& key );
 
 };
 
@@ -80,6 +89,12 @@ Map<KeyType, ValueType>::Map( std::initializer_list<StdValueType> init ) {
 }
 
 template <typename KeyType, typename ValueType>
+Map<KeyType, ValueType>::Map( stlMap& stlMap2 ) {
+	privateMap = stlMap2;
+}
+
+
+template <typename KeyType, typename ValueType>
 Map<KeyType, ValueType>::~Map() {
 	//do nothing
 }
@@ -93,16 +108,19 @@ Map<KeyType, ValueType>::operator =(Map& map2) {
 
 template <typename KeyType, typename ValueType>
 ValueType& Map<KeyType, ValueType>::get(const KeyType& key) {
+	keyCheck(key);
 	return privateMap.at(key);
 }
 
 template <typename KeyType, typename ValueType>
 const ValueType& Map<KeyType, ValueType>::get(const KeyType& key) const {
+	keyCheck(key);
 	return privateMap.at(key);
 }
 
 template <typename KeyType, typename ValueType>
 ValueType& Map<KeyType, ValueType>::operator [](const KeyType& key) {
+	keyCheck(key);
 	return privateMap.at(key);
 }
 
@@ -125,13 +143,6 @@ template <typename KeyType, typename ValueType>
 void Map<KeyType, ValueType>::erase(const KeyType& key) {
 	privateMap.erase(key);
 }
-
-template <typename KeyType, typename ValueType>
-std::map<KeyType, ValueType>
-Map<KeyType, ValueType>::toStlMap(const Map& originMap) {
-	return originMap.privateMap;
-}
-
 
 template <typename KeyType, typename ValueType>
 bool Map<KeyType, ValueType>::contains(const KeyType& key) {
@@ -166,6 +177,13 @@ bool Map<KeyType, ValueType>::operator >(const Map& map2) {
 template <typename KeyType, typename ValueType>
 bool Map<KeyType, ValueType>::operator >=(const Map& map2) {
   return privateMap >= map2.privateMap;
+}
+
+template <typename KeyType, typename ValueType>
+void Map<KeyType, ValueType>::keyCheck(const KeyType& key) {
+	if (privateMap.find(key) == privateMap.end()) {
+		error("The Map doesn't have this key!");
+	}
 }
 
 } //end namespace

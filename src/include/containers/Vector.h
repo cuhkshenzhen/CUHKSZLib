@@ -2,6 +2,7 @@
 #define CUHKSZ_CONTAINERS_VECTOR
 
 #include <vector>
+#include <iostream>
 #include "utils/error.h"
 
 namespace cuhksz {
@@ -9,14 +10,17 @@ namespace cuhksz {
 template <typename ValueType>
 class Vector {
 public:
+    typedef typename std::vector<ValueType> stlVector;
     Vector();
-    Vector(int n, ValueType value = ValueType());
+    explicit Vector(int n, ValueType value = ValueType());
     Vector(std::initializer_list<ValueType> init);
+    Vector(stlVector& stlVector2);
 
     ~Vector();
 
 
     const ValueType& get(int index) const;
+    ValueType& get(int index);
 
 
     ValueType& operator [](int index);
@@ -40,7 +44,11 @@ public:
 
     ValueType pop();
 
-    std::vector<ValueType> toStlVector(const Vector& originVec);
+    stlVector toStlVector() {
+        return vec;
+    }
+
+    operator stlVector() { return vec; }
 
     bool operator ==(const Vector& v2);
     bool operator !=(const Vector& v2);
@@ -91,6 +99,11 @@ Vector<ValueType>::Vector(std::initializer_list<ValueType> init) {
     vec = init;
 }
 
+template <typename ValueType>
+Vector<ValueType>::Vector(stlVector& stlVector2) {
+    vec = stlVector2;
+}
+
 
 template <typename ValueType>
 Vector<ValueType>::~Vector() {
@@ -99,6 +112,12 @@ Vector<ValueType>::~Vector() {
 
 template <typename ValueType>
 const ValueType& Vector<ValueType>::get(int index) const {
+    boundaryCheck(index);
+    return vec.at(index);
+}
+
+template <typename ValueType>
+ValueType& Vector<ValueType>::get(int index) {
     boundaryCheck(index);
     return vec.at(index);
 }
@@ -164,13 +183,6 @@ ValueType Vector<ValueType>::pop() {
     vec.pop_back();
     return lastElement;
 }
-
-template <typename ValueType>
-std::vector<ValueType>
-Vector<ValueType>::toStlVector(const Vector& originVec) {
-    return originVec.vec;
-}
-
 
 template <typename ValueType>
 bool Vector<ValueType>::operator ==(const Vector& v2) {

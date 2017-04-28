@@ -9,7 +9,11 @@ namespace cuhksz {
 template <typename ValueType>
 class Queue {
 public:
+	typedef typename std::queue<ValueType> stlQueue;
+
 	Queue();
+	Queue( stlQueue& stlQueue2 );
+
 	~Queue();
 
 	Queue operator =(const Queue& queue2);
@@ -30,7 +34,11 @@ public:
 
 	void clear();
 
-	std::queue<ValueType> toStlQueue(const Queue& originQueue);
+	stlQueue toStlQueue() {
+		return privateQueue;
+	}
+
+	operator stlQueue() { return privateQueue; }
 
 	bool operator ==(const Queue& queue2);
     bool operator !=(const Queue& queue2);
@@ -49,6 +57,11 @@ private:
 template <typename ValueType>
 Queue<ValueType>::Queue() {
 	//do nothing
+}
+
+template <typename ValueType>
+Queue<ValueType>::Queue( stlQueue& stlQueue2 ) {
+	privateQueue = stlQueue2;
 }
 
 template <typename ValueType>
@@ -112,13 +125,6 @@ void Queue<ValueType>::clear() {
 		privateQueue.pop();
 	}
 }
-
-template <typename ValueType>
-std::queue<ValueType>
-Queue<ValueType>::toStlQueue(const Queue& originQueue) {
-	return originQueue.privateQueue;
-}
-
 
 template <typename ValueType>
 bool Queue<ValueType>::operator ==(const Queue& queue2) {

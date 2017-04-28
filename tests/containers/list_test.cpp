@@ -39,7 +39,7 @@ TEST(listTest, clear) {
     EXPECT_TRUE(testList.isEmpty());
 }
 
-TEST(rangeDeathTest, outrangeDeath) {
+TEST(listDeathTest, outrangeDeath) {
     EXPECT_DEATH(testList[8] = 1, "");
 }
 

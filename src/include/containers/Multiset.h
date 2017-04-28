@@ -9,9 +9,12 @@ namespace cuhksz {
 template <typename ValueType>
 class Multiset {
 public:
+    typedef typename std::multiset<ValueType> stlMultiset;
+
     Multiset();
     Multiset(std::initializer_list<ValueType> init);
     Multiset(const Multiset& other);
+    Multiset(stlMultiset& stlMultiset2);
 
     ~Multiset();
 
@@ -23,7 +26,7 @@ public:
 
     void insert(ValueType& value);
 
-    void erase(int index);
+    void erase(const ValueType& value);
 
     int count(const ValueType& value) const;
 
@@ -50,7 +53,11 @@ public:
         return privateMultiset.end();
     }
 
-    std::multiset<ValueType> toStlMultiSet(const Multiset& multiset2);
+    stlMultiset toStlMultiSet() {
+        return privateMultiset;
+    }
+
+    operator stlMultiset() { return privateMultiset; }
 
     bool operator ==(const Multiset& multiset2);
     bool operator !=(const Multiset& multiset2);
@@ -76,6 +83,11 @@ Multiset<ValueType>::Multiset(std::initializer_list<ValueType> init) {
 template <typename ValueType>
 Multiset<ValueType>::Multiset(const Multiset& other) {
     privateMultiset = other.privateMultiset;
+}
+
+template <typename ValueType>
+Multiset<ValueType>::Multiset(stlMultiset& stlMultiset2) {
+    privateMultiset = stlMultiset2;
 }
 
 template <typename ValueType>
@@ -106,10 +118,8 @@ void Multiset<ValueType>::insert(ValueType& value) {
 }
 
 template <typename ValueType>
-void Multiset<ValueType>::erase(int index) {
-    auto itr = privateMultiset.begin();
-    std::advance(itr, index);
-    privateMultiset.erase(itr);
+void Multiset<ValueType>::erase(const ValueType& value) {
+        privateMultiset.erase(value);
 }
 
 template <typename ValueType>
@@ -125,12 +135,6 @@ void Multiset<ValueType>::clear() {
 template <typename ValueType>
 bool Multiset<ValueType>::contains(ValueType& value) const {
     return (privateMultiset.find(value) != privateMultiset.end())? true : false;
-}
-
-template <typename ValueType>
-std::multiset<ValueType>
-Multiset<ValueType>::toStlMultiSet(const Multiset& multiset2) {
-    return multiset2.privateMultiset;
 }
 
 template <typename ValueType>

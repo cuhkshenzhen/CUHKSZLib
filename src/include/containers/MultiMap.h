@@ -11,9 +11,12 @@ template <typename KeyType, typename ValueType>
 class Multimap {
 public:
     typedef std::pair<const KeyType, ValueType> StdValueType;
+    typedef std::multimap<KeyType, ValueType> stlMultimap;
+
     Multimap();
     Multimap(const Multimap& other);
     Multimap( std::initializer_list<StdValueType> init );
+    Multimap( stlMultimap& stlMultimap2 );
 
     ~Multimap();
 
@@ -49,7 +52,11 @@ public:
 
     Set<ValueType> find(const KeyType& key);
 
-    std::multimap<KeyType, ValueType> toStlMultimap(const Multimap& originMultiMap);
+    stlMultimap toStlMultimap() {
+        return privateMultimap;
+    }
+
+    operator stlMultimap() { return privateMultimap; }
 
     bool operator ==(const Multimap& multimap2);
     bool operator !=(const Multimap& multimap2);
@@ -72,10 +79,14 @@ Multimap<KeyType, ValueType>::Multimap(const Multimap& other) {
     privateMultimap = other.privateMultimap;
 }
 
-// typedef std::pair<const KeyType, ValueType> StdValueType;
 template <typename KeyType, typename ValueType>
 Multimap<KeyType, ValueType>::Multimap( std::initializer_list<StdValueType> init) {
     privateMultimap = init;
+}
+
+template <typename KeyType, typename ValueType>
+Multimap<KeyType, ValueType>::Multimap( stlMultimap& stlMultimap2 ) {
+    privateMultimap = stlMultimap2;
 }
 
 template <typename KeyType, typename ValueType>
@@ -121,17 +132,10 @@ Set<ValueType> Multimap<KeyType, ValueType>::find(const KeyType& key) {
     Set<ValueType> valueSet;
     auto elementsFound = privateMultimap.equal_range(key);
     for (auto i = elementsFound.first; i != elementsFound.second; ++i) {
-        valueSet.insert(i->second());
+        valueSet.insert(i->second);
     }
     return valueSet;
 }
-
-template <typename KeyType, typename ValueType>
-std::multimap<KeyType, ValueType>
-Multimap<KeyType, ValueType>::toStlMultimap(const Multimap& originMultiMap) {
-    return originMultiMap.privateMultimap;
-}
-
 
 template <typename KeyType, typename ValueType>
 bool Multimap<KeyType, ValueType>::operator ==(const Multimap& multimap2) {

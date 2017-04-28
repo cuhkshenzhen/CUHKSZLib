@@ -9,7 +9,10 @@ namespace cuhksz {
 template <typename ValueType>
 class Stack {
 public:
+	typedef typename std::stack<ValueType> stlStack;
+
 	Stack();
+	Stack( stlStack& stlStack2 );
 
 	~Stack();
 
@@ -28,7 +31,11 @@ public:
 
 	void clear();
 
-	std::stack<ValueType> toStlStack(const Stack& originStack);
+	stlStack toStlStack() {
+		return privateStack;
+	}
+
+	operator stlStack() { return privateStack; }
 
 	bool operator ==(const Stack& stack2);
     bool operator !=(const Stack& stack2);
@@ -47,6 +54,12 @@ template <typename ValueType>
 Stack<ValueType>::Stack() {
 	//do nothing
 }
+
+template <typename ValueType>
+Stack<ValueType>::Stack( stlStack& stlStack2 ) {
+	privateStack = stlStack2;
+}
+
 
 template <typename ValueType>
 Stack<ValueType>::~Stack() {
@@ -101,13 +114,6 @@ void Stack<ValueType>::clear() {
 		privateStack.pop();
 	}
 }
-
-template <typename ValueType>
-std::stack<ValueType>
-Stack<ValueType>::toStlStack(const Stack& originStack) {
-	return originStack.privateStack;
-}
-
 
 template <typename ValueType>
 bool Stack<ValueType>::operator ==(const Stack& stack2) {

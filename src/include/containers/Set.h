@@ -9,9 +9,11 @@ namespace cuhksz {
 template<typename ValueType>
 class Set {
 public:
+    typedef typename std::set<ValueType> stlSet;
     Set();
     Set( std::initializer_list<ValueType> init );
     Set(const Set& other);
+    Set(stlSet& stlSet2);
 
     ~Set();
 
@@ -23,9 +25,7 @@ public:
 
     void insert(const ValueType& value);
 
-    void erase(int index);
-
-    int count(const ValueType& value) const;
+    void erase(const ValueType& value);
 
     void clear();
 
@@ -50,7 +50,11 @@ public:
         return privateSet.end();
     }
 
-    std::set<ValueType> toStlSet(const Set& originSet);
+    stlSet toStlSet() {
+        return privateSet;
+    }
+
+    operator stlSet() { return privateSet; }
 
     bool operator ==(const Set& set2);
     bool operator !=(const Set& set2);
@@ -80,6 +84,12 @@ Set<ValueType>::Set(const Set& other) {
 }
 
 template<typename ValueType>
+Set<ValueType>::Set(stlSet& stlSet2) {
+    privateSet = stlSet2;
+}
+
+
+template<typename ValueType>
 Set<ValueType>& Set<ValueType>::operator =(const Set& set2) {
     privateSet = set2.privateSet;
     return *this;
@@ -101,15 +111,8 @@ void Set<ValueType>::insert(const ValueType& value) {
 }
 
 template<typename ValueType>
-void Set<ValueType>::erase(int index) {
-    auto itr = privateSet.begin();
-    std::advance(itr, index);
-    privateSet.erase(itr);
-}
-
-template<typename ValueType>
-int Set<ValueType>::count(const ValueType& value) const {
-    return privateSet.count(value);
+void Set<ValueType>::erase(const ValueType& value) {
+        privateSet.erase(value);
 }
 
 template<typename ValueType>
@@ -119,13 +122,7 @@ void Set<ValueType>::clear() {
 
 template<typename ValueType>
 bool Set<ValueType>::contains(ValueType value) const {
-    return (privateSet.find(value) != privateSet.find())? true : false;
-}
-
-
-template<typename ValueType>
-std::set<ValueType> Set<ValueType>::toStlSet(const Set& originSet) {
-    return originSet.privateSet;
+    return (privateSet.find(value) != privateSet.end())? true : false;
 }
 
 template<typename ValueType>

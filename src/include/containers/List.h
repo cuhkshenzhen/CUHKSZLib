@@ -10,9 +10,12 @@ namespace cuhksz {
 template <typename ValueType>
 class List {
 public:
+	typedef typename std::list<ValueType> stlList;
+
 	List(); //constructor
-	List(int n, ValueType value = ValueType());
+	explicit List(int n, ValueType value = ValueType());
 	List(std::initializer_list<ValueType> init);
+	List(stlList& stlList2);
 
 	~List(); //deconstructor
 
@@ -50,8 +53,11 @@ public:
 
 	void merge(List& list2);
 
-	std::list<ValueType> toStlList(const List& originList);
+	stlList toStlList() {
+		return privateList;
+	}
 
+	operator stlList() const { return privateList; }
 
 	bool operator ==(const List& list2);
 	bool operator !=(const List& list2);
@@ -103,6 +109,10 @@ List<ValueType>::List(std::initializer_list<ValueType> init) {
 	privateList = init;
 }
 
+template <typename ValueType>
+List<ValueType>::List(stlList& stlList2) {
+	privateList = stlList2;
+}
 
 template <typename ValueType>
 List<ValueType>::~List() {
@@ -230,12 +240,6 @@ void List<ValueType>::reverse() {
 template <typename ValueType>
 void List<ValueType>::merge(List& list2) {
 	privateList.merge(list2.privateList);
-}
-
-template <typename ValueType>
-std::list<ValueType>
-List<ValueType>::toStlList(const List& originList) {
-	return originList.privateList;
 }
 
 template <typename ValueType>
