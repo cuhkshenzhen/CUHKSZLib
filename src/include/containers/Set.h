@@ -3,6 +3,7 @@
 
 #include <set>
 #include <utility>
+#include "utils/error.h"
 
 namespace cuhksz {
 
@@ -105,12 +106,20 @@ int Set<ValueType>::size() const {
 
 template<typename ValueType>
 void Set<ValueType>::insert(const ValueType& value) {
-    privateSet.insert(value);
+    if (privateSet.find(value) != privateSet.end()) {
+        error("The value already exists in the Set! Insertion prevented.")
+    } else {
+        privateSet.insert(value);
+    }
 }
 
 template<typename ValueType>
 void Set<ValueType>::erase(const ValueType& value) {
+    if (privateSet.find(value) == privateSet.end()) {
+        error("No such value in the Set!")
+    } else {
         privateSet.erase(value);
+    }
 }
 
 template<typename ValueType>

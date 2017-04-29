@@ -87,8 +87,8 @@ public:
 
 private:
 	std::list<ValueType> privateList;
-	void boundaryCheck(int index);
-	void emptyCheck();
+	void boundaryCheck(int index) const;
+	void emptyCheck() const;
 
 }; //end list class
 
@@ -273,14 +273,14 @@ bool List<ValueType>::operator >=(const List& list2) {
 }
 
 template <typename ValueType>
-void List<ValueType>::boundaryCheck(int index) {
+void List<ValueType>::boundaryCheck(int index) const {
 	if (index < 0 || index >= privateList.size()) {
 		error("The index out of range!");
 	}
 }
 
 template <typename ValueType>
-void List<ValueType>::emptyCheck() {
+void List<ValueType>::emptyCheck() const {
 	if (privateList.empty()) {
 		error("The list is empty!");
 	}

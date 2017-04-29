@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 #include <sstream>
+#include "utils/error.h"
 
 cuhksz::Vector<int> testVector;
 std::vector<int> stlVector = {1, 2, 3, 4};
@@ -83,7 +84,11 @@ TEST(vectorDeathTest, emptyDeath) {
 }
 
 TEST(vectorTest, istreamOperator) {
-    std::istringstream inputVector("{1, 2, 3}");
+    std::istringstream inputVector("{1, 2, 3, 5, 6, 7, 8}");
     inputVector >> testVector;
-    EXPECT_EQ(testVector.size(), 3);
+    EXPECT_EQ(testVector.size(), 7);
+}
+
+TEST(vectorTest, ostreamOperator) {
+    EXPECT_DEATH(error(testVector), "1, 2, 3, 5, 6, 7, 8");
 }

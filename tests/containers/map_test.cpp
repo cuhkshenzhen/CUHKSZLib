@@ -41,6 +41,12 @@ TEST(mapTest, get) {
 	EXPECT_EQ(testMap.get(1), 'B');
 }
 
+TEST(mapTest, set) {
+    testMap.set(1, 'K');
+    EXPECT_EQ(testMap.get(1), 'K');
+}
+
+
 TEST(mapTest, indexOperator) {
 	EXPECT_EQ(testMap[2], 'C');
 	testMap[2] = 'S';
@@ -66,4 +72,5 @@ TEST(mapTest, clear) {
 
 TEST(mapDeathTest, keyDeath) {
 	EXPECT_DEATH(testMap.get(10), "key");
+    EXPECT_DEATH(testMap.set(20, 'M'), "key");
 }

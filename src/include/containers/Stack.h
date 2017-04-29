@@ -46,7 +46,7 @@ public:
 
 private:
 	std::stack<ValueType> privateStack;
-	void emptyCheck();
+	void emptyCheck() const;
 
 };
 
@@ -146,7 +146,7 @@ bool Stack<ValueType>::operator >=(const Stack& stack2) {
 }
 
 template <typename ValueType>
-void Stack<ValueType>::emptyCheck() {
+void Stack<ValueType>::emptyCheck() const {
 	if(privateStack.empty()) {
 		error("The stack is empty!");
 	}

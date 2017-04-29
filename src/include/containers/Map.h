@@ -24,6 +24,8 @@ public:
 	ValueType& get(const KeyType& key);
 	const ValueType& get(const KeyType& key) const;
 
+	void set(const KeyType& key, const ValueType& value);
+
 	ValueType& operator [](const KeyType& key);
 
 	bool isEmpty() const;
@@ -68,7 +70,7 @@ public:
 
 private:
 	std::map<KeyType, ValueType> privateMap;
-	void keyCheck(const KeyType& key );
+	void keyCheck(const KeyType& key ) const;
 
 };
 
@@ -111,6 +113,13 @@ const ValueType& Map<KeyType, ValueType>::get(const KeyType& key) const {
 	keyCheck(key);
 	return privateMap.at(key);
 }
+
+template <typename KeyType, typename ValueType>
+void Map<KeyType, ValueType>::set(const KeyType& key, const ValueType& value) {
+	keyCheck(key);
+	privateMap[key] = value;
+}
+
 
 template <typename KeyType, typename ValueType>
 ValueType& Map<KeyType, ValueType>::operator [](const KeyType& key) {
@@ -173,7 +182,7 @@ bool Map<KeyType, ValueType>::operator >=(const Map& map2) {
 }
 
 template <typename KeyType, typename ValueType>
-void Map<KeyType, ValueType>::keyCheck(const KeyType& key) {
+void Map<KeyType, ValueType>::keyCheck(const KeyType& key) const {
 	if (privateMap.find(key) == privateMap.end()) {
 		error("The Map doesn't have this key!");
 	}

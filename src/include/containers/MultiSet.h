@@ -3,6 +3,7 @@
 
 #include <set>
 #include <utility>
+#include "utils/error.h"
 
 namespace cuhksz {
 
@@ -23,7 +24,7 @@ public:
 
     int size() const;
 
-    void insert(ValueType& value);
+    void insert(const ValueType& value);
 
     void erase(const ValueType& value);
 
@@ -31,7 +32,7 @@ public:
 
     void clear();
 
-    bool contains(ValueType& value) const;
+    bool contains(const ValueType& value) const;
 
     typedef typename std::multiset<ValueType>::iterator iterator;
     typedef typename std::multiset<ValueType>::const_iterator const_iterator;
@@ -52,7 +53,7 @@ public:
         return privateMultiset.end();
     }
 
-    stlMultiset toStlMultiSet() {
+    stlMultiset toStlMultiset() {
         return privateMultiset;
     }
 
@@ -107,13 +108,17 @@ int MultiSet<ValueType>::size() const {
 }
 
 template <typename ValueType>
-void MultiSet<ValueType>::insert(ValueType& value) {
+void MultiSet<ValueType>::insert(const ValueType& value) {
     privateMultiset.insert(value);
 }
 
 template <typename ValueType>
 void MultiSet<ValueType>::erase(const ValueType& value) {
+    if (privateMultiset.find(value) == privateMultiset.end()) {
+        error("No such value in the multiset!");
+    } else {
         privateMultiset.erase(value);
+    }
 }
 
 template <typename ValueType>
@@ -127,7 +132,7 @@ void MultiSet<ValueType>::clear() {
 }
 
 template <typename ValueType>
-bool MultiSet<ValueType>::contains(ValueType& value) const {
+bool MultiSet<ValueType>::contains(const ValueType& value) const {
     return (privateMultiset.find(value) != privateMultiset.end())? true : false;
 }
 

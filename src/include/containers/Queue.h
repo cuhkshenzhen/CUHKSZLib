@@ -49,7 +49,7 @@ public:
 
 private:
 	std::queue<ValueType> privateQueue;
-	void emptyCheck();
+	void emptyCheck() const;
 
 
 };
@@ -157,7 +157,7 @@ bool Queue<ValueType>::operator >=(const Queue& queue2) {
 }
 
 template <typename ValueType>
-void Queue<ValueType>::emptyCheck() {
+void Queue<ValueType>::emptyCheck() const {
 	if (privateQueue.empty()) {
 		error("The queue is empty!");
 	}

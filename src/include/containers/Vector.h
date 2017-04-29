@@ -3,6 +3,9 @@
 
 #include <vector>
 #include <iostream>
+#include <sstream>
+#include <algorithm>
+#include <iterator>
 #include "utils/error.h"
 
 namespace cuhksz {
@@ -20,6 +23,12 @@ public:
 
     const ValueType& get(int index) const;
     ValueType& get(int index);
+
+    ValueType& first();
+	const ValueType& first() const;
+
+	ValueType& last();
+	const ValueType& last() const;
 
 
     ValueType& operator [](int index);
@@ -47,7 +56,7 @@ public:
         return vec;
     }
 
-    operator stlVector() { return vec; }
+    operator stlVector() { return vec; };
 
     bool operator ==(const Vector& v2);
     bool operator !=(const Vector& v2);
@@ -79,8 +88,8 @@ public:
 
 private:
     std::vector<ValueType> vec;
-    void boundaryCheck(int index);
-    void emptyCheck();
+    void boundaryCheck(int index) const;
+    void emptyCheck() const;
 };
 
 template <typename ValueType>
@@ -119,6 +128,30 @@ template <typename ValueType>
 ValueType& Vector<ValueType>::get(int index) {
     boundaryCheck(index);
     return vec.at(index);
+}
+
+template <typename ValueType>
+ValueType& Vector<ValueType>::first() {
+	emptyCheck();
+	return vec.front();
+}
+
+template <typename ValueType>
+const ValueType& Vector<ValueType>::first() const {
+	emptyCheck();
+	return vec.front();
+}
+
+template <typename ValueType>
+ValueType& Vector<ValueType>::last() {
+	emptyCheck();
+	return vec.back();
+}
+
+template <typename ValueType>
+const ValueType& Vector<ValueType>::last() const {
+	emptyCheck();
+	return vec.back();
 }
 
 template <typename ValueType>
@@ -214,14 +247,14 @@ bool Vector<ValueType>::operator >=(const Vector& v2) {
 }
 
 template <typename ValueType>
-void Vector<ValueType>::boundaryCheck(int index) {
+void Vector<ValueType>::boundaryCheck(int index) const {
 	if (index < 0 || index >= vec.size()) {
 		error("The index out of range!");
 	}
 }
 
 template <typename ValueType>
-void Vector<ValueType>::emptyCheck() {
+void Vector<ValueType>::emptyCheck() const {
 	if (vec.empty()) {
 		error("The vector is empty!");
 	}
@@ -229,7 +262,10 @@ void Vector<ValueType>::emptyCheck() {
 
 template <typename ValueType>
 std::ostream & operator <<(std::ostream& os, const Vector<ValueType>& vec) {
-  return os << vec;
+    std::stringstream ss;
+    auto outVector = vec;
+    std::copy(outVector.begin(), --outVector.end(), std::ostream_iterator<ValueType>(ss, ", "));
+    return os << '{' << ss.str() << vec.last() << '}' << std::endl;
 }
 
 template <typename ValueType>
@@ -237,7 +273,7 @@ std::istream & operator >>(std::istream & is, Vector<ValueType>& vec) {
   char ch;
   is >> ch;
   if (ch != '{') {
-    std::cout << "Error: The first character of a vector should be '{'" << '\n';
+    std::cerr << "Error: The first character of a vector should be '{'" << '\n';
     return is;
   }
   vec.clear();
@@ -252,7 +288,7 @@ std::istream & operator >>(std::istream & is, Vector<ValueType>& vec) {
       if (ch == '}') {
         break;
       } else if (ch != ','){
-        std::cout << "Error: Unexpected character " << ch << " when input a s" << '\n';
+        std::cerr << "Error: Unexpected character " << ch << " when input a s" << '\n';
         return is;
       }
     }
