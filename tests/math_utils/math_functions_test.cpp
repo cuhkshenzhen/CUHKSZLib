@@ -23,6 +23,13 @@ TEST(MathFunctions, sum_double) {
   EXPECT_DOUBLE_EQ(cuhksz::sum(sum, 4), 10.5);
 }
 
+TEST(MathFunctions, sum_int_to_double) {
+  int sum[] = {1, 2, 4, 3};
+  double result =
+      cuhksz::sum<int, double>(sum, 4, [](int a) { return a / 2.0; });
+  EXPECT_DOUBLE_EQ(result, 5.0);
+}
+
 TEST(MathFunctions, mean_int) {
   int arr[] = {1, 2, 3, 4};
   EXPECT_DOUBLE_EQ(cuhksz::mean(arr, 4), 2.5);

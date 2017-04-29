@@ -3,32 +3,68 @@
 
 #include <array>
 #include <cstdint>
-#include <functional>
 #include <memory>
+#include <type_traits>
 
 #include "utils/error.h"
 
 namespace cuhksz {
 
-template <typename IntType>
-IntType gcd(IntType a, IntType b) {
+/**
+  Greatest common divisor function using [Euclidean
+  algorithm](https://en.wikipedia.org/wiki/Euclidean_algorithm).
+  Parameters `a` and `b` should be both integers, and the return type is the
+  more precise type in `a` and `b`.
+  @return If one of the parameter is 0, returns the other one. Otherwise returns
+  the greatest common divisor of `a` and `b`.
+  @sa lcm(IntType1 a, IntType2 b)
+**/
+template <typename IntType1, typename IntType2>
+auto gcd(IntType1 a, IntType2 b) ->
+    typename std::common_type<IntType1, IntType2>::type {
   if (b)
     while ((a %= b) && (b %= a)) {
     }
   return a + b;
 }
 
-template <typename IntType>
-IntType lcm(IntType a, IntType b) {
+/**
+  Least common multiple function.
+  The result is simply calculated by `a * b / gcd(a, b)`. Parameters `a` and `b`
+  should be both integers, and the return type is the more precise type in `a`
+  and `b`.
+  @return If one of the parameter is 0, returns the other one. Otherwise returns
+  the least common multiple of `a` and `b`. Note that if `a` and `b` are both 0,
+  it will cause division by zero error.
+  @sa gcd(IntType1 a, IntType2 b)
+**/
+template <typename IntType1, typename IntType2>
+auto lcm(IntType1 a, IntType2 b) ->
+    typename std::common_type<IntType1, IntType2>::type {
   return a * b / gcd(a, b);
 }
 
+/**
+  Array summation function.
+  Sum up all the value in an array. `Type` should be an arithmetic type (e.g.
+  `int`, `short`, `float`, `double`, etc.).
+  @param arr The array to be summed
+  @param size Number of element(s) in `arr` to be summed
+  @return The summation of first `size` element(s) in `arr`, with the type the
+  same as the element of `arr`. If `size` <= 0, return 0.
+**/
 template <typename Type>
-Type sum(const Type* arr, int size);
+Type sum(const Type* arr, int size) {
+  Type sum = 0;
+  for (int i = 0; i < size; i++) {
+    sum += arr[i];
+  }
+  return sum;
+}
 
-template <typename ArrType, typename ReturnType>
-ReturnType sum(const ArrType* arr, int size,
-               const std::function<ReturnType(ArrType)>& fn) {
+
+template <typename ArrType, typename ReturnType, typename Function>
+ReturnType sum(const ArrType* arr, int size, Function fn) {
   ReturnType sum = 0;
   for (int i = 0; i < size; i++) {
     sum += fn(arr[i]);

@@ -3,18 +3,6 @@
 
 namespace cuhksz {
 
-template <typename Type>
-Type sum(const Type* arr, int size) {
-  Type sum = 0;
-  for (int i = 0; i < size; i++) {
-    sum += arr[i];
-  }
-  return sum;
-}
-
-template int sum(const int*, int);
-template double sum(const double*, int);
-
 
 double mean(const double* arr, int size) { return sum(arr, size) / size; }
 double mean(const int* arr, int size) { return (double)sum(arr, size) / size; }
