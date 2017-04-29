@@ -18,7 +18,6 @@ public:
 
     ~Vector();
 
-
     const ValueType& get(int index) const;
     ValueType& get(int index);
 
@@ -151,7 +150,7 @@ void Vector<ValueType>::clear() {
 
 template <typename ValueType>
 void Vector<ValueType>::insert(int index, const ValueType& value) {
-    boundaryCheck(index);
+    if (index != 0) boundaryCheck(index);
     auto iterator = vec.begin();
     std::advance(iterator, index);
     vec.insert(iterator, value);
@@ -234,7 +233,7 @@ std::ostream & operator <<(std::ostream& os, const Vector<ValueType>& vec) {
 }
 
 template <typename ValueType>
-std::istream & operator >>(std::istream & is, const Vector<ValueType>& vec) {
+std::istream & operator >>(std::istream & is, Vector<ValueType>& vec) {
   char ch;
   is >> ch;
   if (ch != '{') {

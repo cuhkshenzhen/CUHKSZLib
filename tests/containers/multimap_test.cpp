@@ -1,10 +1,9 @@
 #include "gtest/gtest.h"
-#include "containers/Map.h"
+#include "containers/MultiMap.h"
 
-#include <string>
-using std::string;
+#include <map>
 
-cuhksz::MultiMap<int, char> testMultiMap {
+cuhksz::MultiMap<int, char> testMultimap {
     {1, 'A'},
     {2, 'B'},
     {2, 'C'},
@@ -13,42 +12,50 @@ cuhksz::MultiMap<int, char> testMultiMap {
     {3, 'F'}
 };
 
-//
-// TEST(multimapTest, init) {
-//
-// }
+std::multimap<int, char> stlMultimap {
+    {1, 'A'},
+    {2, 'B'},
+    {2, 'C'},
+    {2, 'D'},
+    {4, 'E'},
+    {3, 'F'}
+};
 
-TEST(multimapTest, equal_range) {
-    auto range = testMultiMap.equal_range(2);
-    string ch;
-    for (auto i = range.first; i != range.second; ++i)
-    {
-        std::cout << i->first << ": " << i->second << '\n';
-        ch += i->second;
-    }
-    EXPECT_EQ(ch, "BCD");
 
+TEST(multimapTest, initialize) {
+    cuhksz::MultiMap<int, char> initMultimap1;
+    cuhksz::MultiMap<int, char> initMultimap2( stlMultimap );
 }
 
-TEST(multimapTest, size) {
-    EXPECT_EQ(testMultiMap.size(), 6);
+TEST(multimapTest, typeConvert) {
+    auto multimap1 = testMultimap.toStlMultimap();
+    std::multimap<int, char> multimap2 = testMultimap;
+    EXPECT_EQ(typeid(multimap1), typeid(stlMultimap));
+    EXPECT_EQ(typeid(multimap2), typeid(stlMultimap));
 }
 
-TEST(multimapTest, erase) {
-    testMultiMap.erase(2);
-    EXPECT_EQ(testMultiMap.size(), 3);
-}
-
-TEST(multimapTest, count) {
-    EXPECT_EQ(testMultiMap.count(3), 1);
-    EXPECT_EQ(testMultiMap.count(5), 0);
+TEST(multimapTest, eqOperator) {
+    cuhksz::MultiMap<int, char> initMultimap2( stlMultimap );
+    testMultimap = initMultimap2;
+    EXPECT_EQ(testMultimap.size(), 6);
 }
 
 TEST(multimapTest, find) {
-    EXPECT_EQ(testMultiMap.find(4)->second, 'E');
+    auto valueFound = testMultimap.find(2);
+    EXPECT_EQ(valueFound.size(), 3);
+}
+
+TEST(multimapTest, erase) {
+    testMultimap.erase(2);
+    EXPECT_EQ(testMultimap.size(), 3);
+}
+
+TEST(multimapTest, count) {
+    EXPECT_EQ(testMultimap.count(3), 1);
+    EXPECT_EQ(testMultimap.count(5), 0);
 }
 
 TEST(multimapTest, clear) {
-    testMultiMap.clear();
-    EXPECT_TRUE(testMultiMap.isEmpty());
+    testMultimap.clear();
+    EXPECT_TRUE(testMultimap.isEmpty());
 }

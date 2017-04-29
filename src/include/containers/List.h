@@ -187,7 +187,7 @@ void List<ValueType>::clear() {
 
 template <typename ValueType>
 void List<ValueType>::insert(int index, ValueType value) {
-	boundaryCheck(index);
+	if (index != 0) boundaryCheck(index);
 	auto iterator = privateList.begin();
 	std::advance(iterator, index);
 	privateList.insert(iterator, value);

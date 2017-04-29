@@ -14,7 +14,6 @@ public:
 	typedef typename std::map<KeyType, ValueType> stlMap;
 
 	Map();
-	Map(const Map& other);
 	Map( std::initializer_list<StdValueType> init );
 	Map( stlMap& stlMap2 );
 
@@ -79,11 +78,6 @@ Map<KeyType, ValueType>::Map(){
 }
 
 template <typename KeyType, typename ValueType>
-Map<KeyType, ValueType>::Map(const Map& other) {
-	privateMap = other.privateMap;
-}
-
-template <typename KeyType, typename ValueType>
 Map<KeyType, ValueType>::Map( std::initializer_list<StdValueType> init ) {
 	privateMap = init;
 }
@@ -120,8 +114,7 @@ const ValueType& Map<KeyType, ValueType>::get(const KeyType& key) const {
 
 template <typename KeyType, typename ValueType>
 ValueType& Map<KeyType, ValueType>::operator [](const KeyType& key) {
-	keyCheck(key);
-	return privateMap.at(key);
+	return privateMap[key];
 }
 
 template <typename KeyType, typename ValueType>

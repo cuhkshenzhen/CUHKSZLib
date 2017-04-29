@@ -12,7 +12,6 @@ public:
     typedef typename std::set<ValueType> stlSet;
     Set();
     Set( std::initializer_list<ValueType> init );
-    Set(const Set& other);
     Set(stlSet& stlSet2);
 
     ~Set();
@@ -79,15 +78,14 @@ Set<ValueType>::Set( std::initializer_list<ValueType> init ) {
 }
 
 template<typename ValueType>
-Set<ValueType>::Set(const Set& other) {
-    privateSet = other.privateSet;
-}
-
-template<typename ValueType>
 Set<ValueType>::Set(stlSet& stlSet2) {
     privateSet = stlSet2;
 }
 
+template<typename ValueType>
+Set<ValueType>::~Set() {
+    //do nothing
+}
 
 template<typename ValueType>
 Set<ValueType>& Set<ValueType>::operator =(const Set& set2) {

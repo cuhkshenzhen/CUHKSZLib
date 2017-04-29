@@ -13,7 +13,6 @@ public:
 
     Multiset();
     Multiset(std::initializer_list<ValueType> init);
-    Multiset(const Multiset& other);
     Multiset(stlMultiset& stlMultiset2);
 
     ~Multiset();
@@ -78,11 +77,6 @@ Multiset<ValueType>::Multiset() {
 template <typename ValueType>
 Multiset<ValueType>::Multiset(std::initializer_list<ValueType> init) {
     privateMultiset = init;
-}
-
-template <typename ValueType>
-Multiset<ValueType>::Multiset(const Multiset& other) {
-    privateMultiset = other.privateMultiset;
 }
 
 template <typename ValueType>
