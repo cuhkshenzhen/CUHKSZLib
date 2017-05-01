@@ -21,5 +21,5 @@ TEST(BinomialDistribution, real_theory) {
         cuhksz::binomial(n, i) * std::pow(p, i) * std::pow(p_complement, n - i);
     error_sum += std::abs(real - theory) / theory;
   }
-  EXPECT_LT(error_sum / 11, 0.05);
+  EXPECT_LT(error_sum / 11, 0.06);
 }

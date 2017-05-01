@@ -10,10 +10,12 @@ std::string urlEncode(const std::string &value) {
   escaped.fill('0');
   escaped << std::hex;
 
-  for (auto const &c: value) {
-    if (isalnum(c) || c == '-' || c == '_' || c == '.' || c == '~') {
-      escaped << c;
-      continue;
+  for (const char &c: value) {
+    if (c >= 0) {
+      if (isalnum(c) || c == '-' || c == '_' || c == '.' || c == '~') {
+        escaped << c;
+        continue;
+      }
     }
 
     escaped << std::uppercase;

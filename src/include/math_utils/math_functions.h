@@ -6,6 +6,8 @@
 #include <functional>
 #include <memory>
 
+#include "utils/error.h"
+
 namespace cuhksz {
 
 template <typename IntType>
@@ -21,8 +23,8 @@ IntType lcm(IntType a, IntType b) {
   return a * b / gcd(a, b);
 }
 
-int sum(const int*, int size);
-double sum(const double*, int size);
+template <typename Type>
+Type sum(const Type* arr, int size);
 
 template <typename ArrType, typename ReturnType>
 ReturnType sum(const ArrType* arr, int size,
@@ -57,7 +59,8 @@ template <typename BaseType, typename IntType>
 BaseType genericBinaryPow(BaseType base, IntType exp) {
   // if (exp == 0) return 1;
   if (exp == 1) return base;
-  if (exp < 0) return 0;  // TODO: raise error here
+  if (exp <= 0)
+    error("The Exponent for genericBinaryPow can only be positive.");
   exp -= 1;
 
   BaseType result = base;
@@ -74,7 +77,7 @@ BaseType genericBinaryPow(BaseType base, IntType exp) {
 
 template <typename IntType>
 IntType factorial(IntType n) {
-  if (n < 0) return 0;  // TODO: raise error here
+  if (n < 0) error("Argument of factorial cannot be negative.");
   IntType fac = 1;
   for (IntType i = 2; i <= n; i++) fac *= i;
   return fac;
@@ -83,7 +86,7 @@ IntType factorial(IntType n) {
 // TODO: name may need change
 template <typename IntType>
 IntType permutation(IntType n, IntType r) {
-  if (n < 0 || r < 0 || r > n) return 0;  // TODO: raise error here
+  if (n < 0 || r < 0 || r > n) error("Arguments invalid for permutation.");
   IntType result = n;
   n--;
   for (; r > 1; r--, n--) {
@@ -94,7 +97,7 @@ IntType permutation(IntType n, IntType r) {
 
 template <typename IntType>
 IntType binomial(IntType n, IntType r) {
-  if (n < 0 || r < 0 || r > n) return 0;  // TODO: raise error here
+  if (n < 0 || r < 0 || r > n) error("Arguments invalid for binomial.");
   if (r == 0) return 1;
   if (r > n / 2) return binomial(n, n - r);
   std::unique_ptr<IntType[]> combination(new IntType[r]);

@@ -3,29 +3,23 @@
 
 namespace cuhksz {
 
-#define IMPLEMENT_SUM(Type)             \
-  Type sum(const Type* arr, int size) { \
-    Type sum = 0;                       \
-    for (int i = 0; i < size; i++) {    \
-      sum += arr[i];                    \
-    }                                   \
-    return sum;                         \
+template <typename Type>
+Type sum(const Type* arr, int size) {
+  Type sum = 0;
+  for (int i = 0; i < size; i++) {
+    sum += arr[i];
   }
+  return sum;
+}
 
-IMPLEMENT_SUM(int)
-IMPLEMENT_SUM(double)
-#undef IMPLEMENT_SUM
+template int sum(const int*, int);
+template double sum(const double*, int);
+
 
 double mean(const double* arr, int size) { return sum(arr, size) / size; }
 double mean(const int* arr, int size) { return (double)sum(arr, size) / size; }
 
 double variance(const double* arr, int size) {
-  // double sum_square = 0.0;
-  // for (int i = 0; i < size; i++) {
-  //   sum_square += arr[i] * arr[i];
-  // }
-  // double means = mean(arr, size);
-  // return sum_square / size - means * means;
   double sum_square = 0.0;
   double means = mean(arr, size);
   for (int i = 0; i < size; i++) {

@@ -2,11 +2,12 @@
 
 #include <cmath>
 #include "math_utils/math_functions.h"
+#include "utils/error.h"
 
 namespace cuhksz {
 void NegativeBinomialDistribution::init(int r, double p) {
   if (r <= 0 || p <= 0 || p > 1) {
-    exit(1);  // TODO: error here
+    error("Invalid parameter(s) for NegativeBinomialDistribution");
   }
   r_ = r;
   p_ = p;

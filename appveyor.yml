@@ -1,0 +1,83 @@
+# shallow clone
+clone_depth: 10
+
+os: Visual Studio 2017
+
+platform:
+  - x64
+  - x86
+
+environment:
+  matrix:
+   - Toolset: v140
+   - Toolset: v150
+   - Toolset: mingw
+
+branches:
+  except:
+    - gh-pages
+
+configuration:
+  - Debug
+
+install:
+  - git submodule update --init --recursive
+  - ps: |
+      if ($env:PLATFORM -eq "x64")
+      {
+          $env:MINGW_DIR = "mingw64"
+          $env:MINGW_URL = "https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/4.9.2/threads-win32/seh/x86_64-4.9.2-release-win32-seh-rt_v4-rev4.7z/download"
+          $env:MINGW_ARCHIVE = "x86_64-4.9.2-release-win32-seh-rt_v4-rev4.7z"
+      }
+      else
+      {
+          $env:MINGW_DIR = "mingw32"
+          $env:MINGW_URL = "https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/4.9.2/threads-win32/dwarf/i686-4.9.2-release-win32-dwarf-rt_v4-rev4.7z/download"
+          $env:MINGW_ARCHIVE = "i686-4.9.2-release-win32-dwarf-rt_v4-rev4.7z"
+      }
+  - if not exist "%MINGW_ARCHIVE%" appveyor DownloadFile "%MINGW_URL%" -FileName "%MINGW_ARCHIVE%"
+  - 7z x -y "%MINGW_ARCHIVE%" > nul
+  - python -m ensurepip
+  - python -m pip install cpp-coveralls==0.3.11
+  - ps: Get-Command sh.exe -All | Remove-Item
+
+
+before_build:
+- ps: |
+    md build
+    cd build
+    $generator = switch ($env:TOOLSET)
+    {
+        "v140" {"Visual Studio 14 2015"}
+        "v150" {"Visual Studio 15 2017"}
+        "mingw" {"MinGW Makefiles"}
+    }
+    if (($env:PLATFORM -eq "x64") -and ($env:TOOLSET -ne "mingw"))
+    {
+        $generator = "$generator Win64"
+    }
+
+    if ($env:TOOLSET -eq "mingw")
+    {
+        $env:PATH = "$pwd.Path\..\$env:MINGW_DIR\bin;$env:PATH"
+    }
+    cmake -G "$generator"  ..
+    cd ..
+
+build:
+  verbosity: minimal
+
+build_script:
+  - cd build && cmake --build . --config %CONFIGURATION%
+
+test_script:
+- ps: |
+    if ($env:TOOLSET -eq "mingw")
+    {
+        ctest
+    }
+    else
+    {
+        cd tests
+        & .\$env:CONFIGURATION\test_all.exe
+    }
