@@ -13,6 +13,10 @@ environment:
    - Toolset: v150
    - Toolset: mingw
 
+cache:
+  - x86_64-4.9.2-release-win32-seh-rt_v4-rev4.7z
+  - i686-4.9.2-release-win32-dwarf-rt_v4-rev4.7z
+
 branches:
   except:
     - gh-pages
@@ -74,6 +78,7 @@ test_script:
 - ps: |
     if ($env:TOOLSET -eq "mingw")
     {
+        $env:CTEST_OUTPUT_ON_FAILURE = 1
         ctest
     }
     else
