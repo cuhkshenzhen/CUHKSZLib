@@ -3,10 +3,6 @@
 
 namespace cuhksz {
 
-
-double mean(const double* arr, int size) { return sum(arr, size) / size; }
-double mean(const int* arr, int size) { return (double)sum(arr, size) / size; }
-
 double variance(const double* arr, int size) {
   double sum_square = 0.0;
   double means = mean(arr, size);
