@@ -1,12 +1,15 @@
 #include "random/StudentTDistribution.h"
+
 #include <cmath>
+
 #include "random/ChiSquaredDistribution.h"
 #include "random/NormalDistribution.h"
+#include "utils/error.h"
 
 namespace cuhksz {
 void StudentTDistribution::init(double r) {
   if (r <= 0) {
-    exit(1);  // TODO: error here
+    error("Invalid parameter for StudentTDistribution");
   }
   r_ = r;
 }

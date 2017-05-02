@@ -3,6 +3,7 @@
 #include <exception>
 #include <string>
 #include <sstream>
+#include <iostream>
 namespace cuhksz {
 template<typename T>
 class stringCast {
@@ -15,6 +16,7 @@ class stringCast {
       strStream >> casted;
     }
     catch (std::exception &e) {
+      std::cerr << "not able to cast: " << e.what() << std::endl;
       return T(0);
     }
     return casted;

@@ -10,7 +10,7 @@
 #include "json_functions.h"
 
 namespace cuhksz {
-namespace JSON {
+
 template<typename Container>
 class JSONWrapper {
   Container *object;
@@ -208,6 +208,17 @@ class JSONObject {
 
   friend std::ostream &operator<<(std::ostream &os, const JSONObject &json);
 
+  // Objects
+  static JSONObject Array();
+
+  template<typename... T>
+  static JSONObject Array(T... args) {
+    JSONObject arr = JSONObject::Build(JSONObject::Type::Array);
+    arr.append(args...);
+    return arr;
+  }
+
+  static JSONObject Object();
  private:
   void clearData();
   void setType(Type type);
@@ -215,7 +226,7 @@ class JSONObject {
   Type objType = Type::Null;
 };
 
-// Parsers
+namespace private_ {
 void skip_whitespaces(const std::string &str, size_t &offset);
 
 JSONObject parse_object(const std::string &str, size_t &offset);
@@ -225,21 +236,11 @@ JSONObject parse_number(const std::string &str, size_t &offset);
 JSONObject parse_bool(const std::string &str, size_t &offset);
 JSONObject parse_null(const std::string &str, size_t &offset);
 JSONObject parse_next(const std::string &str, size_t &offset);
-JSONObject load(const std::string &str);
-
-// Objects
-JSONObject Array();
-
-template<typename... T>
-JSONObject Array(T... args) {
-  JSONObject arr = JSONObject::Build(JSONObject::Type::Array);
-  arr.append(args...);
-  return arr;
 }
 
-JSONObject Object();
+// Parsers
 
-};
+JSONObject loadJSON(const std::string &str);
 
 }
 
