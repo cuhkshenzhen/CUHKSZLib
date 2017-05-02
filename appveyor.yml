@@ -74,6 +74,7 @@ test_script:
 - ps: |
     if ($env:TOOLSET -eq "mingw")
     {
+        $env:CTEST_OUTPUT_ON_FAILURE = 1
         ctest
     }
     else
