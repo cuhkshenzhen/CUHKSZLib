@@ -10,7 +10,7 @@ namespace cuhksz {
  *
  * Usage:
  * ```
- * (int)cuhksz::stringCast<int>("12345") or
+ * (int)cuhksz::stringCast<int>("12345") // or
  * cuhksz::stringCast<int>("12345")()
  * ```
  * @tparam T Type to convert
