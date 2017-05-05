@@ -10,7 +10,8 @@ namespace cuhksz {
  *
  * Usage:
  * ```
- * (int)cuhksz::stringCast<int>("12345")
+ * (int)cuhksz::stringCast<int>("12345") or
+ * cuhksz::stringCast<int>("12345")()
  * ```
  * @tparam T Type to convert
  */
@@ -30,6 +31,9 @@ class stringCast {
     }
     return casted;
   };
+  T operator()() const{
+    return (T)*this;
+  }
 
 private:
   const std::string &m_from;
