@@ -3,5 +3,5 @@
 #include "string_utils/StringCast.h"
 
 TEST(StringFunc, stringCast) {
-  EXPECT_EQ(cuhksz::stringCast<int>("12345"), 12345);
+  EXPECT_EQ((int)cuhksz::stringCast<int>("12345"), 12345);
 }

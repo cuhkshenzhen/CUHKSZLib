@@ -5,6 +5,15 @@
 #include <sstream>
 #include <iostream>
 namespace cuhksz {
+/**
+ * Convert your string to a new type.
+ *
+ * Usage:
+ * ```
+ * (int)cuhksz::stringCast<int>("12345")
+ * ```
+ * @tparam T Type to convert
+ */
 template<typename T>
 class stringCast {
  public:

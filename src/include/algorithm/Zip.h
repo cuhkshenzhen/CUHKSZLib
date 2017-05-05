@@ -11,7 +11,7 @@ class Zip {
 
   template<typename... Args>
   Zip(const T &head, const Args &... args):
-      items(head.size()), min_(head.size()) { // member initialization
+      items(head.size()), min_(head.size()) {
     zip_(head, args...);
   }
   inline operator container() const {
