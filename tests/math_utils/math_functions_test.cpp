@@ -25,8 +25,7 @@ TEST(MathFunctions, sum_double) {
 
 TEST(MathFunctions, sum_int_to_double) {
   int sum[] = {1, 2, 4, 3};
-  double result =
-      cuhksz::sum<double>(sum, 4, [](int a) { return a / 2.0; });
+  double result = cuhksz::sum<double>(sum, 4, [](int a) { return a / 2.0; });
   EXPECT_DOUBLE_EQ(result, 5.0);
 }
 
