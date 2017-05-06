@@ -41,7 +41,19 @@ class JSONConstWrapper {
   }
 };
 
+/**
+ * Object to save javascript-like data.
+
+  Usage:
+  ```
+  cuhksz::JSONObject obj;
+  ```
+ */
 class JSONObject {
+
+  /**
+   * Use a union to store data and save memory
+   */
   union data {
     std::deque<JSONObject> *List;
     std::map<std::string, JSONObject> *Map;
@@ -58,6 +70,10 @@ class JSONObject {
 
   } Data;
  public:
+
+  /**
+   * JSON Object types
+   */
   enum class Type {
     Null,
     Object,
@@ -68,31 +84,87 @@ class JSONObject {
     Boolean
   };
 
-  // Initializers
+  /**
+   * Initializer of a new empty JSONObject
+   *
+   * Example:
+   * @code
+   * cuhksz::JSONObject obj;
+   * @endcode
+   */
   JSONObject();
+
+  /**
+   * Initialize a new JSONObject with a initializer_list
+   *
+   * Example:
+   * @code
+   * cuhksz::JSONObject obj2 = {
+      "Key", 1,
+      "Key3", true,
+      "Key4", nullptr,
+      "Key2", {
+          "Key4", "VALUE",
+          "Arr", cuhksz::JSONObject::Array(1, "Str", false)
+      }
+    };
+   * @endcode
+   * @param list std::initializer_list
+   */
   JSONObject(std::initializer_list<JSONObject> list);
+
+  /**
+   * Copy from another JSONObject
+   * @param other copy source
+   */
   JSONObject(JSONObject &&other);
 
+  /**
+   * Construct bool JSON object
+   * @tparam T: bool
+   * @param b: boolean value
+   */
   template<typename T>
   JSONObject(T b, typename std::enable_if<std::is_same<T, bool>::value>::type * = nullptr)
       : Data(b), objType(Type::Boolean) {}
 
+  /**
+   * Construct integral JSON object
+   * @tparam T: integral-like types, like char, int, long, etc
+   * @param i: integral value
+   */
   template<typename T>
   JSONObject(T i,
              typename std::enable_if<std::is_integral<T>::value && !std::is_same<T, bool>::value>::type * = nullptr)
       : Data((int) i), objType(Type::Integral) {}
 
+  /**
+   * Construct float-number JSON object
+   * @tparam T: float, double, etc
+   * @param f: number
+   */
   template<typename T>
   JSONObject(T f, typename std::enable_if<std::is_floating_point<T>::value>::type * = nullptr)
       : Data((double) f), objType(Type::Float) {}
 
+  /**
+   * Construct string-type JSON object
+   * @tparam T: string-like types, like [const] char *, [const] char[], std::string, etc
+   * @param s: string
+   */
   template<typename T>
   JSONObject(T s, typename std::enable_if<std::is_convertible<T, std::string>::value>::type * = nullptr)
       : Data(std::string(s)), objType(Type::String) {}
 
+  /**
+   * Construct null-type JSON object
+   */
   JSONObject(std::nullptr_t) : Data(), objType(Type::Null) {}
 
-  // Destructor
+
+  /**
+   * Destruct the JSON object. Usually internal usage only.
+   */
   ~JSONObject();
 
   // Copy Operator
@@ -208,9 +280,23 @@ class JSONObject {
 
   friend std::ostream &operator<<(std::ostream &os, const JSONObject &json);
 
-  // Objects
+  /**
+   * Empty JSON array
+   * @return JSONObject
+   */
   static JSONObject Array();
 
+  /**
+   * Load data into a new JSON array
+   *
+   * Example:
+   * @code
+   * cuhksz::JSONObject::Array(true, "Two", 3, 4.0)
+   * @endcode
+   * @tparam T Type of the First Data to Load
+   * @param args data to load
+   * @return JSONObject, array type
+   */
   template<typename... T>
   static JSONObject Array(T... args) {
     JSONObject arr = JSONObject::Build(JSONObject::Type::Array);
@@ -218,6 +304,10 @@ class JSONObject {
     return arr;
   }
 
+  /**
+   * Build an empty JSON object.
+   * @return
+   */
   static JSONObject Object();
  private:
   void clearData();
@@ -240,6 +330,32 @@ JSONObject parse_next(const std::string &str, size_t &offset);
 
 // Parsers
 
+/*!
+ * Load JSON from string
+ *
+ * @code
+ * std::string json = R"({
+ *   "array" : [true, "Two", 3, 4.000000],
+ *   "array2" : [false, "three"],
+ *   "new" : {
+ *      "some" : {
+ *          "deep" : {
+ *              "key" : "Value"
+ *          }
+ *      }
+ *   },
+ *   "obj" : {
+ *      "inner" : "Inside"
+ *   },
+ *   "parsed" : [{
+ *      "Key" : "Value"
+ *   }, false]
+ * })";
+ * auto jsonObject = cuhksz::loadJSON(json);
+ * @endcode
+ * @param str valid JSON string
+ * @return JSONObject, containing all information in the string
+ */
 JSONObject loadJSON(const std::string &str);
 
 }

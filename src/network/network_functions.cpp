@@ -5,12 +5,12 @@
 #include "network/network_functions.h"
 
 namespace cuhksz {
-std::string urlEncode(const std::string &value) {
+std::string urlEncode(const std::string &string) {
   std::ostringstream escaped;
   escaped.fill('0');
   escaped << std::hex;
 
-  for (const char &c: value) {
+  for (const char &c: string) {
     if (c >= 0) {
       if (isalnum(c) || c == '-' || c == '_' || c == '.' || c == '~') {
         escaped << c;
