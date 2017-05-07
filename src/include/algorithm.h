@@ -3,6 +3,7 @@
 
 #include "algorithm/Zip.h"
 #include "algorithm/Map.h"
+#include "algorithm/Filter.h"
 
 #include "algorithm/algorithm_functions.h"
 

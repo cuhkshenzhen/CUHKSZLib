@@ -1,5 +1,5 @@
-#ifndef CUHKSZ_ZIP_ZIPFUNCTIONS
-#define CUHKSZ_ZIP_ZIPFUNCTIONS
+#ifndef CUHKSZ_ALGORITHM_ZIP
+#define CUHKSZ_ALGORITHM_ZIP
 #include <iterator>
 #include <vector>
 namespace cuhksz {
@@ -71,4 +71,4 @@ typename Zip<T>::container zip(const T &head, const Args &... tail) {
 };
 }
 
-#endif //CUHKSZ_ZIP_ZIPFUNCTIONS
+#endif //CUHKSZ_ALGORITHM_ZIP
