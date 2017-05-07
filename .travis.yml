@@ -50,6 +50,7 @@ after_success: |
       cd $TRAVIS_BUILD_DIR
       chmod +x generateDocument.sh
       ./generateDocument.sh
+      touch docs/.nojekyll
     fi
   fi
 
