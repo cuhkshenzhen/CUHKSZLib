@@ -46,8 +46,8 @@ auto lcm(IntType1 a, IntType2 b) ->
 
 /**
   Array summation function.
-  Sum up all the value in an array. `Type` should be an arithmetic type (e.g.
-  `int`, `short`, `float`, `double`, etc.).
+  Sum up all the value in an array.
+  @tparam Type An arithmetic type (e.g. `int`, `short`, `float`, `double`, etc.)
   @param arr The array to be summed
   @param size Number of element(s) in `arr` to be summed
   @return The summation of first `size` element(s) in `arr`, with the type the
@@ -65,14 +65,17 @@ Type sum(const Type* arr, int size) {
 /**
   Array summation function with a mapping function.
   Sum up all the value in an array after mapping each with function `fn`.
-  `ArrType` and `ReturnType` should be arithmetic types (e.g. `int`, `short`,
-  `float`, `double`, etc.). You need to specify the `ReturnType`.
+  You need to specify the `ReturnType`.
 
   Usage:
   ```
   int sum[] = {1, 2, 4, 3};
   cuhksz::sum<double>(sum, 4, [](int a) { return a / 2.0; });
   ```
+  @tparam ArrType An arithmetic type (e.g. `int`, `short`, `float`, `double`,
+    etc.)
+  @tparam ReturnType An arithmetic type (e.g. `int`, `short`, `float`, `double`,
+    etc.), it should be the return type of `fn`
   @param arr The array to be summed
   @param size Number of element(s) in `arr` to be summed
   @param fn Mapping function, should be type `ReturnType fn(ArrType)`
@@ -92,8 +95,7 @@ ReturnType sum(const ArrType* arr, int size, Function fn) {
 
 /**
   Compute the mean of elements in an array.
-  `Type` should be an arithmetic type (e.g. `int`, `short`, `float`, `double`,
-  etc.).
+  @tparam Type An arithmetic type (e.g. `int`, `short`, `float`, `double`, etc.)
   @param arr The array to calculate the mean
   @param size Number of element(s) in `arr` to calculate
   @return The mean of first `size` element(s) in `arr`. If `size` < 0, return 0.
@@ -255,11 +257,12 @@ int64_t binaryPow(int64_t base, int exp);
   (e.g. Fraction), not only integers. Because all types do not have the same way
   to construct a "one" object (e.g. identity matrix of Matrix), it cannot
   calculate the 0 power.
+  If you use integer literal as `base` argument, you may need to annotate the
+  type of it like `2LL`, otherwise, the result may overflow the default integer
+  type `int`.
 
-  `BaseType` can be any type that implements `*` operation. And `IntType` should
-  be a ordinary integer type like `int`, `short`, etc. If you use integer
-  literal as `base` argument, you may need to annotate the type of it like
-  `2LL`, otherwise, the result may overflow the default integer type `int`.
+  @tparam BaseType Any type that implements `*` operation
+  @tparam IntType An ordinary integer type like `int`, `short`, etc.
 
   @param base The base "number" to be powered
   @param exp The exponent, should be positive
@@ -287,8 +290,8 @@ BaseType genericBinaryPow(BaseType base, IntType exp) {
 
 /**
   Factorial function.
-  Compute the factorial of integer: \f$n!\f$. `IntType` should be an ordinary
-  integer type.
+  Compute the factorial of integer: \f$n!\f$.
+  @tparam IntType An ordinary integer type.
   @param n Non-negative integer
 **/
 template <typename IntType>
@@ -304,6 +307,7 @@ IntType factorial(IntType n) {
   Compute the permutation number, nPr.
   The permutation number is the number of ways to choose `r` things from `n`
   things and then permutate the `r` things. \f$n\text{P}r=\frac{n!}{r!}\f$.
+  @tparam IntType An ordinary integer type.
   @param n Number of things to choose from
   @param r Number of things to choose and permutate
 **/
@@ -324,6 +328,7 @@ IntType permutation(IntType n, IntType r) {
   things from `n` things, or the coefficient of \f$a^rb^{n-r}\f$ in the
   expansion of \f$(a+b)^n\f$.
   \f${n \choose r}=n\text{C}r=\frac{n!}{r!(n-r)!}\f$.
+  @tparam IntType An ordinary integer type.
   @param n Number of things to choose from
   @param r Number of things to choose
 **/
