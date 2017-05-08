@@ -8,7 +8,7 @@
 #include <vector>
 namespace cuhksz {
 template<typename Container, typename Func>
-std::vector<typename Container::value_type> filter(Container &cont, Func func) {
+std::vector<typename Container::value_type> filterContainer(Container &cont, Func func) {
   std::vector<typename Container::value_type> ret;
   ret.reserve(cont.size());
   for (auto &v : cont) {
