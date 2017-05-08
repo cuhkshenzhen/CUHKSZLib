@@ -4,6 +4,8 @@
 
 #ifndef CUHKSZ_ALGORITHM_MAP
 #define CUHKSZ_ALGORITHM_MAP
+
+#include <vector>
 namespace cuhksz {
 template<typename Container, typename Func>
 std::vector<typename std::result_of<Func(typename Container::value_type &)>::type> map(Container &cont, Func func) {

@@ -4,8 +4,9 @@
 
 #ifndef CUHKSZ_ALGORITHM_FILTER
 #define CUHKSZ_ALGORITHM_FILTER
-namespace cuhksz {
 
+#include <vector>
+namespace cuhksz {
 template<typename Container, typename Func>
 std::vector<typename Container::value_type> filter(Container &cont, Func func) {
   std::vector<typename Container::value_type> ret;
