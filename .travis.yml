@@ -59,6 +59,7 @@ after_success: |
   if [[ "$CXX" = "clang++-3.7" ]]; then
     CC="clang"
   fi
+  cd $TRAVIS_BUILD_DIR/build
   if  [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
     cp -r ../src/include ./include
     tar -czvf linux-$CC.tar.gz libcuhkszlib.a include
