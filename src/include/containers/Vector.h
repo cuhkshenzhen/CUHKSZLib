@@ -6,6 +6,7 @@
 #include <sstream>
 #include <algorithm>
 #include <iterator>
+#include <string>
 #include "utils/error.h"
 
 namespace cuhksz {
@@ -56,7 +57,7 @@ public:
         return vec;
     }
 
-    operator stlVector() { return vec; };
+    operator stlVector() { return vec; }
 
     bool operator ==(const Vector& v2);
     bool operator !=(const Vector& v2);
@@ -183,7 +184,9 @@ void Vector<ValueType>::clear() {
 
 template <typename ValueType>
 void Vector<ValueType>::insert(int index, const ValueType& value) {
-    if (index != 0) boundaryCheck(index);
+    if (index < 0) {
+        error("The index out of range!");
+    }
     auto iterator = vec.begin();
     std::advance(iterator, index);
     vec.insert(iterator, value);
@@ -248,7 +251,8 @@ bool Vector<ValueType>::operator >=(const Vector& v2) {
 
 template <typename ValueType>
 void Vector<ValueType>::boundaryCheck(int index) const {
-	if (index < 0 || index >= vec.size()) {
+    unsigned long unsignedIndex = index;
+	if (unsignedIndex < 0 || unsignedIndex >= vec.size()) {
 		error("The index out of range!");
 	}
 }
@@ -263,9 +267,14 @@ void Vector<ValueType>::emptyCheck() const {
 template <typename ValueType>
 std::ostream & operator <<(std::ostream& os, const Vector<ValueType>& vec) {
     std::stringstream ss;
-    auto outVector = vec;
-    std::copy(outVector.begin(), --outVector.end(), std::ostream_iterator<ValueType>(ss, ", "));
-    return os << '{' << ss.str() << vec.last() << '}' << std::endl;
+    if (vec.size() == 0) {
+        return os << "{}";
+    }
+    if (vec.size() == 1) {
+        return os << '{' << vec.last() << '}';
+    }
+    std::copy(vec.begin(), --vec.end(), std::ostream_iterator<ValueType>(ss, ", "));
+    return os << '{' << ss.str() << vec.last() << '}';
 }
 
 template <typename ValueType>
@@ -273,8 +282,7 @@ std::istream & operator >>(std::istream & is, Vector<ValueType>& vec) {
   char ch;
   is >> ch;
   if (ch != '{') {
-    std::cerr << "Error: The first character of a vector should be '{'" << '\n';
-    return is;
+    error("A vector should startwith \'{\'");
   }
   vec.clear();
   is >> ch;
@@ -285,13 +293,15 @@ std::istream & operator >>(std::istream & is, Vector<ValueType>& vec) {
       is >> value;
       vec.push(value);
       is >> ch;
+      if (is.eof()) {
+          error("A vector must endwith \'}\'");
+      }
       if (ch == '}') {
         break;
       } else if (ch != ','){
-        std::cerr << "Error: Unexpected character " << ch << " when input a s" << '\n';
-        return is;
-      }
+        error(std::string("Unexpected character ") + ch);
     }
+  }
   }
   return is;
 }

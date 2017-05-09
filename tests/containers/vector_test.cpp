@@ -10,15 +10,17 @@ std::vector<int> stlVector = {1, 2, 3, 4};
 
 TEST(vectorTest, initialize) {
     cuhksz::Vector<int> initVector1(5, 1);
+    EXPECT_EQ(initVector1.size(), 5);
     cuhksz::Vector<int> initVector2 = {1, 2, 1};
+    EXPECT_EQ(initVector2.size(), 3);
     cuhksz::Vector<int> initVector3(stlVector);
+    EXPECT_EQ(initVector3.size(), 4);
 }
 
 TEST(vectorTest, typeConvert) {
     auto vector1 = testVector.toStlVector();
     std::vector<int> vector2 = testVector;
-    EXPECT_EQ(typeid(vector1), typeid(std::vector<int>));
-    EXPECT_EQ(typeid(vector2), typeid(std::vector<int>));
+    EXPECT_EQ(vector1, vector2);
 }
 
 TEST(vectorTest, eqOperator) {
@@ -74,7 +76,6 @@ TEST(vectorTest, clear) {
 TEST(vectorDeathTest, rangeDeath) {
     EXPECT_DEATH(testVector.get(9), "range");
     EXPECT_DEATH(testVector[10], "range");
-    EXPECT_DEATH(testVector.insert(11, 2), "range");
     EXPECT_DEATH(testVector.erase(8), "range");
     EXPECT_DEATH(testVector.set(12, 1), "range");
 }
@@ -90,5 +91,17 @@ TEST(vectorTest, istreamOperator) {
 }
 
 TEST(vectorTest, ostreamOperator) {
-    EXPECT_DEATH(error(testVector), "1, 2, 3, 5, 6, 7, 8");
+    std::stringstream outVector;
+    outVector << testVector;
+    EXPECT_EQ(outVector.str(), "{1, 2, 3, 5, 6, 7, 8}");
+}
+
+TEST(vectorDeathTest, istreamDeathTest) {
+    cuhksz::Vector<int> inputTestVector;
+    std::istringstream inputVector1("1, 2, 3");
+    std::istringstream inputVector2("{1, 2, 3");
+    std::istringstream inputVector3("{1, 2? 3}");   
+    EXPECT_DEATH(inputVector1 >> inputTestVector, "startwith '{'");
+    EXPECT_DEATH(inputVector2 >> inputTestVector, "endwith");
+    EXPECT_DEATH(inputVector3 >> inputTestVector, "Unexpected character");
 }

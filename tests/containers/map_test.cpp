@@ -19,14 +19,15 @@ std::map<int, char> stlMap {
 
 TEST(mapTest, initialize) {
     cuhksz::Map<int, char> initMap1;
+    EXPECT_EQ(initMap1.size(), 0);
     cuhksz::Map<int, char> initMap2( stlMap );
+    EXPECT_EQ(initMap2.size(), 4);
 }
 
 TEST(mapTest, typeConvert) {
     auto map1 = testMap.toStlMap();
     std::map<int, char> map2 = testMap;
-    EXPECT_EQ(typeid(map1), typeid(stlMap));
-    EXPECT_EQ(typeid(map2), typeid(stlMap));
+    EXPECT_EQ(map1, map2);
 }
 
 TEST(mapTest, eqOperator) {
@@ -72,5 +73,4 @@ TEST(mapTest, clear) {
 
 TEST(mapDeathTest, keyDeath) {
 	EXPECT_DEATH(testMap.get(10), "key");
-    EXPECT_DEATH(testMap.set(20, 'M'), "key");
 }

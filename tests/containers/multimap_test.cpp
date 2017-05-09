@@ -24,14 +24,15 @@ std::multimap<int, char> stlMultimap {
 
 TEST(multimapTest, initialize) {
     cuhksz::MultiMap<int, char> initMultimap1;
+    EXPECT_EQ(initMultimap1.size(), 0);
     cuhksz::MultiMap<int, char> initMultimap2( stlMultimap );
+    EXPECT_EQ(initMultimap2.size(), 6);
 }
 
 TEST(multimapTest, typeConvert) {
     auto multimap1 = testMultimap.toStlMultimap();
     std::multimap<int, char> multimap2 = testMultimap;
-    EXPECT_EQ(typeid(multimap1), typeid(stlMultimap));
-    EXPECT_EQ(typeid(multimap2), typeid(stlMultimap));
+    EXPECT_EQ(multimap1, multimap2);
 }
 
 TEST(multimapTest, eqOperator) {

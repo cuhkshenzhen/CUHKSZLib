@@ -187,7 +187,9 @@ void List<ValueType>::clear() {
 
 template <typename ValueType>
 void List<ValueType>::insert(int index, ValueType value) {
-	if (index != 0) boundaryCheck(index);
+	if (index < 0) {
+		error("The index out of range!");
+	}
 	auto iterator = privateList.begin();
 	std::advance(iterator, index);
 	privateList.insert(iterator, value);
@@ -274,7 +276,8 @@ bool List<ValueType>::operator >=(const List& list2) {
 
 template <typename ValueType>
 void List<ValueType>::boundaryCheck(int index) const {
-	if (index < 0 || index >= privateList.size()) {
+	unsigned long unsignedIndex = index;
+	if (unsignedIndex < 0 || unsignedIndex >= privateList.size()) {
 		error("The index out of range!");
 	}
 }

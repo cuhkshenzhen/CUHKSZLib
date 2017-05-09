@@ -1,21 +1,24 @@
 #include "gtest/gtest.h"
 #include "containers/List.h"
 #include <list>
+#include <iostream>
 
 cuhksz::List<int> testList;
 std::list<int> testStlList = {1, 2, 3, 4};
 
 TEST(listTest, initialize) {
     cuhksz::List<int> initList1(5, 1);
+    EXPECT_EQ(initList1.size(), 5);
     cuhksz::List<int> initList2 = {1, 2, 1};
+    EXPECT_EQ(initList2.size(), 3);
     cuhksz::List<int> initList3(testStlList);
+    EXPECT_EQ(initList3.size(), 4);
 }
 
 TEST(listTest, typeConvert) {
     auto list1 = testList.toStlList();
     std::list<int> list2 = testList;
-    EXPECT_EQ(typeid(list1), typeid(std::list<int>));
-    EXPECT_EQ(typeid(list2), typeid(std::list<int>));
+    EXPECT_EQ(list1, list2);
 }
 
 TEST(listTest, eqOperator) {
@@ -89,7 +92,6 @@ TEST(listTest, clear) {
 TEST(listDeathTest, outrangeDeath) {
     EXPECT_DEATH(testList[8] = 1, "range");
     EXPECT_DEATH(testList.erase(8), "range");
-    EXPECT_DEATH(testList.insert(5, 1), "range");
 }
 
 TEST(listDeathTest, emptyDeath) {

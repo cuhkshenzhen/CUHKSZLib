@@ -116,7 +116,6 @@ const ValueType& Map<KeyType, ValueType>::get(const KeyType& key) const {
 
 template <typename KeyType, typename ValueType>
 void Map<KeyType, ValueType>::set(const KeyType& key, const ValueType& value) {
-	keyCheck(key);
 	privateMap[key] = value;
 }
 

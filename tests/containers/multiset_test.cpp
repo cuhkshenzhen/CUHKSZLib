@@ -8,14 +8,15 @@ std::multiset<int> stlMultiSet = {1, 1, 2, 2, 3, 3};
 
 TEST(multisetTest, initialize) {
 	cuhksz::MultiSet<int> initMultiSet1 {1, 2, 4, 1, 2, 3};
+	EXPECT_EQ(initMultiSet1.size(), 6);
 	cuhksz::MultiSet<int> initMultiSet2(stlMultiSet);
+	EXPECT_EQ(initMultiSet2.size(), 6);
 }
 
 TEST(multisetTest, typeConvert) {
     auto multiset1 = testMultiSet.toStlMultiset();
     std::multiset<int> multiset2 = testMultiSet;
-    EXPECT_EQ(typeid(multiset1), typeid(std::multiset<int>));
-    EXPECT_EQ(typeid(multiset2), typeid(std::multiset<int>));
+    EXPECT_EQ(multiset1, multiset2);
 }
 
 TEST(multisetTest, eqOperator) {

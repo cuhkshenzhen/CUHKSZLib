@@ -8,13 +8,13 @@ std::stack<int> stlStack;
 TEST(stackTest, initialize) {
     stlStack.push(1);
     cuhksz::Stack<int> initStack1(stlStack);
+    EXPECT_EQ(initStack1.size(), 1);
 }
 
 TEST(stackTest, typeConvert) {
     auto stack1 = testStack.toStlStack();
     std::stack<int> stack2 = testStack;
-    EXPECT_EQ(typeid(stack1), typeid(std::stack<int>));
-    EXPECT_EQ(typeid(stack2), typeid(std::stack<int>));
+    EXPECT_EQ(stack1, stack2);
 }
 
 TEST(stackTest, eqOperator) {

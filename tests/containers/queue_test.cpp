@@ -8,13 +8,13 @@ std::queue<int> stlQueue;
 TEST(queueTest, initialize) {
     stlQueue.push(1);
     cuhksz::Queue<int> initQueue1(stlQueue);
+    EXPECT_EQ(initQueue1.size(), 1);
 }
 
 TEST(queueTest, typeConvert) {
     auto queue1 = testQueue.toStlQueue();
     std::queue<int> queue2 = testQueue;
-    EXPECT_EQ(typeid(queue1), typeid(std::queue<int>));
-    EXPECT_EQ(typeid(queue2), typeid(std::queue<int>));
+    EXPECT_EQ(queue1, queue2);
 }
 
 TEST(queueTest, eqOperator) {
