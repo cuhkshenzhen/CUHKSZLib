@@ -37,7 +37,7 @@ compiler:
   - clang
 script:
   - mkdir build && cd build
-  - if [ $TRAVIS_TAG ]; then cmake .. -DCMAKE_BUILD_TYPE=Release ; else cmake .. -DTESTING=1 -DCMAKE_BUILD_TYPE=Debug; fi
+  - cmake .. -DTESTING=1 -DCMAKE_BUILD_TYPE=Debug
   - make -j
   - CTEST_OUTPUT_ON_FAILURE=1 make test
 notifications:
@@ -60,15 +60,21 @@ after_success: |
     CC="clang"
   fi
   cd $TRAVIS_BUILD_DIR/build
-  if  [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-    cp -r ../src/include ./include
-    tar -czvf linux-$CC.tar.gz libcuhkszlib.a include
-  else
-    tar -cvf macos.tar libcuhkszlib.a
-    cd ../src
-    tar -rvf ../build/macos.tar include
-    cd ../build
-    tar -cvzf macos-$CC.tar.gz @macos.tar
+
+  if [ $TRAVIS_TAG ]; then
+    mkdir release && cd release
+    cmake ../.. -DCMAKE_BUILD_TYPE=Release
+    make -j
+    if  [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      cp -r ../../src/include ./include
+      tar -czvf linux-$CC.tar.gz libcuhkszlib.a include
+    else
+      tar -cvf macos.tar libcuhkszlib.a
+      cd ../../src
+      tar -rvf ../build/release/macos.tar include
+      cd ../build/release
+      tar -cvzf macos-$CC.tar.gz @macos.tar
+    fi
   fi
 
 deploy:
@@ -78,11 +84,12 @@ deploy:
   on:
     branch:
       master
-    condition: " (( $TRAVIS_OS_NAME = linux ) && ( $CXX = g++-4.9 ) )  "
+    condition: " (( $TRAVIS_OS_NAME = linux ) && ( $CXX = g++-4.9 ) && ($GITHUB_TOKEN))  "
   local_dir: $TRAVIS_BUILD_DIR/docs
 
 deploy:
   skip_cleanup: true
+  api_key: $RELEASE_TOKEN
   provider: releases
   file_glob: true
   file: "*.tar.gz"
