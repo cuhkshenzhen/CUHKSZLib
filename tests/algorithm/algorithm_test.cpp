@@ -25,3 +25,17 @@ TEST(Algorithm, zip) {
   auto origin = cuhksz::zip(a, b, c);
   EXPECT_EQ(origin, result);
 }
+
+TEST(Algorithm, map) {
+  std::vector<int> a = {1, 2, 3, 4};
+  std::vector<int> result = {2, 4, 6, 8};
+  auto origin = cuhksz::mapAll(a, [=](int& s)mutable->int{ return s * 2; });
+  EXPECT_EQ(origin, result);
+}
+
+TEST(Algorithm, filter) {
+  std::vector<int> a = {1, 2, 3, 4};
+  std::vector<int> result = {3, 4};
+  auto origin = cuhksz::filterContainer(a, [=](int& s)->bool{ return s > 2; });
+  EXPECT_EQ(origin, result);
+}
