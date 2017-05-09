@@ -63,7 +63,7 @@ after_success: |
 
   if [ $TRAVIS_TAG ]; then
     mkdir release && cd release
-    cmake .. -DCMAKE_BUILD_TYPE=Release
+    cmake ../.. -DCMAKE_BUILD_TYPE=Release
     make -j
     if  [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       cp -r ../../src/include ./include
