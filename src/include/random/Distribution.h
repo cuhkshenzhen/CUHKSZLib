@@ -21,26 +21,6 @@ template <typename ResultType>
 class Distribution {
  public:
   /**
-    Construct a distribution with a new `Random` generator. All subclasses
-    should delegate to this constructor to get a new `Random` object.
-  **/
-  Distribution() : Distribution(*(new Random())) { newedRandom = true; }
-
-  /**
-    Construct a distribution with an existing `Random` generator.
-    All subclasses should delegate to this constructor to use an existing
-    `Random` object.
-    @param[in] random The `Random` generator to use.
-  **/
-  explicit Distribution(Random& random) : randomGenerator(&random) {
-    newedRandom = false;
-  }
-
-  virtual ~Distribution() {
-    if (newedRandom) delete randomGenerator;
-  }
-
-  /**
     Returns the next sampled value according to the distribution.
   **/
   virtual ResultType next() = 0;
@@ -66,6 +46,25 @@ class Distribution {
   /// \endcond
 
  protected:
+  /**
+    Construct a distribution with a new `Random` generator. All subclasses
+    should delegate to this constructor to get a new `Random` object.
+  **/
+  Distribution() : Distribution(*(new Random())) { newedRandom = true; }
+
+  /**
+    Construct a distribution with an existing `Random` generator.
+    All subclasses should delegate to this constructor to use an existing
+    `Random` object.
+    @param[in] random The `Random` generator to use.
+  **/
+  explicit Distribution(Random& random) : randomGenerator(&random) {
+    newedRandom = false;
+  }
+
+  virtual ~Distribution() {
+    if (newedRandom) delete randomGenerator;
+  }
   /**
     The underlying `Random` generator. Subclasses should call the methods of
     `randomGenerator` to generate sampling values to get pseudorandom numbers.
