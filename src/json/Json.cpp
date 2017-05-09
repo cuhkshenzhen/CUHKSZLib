@@ -7,7 +7,9 @@
 #include "utils.h"
 
 namespace cuhksz {
-namespace private_ {
+namespace {
+JSONObject parse_next(const std::string &str, size_t &offset);
+
 void skip_whitespaces(const std::string &str, size_t &offset) {
   while (isspace(str[offset])) ++offset;
 }
@@ -206,7 +208,6 @@ JSONObject parse_next(const std::string &str, size_t &offset) {
         return parse_number(str, offset);
   }
   error("Parse: Unknown starting character '" + std::string(1, value) + "'");
-  return JSONObject();
 }
 }
 JSONObject::JSONObject() : Data(), objType(Type::Null) {}
@@ -459,6 +460,6 @@ JSONObject JSONObject::Object() {
 }
 JSONObject loadJSON(const std::string &str) {
   size_t offset = 0;
-  return private_::parse_next(str, offset);
+  return parse_next(str, offset);
 }
 }

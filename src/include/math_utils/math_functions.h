@@ -33,7 +33,7 @@ auto gcd(IntType1 a, IntType2 b) ->
   The result is simply calculated by `a * b / gcd(a, b)`. Parameters `a` and `b`
   should be both integers, and the return type is the more precise type in `a`
   and `b`.
-  @return If one of the parameter is 0, returns the other one. Otherwise returns
+  @return If one of the parameter is 0, returns 0. Otherwise returns
     the least common multiple of `a` and `b`. Note that if `a` and `b` are both
     0, it will cause division by zero error.
   @sa gcd(IntType1 a, IntType2 b)
@@ -65,26 +65,24 @@ Type sum(const Type* arr, int size) {
 /**
   Array summation function with a mapping function.
   Sum up all the value in an array after mapping each with function `fn`.
-  You need to specify the `ReturnType`.
 
   Usage:
   ```
   int sum[] = {1, 2, 4, 3};
-  cuhksz::sum<double>(sum, 4, [](int a) { return a / 2.0; });
+  cuhksz::sum(sum, 4, [](int a) { return a / 2.0; });
   ```
   @tparam ArrType An arithmetic type (e.g. `int`, `short`, `float`, `double`,
     etc.)
-  @tparam ReturnType An arithmetic type (e.g. `int`, `short`, `float`, `double`,
-    etc.), it should be the return type of `fn`
   @param arr The array to be summed
   @param size Number of element(s) in `arr` to be summed
-  @param fn Mapping function, should be type `ReturnType fn(ArrType)`
+  @param fn Mapping function, should be type `ArithmeticType fn(ArrType)`
   @return The summation of first `size` element(s) after mapping in `arr`, with
     the type the same as the element of `arr`. If `size` <= 0, return 0.
 **/
-template <typename ReturnType, typename ArrType, typename Function>
-ReturnType sum(const ArrType* arr, int size, Function fn) {
-  ReturnType sum = 0;
+template <typename ArrType, typename Function>
+auto sum(const ArrType* arr, int size, Function fn) ->
+    typename std::result_of<Function(ArrType)>::type {
+  typename std::result_of<Function(ArrType)>::type sum = 0;
   for (int i = 0; i < size; i++) {
     sum += fn(arr[i]);
   }
@@ -99,7 +97,6 @@ ReturnType sum(const ArrType* arr, int size, Function fn) {
   @param arr The array to calculate the mean
   @param size Number of element(s) in `arr` to calculate
   @return The mean of first `size` element(s) in `arr`. If `size` < 0, return 0.
-    If `size` == 0, it will cause division by zero error.
 **/
 template <typename Type>
 double mean(const Type* arr, int size) {
@@ -116,7 +113,7 @@ double mean(const Type* arr, int size) {
   @param arr The array to calculate the population variance
   @param size Number of element(s) in `arr` to calculate
   @return The population variance of first `size` element(s) in `arr`. If `size`
-    < 0, return 0. If `size` == 0, it will cause division by zero error.
+    < 0, return 0.
   @sa sample_variance(const double*, int size)
   @sa stddev(const double*, int size)
   @sa variance(const int*, int size)
@@ -133,7 +130,7 @@ double variance(const double* arr, int size);
   @param arr The array to calculate the population variance
   @param size Number of element(s) in `arr` to calculate
   @return The population variance of first `size` element(s) in `arr`. If `size`
-    < 0, return 0. If `size` == 0, it will cause division by zero error.
+    < 0, return 0.
   @sa sample_variance(const int*, int size)
   @sa stddev(const int*, int size)
   @sa variance(const double*, int size)
@@ -147,8 +144,7 @@ double variance(const int* arr, int size);
   @param arr The array to calculate the population standard deviation
   @param size Number of element(s) in `arr` to calculate
   @return The population standard deviation of first `size` element(s) in `arr`.
-    If `size` < 0, return 0. If `size` == 0, it will cause division by zero
-    error.
+    If `size` < 0, return 0.
   @sa sample_stddev(const double*, int size)
   @sa variance(const double*, int size)
   @sa stddev(const int*, int size)
@@ -162,8 +158,7 @@ double stddev(const double* arr, int size);
   @param arr The array to calculate the population standard deviation
   @param size Number of element(s) in `arr` to calculate
   @return The population standard deviation of first `size` element(s) in `arr`.
-    If `size` < 0, return 0. If `size` == 0, it will cause division by zero
-    error.
+    If `size` < 0, return 0.
   @sa sample_stddev(const int*, int size)
   @sa variance(const int*, int size)
   @sa stddev(const double*, int size)
@@ -178,9 +173,9 @@ double stddev(const int* arr, int size);
   `arr[i]`.
 
   @param arr The array to calculate the sample variance
-  @param size Number of element(s) in `arr` to calculate
+  @param size Number of element(s) in `arr` to calculate, should larger than 1
   @return The sample variance of first `size` element(s) in `arr`. If `size`
-    < 0, return 0. If `size` == 0, it will cause division by zero error.
+    < 0, return 0.
   @sa variance(const double*, int size)
   @sa sample_stddev(const double*, int size)
   @sa sample_variance(const int*, int size)
@@ -195,9 +190,9 @@ double sample_variance(const double* arr, int size);
   `arr[i]`.
 
   @param arr The array to calculate the sample variance
-  @param size Number of element(s) in `arr` to calculate
+  @param size Number of element(s) in `arr` to calculate, should larger than 1
   @return The sample variance of first `size` element(s) in `arr`. If `size`
-    < 0, return 0. If `size` == 0, it will cause division by zero error.
+    < 0, return 0.
   @sa variance(const int*, int size)
   @sa sample_stddev(const int*, int size)
   @sa sample_variance(const double*, int size)
@@ -208,10 +203,9 @@ double sample_variance(const int* arr, int size);
   Compute the sample standard deviation for a `double` array.
   The sample standard deviation is the square root of the sample variance.
   @param arr The array to calculate the sample standard deviation
-  @param size Number of element(s) in `arr` to calculate
+  @param size Number of element(s) in `arr` to calculate, should larger than 1
   @return The sample standard deviation of first `size` element(s) in `arr`.
-    If `size` < 0, return 0. If `size` == 0, it will cause division by zero
-    error.
+    If `size` < 0, return 0.
   @sa stddev(const double*, int size)
   @sa sample_variance(const double*, int size)
   @sa sample_stddev(const int*, int size)
@@ -222,10 +216,9 @@ double sample_stddev(const double* arr, int size);
   Compute the sample standard deviation for a `int` array.
   The sample standard deviation is the square root of the sample variance.
   @param arr The array to calculate the sample standard deviation
-  @param size Number of element(s) in `arr` to calculate
+  @param size Number of element(s) in `arr` to calculate, should larger than 1
   @return The sample standard deviation of first `size` element(s) in `arr`.
-    If `size` < 0, return 0. If `size` == 0, it will cause division by zero
-    error.
+    If `size` < 0, return 0.
   @sa stddev(const int*, int size)
   @sa sample_variance(const int*, int size)
   @sa sample_stddev(const double*, int size)
