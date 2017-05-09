@@ -37,7 +37,7 @@ compiler:
   - clang
 script:
   - mkdir build && cd build
-  - cmake -DTESTING=1 ..
+  - if [ $TRAVIS_TAG ]; then cmake .. -DCMAKE_BUILD_TYPE=Release ; else cmake .. -DTESTING=1 -DCMAKE_BUILD_TYPE=Debug; fi
   - make -j
   - CTEST_OUTPUT_ON_FAILURE=1 make test
 notifications:
@@ -50,7 +50,25 @@ after_success: |
       cd $TRAVIS_BUILD_DIR
       chmod +x generateDocument.sh
       ./generateDocument.sh
+      touch docs/.nojekyll
     fi
+  fi
+  if [[ "$CXX" == "g++-4.9" ]]; then
+    CC="gcc"
+  fi
+  if [[ "$CXX" = "clang++-3.7" ]]; then
+    CC="clang"
+  fi
+  cd $TRAVIS_BUILD_DIR/build
+  if  [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+    cp -r ../src/include ./include
+    tar -czvf linux-$CC.tar.gz libcuhkszlib.a include
+  else
+    tar -cvf macos.tar libcuhkszlib.a
+    cd ../src
+    tar -rvf ../build/macos.tar include
+    cd ../build
+    tar -cvzf macos-$CC.tar.gz @macos.tar
   fi
 
 deploy:
@@ -62,3 +80,13 @@ deploy:
       master
     condition: " (( $TRAVIS_OS_NAME = linux ) && ( $CXX = g++-4.9 ) )  "
   local_dir: $TRAVIS_BUILD_DIR/docs
+
+deploy:
+  skip_cleanup: true
+  provider: releases
+  file_glob: true
+  file: "*.tar.gz"
+  on:
+    all_branches: true
+    condition: " ($TRAVIS_TAG) "
+    tag: true

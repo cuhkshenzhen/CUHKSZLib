@@ -9,8 +9,8 @@ platform:
 
 environment:
   matrix:
-   - Toolset: v140
-   - Toolset: v150
+   - Toolset: "2015"
+   - Toolset: "2017"
    - Toolset: mingw
 
 cache:
@@ -21,8 +21,6 @@ branches:
   except:
     - gh-pages
 
-configuration:
-  - Debug
 
 install:
   - git submodule update --init --recursive
@@ -39,10 +37,19 @@ install:
           $env:MINGW_URL = "https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/4.9.2/threads-win32/dwarf/i686-4.9.2-release-win32-dwarf-rt_v4-rev4.7z/download"
           $env:MINGW_ARCHIVE = "i686-4.9.2-release-win32-dwarf-rt_v4-rev4.7z"
       }
-  - if not exist "%MINGW_ARCHIVE%" appveyor DownloadFile "%MINGW_URL%" -FileName "%MINGW_ARCHIVE%"
-  - 7z x -y "%MINGW_ARCHIVE%" > nul
-  - python -m ensurepip
-  - python -m pip install cpp-coveralls==0.3.11
+      if ($env:appveyor_repo_tag -eq "true") {
+          $env:configuration = "Release"
+      } else {
+          $env:configuration = "Debug"
+      }
+  - ps: |
+      if ($env:TOOLSET -eq "mingw")
+      {
+        cmd /C 'if not exist "%MINGW_ARCHIVE%" appveyor DownloadFile "%MINGW_URL%" -FileName "%MINGW_ARCHIVE%"'
+        cmd /C '7z x -y "%MINGW_ARCHIVE%" > nul'
+        python -m ensurepip
+        python -m pip install cpp-coveralls==0.3.11
+      }
   - ps: Get-Command sh.exe -All | Remove-Item
 
 
@@ -52,8 +59,8 @@ before_build:
     cd build
     $generator = switch ($env:TOOLSET)
     {
-        "v140" {"Visual Studio 14 2015"}
-        "v150" {"Visual Studio 15 2017"}
+        "2015" {"Visual Studio 14 2015"}
+        "2017" {"Visual Studio 15 2017"}
         "mingw" {"MinGW Makefiles"}
     }
     if (($env:PLATFORM -eq "x64") -and ($env:TOOLSET -ne "mingw"))
@@ -64,15 +71,23 @@ before_build:
     if ($env:TOOLSET -eq "mingw")
     {
         $env:PATH = "$pwd.Path\..\$env:MINGW_DIR\bin;$env:PATH"
+        cmake -G "$generator" .. -DTESTING=1 -DCMAKE_BUILD_TYPE=$env:CONFIGURATION
     }
-    cmake -G "$generator"  ..
+    else
+    {
+        cmake -G "$generator" .. -DTESTING=1 -DCMAKE_CONFIGURATION_TYPES="Debug;Release"
+    }
     cd ..
 
 build:
   verbosity: minimal
 
-build_script:
-  - cd build && cmake --build . --config %CONFIGURATION%
+build_script: |
+  cd build
+
+  if "%TOOLSET%"=="mingw" cmake --build . -- -j
+  if "%APPVEYOR_REPO_TAG%"=="true" if NOT "%TOOLSET%"=="mingw" cmake --build . --config Release
+  if NOT "%TOOLSET%"=="mingw" cmake --build . --config Debug
 
 test_script:
 - ps: |
@@ -84,5 +99,42 @@ test_script:
     else
     {
         cd tests
-        & .\$env:CONFIGURATION\test_all.exe
+        & .\Debug\test_all.exe
     }
+
+after_build:
+- ps: |
+    if ($env:TOOLSET -eq "mingw")
+    {
+        7z a -tzip windows-$env:PLATFORM-mingw.zip ..\build\libcuhkszlib.a ..\src\include
+    }
+    else
+    {
+      if ($env:appveyor_repo_tag -eq "true")
+      {
+        7z a -tzip windows-$env:PLATFORM-msvc-$env:TOOLSET.zip ..\build\Debug ..\build\Release ..\src\include
+      }
+      else
+      {
+        7z a -tzip windows-$env:PLATFORM-msvc-$env:TOOLSET.zip ..\build\Debug ..\src\include
+      }
+    }
+
+artifacts:
+  - path: build\*.zip
+    name: cuhkszlib
+    type: zip
+
+deploy:
+  provider: GitHub
+  description: |
+    CUHKSZ C++ library release. TODO add more details.
+  auth_token:
+    secure: "IzRhaJiev+xncjB2O11GXuONvPyqAhmZaT5uZtVHi5u5L4C2LKtmV+Xoe7IRiOIg"
+  artifact: cuhkszlib
+  draft: true
+  prerelease: false
+  force_update: true
+  on:
+    branch: master
+    appveyor_repo_tag: true
