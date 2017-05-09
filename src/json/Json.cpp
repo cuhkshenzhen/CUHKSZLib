@@ -206,7 +206,6 @@ JSONObject parse_next(const std::string &str, size_t &offset) {
         return parse_number(str, offset);
   }
   error("Parse: Unknown starting character '" + std::string(1, value) + "'");
-  return JSONObject();
 }
 }
 JSONObject::JSONObject() : Data(), objType(Type::Null) {}
