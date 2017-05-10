@@ -186,7 +186,8 @@ void Vector<ValueType>::clear() {
 
 template <typename ValueType>
 void Vector<ValueType>::insert(int index, const ValueType& value) {
-    if (index < 0) {
+    unsigned long unsignedIndex = index;
+	if (index < 0 || unsignedIndex > vec.size() ) {
         error("The index out of range!");
     }
     auto iterator = vec.begin();
