@@ -37,7 +37,7 @@ compiler:
   - clang
 script:
   - mkdir build && cd build
-  - cmake .. -DTESTING=1 -DCMAKE_BUILD_TYPE=Debug
+  - cmake .. -DTESTING=1 -DSAMPLES=0 -DCMAKE_BUILD_TYPE=Debug
   - make -j
   - CTEST_OUTPUT_ON_FAILURE=1 make test
 notifications:
@@ -63,7 +63,7 @@ after_success: |
 
   if [ $TRAVIS_TAG ]; then
     mkdir release && cd release
-    cmake ../.. -DCMAKE_BUILD_TYPE=Release
+    cmake ../.. -DTESTING=0 -DCMAKE_BUILD_TYPE=Release
     make -j
     if  [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       cp -r ../../src/include ./include

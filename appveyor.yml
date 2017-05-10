@@ -25,26 +25,17 @@ branches:
 install:
   - git submodule update --init --recursive
   - ps: |
-      if ($env:PLATFORM -eq "x64")
-      {
+      if ($env:PLATFORM -eq "x64") {
           $env:MINGW_DIR = "mingw64"
           $env:MINGW_URL = "https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/4.9.2/threads-win32/seh/x86_64-4.9.2-release-win32-seh-rt_v4-rev4.7z/download"
           $env:MINGW_ARCHIVE = "x86_64-4.9.2-release-win32-seh-rt_v4-rev4.7z"
-      }
-      else
-      {
+      } else {
           $env:MINGW_DIR = "mingw32"
           $env:MINGW_URL = "https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/4.9.2/threads-win32/dwarf/i686-4.9.2-release-win32-dwarf-rt_v4-rev4.7z/download"
           $env:MINGW_ARCHIVE = "i686-4.9.2-release-win32-dwarf-rt_v4-rev4.7z"
       }
-      if ($env:appveyor_repo_tag -eq "true") {
-          $env:configuration = "Release"
-      } else {
-          $env:configuration = "Debug"
-      }
   - ps: |
-      if ($env:TOOLSET -eq "mingw")
-      {
+      if ($env:TOOLSET -eq "mingw") {
         cmd /C 'if not exist "%MINGW_ARCHIVE%" appveyor DownloadFile "%MINGW_URL%" -FileName "%MINGW_ARCHIVE%"'
         cmd /C '7z x -y "%MINGW_ARCHIVE%" > nul'
         python -m ensurepip
@@ -57,24 +48,19 @@ before_build:
 - ps: |
     md build
     cd build
-    $generator = switch ($env:TOOLSET)
-    {
+    $generator = switch ($env:TOOLSET) {
         "2015" {"Visual Studio 14 2015"}
         "2017" {"Visual Studio 15 2017"}
         "mingw" {"MinGW Makefiles"}
     }
-    if (($env:PLATFORM -eq "x64") -and ($env:TOOLSET -ne "mingw"))
-    {
+    if (($env:PLATFORM -eq "x64") -and ($env:TOOLSET -ne "mingw")) {
         $generator = "$generator Win64"
     }
 
-    if ($env:TOOLSET -eq "mingw")
-    {
+    if ($env:TOOLSET -eq "mingw") {
         $env:PATH = "$pwd.Path\..\$env:MINGW_DIR\bin;$env:PATH"
-        cmake -G "$generator" .. -DTESTING=1 -DCMAKE_BUILD_TYPE=$env:CONFIGURATION
-    }
-    else
-    {
+        cmake -G "$generator" .. -DTESTING=1 -DSAMPLES=0 -DCMAKE_BUILD_TYPE=Debug
+    } else {
         cmake -G "$generator" .. -DTESTING=1 -DCMAKE_CONFIGURATION_TYPES="Debug;Release"
     }
     cd ..
@@ -91,13 +77,10 @@ build_script: |
 
 test_script:
 - ps: |
-    if ($env:TOOLSET -eq "mingw")
-    {
+    if ($env:TOOLSET -eq "mingw") {
         $env:CTEST_OUTPUT_ON_FAILURE = 1
         ctest
-    }
-    else
-    {
+    } else {
         cd tests
         & .\Debug\test_all.exe
     }
@@ -106,16 +89,22 @@ after_build:
 - ps: |
     if ($env:TOOLSET -eq "mingw")
     {
-        7z a -tzip windows-$env:PLATFORM-mingw.zip ..\build\libcuhkszlib.a ..\src\include
+        if ($env:appveyor_repo_tag -eq "true") {
+            mkdir release
+            cd release
+            cmake -G "$generator" ../.. -DTESTING=0 -DCMAKE_BUILD_TYPE=Release
+            cmd /C 'cmake --build . -- -j'
+            cd ..
+            7z a -tzip windows-$env:PLATFORM-mingw.zip ..\build\release\libcuhkszlib.a ..\src\include
+        } else {
+            7z a -tzip windows-$env:PLATFORM-mingw.zip ..\build\libcuhkszlib.a ..\src\include
+        }
     }
     else
     {
-      if ($env:appveyor_repo_tag -eq "true")
-      {
+      if ($env:appveyor_repo_tag -eq "true") {
         7z a -tzip windows-$env:PLATFORM-msvc-$env:TOOLSET.zip ..\build\Debug ..\build\Release ..\src\include
-      }
-      else
-      {
+      } else {
         7z a -tzip windows-$env:PLATFORM-msvc-$env:TOOLSET.zip ..\build\Debug ..\src\include
       }
     }
@@ -133,8 +122,7 @@ deploy:
     secure: "IzRhaJiev+xncjB2O11GXuONvPyqAhmZaT5uZtVHi5u5L4C2LKtmV+Xoe7IRiOIg"
   artifact: cuhkszlib
   draft: true
-  prerelease: false
+  prerelease: true
   force_update: true
   on:
-    branch: master
     appveyor_repo_tag: true
