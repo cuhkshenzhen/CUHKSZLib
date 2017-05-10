@@ -35,12 +35,25 @@ TEST(NegativeBinomialDistribution, construct) {
   EXPECT_EQ(d1.next(), d2.next());
 }
 
-TEST(NeativeBinomialDistribution, r) {
+TEST(NegativeBinomialDistribution, r) {
   cuhksz::NegativeBinomialDistribution dist(2);
   EXPECT_EQ(dist.r(), 2);
 }
 
-TEST(NeativeBinomialDistribution, p) {
+TEST(NegativeBinomialDistribution, p) {
   cuhksz::NegativeBinomialDistribution dist(2);
   EXPECT_DOUBLE_EQ(dist.p(), 0.5);
+}
+
+TEST(NegativeBinomialDistributionDeathTest, parameter_invalid) {
+  EXPECT_EXIT(cuhksz::NegativeBinomialDistribution(-1, 0.5),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+  EXPECT_EXIT(cuhksz::NegativeBinomialDistribution(0, 0.5),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+  EXPECT_EXIT(cuhksz::NegativeBinomialDistribution(1, 0),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+  EXPECT_EXIT(cuhksz::NegativeBinomialDistribution(1, -1),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+  EXPECT_EXIT(cuhksz::NegativeBinomialDistribution(1, 1.1),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
 }
