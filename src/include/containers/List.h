@@ -279,7 +279,7 @@ bool List<ValueType>::operator >=(const List& list2) {
 template <typename ValueType>
 void List<ValueType>::boundaryCheck(int index) const {
 	unsigned long unsignedIndex = index;
-	if (unsignedIndex >= privateList.size()) {
+	if (index < 0 || unsignedIndex >= privateList.size()) {
 		error("The index out of range!");
 	}
 }

@@ -101,7 +101,7 @@ TEST(vectorDeathTest, istreamDeathTest) {
     std::istringstream inputVector1("1, 2, 3");
     std::istringstream inputVector2("{1, 2, 3");
     std::istringstream inputVector3("{1, 2? 3}");
-    EXPECT_DEATH(inputVector1 >> inputTestVector, "startwith '\{'");
+    EXPECT_DEATH(inputVector1 >> inputTestVector, "startwith '\\{'");
     EXPECT_DEATH(inputVector2 >> inputTestVector, "endwith");
     EXPECT_DEATH(inputVector3 >> inputTestVector, "Unexpected character");
 }

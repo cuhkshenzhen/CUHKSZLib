@@ -16,7 +16,7 @@ class Vector {
 public:
     typedef typename std::vector<ValueType> stlVector;
     typedef ValueType value_type;
-    
+
     Vector();
     explicit Vector(int n, ValueType value = ValueType());
     Vector(std::initializer_list<ValueType> init);
@@ -254,7 +254,7 @@ bool Vector<ValueType>::operator >=(const Vector& v2) {
 template <typename ValueType>
 void Vector<ValueType>::boundaryCheck(int index) const {
     unsigned long unsignedIndex = index;
-	if (unsignedIndex < 0 || unsignedIndex >= vec.size()) {
+	if (index < 0 || unsignedIndex >= vec.size()) {
 		error("The index out of range!");
 	}
 }
