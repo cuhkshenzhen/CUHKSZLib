@@ -35,3 +35,10 @@ TEST(UniformIntDistribution, max) {
   cuhksz::UniformIntDistribution dist2(2, 3);
   EXPECT_EQ(dist2.max(), 3);
 }
+
+TEST(UniformIntDistributionDeathTest, parameter_invalid) {
+  EXPECT_EXIT(cuhksz::UniformIntDistribution(0, -1),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+  EXPECT_EXIT(cuhksz::UniformIntDistribution(0, 0),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+}

@@ -46,3 +46,10 @@ TEST(NormalDistribution, stddev) {
   cuhksz::NormalDistribution dist;
   EXPECT_DOUBLE_EQ(dist.stddev(), 1);
 }
+
+TEST(NormalDistributionDeathTest, parameter_invalid) {
+  EXPECT_EXIT(cuhksz::NormalDistribution(0, 0),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+  EXPECT_EXIT(cuhksz::NormalDistribution(0, -1),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+}
