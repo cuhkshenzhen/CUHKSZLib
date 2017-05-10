@@ -40,3 +40,10 @@ TEST(BernoulliDistribution, p) {
   cuhksz::BernoulliDistribution dist;
   EXPECT_DOUBLE_EQ(dist.p(), 0.5);
 }
+
+TEST(BernoulliDistributionDeathTest, parameter_invalid) {
+  EXPECT_EXIT(cuhksz::BernoulliDistribution(-1),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+  EXPECT_EXIT(cuhksz::BernoulliDistribution(1.1),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+}

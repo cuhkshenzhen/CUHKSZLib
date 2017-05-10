@@ -43,3 +43,12 @@ TEST(BinomialDistribution, n) {
   cuhksz::BinomialDistribution dist(3);
   EXPECT_EQ(dist.n(), 3);
 }
+
+TEST(BinomialDistributionDeathTest, parameter_invalid) {
+  EXPECT_EXIT(cuhksz::BinomialDistribution(-1, 0.5),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+  EXPECT_EXIT(cuhksz::BinomialDistribution(1, -1),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+  EXPECT_EXIT(cuhksz::BinomialDistribution(0, 1.1),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+}

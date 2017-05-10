@@ -36,3 +36,10 @@ TEST(PoissonDistribution, lambda) {
   cuhksz::PoissonDistribution dist(1);
   EXPECT_DOUBLE_EQ(dist.lambda(), 1);
 }
+
+TEST(PoissonDistributionDeathTest, parameter_invalid) {
+  EXPECT_EXIT(cuhksz::PoissonDistribution(0),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+  EXPECT_EXIT(cuhksz::PoissonDistribution(-1),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+}

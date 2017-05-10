@@ -39,3 +39,10 @@ TEST(StudentTDistribution, r) {
   cuhksz::StudentTDistribution dist(2.5);
   EXPECT_DOUBLE_EQ(dist.r(), 2.5);
 }
+
+TEST(StudentTDistributionDeathTest, parameter_invalid) {
+  EXPECT_EXIT(cuhksz::StudentTDistribution(0),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+  EXPECT_EXIT(cuhksz::StudentTDistribution(-1),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+}

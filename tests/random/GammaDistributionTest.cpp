@@ -46,3 +46,14 @@ TEST(GammaDistribution, theta) {
   cuhksz::GammaDistribution dist(2, 4);
   EXPECT_DOUBLE_EQ(dist.theta(), 4);
 }
+
+TEST(GammaDistributionDeathTest, parameter_invalid) {
+  EXPECT_EXIT(cuhksz::GammaDistribution(0, 0),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+  EXPECT_EXIT(cuhksz::GammaDistribution(1, -1),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+  EXPECT_EXIT(cuhksz::GammaDistribution(-1, 1),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+  EXPECT_EXIT(cuhksz::GammaDistribution(-1, -1),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+}
