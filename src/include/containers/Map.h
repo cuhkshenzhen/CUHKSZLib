@@ -12,6 +12,7 @@ class Map {
 public:
 	typedef std::pair<const KeyType, ValueType> StdValueType;
 	typedef typename std::map<KeyType, ValueType> stlMap;
+	typedef ValueType value_type;
 
 	Map();
 	Map( std::initializer_list<StdValueType> init );

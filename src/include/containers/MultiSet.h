@@ -11,6 +11,7 @@ template <typename ValueType>
 class MultiSet {
 public:
     typedef typename std::multiset<ValueType> stlMultiset;
+    typedef ValueType value_type;
 
     MultiSet();
     MultiSet(std::initializer_list<ValueType> init);

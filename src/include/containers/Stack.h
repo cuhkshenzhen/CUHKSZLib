@@ -10,6 +10,7 @@ template <typename ValueType>
 class Stack {
 public:
 	typedef typename std::stack<ValueType> stlStack;
+	typedef ValueType value_type;
 
 	Stack();
 	Stack( stlStack& stlStack2 );

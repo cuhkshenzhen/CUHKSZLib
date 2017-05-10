@@ -15,6 +15,8 @@ template <typename ValueType>
 class Vector {
 public:
     typedef typename std::vector<ValueType> stlVector;
+    typedef ValueType value_type;
+    
     Vector();
     explicit Vector(int n, ValueType value = ValueType());
     Vector(std::initializer_list<ValueType> init);

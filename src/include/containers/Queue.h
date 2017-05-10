@@ -10,6 +10,7 @@ template <typename ValueType>
 class Queue {
 public:
 	typedef typename std::queue<ValueType> stlQueue;
+	typedef ValueType value_type;
 
 	Queue();
 	Queue( stlQueue& stlQueue2 );

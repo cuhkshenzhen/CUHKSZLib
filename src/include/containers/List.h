@@ -11,6 +11,7 @@ template <typename ValueType>
 class List {
 public:
 	typedef typename std::list<ValueType> stlList;
+	typedef ValueType value_type;
 
 	List(); //constructor
 	explicit List(int n, ValueType value = ValueType());
@@ -187,7 +188,8 @@ void List<ValueType>::clear() {
 
 template <typename ValueType>
 void List<ValueType>::insert(int index, ValueType value) {
-	if (index < 0) {
+	unsigned long unsignedIndex = index;
+	if (index < 0 || unsignedIndex > privateList.size() ) {
 		error("The index out of range!");
 	}
 	auto iterator = privateList.begin();
@@ -277,7 +279,7 @@ bool List<ValueType>::operator >=(const List& list2) {
 template <typename ValueType>
 void List<ValueType>::boundaryCheck(int index) const {
 	unsigned long unsignedIndex = index;
-	if (unsignedIndex < 0 || unsignedIndex >= privateList.size()) {
+	if (unsignedIndex >= privateList.size()) {
 		error("The index out of range!");
 	}
 }

@@ -11,6 +11,8 @@ template<typename ValueType>
 class Set {
 public:
     typedef typename std::set<ValueType> stlSet;
+    typedef ValueType value_type;
+    
     Set();
     Set( std::initializer_list<ValueType> init );
     Set(stlSet& stlSet2);

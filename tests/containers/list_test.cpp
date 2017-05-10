@@ -92,6 +92,7 @@ TEST(listTest, clear) {
 TEST(listDeathTest, outrangeDeath) {
     EXPECT_DEATH(testList[8] = 1, "range");
     EXPECT_DEATH(testList.erase(8), "range");
+    EXPECT_DEATH(testList.insert(4, 1), "range");
 }
 
 TEST(listDeathTest, emptyDeath) {

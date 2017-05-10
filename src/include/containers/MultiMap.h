@@ -12,6 +12,7 @@ class MultiMap {
 public:
     typedef std::pair<const KeyType, ValueType> StdValueType;
     typedef std::multimap<KeyType, ValueType> stlMultimap;
+    typedef ValueType value_type;
 
     MultiMap();
     MultiMap(const MultiMap& other);
