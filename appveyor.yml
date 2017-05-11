@@ -88,22 +88,25 @@ test_script:
 after_build:
 - ps: |
     if ($env:TOOLSET -eq "mingw") {
+        mkdir lib
         if ($env:appveyor_repo_tag -eq "true") {
             mkdir release
             cd release
             cmake -G "$generator" ../.. -DTESTING=0 -DCMAKE_BUILD_TYPE=Release
             cmd /C 'cmake --build . -- -j'
+            cp libcuhkszlib.a ..\lib\libcuhkszlib.a
             cd ..
-            7z a -tzip windows-$env:PLATFORM-mingw.zip ..\build\release\libcuhkszlib.a ..\src\include
         } else {
-            7z a -tzip windows-$env:PLATFORM-mingw.zip ..\build\libcuhkszlib.a ..\src\include
+            cp libcuhkszlib.a ..\lib\libcuhkszlib.a
         }
+        7z a -tzip windows-$env:PLATFORM-mingw.zip ..\build\lib ..\src\include
     } else {
       mkdir lib
       if ($env:appveyor_repo_tag -eq "true") {
         cp -r ..\build\Debug lib
         cp -r ..\build\Release lib
         if ($env:Toolset -eq "2017") {
+          cp ..\build\samples\EnglishWords.txt ..\build\samples\Release
           7z a -tzip windows-$env:PLATFORM-samples.zip ..\build\samples\Release\*
         }
       } else {

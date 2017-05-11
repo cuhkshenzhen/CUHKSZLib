@@ -72,7 +72,10 @@ after_success: |
     mkdir lib
     mv libcuhkszlib.a lib/libcuhkszlib.a
     tar -czvf $OS_NAME-$CC.tar.gz lib include
-    if  [[ (( $TRAVIS_OS_NAME = linux ) && ( $CXX = g++-4.9 )) || (( $TRAVIS_OS_NAME = osx ) && ( $CXX = clang ))]]; then
+    if  [[ (( $TRAVIS_OS_NAME = linux ) && ( $CXX = g++-4.9 )) || (( $TRAVIS_OS_NAME = osx ) && ( $CXX = clang++ ))]]; then
+      rm -rf samples/*.cmake
+      rm -rf samples/Makefile
+      rm -rf samples/CMakeFiles
       tar -czvf $OS_NAME-samples.tar.gz samples/*
     fi
   fi
