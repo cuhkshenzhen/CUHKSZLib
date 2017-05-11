@@ -71,7 +71,7 @@ build:
 build_script: |
   cd build
 
-  if "%TOOLSET%"=="mingw" cmake --build . -- -j
+  if "%TOOLSET%"=="mingw" cmake --build . -- -j4
   if "%APPVEYOR_REPO_TAG%"=="true" if NOT "%TOOLSET%"=="mingw" cmake --build . --config Release
   if NOT "%TOOLSET%"=="mingw" cmake --build . --config Debug
 
@@ -93,7 +93,7 @@ after_build:
             mkdir release
             cd release
             cmake -G "$generator" ../.. -DTESTING=0 -DCMAKE_BUILD_TYPE=Release
-            cmd /C 'cmake --build . -- -j'
+            cmd /C 'cmake --build . -- -j4'
             cp libcuhkszlib.a ..\lib
             cd ..
         } else {

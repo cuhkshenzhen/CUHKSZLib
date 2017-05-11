@@ -38,7 +38,7 @@ compiler:
 script:
   - mkdir build && cd build
   - cmake .. -DTESTING=1 -DSAMPLES=0 -DCMAKE_BUILD_TYPE=Debug
-  - make -j
+  - make -j4
   - CTEST_OUTPUT_ON_FAILURE=1 make test
 notifications:
   email: false
@@ -61,7 +61,7 @@ after_success: |
   if [ $TRAVIS_TAG ]; then
     mkdir release && cd release
     cmake ../.. -DTESTING=0 -DCMAKE_BUILD_TYPE=Release
-    make -j
+    make -j4
     if [[ "$CXX" == "g++-4.9" ]]; then
       CC="gcc"
     fi
@@ -81,22 +81,21 @@ after_success: |
   fi
 
 deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
-  on:
-    branch:
-      master
-    condition: " (( $TRAVIS_OS_NAME = linux ) && ( $CXX = g++-4.9 ) && ($GITHUB_TOKEN))  "
-  local_dir: $TRAVIS_BUILD_DIR/docs
+  - provider: pages
+    skip_cleanup: true
+    github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+    on:
+      branch:
+        master
+      condition: " (( $TRAVIS_OS_NAME = linux ) && ( $CXX = g++-4.9 ) && ($GITHUB_TOKEN))  "
+    local_dir: $TRAVIS_BUILD_DIR/docs
 
-deploy:
-  skip_cleanup: true
-  api_key: $RELEASE_TOKEN
-  provider: releases
-  file_glob: true
-  file: "*.tar.gz"
-  on:
-    all_branches: true
-    condition: " ($TRAVIS_TAG) "
-    tag: true
+  - provider: releases
+    skip_cleanup: true
+    api_key: $RELEASE_TOKEN
+    file_glob: true
+    file: "*.tar.gz"
+    on:
+      all_branches: true
+      condition: " ($TRAVIS_TAG) "
+      tag: true
