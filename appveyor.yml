@@ -87,8 +87,7 @@ test_script:
 
 after_build:
 - ps: |
-    if ($env:TOOLSET -eq "mingw")
-    {
+    if ($env:TOOLSET -eq "mingw") {
         if ($env:appveyor_repo_tag -eq "true") {
             mkdir release
             cd release
@@ -99,14 +98,18 @@ after_build:
         } else {
             7z a -tzip windows-$env:PLATFORM-mingw.zip ..\build\libcuhkszlib.a ..\src\include
         }
-    }
-    else
-    {
+    } else {
+      mkdir lib
       if ($env:appveyor_repo_tag -eq "true") {
-        7z a -tzip windows-$env:PLATFORM-msvc-$env:TOOLSET.zip ..\build\Debug ..\build\Release ..\src\include
+        cp -r ..\build\Debug lib
+        cp -r ..\build\Release lib
+        if ($env:Toolset -eq "2017") {
+          7z a -tzip windows-$env:PLATFORM-samples.zip ..\build\samples\Release\*
+        }
       } else {
-        7z a -tzip windows-$env:PLATFORM-msvc-$env:TOOLSET.zip ..\build\Debug ..\src\include
+        cp -r ..\build\Debug lib
       }
+      7z a -tzip windows-$env:PLATFORM-msvc-$env:TOOLSET.zip lib ..\src\include
     }
 
 artifacts:
