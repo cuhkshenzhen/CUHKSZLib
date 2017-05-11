@@ -94,10 +94,10 @@ after_build:
             cd release
             cmake -G "$generator" ../.. -DTESTING=0 -DCMAKE_BUILD_TYPE=Release
             cmd /C 'cmake --build . -- -j'
-            cp libcuhkszlib.a ..\lib\libcuhkszlib.a
+            cp libcuhkszlib.a ..\lib
             cd ..
         } else {
-            cp libcuhkszlib.a ..\lib\libcuhkszlib.a
+            cp libcuhkszlib.a ..\lib
         }
         7z a -tzip windows-$env:PLATFORM-mingw.zip ..\build\lib ..\src\include
     } else {
