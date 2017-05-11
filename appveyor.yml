@@ -112,7 +112,7 @@ after_build:
       } else {
         cp -r ..\build\Debug lib
       }
-      7z a -tzip windows-$env:PLATFORM-msvc-$env:TOOLSET.zip lib ..\src\include
+      7z a -tzip windows-$env:PLATFORM-msvc-$env:TOOLSET.zip lib ..\src\include ..\ide-project-files\vs-$env:PLATFORM\* ..\ide-project-files\src
     }
 
 artifacts:
