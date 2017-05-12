@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CUHKSZLib-sample-project", "CUHKSZLib-sample-project.vcxproj", "{3B6C0BED-7EE2-4BB5-8968-29068081692C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3B6C0BED-7EE2-4BB5-8968-29068081692C}.Debug|x64.ActiveCfg = Release|x64
+		{3B6C0BED-7EE2-4BB5-8968-29068081692C}.Debug|x64.Build.0 = Release|x64
+		{3B6C0BED-7EE2-4BB5-8968-29068081692C}.Release|x64.ActiveCfg = Release|x64
+		{3B6C0BED-7EE2-4BB5-8968-29068081692C}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
