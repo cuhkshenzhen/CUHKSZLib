@@ -4,11 +4,9 @@
 namespace cuhksz {
 
 class Point {
-private:
-	
+ private:
 };
 
-}	// namespace cuhksz
+}  // namespace cuhksz
 
-
-#endif // CUHKSZ_GRAPH_POINT
+#endif  // CUHKSZ_GRAPH_POINT

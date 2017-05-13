@@ -5,7 +5,6 @@
 
 #include "utils/error.h"
 
-
 namespace cuhksz {
 
 Random::Random(int seed) { randomGenerator.seed((std::uint64_t)seed); }

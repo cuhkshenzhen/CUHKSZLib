@@ -4,12 +4,9 @@
 namespace cuhksz {
 
 class Polygon {
-private:
-
+ private:
 };
 
+}  // namespace cuhksz
 
-}	// namespace cuhksz
-
-
-#endif // CUHKSZ_GEOMETRY_POLYGON
+#endif  // CUHKSZ_GEOMETRY_POLYGON

@@ -1,11 +1,10 @@
-#include <string>
 #include "json/json_functions.h"
+#include <string>
 
 namespace cuhksz {
 std::string jsonEscape(const std::string &str) {
   std::string output;
-  for (auto const &i: str)
-    switch (i) {
+  for (auto const &i : str) switch (i) {
       case '\"':
         output += "\\\"";
         break;
@@ -27,10 +26,10 @@ std::string jsonEscape(const std::string &str) {
       case '\t':
         output += "\\t";
         break;
-      default  :
+      default:
         output += i;
         break;
     }
   return output;
 }
-}
+}  // namespace cuhksz

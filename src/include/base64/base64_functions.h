@@ -2,7 +2,7 @@
 #define CUHKSZ_BASE64_FUNCTIONS
 
 #include <string>
-namespace cuhksz{
+namespace cuhksz {
 
 /**
  * Encode a string to base64
@@ -10,7 +10,7 @@ namespace cuhksz{
  * @param length (optional) length of the hash
  * @return base64 hash. empty if failed to encode or exceeded the length.
  */
-std::string base64Encode(std::string str, int length=-1);
+std::string base64Encode(std::string str, int length = -1);
 
 /**
  * Decode base64 to its original string
@@ -18,5 +18,5 @@ std::string base64Encode(std::string str, int length=-1);
  * @return original string.
  */
 std::string base64Decode(std::string decodeStr);
-}
-#endif //CUHKSZ_BASE64_FUNCTIONS
+}  // namespace cuhksz
+#endif  // CUHKSZ_BASE64_FUNCTIONS

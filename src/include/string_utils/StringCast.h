@@ -1,9 +1,9 @@
 #ifndef CUHKSZ_STRING_STRINGFUNCTIONS
 #define CUHKSZ_STRING_STRINGFUNCTIONS
 #include <exception>
-#include <string>
-#include <sstream>
 #include <iostream>
+#include <sstream>
+#include <string>
 namespace cuhksz {
 /**
  * Convert your string to a new type.
@@ -15,7 +15,7 @@ namespace cuhksz {
  * ```
  * @tparam T Type to convert
  */
-template<typename T>
+template <typename T>
 class stringCast {
  public:
   stringCast(const std::string &from) : m_from(from) {}
@@ -24,19 +24,16 @@ class stringCast {
     T casted;
     try {
       strStream >> casted;
-    }
-    catch (std::exception &e) {
+    } catch (std::exception &e) {
       std::cerr << "not able to cast: " << e.what() << std::endl;
       return T(0);
     }
     return casted;
   }
-  T operator()() const{
-    return (T)*this;
-  }
+  T operator()() const { return (T) * this; }
 
-private:
+ private:
   const std::string &m_from;
 };
-}
-#endif //CUHKSZ_STRING_STRINGFUNCTIONS
+}  // namespace cuhksz
+#endif  // CUHKSZ_STRING_STRINGFUNCTIONS

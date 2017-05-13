@@ -4,27 +4,22 @@
 #include <vector>
 namespace cuhksz {
 
-template<typename T>
+template <typename T>
 class Zip {
  public:
   typedef std::vector<T> container;
 
-  template<typename... Args>
-  Zip(const T &head, const Args &... args):
-      items(head.size()), min_(head.size()) {
+  template <typename... Args>
+  Zip(const T &head, const Args &... args)
+      : items(head.size()), min_(head.size()) {
     zip_(head, args...);
   }
-  inline operator container() const {
-    return items;
-  }
+  inline operator container() const { return items; }
 
-  inline container operator()() const {
-    return items;
-  }
+  inline container operator()() const { return items; }
 
  private:
-
-  template<typename... Args>
+  template <typename... Args>
   void zip_(const T &head, const Args &... tail) {
     if (head.size() < min_) min_ = head.size();
 
@@ -37,14 +32,11 @@ class Zip {
     return zip_(tail...);
   }
 
-  void zip_() {
-    items.resize(min_);
-  }
+  void zip_() { items.resize(min_); }
 
   container items;
 
   std::size_t min_;
-
 };
 
 /**
@@ -65,10 +57,10 @@ class Zip {
  * @param tail Remaining containers
  * @return std::vector<T>
  */
-template<typename T, typename... Args>
+template <typename T, typename... Args>
 typename Zip<T>::container zip(const T &head, const Args &... tail) {
   return Zip<T>(head, tail...);
 }
-}
+}  // namespace cuhksz
 
-#endif //CUHKSZ_ALGORITHM_ZIP
+#endif  // CUHKSZ_ALGORITHM_ZIP
