@@ -62,11 +62,11 @@ class JSONObject {
     int Int;
     bool Bool;
 
-    data(double value) : Float(value) {};
-    data(int value) : Int(value) {};
-    data(bool value) : Bool(value) {};
-    data(std::string value) : String(new std::string(value)) {};
-    data() : Bool(false) {};
+    data(double value) : Float(value) {}
+    data(int value) : Int(value) {}
+    data(bool value) : Bool(value) {}
+    data(std::string value) : String(new std::string(value)) {}
+    data() : Bool(false) {}
 
   } Data;
  public:

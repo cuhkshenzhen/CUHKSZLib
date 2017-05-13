@@ -50,7 +50,7 @@ std::string base64Encode(std::string str, int length) {
 
   }
   return encodedStr;
-};
+}
 
 std::string base64Decode(std::string decodeStr){
   std::string binaryDecodeStr;

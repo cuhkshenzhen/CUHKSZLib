@@ -30,7 +30,7 @@ class stringCast {
       return T(0);
     }
     return casted;
-  };
+  }
   T operator()() const{
     return (T)*this;
   }

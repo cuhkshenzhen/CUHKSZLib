@@ -16,11 +16,11 @@ class Zip {
   }
   inline operator container() const {
     return items;
-  };
+  }
 
   inline container operator()() const {
     return items;
-  };
+  }
 
  private:
 
@@ -35,7 +35,7 @@ class Zip {
     }
 
     return zip_(tail...);
-  };
+  }
 
   void zip_() {
     items.resize(min_);
@@ -68,7 +68,7 @@ class Zip {
 template<typename T, typename... Args>
 typename Zip<T>::container zip(const T &head, const Args &... tail) {
   return Zip<T>(head, tail...);
-};
+}
 }
 
 #endif //CUHKSZ_ALGORITHM_ZIP

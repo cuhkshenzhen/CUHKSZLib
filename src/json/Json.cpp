@@ -262,9 +262,9 @@ void JSONObject::clearData() {
       break;
     case Type::String: delete Data.String;
       break;
-    default:;
+    default: {}
   }
-};
+}
 
 JSONObject::JSONObject(const JSONObject &src) {
   switch (src.objType) {
@@ -412,7 +412,7 @@ JSONObject::operator bool() const {
 
 std::string JSONObject::dump(int depth, std::string tab) const {
   std::string pad = "";
-  for (int i = 0; i < depth; ++i, pad += tab);
+  for (int i = 0; i < depth; ++i, pad += tab) {}
 
   switch (objType) {
     case Type::Null:return "null";

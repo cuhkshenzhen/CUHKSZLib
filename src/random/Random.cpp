@@ -1,9 +1,10 @@
 #include "random/Random.h"
 
-#include "utils/error.h"
-
 #include <cstdlib>
 #include <ctime>
+
+#include "utils/error.h"
+
 
 namespace cuhksz {
 
