@@ -10,4 +10,4 @@ namespace cuhksz {
  */
 std::string jsonEscape(const std::string &ptr);
 }  // namespace cuhksz
-#endif  // CUHKSZ_JSON_JSONwFUNCTIONS
+#endif  // CUHKSZ_JSON_JSONFUNCTIONS

@@ -162,4 +162,4 @@ void Queue<ValueType>::emptyCheck() const {
 
 }  // namespace cuhksz
 
-#endif
+#endif  // CUHKSZ_CONTAINERS_QUEUE

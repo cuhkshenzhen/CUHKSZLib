@@ -6,7 +6,7 @@
 #include <string>
 
 namespace cuhksz {
-static const std::string codes =
+static const char codes[] =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 
 // Note: this is not essicient but enough for simple usage.
@@ -58,7 +58,7 @@ std::string base64Decode(std::string decodeStr) {
   std::ostringstream decoded;
   for (char &c : decodeStr) {
     if (c != '=') {
-      binaryDecodeStr += std::bitset<6>(codes.find(c)).to_string();
+      binaryDecodeStr += std::bitset<6>(std::string{codes}.find(c)).to_string();
     }
   }
   if (binaryDecodeStr.length() % 8) {

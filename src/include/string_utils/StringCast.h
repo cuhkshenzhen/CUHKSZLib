@@ -1,5 +1,5 @@
-#ifndef CUHKSZ_STRING_STRINGFUNCTIONS
-#define CUHKSZ_STRING_STRINGFUNCTIONS
+#ifndef CUHKSZ_STRINGUTILS_STRINGCAST
+#define CUHKSZ_STRINGUTILS_STRINGCAST
 #include <exception>
 #include <iostream>
 #include <sstream>
@@ -36,4 +36,4 @@ class stringCast {
   const std::string &m_from;
 };
 }  // namespace cuhksz
-#endif  // CUHKSZ_STRING_STRINGFUNCTIONS
+#endif  // CUHKSZ_STRINGUTILS_STRINGCAST

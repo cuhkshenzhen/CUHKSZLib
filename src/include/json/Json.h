@@ -7,7 +7,8 @@
 #include <map>
 #include <string>
 #include <type_traits>
-#include "json_functions.h"
+
+#include "json/json_functions.h"
 
 namespace cuhksz {
 
@@ -70,7 +71,6 @@ class JSONObject {
     data(bool value) : Bool(value) {}
     data(std::string value) : String(new std::string(value)) {}
     data() : Bool(false) {}
-
   } Data;
 
  public:

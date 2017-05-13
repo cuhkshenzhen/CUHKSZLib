@@ -1,10 +1,12 @@
 #include "json/Json.h"
+
 #include <cmath>
 #include <deque>
 #include <map>
 #include <string>
-#include "string_utils.h"
-#include "utils.h"
+
+#include "string_utils/StringCast.h"
+#include "utils/error.h"
 
 namespace cuhksz {
 namespace {
@@ -118,9 +120,9 @@ JSONObject parse_string(const std::string &str, size_t &offset) {
           for (unsigned i = 1; i <= 4; ++i) {
             c = str[offset + i];
             if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') ||
-                (c >= 'A' && c <= 'F'))
+                (c >= 'A' && c <= 'F')) {
               val += c;
-            else {
+            } else {
               error(
                   "String: Expected hex character in unicode escape, found '" +
                   std::string(1, c) + "'");
@@ -132,8 +134,9 @@ JSONObject parse_string(const std::string &str, size_t &offset) {
           val += '\\';
           break;
       }
-    } else
+    } else {
       val += c;
+    }
   }
   ++offset;
   String = val;
@@ -148,13 +151,14 @@ JSONObject parse_number(const std::string &str, size_t &offset) {
   long exp = 0;
   while (true) {
     c = str[offset++];
-    if ((c == '-') || (c >= '0' && c <= '9'))
+    if ((c == '-') || (c >= '0' && c <= '9')) {
       val += c;
-    else if (c == '.') {
+    } else if (c == '.') {
       val += c;
       isDouble = true;
-    } else
+    } else {
       break;
+    }
   }
   if (c == 'E' || c == 'e') {
     c = str[offset++];
@@ -164,13 +168,14 @@ JSONObject parse_number(const std::string &str, size_t &offset) {
     }
     while (true) {
       c = str[offset++];
-      if (c >= '0' && c <= '9')
+      if (c >= '0' && c <= '9') {
         exp_str += c;
-      else if (!isspace(c) && c != ',' && c != ']' && c != '}') {
+      } else if (!isspace(c) && c != ',' && c != ']' && c != '}') {
         error("Number: Expected a number for exponent, found '" +
               std::string(1, c) + "'");
-      } else
+      } else {
         break;
+      }
     }
     exp = cuhksz::stringCast<long>(exp_str);
   } else if (!isspace(c) && c != ',' && c != ']' && c != '}') {
@@ -189,11 +194,11 @@ JSONObject parse_number(const std::string &str, size_t &offset) {
 
 JSONObject parse_bool(const std::string &str, size_t &offset) {
   JSONObject Bool;
-  if (str.substr(offset, 4) == "true")
+  if (str.substr(offset, 4) == "true") {
     Bool = true;
-  else if (str.substr(offset, 5) == "false")
+  } else if (str.substr(offset, 5) == "false") {
     Bool = false;
-  else {
+  } else {
     error("Bool: Expected 'true' or 'false', found '" + str.substr(offset, 5) +
           "'");
   }

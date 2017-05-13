@@ -151,4 +151,4 @@ void Stack<ValueType>::emptyCheck() const {
 
 }  // namespace cuhksz
 
-#endif
+#endif  // CUHKSZ_CONTAINERS_STACK

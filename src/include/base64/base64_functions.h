@@ -1,5 +1,5 @@
-#ifndef CUHKSZ_BASE64_FUNCTIONS
-#define CUHKSZ_BASE64_FUNCTIONS
+#ifndef CUHKSZ_BASE64_BASE64FUNCTIONS
+#define CUHKSZ_BASE64_BASE64FUNCTIONS
 
 #include <string>
 namespace cuhksz {
@@ -19,4 +19,4 @@ std::string base64Encode(std::string str, int length = -1);
  */
 std::string base64Decode(std::string decodeStr);
 }  // namespace cuhksz
-#endif  // CUHKSZ_BASE64_FUNCTIONS
+#endif  // CUHKSZ_BASE64_BASE64FUNCTIONS

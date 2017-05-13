@@ -26,7 +26,7 @@ int Random::nextInt(int max) {
 
 double Random::nextDouble(double min, double max) {
   if (max < min) error("`max` should be larger than or equal to `min`");
-  return double(randomGenerator()) / int64Max * (max - min) + min;
+  return (double)randomGenerator() / int64Max * (max - min) + min;
 }
 
 double Random::nextDouble(double max) {

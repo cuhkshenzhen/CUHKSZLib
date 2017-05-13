@@ -169,7 +169,7 @@ void Vector<ValueType>::clear() {
 
 template <typename ValueType>
 void Vector<ValueType>::insert(int index, const ValueType& value) {
-  unsigned long unsignedIndex = index;
+  size_t unsignedIndex = index;
   if (index < 0 || unsignedIndex > vec.size()) {
     error("The index out of range!");
   }
@@ -237,7 +237,7 @@ bool Vector<ValueType>::operator>=(const Vector& v2) {
 
 template <typename ValueType>
 void Vector<ValueType>::boundaryCheck(int index) const {
-  unsigned long unsignedIndex = index;
+  size_t unsignedIndex = index;
   if (index < 0 || unsignedIndex >= vec.size()) {
     error("The index out of range!");
   }
