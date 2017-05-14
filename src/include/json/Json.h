@@ -314,17 +314,6 @@ class JSONObject {
   Type objType = Type::Null;
 };
 
-namespace private_ {
-void skip_whitespaces(const std::string &str, size_t &offset);
-
-JSONObject parse_object(const std::string &str, size_t &offset);
-JSONObject parse_array(const std::string &str, size_t &offset);
-JSONObject parse_string(const std::string &str, size_t &offset);
-JSONObject parse_number(const std::string &str, size_t &offset);
-JSONObject parse_bool(const std::string &str, size_t &offset);
-JSONObject parse_null(const std::string &str, size_t &offset);
-JSONObject parse_next(const std::string &str, size_t &offset);
-}
 
 // Parsers
 
