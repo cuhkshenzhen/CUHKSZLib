@@ -378,8 +378,9 @@ const JSONObject &JSONObject::at(unsigned index) const {
   return Data.List->at(index);
 }
 
-unsigned long JSONObject::length() const {
-  return objType == Type::Array ? Data.List->size() : (unsigned long)-1;
+
+int JSONObject::length() const {
+  return (int) (objType == Type::Array ? Data.List->size() : -1);
 }
 
 bool JSONObject::hasKey(const std::string &key) const {
@@ -387,10 +388,13 @@ bool JSONObject::hasKey(const std::string &key) const {
                                  : false;
 }
 
-unsigned long JSONObject::size() const {
-  return objType == Type::Object
-             ? Data.Map->size()
-             : objType == Type::Array ? Data.List->size() : (unsigned long)-1;
+
+int JSONObject::size() const {
+  return (int) (objType == Type::Object ?
+                         Data.Map->size() :
+           objType == Type::Array ?
+           Data.List->size() :
+           -1);
 }
 
 std::string JSONObject::toString() const {
@@ -409,10 +413,6 @@ int JSONObject::toInt() const {
   return objType == Type::Integral ? Data.Int : 0;
 }
 
-long JSONObject::toLong() const {
-  return (long)(objType == Type::Integral ? Data.Int : 0);
-}
-
 bool JSONObject::toBool() const {
   return objType == Type::Boolean ? Data.Bool : false;
 }
@@ -423,9 +423,9 @@ JSONObject::operator float() const { return toFloat(); }
 
 JSONObject::operator double() const { return toDouble(); }
 
-JSONObject::operator long() const { return toLong(); }
-
-JSONObject::operator int() const { return toInt(); }
+JSONObject::operator int() const {
+  return toInt();
+}
 
 JSONObject::operator bool() const { return toBool(); }
 
