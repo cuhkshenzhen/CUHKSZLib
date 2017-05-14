@@ -16,8 +16,8 @@ class JSONWrapper {
   Container *object;
 
  public:
-  JSONWrapper(Container *val) : object(val) {}
-  JSONWrapper(std::nullptr_t) : object(nullptr) {}
+  explicit JSONWrapper(Container *val) : object(val) {}
+  explicit JSONWrapper(std::nullptr_t) : object(nullptr) {}
 
   typename Container::iterator begin() { return object ? object->begin() : typename Container::iterator(); }
   typename Container::iterator end() { return object ? object->end() : typename Container::iterator(); }
@@ -30,8 +30,8 @@ class JSONConstWrapper {
   const Container *object;
 
  public:
-  JSONConstWrapper(const Container *val) : object(val) {}
-  JSONConstWrapper(std::nullptr_t) : object(nullptr) {}
+  explicit JSONConstWrapper(const Container *val) : object(val) {}
+  explicit JSONConstWrapper(std::nullptr_t) : object(nullptr) {}
 
   typename Container::const_iterator begin() const {
     return object ? object->begin() : typename Container::const_iterator();
@@ -223,8 +223,8 @@ class JSONObject {
     append(args...);
   }
 
-  unsigned long length() const;
-  unsigned long size() const;
+  int length() const;
+  int size() const;
 
   bool hasKey(const std::string &key) const;
 
@@ -238,13 +238,11 @@ class JSONObject {
   double toDouble() const;
   float toFloat() const;
   int toInt() const;
-  long toLong() const;
   bool toBool() const;
 
   operator std::string() const;
   operator float() const;
   operator double() const;
-  operator long() const;
   operator int() const;
   operator bool() const;
 
