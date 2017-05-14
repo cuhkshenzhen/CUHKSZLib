@@ -21,3 +21,18 @@ TEST(GeometricDistribution, real_theory) {
   }
   EXPECT_LT(error_sum / 5, 0.05);
 }
+
+TEST(GeometricDistribution, construct) {
+  cuhksz::GeometricDistribution dist;
+  cuhksz::GeometricDistribution dist2(0.2);
+  cuhksz::Random r(0);
+  cuhksz::Random r2(0);
+  cuhksz::GeometricDistribution d1(r);
+  cuhksz::GeometricDistribution d2(r2, 0.5);
+  EXPECT_EQ(d1.next(), d2.next());
+}
+
+TEST(GeometricDistribution, p) {
+  cuhksz::GeometricDistribution dist;
+  EXPECT_DOUBLE_EQ(dist.p(), 0.5);
+}

@@ -4,6 +4,22 @@
 #include <string>
 #include <vector>
 
+int mapChar(char ch) {
+  if (ch == '\001') return 1;
+  if (ch < 'A' || ch > 'Z') exit(0);
+  return ch - 'A' + 2;
+}
+char mapInt(int n) {
+  if (n == 1) return '\001';
+  return n - 2 + 'A';
+}
+
+TEST(Trie, custom_mapper) {
+  cuhksz::Trie trie(mapChar, mapInt);
+  trie.insert("ABC");
+  EXPECT_TRUE(trie.contain("ABC"));
+}
+
 TEST(Trie, insert_and_contain) {
   cuhksz::Trie trie;
   std::vector<std::string> strs = {"ba", "bac", "be", "bae"};
@@ -56,4 +72,13 @@ TEST(Trie, size) {
   EXPECT_EQ(trie.size(), 1);
   trie.remove("bca");
   EXPECT_EQ(trie.size(), 0);
+}
+
+TEST(TrieDeathTest, unsupport_characters) {
+  cuhksz::Trie trie;
+  EXPECT_EXIT(trie.insert("Abc"), ::testing::ExitedWithCode(EXIT_FAILURE),
+              "lower letter");
+  trie.insert("bcA");  // good because it enters the `tail` array
+  EXPECT_EXIT(trie.insert("bcAc"), ::testing::ExitedWithCode(EXIT_FAILURE),
+              "lower letter");
 }

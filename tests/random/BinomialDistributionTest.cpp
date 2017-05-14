@@ -23,3 +23,32 @@ TEST(BinomialDistribution, real_theory) {
   }
   EXPECT_LT(error_sum / 11, 0.06);
 }
+
+TEST(BinomialDistribution, construct) {
+  cuhksz::BinomialDistribution dist(1);
+  cuhksz::BinomialDistribution dist2(1, 0.2);
+  cuhksz::Random r(0);
+  cuhksz::Random r2(0);
+  cuhksz::BinomialDistribution d1(r, 1);
+  cuhksz::BinomialDistribution d2(r2, 1, 0.5);
+  EXPECT_EQ(d1.next(), d2.next());
+}
+
+TEST(BinomialDistribution, p) {
+  cuhksz::BinomialDistribution dist(1);
+  EXPECT_DOUBLE_EQ(dist.p(), 0.5);
+}
+
+TEST(BinomialDistribution, n) {
+  cuhksz::BinomialDistribution dist(3);
+  EXPECT_EQ(dist.n(), 3);
+}
+
+TEST(BinomialDistributionDeathTest, parameter_invalid) {
+  EXPECT_EXIT(cuhksz::BinomialDistribution(-1, 0.5),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+  EXPECT_EXIT(cuhksz::BinomialDistribution(1, -1),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+  EXPECT_EXIT(cuhksz::BinomialDistribution(0, 1.1),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+}

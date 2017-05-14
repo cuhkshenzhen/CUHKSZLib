@@ -37,28 +37,65 @@ compiler:
   - clang
 script:
   - mkdir build && cd build
-  - cmake -DTESTING=1 ..
-  - make -j
+  - cmake .. -DTESTING=1 -DSAMPLES=0 -DCMAKE_BUILD_TYPE=Debug
+  - make -j4
   - CTEST_OUTPUT_ON_FAILURE=1 make test
 notifications:
   email: false
 sudo: false
 
 after_success: |
-  if  [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-    if [[ "$CXX" == "g++-4.9" ]]; then
+  if  [[ ( $TRAVIS_OS_NAME = linux ) && ( $CXX = g++-4.9 ) ]]; then
       cd $TRAVIS_BUILD_DIR
       chmod +x generateDocument.sh
       ./generateDocument.sh
+      touch docs/.nojekyll
+  fi
+  cd $TRAVIS_BUILD_DIR/build
+
+  OS_NAME=$TRAVIS_OS_NAME
+  if [[ "$TRAVIS_OS_NAME" = "osx" ]]; then
+    OS_NAME=macos
+  fi
+
+  if [ $TRAVIS_TAG ]; then
+    mkdir release && cd release
+    cmake ../.. -DTESTING=0 -DCMAKE_BUILD_TYPE=Release
+    make -j4
+    if [[ "$CXX" == "g++-4.9" ]]; then
+      CC="gcc"
+    fi
+    if [[ "$CXX" = "clang++-3.7" ]]; then
+      CC="clang"
+    fi
+    cp -r ../../src/include ./include
+    mkdir lib
+    mv libcuhkszlib.a lib/libcuhkszlib.a
+    tar -czvf $OS_NAME-$CC.tar.gz lib include
+    if  [[ (( $TRAVIS_OS_NAME = linux ) && ( $CXX = g++-4.9 )) || (( $TRAVIS_OS_NAME = osx ) && ( $CXX = clang++ ))]]; then
+      rm -rf samples/*.cmake
+      rm -rf samples/Makefile
+      rm -rf samples/CMakeFiles
+      tar -czvf $OS_NAME-samples.tar.gz samples/*
     fi
   fi
 
 deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
-  on:
-    branch:
-      master
-    condition: " (( $TRAVIS_OS_NAME = linux ) && ( $CXX = g++-4.9 ) )  "
-  local_dir: $TRAVIS_BUILD_DIR/docs
+  - provider: pages
+    skip_cleanup: true
+    github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+    on:
+      branch:
+        master
+      condition: " (( $TRAVIS_OS_NAME = linux ) && ( $CXX = g++-4.9 ) && ($GITHUB_TOKEN))  "
+    local_dir: $TRAVIS_BUILD_DIR/docs
+
+  - provider: releases
+    skip_cleanup: true
+    api_key: $RELEASE_TOKEN
+    file_glob: true
+    file: "*.tar.gz"
+    on:
+      all_branches: true
+      condition: " ($TRAVIS_TAG) "
+      tag: true

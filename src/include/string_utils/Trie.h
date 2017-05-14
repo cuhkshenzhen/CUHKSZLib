@@ -77,16 +77,20 @@ class Trie {
   /**
     Construct a `Trie` object with default settings (only receives lower
     letters).
+
+    __Note:__ because of the efficiency, `Trie` will not check all the input
+    strings. Thus the inputs with non-lower letters do not always fail.
   **/
   Trie() : Trie(private_::mapChar, private_::mapInt) {}
 
   /**
-    Construct a `Trie` object with custom "adapter", i.e. ways to map the
+    Construct a `Trie` object with custom "adapters", i.e. ways to map the
     characters in the string with integers. Requirements for the `mapChar` and
     `mapInt` are:
-    1. `mapChar('\001')` should return 1 and `mapInt(1)` should return `'\001'`.
+    1. ``mapChar('\001')`` should return 1 and `mapInt(1)` should return
+      ``'\001'``.
     2. `mapInt(mapChar(ch)) == ch` and `mapChar(mapInt(num)) == num`
-    3. The mapped integers should start with 1 (as for `'\001'`) and increase
+    3. The mapped integers should start with 1 (as for ``'\001'``) and increase
       sequentially
 
     The default implementation of this two functions are:

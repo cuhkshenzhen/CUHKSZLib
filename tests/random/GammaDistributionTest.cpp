@@ -27,3 +27,33 @@ TEST(GammaDistribution, real_theory) {
   }
   EXPECT_LT(error_sum / 9, 0.05);
 }
+
+TEST(GammaDistribution, construct) {
+  cuhksz::GammaDistribution dist(2, 3);
+  cuhksz::Random r(0);
+  cuhksz::Random r2(0);
+  cuhksz::GammaDistribution d1(r, 3, 3);
+  cuhksz::GammaDistribution d2(r2, 3, 3);
+  EXPECT_DOUBLE_EQ(d1.next(), d2.next());
+}
+
+TEST(GammaDistribution, k) {
+  cuhksz::GammaDistribution dist(2, 4);
+  EXPECT_DOUBLE_EQ(dist.k(), 2);
+}
+
+TEST(GammaDistribution, theta) {
+  cuhksz::GammaDistribution dist(2, 4);
+  EXPECT_DOUBLE_EQ(dist.theta(), 4);
+}
+
+TEST(GammaDistributionDeathTest, parameter_invalid) {
+  EXPECT_EXIT(cuhksz::GammaDistribution(0, 0),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+  EXPECT_EXIT(cuhksz::GammaDistribution(1, -1),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+  EXPECT_EXIT(cuhksz::GammaDistribution(-1, 1),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+  EXPECT_EXIT(cuhksz::GammaDistribution(-1, -1),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+}

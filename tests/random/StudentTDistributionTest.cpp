@@ -25,3 +25,24 @@ TEST(StudentTDistribution, real_theory) {
   }
   EXPECT_LT(error_sum / 10, 0.05);
 }
+
+TEST(StudentTDistribution, construct) {
+  cuhksz::StudentTDistribution dist(2);
+  cuhksz::Random r(0);
+  cuhksz::Random r2(0);
+  cuhksz::StudentTDistribution d1(r, 0.5);
+  cuhksz::StudentTDistribution d2(r2, 0.5);
+  EXPECT_DOUBLE_EQ(d1.next(), d2.next());
+}
+
+TEST(StudentTDistribution, r) {
+  cuhksz::StudentTDistribution dist(2.5);
+  EXPECT_DOUBLE_EQ(dist.r(), 2.5);
+}
+
+TEST(StudentTDistributionDeathTest, parameter_invalid) {
+  EXPECT_EXIT(cuhksz::StudentTDistribution(0),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+  EXPECT_EXIT(cuhksz::StudentTDistribution(-1),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+}
