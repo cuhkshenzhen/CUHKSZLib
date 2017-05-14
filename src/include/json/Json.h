@@ -1,4 +1,3 @@
-
 #ifndef CUHKSZ_JSON_JSON
 #define CUHKSZ_JSON_JSON
 

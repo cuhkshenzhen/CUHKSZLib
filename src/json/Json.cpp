@@ -148,7 +148,7 @@ JSONObject parse_number(const std::string &str, size_t &offset) {
   std::string val, exp_str;
   char c;
   bool isDouble = false;
-  long exp = 0;
+  int exp = 0;
   while (true) {
     c = str[offset++];
     if ((c == '-') || (c >= '0' && c <= '9')) {
@@ -177,7 +177,7 @@ JSONObject parse_number(const std::string &str, size_t &offset) {
         break;
       }
     }
-    exp = cuhksz::stringCast<long>(exp_str);
+    exp = cuhksz::stringCast<int>(exp_str);
   } else if (!isspace(c) && c != ',' && c != ']' && c != '}') {
     error("Number: unexpected character '" + std::string(1, c) + "'");
   }
@@ -361,9 +361,8 @@ JSONObject &JSONObject::operator[](const std::string &key) {
 
 JSONObject &JSONObject::operator[](int index) {
   setType(Type::Array);
-  if (index >= (int)Data.List->size())
-    Data.List->resize((unsigned long)(index + 1));
-  return Data.List->operator[]((unsigned long)index);
+  if (index >= (int)Data.List->size()) Data.List->resize((size_t)(index + 1));
+  return Data.List->operator[]((size_t)index);
 }
 
 JSONObject &JSONObject::at(const std::string &key) { return operator[](key); }
@@ -378,9 +377,8 @@ const JSONObject &JSONObject::at(unsigned index) const {
   return Data.List->at(index);
 }
 
-
 int JSONObject::length() const {
-  return (int) (objType == Type::Array ? Data.List->size() : -1);
+  return (int)(objType == Type::Array ? Data.List->size() : -1);
 }
 
 bool JSONObject::hasKey(const std::string &key) const {
@@ -388,13 +386,10 @@ bool JSONObject::hasKey(const std::string &key) const {
                                  : false;
 }
 
-
 int JSONObject::size() const {
-  return (int) (objType == Type::Object ?
-                         Data.Map->size() :
-           objType == Type::Array ?
-           Data.List->size() :
-           -1);
+  return (int)(objType == Type::Object
+                   ? Data.Map->size()
+                   : objType == Type::Array ? Data.List->size() : -1);
 }
 
 std::string JSONObject::toString() const {
@@ -423,9 +418,7 @@ JSONObject::operator float() const { return toFloat(); }
 
 JSONObject::operator double() const { return toDouble(); }
 
-JSONObject::operator int() const {
-  return toInt();
-}
+JSONObject::operator int() const { return toInt(); }
 
 JSONObject::operator bool() const { return toBool(); }
 
