@@ -2,4 +2,4 @@
 #define CUHKSZ_UTILS
 #include "utils/error.h"
 
-#endif //CUHKSZ_UTILS
+#endif  // CUHKSZ_UTILS

@@ -87,4 +87,4 @@ class UniformIntDistribution : public Distribution<int> {
 };
 }  // namespace cuhksz
 
-#endif  // RANDOM_UNIFORMINTDISTRIBUTION
+#endif  // CUHKSZ_RANDOM_UNIFORMINTDISTRIBUTION

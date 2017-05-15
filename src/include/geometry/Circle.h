@@ -4,12 +4,9 @@
 namespace cuhksz {
 
 class Circle {
-private:
-
+ private:
 };
 
+}  // namespace cuhksz
 
-}	// namespace cuhksz
-
-
-#endif // CUHKSZ_GEOMETRY_CIRCLE
+#endif  // CUHKSZ_GEOMETRY_CIRCLE
