@@ -19,5 +19,5 @@ if(MSVC)
     TARGET test_all POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy
             ${CMAKE_CURRENT_BINARY_DIR}/../external/gtest/googletest/$<CONFIG>/gtest.dll
-            ${CMAKE_CURRENT_BINARY_DIR}/gtest.dll)
+            ${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>/gtest.dll)
 endif()
