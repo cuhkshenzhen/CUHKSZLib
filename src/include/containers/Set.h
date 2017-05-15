@@ -7,154 +7,143 @@
 
 namespace cuhksz {
 
-template<typename ValueType>
+template <typename ValueType>
 class Set {
-public:
-    typedef typename std::set<ValueType> stlSet;
-    typedef ValueType value_type;
-    
-    Set();
-    Set( std::initializer_list<ValueType> init );
-    Set(stlSet& stlSet2);
+ public:
+  typedef typename std::set<ValueType> stlSet;
+  typedef ValueType value_type;
 
-    ~Set();
+  Set();
+  Set(std::initializer_list<ValueType> init);
+  Set(stlSet& stlSet2);
 
-    Set& operator =(const Set& set2);
+  ~Set();
 
-    bool isEmpty() const;
+  Set& operator=(const Set& set2);
 
-    int size() const;
+  bool isEmpty() const;
 
-    void insert(const ValueType& value);
+  int size() const;
 
-    void erase(const ValueType& value);
+  void insert(const ValueType& value);
 
-    void clear();
+  void erase(const ValueType& value);
 
-    bool contains(ValueType value) const;
+  void clear();
 
-    typedef typename std::set<ValueType>::iterator iterator;
-    typedef typename std::set<ValueType>::const_iterator const_iterator;
+  bool contains(ValueType value) const;
 
-    iterator begin() {
-        return privateSet.begin();
-    }
+  typedef typename std::set<ValueType>::iterator iterator;
+  typedef typename std::set<ValueType>::const_iterator const_iterator;
 
-    const_iterator begin() const {
-        return privateSet.begin();
-    }
+  iterator begin() { return privateSet.begin(); }
 
-    iterator end() {
-        return privateSet.end();
-    }
+  const_iterator begin() const { return privateSet.begin(); }
 
-    const_iterator end() const {
-        return privateSet.end();
-    }
+  iterator end() { return privateSet.end(); }
 
-    stlSet toStlSet() {
-        return privateSet;
-    }
+  const_iterator end() const { return privateSet.end(); }
 
-    operator stlSet() { return privateSet; }
+  stlSet toStlSet() { return privateSet; }
 
-    bool operator ==(const Set& set2);
-    bool operator !=(const Set& set2);
-    bool operator <(const Set& set2);
-    bool operator <=(const Set& set2);
-    bool operator >(const Set& set2);
-    bool operator >=(const Set& set2);
+  operator stlSet() { return privateSet; }
 
-private:
-    std::set<ValueType> privateSet;
+  bool operator==(const Set& set2);
+  bool operator!=(const Set& set2);
+  bool operator<(const Set& set2);
+  bool operator<=(const Set& set2);
+  bool operator>(const Set& set2);
+  bool operator>=(const Set& set2);
 
+ private:
+  std::set<ValueType> privateSet;
 };
 
-template<typename ValueType>
+template <typename ValueType>
 Set<ValueType>::Set() {
-    //do nothing
+  // do nothing
 }
 
-template<typename ValueType>
-Set<ValueType>::Set( std::initializer_list<ValueType> init ) {
-    privateSet = init;
+template <typename ValueType>
+Set<ValueType>::Set(std::initializer_list<ValueType> init) {
+  privateSet = init;
 }
 
-template<typename ValueType>
+template <typename ValueType>
 Set<ValueType>::Set(stlSet& stlSet2) {
-    privateSet = stlSet2;
+  privateSet = stlSet2;
 }
 
-template<typename ValueType>
+template <typename ValueType>
 Set<ValueType>::~Set() {
-    //do nothing
+  // do nothing
 }
 
-template<typename ValueType>
-Set<ValueType>& Set<ValueType>::operator =(const Set& set2) {
-    privateSet = set2.privateSet;
-    return *this;
+template <typename ValueType>
+Set<ValueType>& Set<ValueType>::operator=(const Set& set2) {
+  privateSet = set2.privateSet;
+  return *this;
 }
 
-template<typename ValueType>
+template <typename ValueType>
 bool Set<ValueType>::isEmpty() const {
-    return privateSet.empty();
+  return privateSet.empty();
 }
 
-template<typename ValueType>
+template <typename ValueType>
 int Set<ValueType>::size() const {
-    return privateSet.size();
+  return privateSet.size();
 }
 
-template<typename ValueType>
+template <typename ValueType>
 void Set<ValueType>::insert(const ValueType& value) {
-        privateSet.insert(value);
+  privateSet.insert(value);
 }
 
-template<typename ValueType>
+template <typename ValueType>
 void Set<ValueType>::erase(const ValueType& value) {
-        privateSet.erase(value);
+  privateSet.erase(value);
 }
 
-template<typename ValueType>
+template <typename ValueType>
 void Set<ValueType>::clear() {
-    privateSet.clear();
+  privateSet.clear();
 }
 
-template<typename ValueType>
+template <typename ValueType>
 bool Set<ValueType>::contains(ValueType value) const {
-    return (privateSet.find(value) != privateSet.end())? true : false;
+  return (privateSet.find(value) != privateSet.end()) ? true : false;
 }
 
-template<typename ValueType>
-bool Set<ValueType>::operator ==(const Set& set2) {
-    return privateSet == set2.privateSet;
+template <typename ValueType>
+bool Set<ValueType>::operator==(const Set& set2) {
+  return privateSet == set2.privateSet;
 }
 
-template<typename ValueType>
-bool Set<ValueType>::operator !=(const Set& set2) {
-    return privateSet != set2.privateSet;
+template <typename ValueType>
+bool Set<ValueType>::operator!=(const Set& set2) {
+  return privateSet != set2.privateSet;
 }
-template<typename ValueType>
-bool Set<ValueType>::operator <(const Set& set2) {
-    return privateSet < set2.privateSet;
-}
-
-template<typename ValueType>
-bool Set<ValueType>::operator <=(const Set& set2) {
-    return privateSet <= set2.privateSet;
+template <typename ValueType>
+bool Set<ValueType>::operator<(const Set& set2) {
+  return privateSet < set2.privateSet;
 }
 
-template<typename ValueType>
-bool Set<ValueType>::operator >(const Set& set2) {
-    return privateSet > set2.privateSet;
+template <typename ValueType>
+bool Set<ValueType>::operator<=(const Set& set2) {
+  return privateSet <= set2.privateSet;
 }
 
-template<typename ValueType>
-bool Set<ValueType>::operator >=(const Set& set2) {
-    return privateSet >= set2.privateSet;
+template <typename ValueType>
+bool Set<ValueType>::operator>(const Set& set2) {
+  return privateSet > set2.privateSet;
 }
 
-} //end namespace
+template <typename ValueType>
+bool Set<ValueType>::operator>=(const Set& set2) {
+  return privateSet >= set2.privateSet;
+}
 
-#endif //CUHKSZ_CONTAINERS_SET
+}  // namespace cuhksz
+
+#endif  // CUHKSZ_CONTAINERS_SET
