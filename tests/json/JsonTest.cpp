@@ -107,13 +107,13 @@ TEST(Json, arrayTest) {
 TEST(Json, primTest) {
   cuhksz::JSONObject obj;
   obj = false;
-  EXPECT_EQ((bool)obj, false);
+  EXPECT_EQ((bool) obj, false);
   obj = "Test String";
-  EXPECT_EQ((std::string)obj, "Test String");
+  EXPECT_EQ((std::string) obj, "Test String");
   obj = 2.2;
-  EXPECT_NEAR((float)obj, (float)2.2, 0.0001);
+  EXPECT_NEAR((float) obj, (float) 2.2, 0.0001);
   obj = 3;
-  EXPECT_EQ((int)obj, 3);
+  EXPECT_EQ((int) obj, 3);
 }
 
 TEST(Json, iterTest) {

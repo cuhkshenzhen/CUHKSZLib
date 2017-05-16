@@ -91,29 +91,21 @@ JSONObject parse_string(const std::string &str, size_t &offset) {
   for (char c = str[++offset]; c != '\"'; c = str[++offset]) {
     if (c == '\\') {
       switch (str[++offset]) {
-        case '\"':
-          val += '\"';
+        case '\"':val += '\"';
           break;
-        case '\\':
-          val += '\\';
+        case '\\':val += '\\';
           break;
-        case '/':
-          val += '/';
+        case '/':val += '/';
           break;
-        case 'b':
-          val += '\b';
+        case 'b':val += '\b';
           break;
-        case 'f':
-          val += '\f';
+        case 'f':val += '\f';
           break;
-        case 'n':
-          val += '\n';
+        case 'n':val += '\n';
           break;
-        case 'r':
-          val += '\r';
+        case 'r':val += '\r';
           break;
-        case 't':
-          val += '\t';
+        case 't':val += '\t';
           break;
         case 'u': {
           val += "\\u";
@@ -185,11 +177,11 @@ JSONObject parse_number(const std::string &str, size_t &offset) {
   --offset;
 
   if (isDouble)
-    Number = (int)cuhksz::stringCast<int>(val) * std::pow(10, exp);
+    Number = (int) cuhksz::stringCast<int>(val) * std::pow(10, exp);
   else if (!exp_str.empty())
-    Number = (int)cuhksz::stringCast<int>(val) * std::pow(10, exp);
+    Number = (int) cuhksz::stringCast<int>(val) * std::pow(10, exp);
   else
-    Number = (int)cuhksz::stringCast<int>(val);
+    Number = (int) cuhksz::stringCast<int>(val);
   return Number;
 }
 
@@ -219,17 +211,12 @@ JSONObject parse_next(const std::string &str, size_t &offset) {
   skip_whitespaces(str, offset);
   value = str[offset];
   switch (value) {
-    case '[':
-      return parse_array(str, offset);
-    case '{':
-      return parse_object(str, offset);
-    case '\"':
-      return parse_string(str, offset);
+    case '[':return parse_array(str, offset);
+    case '{':return parse_object(str, offset);
+    case '\"':return parse_string(str, offset);
     case 't':
-    case 'f':
-      return parse_bool(str, offset);
-    case 'n':
-      return parse_null(str, offset);
+    case 'f':return parse_bool(str, offset);
+    case 'n':return parse_null(str, offset);
     default:
       if ((value <= '9' && value >= '0') || value == '-')
         return parse_number(str, offset);
@@ -259,26 +246,19 @@ void JSONObject::setType(Type type) {
   clearData();
 
   switch (type) {
-    case Type::Null:
-      Data.Map = nullptr;
+    case Type::Null:Data.Map = nullptr;
       break;
-    case Type::Object:
-      Data.Map = new std::map<std::string, JSONObject>();
+    case Type::Object:Data.Map = new std::map<std::string, JSONObject>();
       break;
-    case Type::Array:
-      Data.List = new std::deque<JSONObject>();
+    case Type::Array:Data.List = new std::deque<JSONObject>();
       break;
-    case Type::String:
-      Data.String = new std::string();
+    case Type::String:Data.String = new std::string();
       break;
-    case Type::Float:
-      Data.Float = 0.0;
+    case Type::Float:Data.Float = 0.0;
       break;
-    case Type::Integral:
-      Data.Int = 0;
+    case Type::Integral:Data.Int = 0;
       break;
-    case Type::Boolean:
-      Data.Bool = false;
+    case Type::Boolean:Data.Bool = false;
       break;
   }
   objType = type;
@@ -286,14 +266,11 @@ void JSONObject::setType(Type type) {
 
 void JSONObject::clearData() {
   switch (objType) {
-    case Type::Object:
-      delete Data.Map;
+    case Type::Object:delete Data.Map;
       break;
-    case Type::Array:
-      delete Data.List;
+    case Type::Array:delete Data.List;
       break;
-    case Type::String:
-      delete Data.String;
+    case Type::String:delete Data.String;
       break;
     default: {
     }
@@ -310,11 +287,9 @@ JSONObject::JSONObject(const JSONObject &src) {
       Data.List = new std::deque<JSONObject>(src.Data.List->begin(),
                                              src.Data.List->end());
       break;
-    case Type::String:
-      Data.String = new std::string(*src.Data.String);
+    case Type::String:Data.String = new std::string(*src.Data.String);
       break;
-    default:
-      Data = src.Data;
+    default:Data = src.Data;
   }
   objType = src.objType;
 }
@@ -339,11 +314,9 @@ JSONObject &JSONObject::operator=(const JSONObject &src) {
       Data.List = new std::deque<JSONObject>(src.Data.List->begin(),
                                              src.Data.List->end());
       break;
-    case Type::String:
-      Data.String = new std::string(*src.Data.String);
+    case Type::String:Data.String = new std::string(*src.Data.String);
       break;
-    default:
-      Data = src.Data;
+    default:Data = src.Data;
   }
   objType = src.objType;
   return *this;
@@ -362,8 +335,8 @@ JSONObject &JSONObject::operator[](const std::string &key) {
 
 JSONObject &JSONObject::operator[](int index) {
   setType(Type::Array);
-  if (index >= (int)Data.List->size()) Data.List->resize((size_t)(index + 1));
-  return Data.List->operator[]((size_t)index);
+  if (index >= (int) Data.List->size()) Data.List->resize((size_t) (index + 1));
+  return Data.List->operator[]((size_t) index);
 }
 
 JSONObject &JSONObject::at(const std::string &key) { return operator[](key); }
@@ -379,7 +352,7 @@ const JSONObject &JSONObject::at(unsigned index) const {
 }
 
 int JSONObject::length() const {
-  return (int)(objType == Type::Array ? Data.List->size() : -1);
+  return (int) (objType == Type::Array ? Data.List->size() : -1);
 }
 
 bool JSONObject::hasKey(const std::string &key) const {
@@ -402,7 +375,7 @@ double JSONObject::toDouble() const {
 }
 
 float JSONObject::toFloat() const {
-  return (float)(objType == Type::Float ? Data.Float : 0.0);
+  return (float) (objType == Type::Float ? Data.Float : 0.0);
 }
 
 int JSONObject::toInt() const {
@@ -428,8 +401,7 @@ std::string JSONObject::dump(int depth, std::string tab) const {
   for (int i = 0; i < depth; ++i, pad += tab) {};
 
   switch (objType) {
-    case Type::Null:
-      return "null";
+    case Type::Null:return "null";
     case Type::Object: {
       std::string s = "{\n";
       bool skip = true;
@@ -452,14 +424,10 @@ std::string JSONObject::dump(int depth, std::string tab) const {
       s += "]";
       return s;
     }
-    case Type::String:
-      return "\"" + jsonEscape(*Data.String) + "\"";
-    case Type::Float:
-      return std::to_string(Data.Float);
-    case Type::Integral:
-      return std::to_string(Data.Int);
-    case Type::Boolean:
-      return Data.Bool ? "true" : "false";
+    case Type::String:return "\"" + jsonEscape(*Data.String) + "\"";
+    case Type::Float:return std::to_string(Data.Float);
+    case Type::Integral:return std::to_string(Data.Int);
+    case Type::Boolean:return Data.Bool ? "true" : "false";
   }
   return "";
 }
