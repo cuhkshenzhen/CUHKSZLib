@@ -7,6 +7,14 @@
 
 #include <vector>
 namespace cuhksz {
+/**
+ * Apply a filter function to all elements in a function. All elements with true result will be saved.
+ * @tparam Container Container type
+ * @tparam Func Function type
+ * @param cont Container with all elements
+ * @param func Function to be applied
+ * @return Elements with true results in std::vector
+ */
 template <typename Container, typename Func>
 std::vector<typename Container::value_type> filterContainer(Container &cont,
                                                             Func func) {

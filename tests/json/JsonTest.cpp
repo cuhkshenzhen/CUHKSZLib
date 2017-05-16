@@ -115,11 +115,37 @@ TEST(Json, arrayTest) {
 TEST(Json, primTest) {
   cuhksz::JSONObject obj;
   obj = false;
-  EXPECT_EQ((bool)obj, false);
+  EXPECT_EQ((bool) obj, false);
   obj = "Test String";
-  EXPECT_EQ((std::string)obj, "Test String");
+  EXPECT_EQ((std::string) obj, "Test String");
   obj = 2.2;
-  EXPECT_NEAR((float)obj, (float)2.2, 0.0001);
+  EXPECT_NEAR((float) obj, (float) 2.2, 0.0001);
   obj = 3;
-  EXPECT_EQ((int)obj, 3);
+  EXPECT_EQ((int) obj, 3);
+}
+
+TEST(Json, iterTest) {
+  cuhksz::JSONObject array = cuhksz::JSONObject::Build(cuhksz::JSONObject::Type::Array);
+  cuhksz::JSONObject obj = cuhksz::JSONObject::Build(cuhksz::JSONObject::Type::Object);
+
+  array[0] = "Test0";
+  array[1] = "Test1";
+  array[2] = "Test2";
+  array[3] = "Test3";
+
+  obj["Key0"] = "Value0";
+  obj["Key1"] = "Value1";
+  obj["Key2"] = "Value2";
+
+  int count = 0;
+  for (auto &j : array.ArrayRange()){
+    EXPECT_EQ((std::string)j, std::string("Test") + std::to_string(count++));
+  }
+
+  count = 0;
+  for (auto &j : obj.ObjectRange()){
+    EXPECT_EQ((std::string)j.first, std::string("Key") + std::to_string(count));
+    EXPECT_EQ((std::string)j.second, std::string("Value") + std::to_string(count++));
+  }
+
 }
