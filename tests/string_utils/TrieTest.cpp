@@ -1,8 +1,9 @@
-#include "gtest/gtest.h"
-#include "string_utils/Trie.h"
-
 #include <string>
 #include <vector>
+
+#include "string_utils/Trie.h"
+
+#include "gtest/gtest.h"
 
 int mapChar(char ch) {
   if (ch == '\001') return 1;
