@@ -14,6 +14,17 @@ install:
 - echo ${CXX}
 - ${CXX} --version
 - ${CXX} -v
+# Installing lcov
+- |
+  if  [[ ( $TRAVIS_OS_NAME = linux ) && ( $CXX = g++-4.9 ) ]]; then
+    cd ${TRAVIS_BUILD_DIR}
+    wget http://ftp.de.debian.org/debian/pool/main/l/lcov/lcov_1.13.orig.tar.gz
+    tar xf lcov_1.13.orig.tar.gz
+    cd lcov-1.13/
+    sudo make install
+    cd ..
+    sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-4.9 90
+  fi
 addons:
   apt:
     # List of whitelisted in travis packages for ubuntu-precise can be found here:
@@ -27,6 +38,7 @@ addons:
     - gcc-4.9
     - g++-4.9
     - clang-3.7
+    - lcov
 
 os:
   - linux
@@ -37,12 +49,17 @@ compiler:
   - clang
 script:
   - mkdir build && cd build
-  - cmake .. -DTESTING=1 -DSAMPLES=0 -DCMAKE_BUILD_TYPE=Debug
+  - |
+    if  [[ ( $TRAVIS_OS_NAME = linux ) && ( $CXX = g++-4.9 ) ]]; then
+      cmake .. -DTESTING=1 -DSAMPLES=0 -DCOVERAGE=1 -DCMAKE_BUILD_TYPE=Debug
+    else
+      cmake .. -DTESTING=1 -DSAMPLES=0 -DCMAKE_BUILD_TYPE=Debug
+    fi
   - make -j4
   - CTEST_OUTPUT_ON_FAILURE=1 make test
 notifications:
   email: false
-sudo: false
+sudo: required
 
 after_success: |
   if  [[ ( $TRAVIS_OS_NAME = linux ) && ( $CXX = g++-4.9 ) ]]; then
@@ -50,6 +67,12 @@ after_success: |
       chmod +x generateDocument.sh
       ./generateDocument.sh
       touch docs/.nojekyll
+      cd ${TRAVIS_BUILD_DIR}
+      lcov --directory . --capture --output-file coverage.info # capture coverage info
+      lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter out system
+      lcov --list coverage.info #debug info
+      # Uploading report to CodeCov
+      bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
   fi
   cd $TRAVIS_BUILD_DIR/build
 
