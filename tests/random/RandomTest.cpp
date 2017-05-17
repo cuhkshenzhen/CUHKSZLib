@@ -20,6 +20,11 @@ TEST(Random, construct_with_seed_and_setSeed) {
   EXPECT_EQ(a, b);
 }
 
+TEST(Random, dump_test_nextInt) {
+  cuhksz::Random r;
+  r.nextInt();  // just test it can run without error
+}
+
 TEST(Random, nextInt_min_max) {
   cuhksz::Random r;
   for (int i = 0; i < 10000; i++) {

@@ -15,6 +15,10 @@ TEST(random_functions, dump_test_randomBool) {
   cuhksz::randomBool();  // just test it can run without error
 }
 
+TEST(random_functions, dump_test_randomInt) {
+  cuhksz::randomInt();  // just test it can run without error
+}
+
 TEST(random_functions, randomInt_min_max) {
   for (int i = 0; i < 10000; i++) {
     int result = cuhksz::randomInt(-1000, 1000);
