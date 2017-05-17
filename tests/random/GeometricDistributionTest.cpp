@@ -1,7 +1,7 @@
 #include <cmath>
 #include "gtest/gtest.h"
 #include "math_utils/math_functions.h"
-#include "random.h"
+#include "random/GeometricDistribution.h"
 
 TEST(GeometricDistribution, real_theory) {
   double p = 0.5;

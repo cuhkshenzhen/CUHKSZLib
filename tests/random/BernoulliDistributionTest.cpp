@@ -1,7 +1,7 @@
 #include <cmath>
 #include "gtest/gtest.h"
 #include "math_utils/math_functions.h"
-#include "random.h"
+#include "random/BernoulliDistribution.h"
 
 TEST(BernoulliDistribution, real_theory) {
   double p = 0.5;

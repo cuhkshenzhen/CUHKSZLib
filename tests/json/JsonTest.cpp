@@ -1,4 +1,7 @@
+#include <string>
+
 #include "json/Json.h"
+
 #include "gtest/gtest.h"
 
 TEST(Json, DumpJson) {
@@ -58,36 +61,27 @@ TEST(Json, LoadJson) {
     }, false]
 })";
   auto jsonObject = cuhksz::loadJSON(json);
-  EXPECT_EQ((std::string) jsonObject["new"]["some"]["deep"]["key"], "Value");
+  EXPECT_EQ((std::string)jsonObject["new"]["some"]["deep"]["key"], "Value");
 }
 
 TEST(Json, loadWithInitList) {
   cuhksz::JSONObject obj = {
-      "array", cuhksz::JSONObject::Array(true, "Two", 3, 4.0),
-      "obj", {
-          "inner", "Inside"
-      },
-      "new", {
-          "some", {
-              "deep", {
-                  "key", "Value"
-              }
-          }
-      },
+      "array",  cuhksz::JSONObject::Array(true, "Two", 3, 4.0),
+      "obj",    {"inner", "Inside"},
+      "new",    {"some", {"deep", {"key", "Value"}}},
       "array2", cuhksz::JSONObject::Array(false, "three"),
-      "s", "string"
-  };
+      "s",      "string"};
   cuhksz::JSONObject obj2 = {
-      "Key", 1,
-      "Key3", true,
-      "Key4", nullptr,
-      "Key2", {
-          "Key4", "VALUE",
-          "Arr", cuhksz::JSONObject::Array(1, "Str", false)
-      }
-  };
-  EXPECT_EQ((std::string) obj["obj"]["inner"], "Inside");
-  EXPECT_EQ((bool) obj2["Key3"], true);
+      "Key",
+      1,
+      "Key3",
+      true,
+      "Key4",
+      nullptr,
+      "Key2",
+      {"Key4", "VALUE", "Arr", cuhksz::JSONObject::Array(1, "Str", false)}};
+  EXPECT_EQ((std::string)obj["obj"]["inner"], "Inside");
+  EXPECT_EQ((bool)obj2["Key3"], true);
 }
 
 TEST(Json, arrayTest) {
@@ -97,19 +91,17 @@ TEST(Json, arrayTest) {
   array[1] = "Test1";
   array[0] = "Test0";
   array[3] = "Test4";
-  EXPECT_EQ((std::string) array[0], "Test0");
-  EXPECT_EQ((std::string) array[1], "Test1");
-  EXPECT_EQ((std::string) array[2], "Test2");
-  EXPECT_EQ((std::string) array[3], "Test4");
-
+  EXPECT_EQ((std::string)array[0], "Test0");
+  EXPECT_EQ((std::string)array[1], "Test1");
+  EXPECT_EQ((std::string)array[2], "Test2");
+  EXPECT_EQ((std::string)array[3], "Test4");
 
   // Arrays can be nested:
   cuhksz::JSONObject Array2;
 
   Array2[2][0][1] = true;
 
-  EXPECT_EQ((bool) Array2[2][0][1], true);
-
+  EXPECT_EQ((bool)Array2[2][0][1], true);
 }
 
 TEST(Json, primTest) {
@@ -120,8 +112,7 @@ TEST(Json, primTest) {
   EXPECT_EQ((std::string) obj, "Test String");
   obj = 2.2;
   EXPECT_NEAR((float) obj, (float) 2.2, 0.0001);
-  obj = 3;
-  EXPECT_EQ((int) obj, 3);
+  obj = 3;  EXPECT_EQ((int)obj, 3);
 }
 
 TEST(Json, iterTest) {
