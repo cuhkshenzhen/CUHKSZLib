@@ -66,11 +66,11 @@ TEST(Json, LoadJson) {
 
 TEST(Json, loadWithInitList) {
   cuhksz::JSONObject obj = {
-      "array",  cuhksz::JSONObject::Array(true, "Two", 3, 4.0),
-      "obj",    {"inner", "Inside"},
-      "new",    {"some", {"deep", {"key", "Value"}}},
+      "array", cuhksz::JSONObject::Array(true, "Two", 3, 4.0),
+      "obj", {"inner", "Inside"},
+      "new", {"some", {"deep", {"key", "Value"}}},
       "array2", cuhksz::JSONObject::Array(false, "three"),
-      "s",      "string"};
+      "s", "string"};
   cuhksz::JSONObject obj2 = {
       "Key",
       1,
@@ -114,4 +114,30 @@ TEST(Json, primTest) {
   EXPECT_NEAR((float)obj, (float)2.2, 0.0001);
   obj = 3;
   EXPECT_EQ((int)obj, 3);
+}
+
+TEST(Json, iterTest) {
+  cuhksz::JSONObject array = cuhksz::JSONObject::Build(cuhksz::JSONObject::Type::Array);
+  cuhksz::JSONObject obj = cuhksz::JSONObject::Build(cuhksz::JSONObject::Type::Object);
+
+  array[0] = "Test0";
+  array[1] = "Test1";
+  array[2] = "Test2";
+  array[3] = "Test3";
+
+  obj["Key0"] = "Value0";
+  obj["Key1"] = "Value1";
+  obj["Key2"] = "Value2";
+
+  int count = 0;
+  for (auto &j : array.ArrayRange()) {
+    EXPECT_EQ((std::string)j, std::string("Test") + std::to_string(count++));
+  }
+
+  count = 0;
+  for (auto &j : obj.ObjectRange()) {
+    EXPECT_EQ((std::string)j.first, std::string("Key") + std::to_string(count));
+    EXPECT_EQ((std::string)j.second, std::string("Value") + std::to_string(count++));
+  }
+
 }
