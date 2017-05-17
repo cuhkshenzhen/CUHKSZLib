@@ -199,7 +199,7 @@ class JSONObject {
   /**
    * Load a bool into the JSONObject.
    * @tparam T Bool
-   * @param value Value of the bool variable
+   * @param bool_value Value of the bool variable
    * @return *this
    */
   template<typename T, typename std::enable_if<
@@ -275,15 +275,15 @@ class JSONObject {
   JSONObject &operator[](int index);
 
   /**
-   * Look up a value with specific index in a list. Will convert itself to an Object if not before.
-   * @param index index to look up
+   * Look up a value with specific key in a map object. Will convert itself to an Object if not before.
+   * @param key key to look up
    * @return Pointer to the value
    */
   JSONObject &at(const std::string &key);
 
   /**
-   * Look up a value with specific index in a list.
-   * @param index index to look up
+   * Look up a value with specific key in a map object.
+   * @param key key to look up
    * @return Pointer to the value
    */
   const JSONObject &at(const std::string &key) const;
