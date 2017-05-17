@@ -152,7 +152,7 @@ class Trie {
   std::vector<int> outArcs(int);
   void setTail(int, int, const std::string&);
   int nextTail();
-
+  /// \cond NODOC
   class StringAdapter {
    public:
     explicit StringAdapter(const std::string& str) : underlying(str) {}
@@ -192,12 +192,13 @@ class Trie {
     iterator begin() { return iterator(&underlying); }
     iterator end() { return iterator(&underlying, underlying.size()); }
   };
-
+  /// \endcond
  public:
   /**
     Iterator of the `Trie`, it is an Input Iterator with `std::string` as type.
   **/
   class iterator : public std::iterator<std::input_iterator_tag, std::string> {
+    /// \cond NODOC
    public:
     explicit iterator(Trie* trie) : iterator(trie, false) {}
     iterator(Trie* trie, bool end) : trie_(trie), n_(0), offset_(1), end_(end) {
@@ -256,8 +257,8 @@ class Trie {
     int offset_;
     std::vector<int> buffer_;
     bool end_;
+    /// \endcond
   };
-
   /**
     Return the `iterator` of trie object pointing to the first element.
   **/
