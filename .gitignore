@@ -44,3 +44,7 @@ cmake-build-debug/
 
 # Document
 docs/
+
+# Visual Studio
+.vs/
+CMakeSettings.json

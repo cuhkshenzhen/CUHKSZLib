@@ -18,7 +18,7 @@ namespace cuhksz {
 template <typename T>
 class stringCast {
  public:
-  stringCast(const std::string &from) : m_from(from) {}
+  explicit stringCast(const std::string &from) : m_from(from) {}
   operator T() const {
     std::stringstream strStream(m_from);
     T casted;
@@ -30,7 +30,7 @@ class stringCast {
     }
     return casted;
   }
-  T operator()() const { return (T) * this; }
+  T operator()() const { return static_cast<T>(*this); }
 
  private:
   const std::string &m_from;

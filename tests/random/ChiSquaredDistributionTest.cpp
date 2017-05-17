@@ -1,7 +1,7 @@
 #include <cmath>
 #include "gtest/gtest.h"
 #include "math_utils/math_functions.h"
-#include "random.h"
+#include "random/ChiSquaredDistribution.h"
 
 TEST(ChiSquaredDistribution, real_theory) {
   double r = 4;
