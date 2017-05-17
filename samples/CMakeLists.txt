@@ -6,8 +6,17 @@ foreach(sample_source ${SAMPLE_SOURCES})
   target_link_libraries(${sample_bin} cuhkszlib)
 endforeach()
 # copy EnglishWords.txt for trie
-add_custom_command(
-  TARGET trie POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy
-          ${CMAKE_SOURCE_DIR}/samples/EnglishWords.txt
-          ${CMAKE_CURRENT_BINARY_DIR}/EnglishWords.txt)
+
+if(MSVC)
+  add_custom_command(
+	  TARGET trie POST_BUILD
+	  COMMAND ${CMAKE_COMMAND} -E copy
+			  ${CMAKE_SOURCE_DIR}/samples/EnglishWords.txt
+			  ${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>/EnglishWords.txt)
+else()
+  add_custom_command(
+	  TARGET trie POST_BUILD
+	  COMMAND ${CMAKE_COMMAND} -E copy
+			  ${CMAKE_SOURCE_DIR}/samples/EnglishWords.txt
+			  ${CMAKE_CURRENT_BINARY_DIR}/EnglishWords.txt)
+endif()

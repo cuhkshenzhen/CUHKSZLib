@@ -81,8 +81,7 @@ test_script:
         $env:CTEST_OUTPUT_ON_FAILURE = 1
         ctest
     } else {
-        cd tests
-        & .\Debug\test_all.exe
+        .\tests\Debug\test_all.exe
     }
 
 after_build:
@@ -106,7 +105,6 @@ after_build:
         cp -r ..\build\Debug lib
         cp -r ..\build\Release lib
         if ($env:Toolset -eq "2017") {
-          cp ..\build\samples\EnglishWords.txt ..\build\samples\Release
           7z a -tzip windows-$env:PLATFORM-samples.zip ..\build\samples\Release\*
         }
       } else {

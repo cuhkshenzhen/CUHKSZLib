@@ -1,7 +1,7 @@
 #include <cmath>
 #include "gtest/gtest.h"
 #include "math_utils/math_functions.h"
-#include "random.h"
+#include "random/PoissonDistribution.h"
 
 TEST(PoissonDistribution, real_theory) {
   double lambda = 5;

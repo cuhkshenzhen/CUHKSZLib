@@ -1,7 +1,7 @@
 #include <cmath>
 #include "gtest/gtest.h"
 #include "math_utils/math_functions.h"
-#include "random.h"
+#include "random/NormalDistribution.h"
 
 TEST(NormalDistribution, real_theory) {
   double mean = 6;

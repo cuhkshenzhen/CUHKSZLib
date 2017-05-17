@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include "math_utils/math_functions.h"
-#include "random.h"
+#include "random/Random.h"
 
 TEST(Random, stddev) {
   cuhksz::Random r;

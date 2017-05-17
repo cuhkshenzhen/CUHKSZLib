@@ -7,7 +7,6 @@
 #include <memory>
 #include <type_traits>
 
-#include "containers.h"
 #include "utils/error.h"
 
 namespace cuhksz {

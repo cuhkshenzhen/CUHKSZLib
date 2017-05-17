@@ -1,6 +1,7 @@
 #include <cmath>
 #include "gtest/gtest.h"
-#include "random.h"
+#include "random/BernoulliDistribution.h"
+#include "random/Distribution.h"
 
 TEST(Distribution, setRandomGenerator) {
   cuhksz::BernoulliDistribution bernoulli;
