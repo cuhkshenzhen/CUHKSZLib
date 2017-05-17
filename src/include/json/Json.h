@@ -14,7 +14,7 @@ namespace cuhksz {
 /**
  * Iterator to support range-based for loop
  */
-template<typename Container>
+template <typename Container>
 class JSONIterator {
   Container *object;
 
@@ -35,7 +35,7 @@ class JSONIterator {
 /**
  * Const iterator to support range-based for loop
  */
-template<typename Container>
+template <typename Container>
 class JSONConstIterator {
   const Container *object;
 
@@ -124,7 +124,7 @@ class JSONObject {
    * @tparam T: bool
    * @param b: boolean value
    */
-  template<typename T>
+  template <typename T>
   JSONObject(
       T b,
       typename std::enable_if<std::is_same<T, bool>::value>::type * = nullptr)
@@ -135,23 +135,23 @@ class JSONObject {
    * @tparam T: integral-like types, like char, int, long, etc
    * @param i: integral value
    */
-  template<typename T>
+  template <typename T>
   JSONObject(
       T i,
       typename std::enable_if<std::is_integral<T>::value &&
                               !std::is_same<T, bool>::value>::type * = nullptr)
-      : Data((int) i), objType(Type::Integral) {}
+      : Data((int)i), objType(Type::Integral) {}
 
   /**
    * Construct float-number JSON object
    * @tparam T: float, double, etc
    * @param f: number
    */
-  template<typename T>
+  template <typename T>
   JSONObject(T f,
              typename std::enable_if<std::is_floating_point<T>::value>::type * =
-             nullptr)
-      : Data((double) f), objType(Type::Float) {}
+                 nullptr)
+      : Data((double)f), objType(Type::Float) {}
 
   /**
    * Construct string-type JSON object
@@ -159,7 +159,7 @@ class JSONObject {
    * std::string, etc
    * @param s: string
    */
-  template<typename T>
+  template <typename T>
   JSONObject(T s,
              typename std::enable_if<
                  std::is_convertible<T, std::string>::value>::type * = nullptr)
@@ -202,8 +202,8 @@ class JSONObject {
    * @param bool_value Value of the bool variable
    * @return *this
    */
-  template<typename T, typename std::enable_if<
-      std::is_same<T, bool>::value>::type * = nullptr>
+  template <typename T, typename std::enable_if<
+                            std::is_same<T, bool>::value>::type * = nullptr>
   JSONObject operator=(T bool_value) {
     setType(Type::Boolean);
     Data.Bool = bool_value;
@@ -216,9 +216,9 @@ class JSONObject {
    * @param value Value of the integral number
    * @return *this
    */
-  template<typename T, typename std::enable_if<
-      std::is_integral<T>::value &&
-      !std::is_same<T, bool>::value>::type * = nullptr>
+  template <typename T, typename std::enable_if<
+                            std::is_integral<T>::value &&
+                            !std::is_same<T, bool>::value>::type * = nullptr>
   JSONObject operator=(T value) {
     setType(Type::Integral);
     Data.Int = value;
@@ -231,8 +231,8 @@ class JSONObject {
    * @param value Value of the float number
    * @return *this
    */
-  template<typename T, typename std::enable_if<
-      std::is_floating_point<T>::value>::type * = nullptr>
+  template <typename T, typename std::enable_if<
+                            std::is_floating_point<T>::value>::type * = nullptr>
   JSONObject operator=(T value) {
     setType(Type::Float);
     Data.Float = value;
@@ -245,8 +245,8 @@ class JSONObject {
    * @param value Value of the string
    * @return *this
    */
-  template<typename T, typename std::enable_if<std::is_convertible<
-      T, std::string>::value>::type * = nullptr>
+  template <typename T, typename std::enable_if<std::is_convertible<
+                            T, std::string>::value>::type * = nullptr>
   JSONObject operator=(T value) {
     setType(Type::String);
     *Data.String = std::string(value);
@@ -254,21 +254,24 @@ class JSONObject {
   }
 
   /**
-   * Look up a value with specific key in a map object. Will convert itself to an Object if not before.
+   * Look up a value with specific key in a map object. Will convert itself to
+   * an Object if not before.
    * @param key C-style string. Key to look up.
    * @return Pointer to the element found.
    */
   JSONObject &operator[](const char key[]);
 
   /**
-   * Look up a value with specific key in a map object. Will convert itself to an Object if not before.
+   * Look up a value with specific key in a map object. Will convert itself to
+   * an Object if not before.
    * @param key Key to look up.
    * @return Pointer to the element found.
    */
   JSONObject &operator[](const std::string &key);
 
   /**
-   * Look up a value with specific index in a list. Will convert itself to a List if not before.
+   * Look up a value with specific index in a list. Will convert itself to a
+   * List if not before.
    * @param index index to look up
    * @return Pointer to the value
    */
@@ -289,7 +292,8 @@ class JSONObject {
   const JSONObject &at(const std::string &key) const;
 
   /**
-   * Look up a value with specific index in a list. Will convert itself to a List if not before.
+   * Look up a value with specific index in a list. Will convert itself to a
+   * List if not before.
    * @param index index to look up
    * @return Pointer to the value
    */
@@ -303,18 +307,20 @@ class JSONObject {
   const JSONObject &at(unsigned index) const;
 
   /**
-   * Append an element to a array. Will clear all contents if not a array type object.
+   * Append an element to a array. Will clear all contents if not a array type
+   * object.
    * @tparam T Type of the element
    * @param arg Value of the element
    */
-  template<typename T>
+  template <typename T>
   void append(T arg) {
     setType(Type::Array);
     Data.List->emplace_back(arg);
   }
 
   /**
-   * Append elements to a array. Will clear all contents if not a array type object.
+   * Append elements to a array. Will clear all contents if not a array type
+   * object.
    *
    * It calls the append(arg) one by one using a recursive method.
    * @tparam T Type of the first element
@@ -322,7 +328,7 @@ class JSONObject {
    * @param arg Value of the first element
    * @param args Values of the remaining elements
    */
-  template<typename T, typename... U>
+  template <typename T, typename... U>
   void append(T arg, U... args) {
     append(arg);
     append(args...);
@@ -361,7 +367,8 @@ class JSONObject {
   /**
    * Convert a JSONObject to a string. Only for String object.
    *
-   * Use dump() method if you want to convert other types of objects into a string.
+   * Use dump() method if you want to convert other types of objects into a
+   * string.
    * @return string
    */
   std::string toString() const;
@@ -390,11 +397,11 @@ class JSONObject {
    */
   bool toBool() const;
 
-
   /**
    * Convert a JSONObject to a string. Only for String object.
    *
-   * Use dump() method if you want to convert other types of objects into a string.
+   * Use dump() method if you want to convert other types of objects into a
+   * string.
    * @return string
    */
   operator std::string() const;
@@ -442,8 +449,8 @@ class JSONObject {
    */
   JSONIterator<std::map<std::string, JSONObject>> ObjectRange() {
     return objType == Type::Object
-           ? JSONIterator<std::map<std::string, JSONObject>>(Data.Map)
-           : JSONIterator<std::map<std::string, JSONObject>>(nullptr);
+               ? JSONIterator<std::map<std::string, JSONObject>>(Data.Map)
+               : JSONIterator<std::map<std::string, JSONObject>>(nullptr);
   }
   /**
    * Return an iterator for array object. Useful in range-based for loop.
@@ -458,8 +465,8 @@ class JSONObject {
    */
   JSONIterator<std::deque<JSONObject>> ArrayRange() {
     return objType == Type::Array
-           ? JSONIterator<std::deque<JSONObject>>(Data.List)
-           : JSONIterator<std::deque<JSONObject>>(nullptr);
+               ? JSONIterator<std::deque<JSONObject>>(Data.List)
+               : JSONIterator<std::deque<JSONObject>>(nullptr);
   }
 
   /**
@@ -475,8 +482,8 @@ class JSONObject {
    */
   JSONConstIterator<std::map<std::string, JSONObject>> ObjectRange() const {
     return objType == Type::Object
-           ? JSONConstIterator<std::map<std::string, JSONObject>>(Data.Map)
-           : JSONConstIterator<std::map<std::string, JSONObject>>(nullptr);
+               ? JSONConstIterator<std::map<std::string, JSONObject>>(Data.Map)
+               : JSONConstIterator<std::map<std::string, JSONObject>>(nullptr);
   }
 
   /**
@@ -492,8 +499,8 @@ class JSONObject {
    */
   JSONConstIterator<std::deque<JSONObject>> ArrayRange() const {
     return objType == Type::Array
-           ? JSONConstIterator<std::deque<JSONObject>>(Data.List)
-           : JSONConstIterator<std::deque<JSONObject>>(nullptr);
+               ? JSONConstIterator<std::deque<JSONObject>>(Data.List)
+               : JSONConstIterator<std::deque<JSONObject>>(nullptr);
   }
 
   /**
@@ -535,7 +542,7 @@ class JSONObject {
    * @param args data to load
    * @return JSONObject, array type
    */
-  template<typename... T>
+  template <typename... T>
   static JSONObject Array(T... args) {
     JSONObject arr = JSONObject::Build(JSONObject::Type::Array);
     arr.append(args...);

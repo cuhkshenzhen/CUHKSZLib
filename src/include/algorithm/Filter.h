@@ -8,7 +8,8 @@
 #include <vector>
 namespace cuhksz {
 /**
- * Apply a filter function to all elements in a function. All elements with true result will be saved.
+ * Apply a filter function to all elements in a function. All elements with true
+ * result will be saved.
  * @tparam Container Container type
  * @tparam Func Function type
  * @param cont Container with all elements
