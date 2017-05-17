@@ -1,7 +1,7 @@
-#ifndef CUHKSZ_STRING
-#define CUHKSZ_STRING
+#ifndef CUHKSZ_STRINGUTILS
+#define CUHKSZ_STRINGUTILS
 
 #include "string_utils/StringCast.h"
 #include "string_utils/Trie.h"
 
-#endif  // CUHKSZ_STRING
+#endif  // CUHKSZ_STRINGUTILS

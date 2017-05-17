@@ -1,17 +1,17 @@
-
 #ifndef CUHKSZ_JSON_JSON
 #define CUHKSZ_JSON_JSON
 
-#include <string>
 #include <deque>
 #include <initializer_list>
 #include <map>
+#include <string>
 #include <type_traits>
-#include "json_functions.h"
+
+#include "json/json_functions.h"
 
 namespace cuhksz {
 
-template<typename Container>
+template <typename Container>
 class JSONWrapper {
   Container *object;
 
@@ -19,13 +19,17 @@ class JSONWrapper {
   explicit JSONWrapper(Container *val) : object(val) {}
   explicit JSONWrapper(std::nullptr_t) : object(nullptr) {}
 
-  typename Container::iterator begin() { return object ? object->begin() : typename Container::iterator(); }
-  typename Container::iterator end() { return object ? object->end() : typename Container::iterator(); }
+  typename Container::iterator begin() {
+    return object ? object->begin() : typename Container::iterator();
+  }
+  typename Container::iterator end() {
+    return object ? object->end() : typename Container::iterator();
+  }
   typename Container::const_iterator begin() const { return begin(); }
   typename Container::const_iterator end() const { return end(); }
 };
 
-template<typename Container>
+template <typename Container>
 class JSONConstWrapper {
   const Container *object;
 
@@ -50,7 +54,6 @@ class JSONConstWrapper {
   ```
  */
 class JSONObject {
-
   /**
    * Use a union to store data and save memory
    */
@@ -62,27 +65,18 @@ class JSONObject {
     int Int;
     bool Bool;
 
-    data(double value) : Float(value) {};
-    data(int value) : Int(value) {};
-    data(bool value) : Bool(value) {};
-    data(std::string value) : String(new std::string(value)) {};
-    data() : Bool(false) {};
-
+    data(double value) : Float(value) {}
+    data(int value) : Int(value) {}
+    data(bool value) : Bool(value) {}
+    data(std::string value) : String(new std::string(value)) {}
+    data() : Bool(false) {}
   } Data;
- public:
 
+ public:
   /**
    * JSON Object types
    */
-  enum class Type {
-    Null,
-    Object,
-    Array,
-    String,
-    Float,
-    Integral,
-    Boolean
-  };
+  enum class Type { Null, Object, Array, String, Float, Integral, Boolean };
 
   /**
    * Initializer of a new empty JSONObject
@@ -124,8 +118,10 @@ class JSONObject {
    * @tparam T: bool
    * @param b: boolean value
    */
-  template<typename T>
-  JSONObject(T b, typename std::enable_if<std::is_same<T, bool>::value>::type * = nullptr)
+  template <typename T>
+  JSONObject(
+      T b,
+      typename std::enable_if<std::is_same<T, bool>::value>::type * = nullptr)
       : Data(b), objType(Type::Boolean) {}
 
   /**
@@ -133,34 +129,40 @@ class JSONObject {
    * @tparam T: integral-like types, like char, int, long, etc
    * @param i: integral value
    */
-  template<typename T>
-  JSONObject(T i,
-             typename std::enable_if<std::is_integral<T>::value && !std::is_same<T, bool>::value>::type * = nullptr)
-      : Data((int) i), objType(Type::Integral) {}
+  template <typename T>
+  JSONObject(
+      T i,
+      typename std::enable_if<std::is_integral<T>::value &&
+                              !std::is_same<T, bool>::value>::type * = nullptr)
+      : Data((int)i), objType(Type::Integral) {}
 
   /**
    * Construct float-number JSON object
    * @tparam T: float, double, etc
    * @param f: number
    */
-  template<typename T>
-  JSONObject(T f, typename std::enable_if<std::is_floating_point<T>::value>::type * = nullptr)
-      : Data((double) f), objType(Type::Float) {}
+  template <typename T>
+  JSONObject(T f,
+             typename std::enable_if<std::is_floating_point<T>::value>::type * =
+                 nullptr)
+      : Data((double)f), objType(Type::Float) {}
 
   /**
    * Construct string-type JSON object
-   * @tparam T: string-like types, like [const] char *, [const] char[], std::string, etc
+   * @tparam T: string-like types, like [const] char *, [const] char[],
+   * std::string, etc
    * @param s: string
    */
-  template<typename T>
-  JSONObject(T s, typename std::enable_if<std::is_convertible<T, std::string>::value>::type * = nullptr)
+  template <typename T>
+  JSONObject(T s,
+             typename std::enable_if<
+                 std::is_convertible<T, std::string>::value>::type * = nullptr)
       : Data(std::string(s)), objType(Type::String) {}
 
   /**
    * Construct null-type JSON object
    */
   JSONObject(std::nullptr_t) : Data(), objType(Type::Null) {}
-
 
   /**
    * Destruct the JSON object. Usually internal usage only.
@@ -173,29 +175,33 @@ class JSONObject {
   JSONObject(const JSONObject &src);
 
   // Equal Operator
-  template<typename T, typename std::enable_if<std::is_same<T, bool>::value>::type * = nullptr>
+  template <typename T, typename std::enable_if<
+                            std::is_same<T, bool>::value>::type * = nullptr>
   JSONObject operator=(T bool_value) {
     setType(Type::Boolean);
     Data.Bool = bool_value;
     return *this;
   }
 
-  template<typename T, typename std::enable_if<
-      std::is_integral<T>::value && !std::is_same<T, bool>::value>::type * = nullptr>
+  template <typename T, typename std::enable_if<
+                            std::is_integral<T>::value &&
+                            !std::is_same<T, bool>::value>::type * = nullptr>
   JSONObject operator=(T value) {
     setType(Type::Integral);
     Data.Int = value;
     return *this;
   }
 
-  template<typename T, typename std::enable_if<std::is_floating_point<T>::value>::type * = nullptr>
+  template <typename T, typename std::enable_if<
+                            std::is_floating_point<T>::value>::type * = nullptr>
   JSONObject operator=(T value) {
     setType(Type::Float);
     Data.Float = value;
     return *this;
   }
 
-  template<typename T, typename std::enable_if<std::is_convertible<T, std::string>::value>::type * = nullptr>
+  template <typename T, typename std::enable_if<std::is_convertible<
+                            T, std::string>::value>::type * = nullptr>
   JSONObject operator=(T value) {
     setType(Type::String);
     *Data.String = std::string(value);
@@ -211,13 +217,13 @@ class JSONObject {
   JSONObject &at(unsigned index);
   const JSONObject &at(unsigned index) const;
 
-  template<typename T>
+  template <typename T>
   void append(T arg) {
     setType(Type::Array);
     Data.List->emplace_back(arg);
   }
 
-  template<typename T, typename... U>
+  template <typename T, typename... U>
   void append(T arg, U... args) {
     append(arg);
     append(args...);
@@ -249,27 +255,27 @@ class JSONObject {
   Type getType() const { return objType; }
 
   JSONWrapper<std::map<std::string, JSONObject>> ObjectRange() {
-    return objType == Type::Object ?
-           JSONWrapper<std::map<std::string, JSONObject>>(Data.Map) :
-           JSONWrapper<std::map<std::string, JSONObject>>(nullptr);
+    return objType == Type::Object
+               ? JSONWrapper<std::map<std::string, JSONObject>>(Data.Map)
+               : JSONWrapper<std::map<std::string, JSONObject>>(nullptr);
   }
 
   JSONWrapper<std::deque<JSONObject>> ArrayRange() {
-    return objType == Type::Array ?
-           JSONWrapper<std::deque<JSONObject>>(Data.List) :
-           JSONWrapper<std::deque<JSONObject>>(nullptr);
+    return objType == Type::Array
+               ? JSONWrapper<std::deque<JSONObject>>(Data.List)
+               : JSONWrapper<std::deque<JSONObject>>(nullptr);
   }
 
   JSONConstWrapper<std::map<std::string, JSONObject>> ObjectRange() const {
-    return objType == Type::Object ?
-           JSONConstWrapper<std::map<std::string, JSONObject>>(Data.Map) :
-           JSONConstWrapper<std::map<std::string, JSONObject>>(nullptr);
+    return objType == Type::Object
+               ? JSONConstWrapper<std::map<std::string, JSONObject>>(Data.Map)
+               : JSONConstWrapper<std::map<std::string, JSONObject>>(nullptr);
   }
 
   JSONConstWrapper<std::deque<JSONObject>> ArrayRange() const {
-    return objType == Type::Array ?
-           JSONConstWrapper<std::deque<JSONObject>>(Data.List) :
-           JSONConstWrapper<std::deque<JSONObject>>(nullptr);
+    return objType == Type::Array
+               ? JSONConstWrapper<std::deque<JSONObject>>(Data.List)
+               : JSONConstWrapper<std::deque<JSONObject>>(nullptr);
   }
 
   bool isNull() const { return objType == Type::Null; }
@@ -295,7 +301,7 @@ class JSONObject {
    * @param args data to load
    * @return JSONObject, array type
    */
-  template<typename... T>
+  template <typename... T>
   static JSONObject Array(T... args) {
     JSONObject arr = JSONObject::Build(JSONObject::Type::Array);
     arr.append(args...);
@@ -307,13 +313,13 @@ class JSONObject {
    * @return
    */
   static JSONObject Object();
+
  private:
   void clearData();
   void setType(Type type);
 
   Type objType = Type::Null;
 };
-
 
 // Parsers
 
@@ -345,8 +351,8 @@ class JSONObject {
  */
 JSONObject loadJSON(const std::string &str);
 
-}
+}  // namespace cuhksz
 
-#endif //CUHKSZ_JSON_JSON
+#endif  // CUHKSZ_JSON_JSON
 
 // Code adopted from https://github.com/nbsdx/SimpleJSON
