@@ -6,6 +6,7 @@
 
 [![Build Status](https://travis-ci.org/cuhkshenzhen/CUHKSZLib.svg?branch=master)](https://travis-ci.org/cuhkshenzhen/CUHKSZLib)
 [![Build status](https://ci.appveyor.com/api/projects/status/634a6wrw9xheiu0e/branch/master?svg=true)](https://ci.appveyor.com/project/alesiong/cuhkszlib-cmxvy/branch/master)
+[![codecov](https://codecov.io/gh/cuhkshenzhen/CUHKSZLib/branch/master/graph/badge.svg)](https://codecov.io/gh/cuhkshenzhen/CUHKSZLib)
 
 ## Requirements
 ### macOS and Linux
