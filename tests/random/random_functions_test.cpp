@@ -1,6 +1,6 @@
+#include "random/random_functions.h"
 #include "gtest/gtest.h"
 #include "math_utils/math_functions.h"
-#include "random.h"
 
 TEST(random_functions, stddev) {
   int bucket[100];
