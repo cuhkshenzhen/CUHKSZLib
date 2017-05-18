@@ -10,6 +10,7 @@ TEST(Algorithm, kmpSearch) {
   EXPECT_EQ(cuhksz::kmpSearch("abcabced", "abc", 1), 3);
   EXPECT_EQ(cuhksz::kmpSearch("sdeczse", "abc"), -1);
   EXPECT_EQ(cuhksz::kmpSearch("abdecabc", "abc"), 5);
+  EXPECT_EQ(cuhksz::kmpSearch("abcabccba", "abcabc"), 0);
 }
 
 TEST(Algorithm, editDistance) {
