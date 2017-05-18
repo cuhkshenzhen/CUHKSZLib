@@ -5,7 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include "math_utils/math_functions.h"
-#include "utils.h"
+#include "utils/error.h"
 
 namespace cuhksz {
 

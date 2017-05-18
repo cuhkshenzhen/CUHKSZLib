@@ -66,11 +66,11 @@ TEST(Json, LoadJson) {
 
 TEST(Json, loadWithInitList) {
   cuhksz::JSONObject obj = {
-      "array", cuhksz::JSONObject::Array(true, "Two", 3, 4.0),
-      "obj", {"inner", "Inside"},
-      "new", {"some", {"deep", {"key", "Value"}}},
+      "array",  cuhksz::JSONObject::Array(true, "Two", 3, 4.0),
+      "obj",    {"inner", "Inside"},
+      "new",    {"some", {"deep", {"key", "Value"}}},
       "array2", cuhksz::JSONObject::Array(false, "three"),
-      "s", "string"};
+      "s",      "string"};
   cuhksz::JSONObject obj2 = {
       "Key",
       1,
@@ -142,5 +142,4 @@ TEST(Json, iterTest) {
     EXPECT_EQ((std::string)j.second,
               std::string("Value") + std::to_string(count++));
   }
-
 }

@@ -31,7 +31,7 @@ JSONObject parse_object(const std::string &str, size_t &offset) {
     skip_whitespaces(str, offset);
     if (str[offset] != ':') {
       error("ERROR: Object: Expected colon, found '" +
-          std::string(1, str[offset]) + "'");
+            std::string(1, str[offset]) + "'");
       break;
     }
     skip_whitespaces(str, ++offset);
@@ -47,7 +47,7 @@ JSONObject parse_object(const std::string &str, size_t &offset) {
       break;
     } else {
       error("ERROR: Object: Expected comma, found '" +
-          std::string(1, str[offset]) + "'");
+            std::string(1, str[offset]) + "'");
       break;
     }
   }
@@ -78,7 +78,7 @@ JSONObject parse_array(const std::string &str, size_t &offset) {
       break;
     } else {
       error("Array: Expected ',' or ']', found '" +
-          std::string(1, str[offset]) + "'");
+            std::string(1, str[offset]) + "'");
     }
   }
 
@@ -125,12 +125,11 @@ JSONObject parse_string(const std::string &str, size_t &offset) {
             } else {
               error(
                   "String: Expected hex character in unicode escape, found '" +
-                      std::string(1, c) + "'");
+                  std::string(1, c) + "'");
             }
           }
           offset += 4;
-        }
-          break;
+        } break;
         default:
           val += '\\';
           break;
@@ -173,7 +172,7 @@ JSONObject parse_number(const std::string &str, size_t &offset) {
         exp_str += c;
       } else if (!isspace(c) && c != ',' && c != ']' && c != '}') {
         error("Number: Expected a number for exponent, found '" +
-            std::string(1, c) + "'");
+              std::string(1, c) + "'");
       } else {
         break;
       }
@@ -201,7 +200,7 @@ JSONObject parse_bool(const std::string &str, size_t &offset) {
     Bool = false;
   } else {
     error("Bool: Expected 'true' or 'false', found '" + str.substr(offset, 5) +
-        "'");
+          "'");
   }
   offset += (Bool.toBool() ? 4 : 5);
   return Bool;
@@ -296,8 +295,7 @@ void JSONObject::clearData() {
     case Type::String:
       delete Data.String;
       break;
-    default: {
-    }
+    default: {}
   }
 }
 
@@ -390,8 +388,8 @@ bool JSONObject::hasKey(const std::string &key) const {
 
 int JSONObject::size() const {
   return (int)(objType == Type::Object
-               ? Data.Map->size()
-               : objType == Type::Array ? Data.List->size() : -1);
+                   ? Data.Map->size()
+                   : objType == Type::Array ? Data.List->size() : -1);
 }
 
 std::string JSONObject::toString() const {

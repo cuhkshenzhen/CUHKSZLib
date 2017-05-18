@@ -278,7 +278,8 @@ class JSONObject {
   JSONObject &operator[](int index);
 
   /**
-   * Look up a value with specific key in a map object. Will convert itself to an Object if not before.
+   * Look up a value with specific key in a map object. Will convert itself to
+   * an Object if not before.
    * @param key key to look up
    * @return Pointer to the value
    */
