@@ -19,6 +19,9 @@ TEST(Trie, custom_mapper) {
   cuhksz::Trie trie(mapChar, mapInt);
   trie.insert("ABC");
   EXPECT_TRUE(trie.contain("ABC"));
+  for (auto str : trie) {
+    EXPECT_EQ(str, "ABC");
+  }
 }
 
 TEST(Trie, insert_and_contain) {

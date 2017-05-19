@@ -69,11 +69,11 @@ TEST(Json, LoadJson) {
 
 TEST(Json, loadWithInitList) {
   cuhksz::JSONObject obj = {
-      "array", cuhksz::JSONObject::Array(true, "Two", 3, 4.0),
-      "obj", {"inner", "Inside"},
-      "new", {"some", {"deep", {"key", "Value"}}},
+      "array",  cuhksz::JSONObject::Array(true, "Two", 3, 4.0),
+      "obj",    {"inner", "Inside"},
+      "new",    {"some", {"deep", {"key", "Value"}}},
       "array2", cuhksz::JSONObject::Array(false, "three"),
-      "s", "string"};
+      "s",      "string"};
   cuhksz::JSONObject obj2 = {
       "Key",
       1,
@@ -120,8 +120,10 @@ TEST(Json, primTest) {
 }
 
 TEST(Json, iterTest) {
-  cuhksz::JSONObject array = cuhksz::JSONObject::Build(cuhksz::JSONObject::Type::Array);
-  cuhksz::JSONObject obj = cuhksz::JSONObject::Build(cuhksz::JSONObject::Type::Object);
+  cuhksz::JSONObject array =
+      cuhksz::JSONObject::Build(cuhksz::JSONObject::Type::Array);
+  cuhksz::JSONObject obj =
+      cuhksz::JSONObject::Build(cuhksz::JSONObject::Type::Object);
 
   array[0] = "Test0";
   array[1] = "Test1";
@@ -140,27 +142,29 @@ TEST(Json, iterTest) {
   count = 0;
   for (auto &j : obj.ObjectRange()) {
     EXPECT_EQ((std::string)j.first, std::string("Key") + std::to_string(count));
-    EXPECT_EQ((std::string)j.second, std::string("Value") + std::to_string(count++));
+    EXPECT_EQ((std::string)j.second,
+              std::string("Value") + std::to_string(count++));
   }
-
 }
 
 TEST(Json, loadJSONFailure) {
   std::string json = R"({"array" : ][true, "Two", 3, 4.000000],)";
-  EXPECT_EXIT(cuhksz::loadJSON(json),  ::testing::ExitedWithCode(1), ".* Parse: Unknown starting character .*");
+  EXPECT_EXIT(cuhksz::loadJSON(json), ::testing::ExitedWithCode(1), ".* Parse: Unknown starting character .*");
 
   json = R"({"array" : [true, "Two[】"3, 4.000000]})";
-  EXPECT_EXIT(cuhksz::loadJSON(json),  ::testing::ExitedWithCode(1), ".*Array: Expected.*");
+  EXPECT_EXIT(cuhksz::loadJSON(json), ::testing::ExitedWithCode(1), ".*Array: Expected.*");
 
   json = R"({"array", [true, "Two[】"3, 4.000000]})";
-  EXPECT_EXIT(cuhksz::loadJSON(json),  ::testing::ExitedWithCode(1), ".*Object: Expected colon.*");
+  EXPECT_EXIT(cuhksz::loadJSON(json), ::testing::ExitedWithCode(1), ".*Object: Expected colon.*");
 
   json = R"({"array": [true, "Two[】", 3, 4.000000]/})";
-  EXPECT_EXIT(cuhksz::loadJSON(json),  ::testing::ExitedWithCode(1), ".*Object: Expected comma.*");
+  EXPECT_EXIT(cuhksz::loadJSON(json), ::testing::ExitedWithCode(1), ".*Object: Expected comma.*");
 
   json = R"({"array": [true, "Two[】\u%9P", 3, 4.000000]})";
-  EXPECT_EXIT(cuhksz::loadJSON(json),  ::testing::ExitedWithCode(1), ".*String: Expected hex character in unicode escape.*");
+  EXPECT_EXIT(cuhksz::loadJSON(json),
+              ::testing::ExitedWithCode(1),
+              ".*String: Expected hex character in unicode escape.*");
 
   json = R"({"array": [trlue, "Two[】\u%9P", 3, 4.000000]})";
-  EXPECT_EXIT(cuhksz::loadJSON(json),  ::testing::ExitedWithCode(1), ".*Bool: Expected 'true' or 'false', found.*");
+  EXPECT_EXIT(cuhksz::loadJSON(json), ::testing::ExitedWithCode(1), ".*Bool: Expected 'true' or 'false', found.*");
 }

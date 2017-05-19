@@ -406,9 +406,33 @@ int64_t binaryPow(int64_t base, int exp);
   @return The powered "number", the same type as `base`
   @sa binaryPow(int64_t base, int exp)
 **/
-template <typename BaseType, typename IntType>
+template <typename BaseType, typename IntType,
+          typename std::enable_if<
+              std::is_constructible<BaseType, int>::value>::type* = nullptr>
 BaseType genericBinaryPow(BaseType base, IntType exp) {
-  // if (exp == 0) return 1;
+  if (exp == 0) {
+    return BaseType{1};
+  }
+  if (exp == 1) return base;
+  if (exp < 0) error("The Exponent for genericBinaryPow can only be positive.");
+  exp -= 1;
+  BaseType result = base;
+
+  while (exp != 0) {
+    if (exp % 2 == 1) {
+      result *= base;
+    }
+    base *= base;
+    exp /= 2;
+  }
+  return result;
+}
+
+/// \cond NODOC
+template <typename BaseType, typename IntType,
+          typename std::enable_if<
+              !std::is_constructible<BaseType, int>::value>::type* = nullptr>
+BaseType genericBinaryPow(BaseType base, IntType exp) {
   if (exp == 1) return base;
   if (exp <= 0)
     error("The Exponent for genericBinaryPow can only be positive.");
@@ -424,6 +448,7 @@ BaseType genericBinaryPow(BaseType base, IntType exp) {
   }
   return result;
 }
+/// \endcond
 
 /**
   Factorial function.

@@ -8,7 +8,8 @@
 #include <vector>
 namespace cuhksz {
 /**
- * Map all elements in a container to a custom function. Results will be saved to a vector.
+ * Map all elements in a container to a custom function. Results will be saved
+ * to a vector.
  * @tparam Container Container type
  * @tparam Func Function type
  * @param cont Container that saving all elements

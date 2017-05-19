@@ -1,6 +1,8 @@
-#include "math_utils/math_functions.h"
 #include <vector>
+
 #include "containers/Vector.h"
+#include "math_utils/Fraction.h"
+#include "math_utils/math_functions.h"
 
 #include "gtest/gtest.h"
 
@@ -164,12 +166,12 @@ TEST(MathFunctions, generalBinaryPow) {
   EXPECT_EQ(cuhksz::genericBinaryPow(2LL, 32), 4294967296);
   EXPECT_EQ(cuhksz::genericBinaryPow(2LL, 62), 4611686018427387904);
   EXPECT_EQ(cuhksz::genericBinaryPow(3LL, 27), 7625597484987);
+  EXPECT_EQ(cuhksz::genericBinaryPow(3LL, 0), 1);
+  EXPECT_EQ(cuhksz::genericBinaryPow(cuhksz::Fraction(1, 3), 0), 1);
 }
 
 TEST(MathFunctionsDeathTest, generalBinaryPow_nonpositive) {
   EXPECT_EXIT(cuhksz::genericBinaryPow(10, -1),
-              ::testing::ExitedWithCode(EXIT_FAILURE), "positive");
-  EXPECT_EXIT(cuhksz::genericBinaryPow(10, 0),
               ::testing::ExitedWithCode(EXIT_FAILURE), "positive");
 }
 
