@@ -147,7 +147,7 @@ TEST(Json, loadJSONFailure) {
   EXPECT_EXIT(cuhksz::loadJSON(json),  ::testing::ExitedWithCode(1), ".* Parse: Unknown starting character .*");
 
   json = R"({"array" : [true, "Two[】"3, 4.000000]})";
-  EXPECT_EXIT(cuhksz::loadJSON(json),  ::testing::ExitedWithCode(1), ".*Array: Expected ',' or ']'.*");
+  EXPECT_EXIT(cuhksz::loadJSON(json),  ::testing::ExitedWithCode(1), ".*Array: Expected.*");
 
   json = R"({"array", [true, "Two[】"3, 4.000000]})";
   EXPECT_EXIT(cuhksz::loadJSON(json),  ::testing::ExitedWithCode(1), ".*Object: Expected colon.*");
