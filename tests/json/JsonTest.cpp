@@ -40,6 +40,9 @@ TEST(Json, DumpJson) {
 })";
   std::string dump = obj.dump();
   EXPECT_EQ(dump, result);
+  std::stringstream operatorDump;
+  operatorDump << obj;
+  EXPECT_EQ(operatorDump.str(), result);
 }
 
 TEST(Json, LoadJson) {
