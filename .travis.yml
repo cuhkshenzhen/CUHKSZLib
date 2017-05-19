@@ -64,10 +64,11 @@ sudo: required
 after_success: |
   if  [[ ( $TRAVIS_OS_NAME = linux ) && ( $CXX = g++-4.9 ) ]]; then
       cd $TRAVIS_BUILD_DIR
-      chmod +x generateDocument.sh
-      ./generateDocument.sh
-      touch docs/.nojekyll
-      cd ${TRAVIS_BUILD_DIR}
+      if [[ $TRAVIS_PULL_REQUEST = false ]]; then
+        chmod +x generateDocument.sh
+        ./generateDocument.sh
+        touch docs/.nojekyll
+      fi
       lcov --directory . --capture --output-file coverage.info # capture coverage info
       lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter out system
       lcov --remove coverage.info '*tests/*' --output-file coverage.info # filter out test
