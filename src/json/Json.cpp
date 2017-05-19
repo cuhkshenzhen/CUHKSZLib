@@ -30,8 +30,8 @@ JSONObject parse_object(const std::string &str, size_t &offset) {
     JSONObject Key = parse_next(str, offset);
     skip_whitespaces(str, offset);
     if (str[offset] != ':') {
-      error("Object: Expected colon, found '" +
-           std::string(1, str[offset]) + "'");
+      error("Object: Expected colon, found '" + std::string(1, str[offset]) +
+            "'");
       break;
     }
     skip_whitespaces(str, ++offset);
@@ -46,8 +46,8 @@ JSONObject parse_object(const std::string &str, size_t &offset) {
       ++offset;
       break;
     } else {
-      error("Object: Expected comma, found '" +
-            std::string(1, str[offset]) + "'");
+      error("Object: Expected comma, found '" + std::string(1, str[offset]) +
+            "'");
       break;
     }
   }
