@@ -40,6 +40,9 @@ TEST(Json, DumpJson) {
 })";
   std::string dump = obj.dump();
   EXPECT_EQ(dump, result);
+  std::stringstream operatorDump;
+  operatorDump << obj;
+  EXPECT_EQ(operatorDump.str(), result);
 }
 
 TEST(Json, LoadJson) {
@@ -142,4 +145,26 @@ TEST(Json, iterTest) {
     EXPECT_EQ((std::string)j.second,
               std::string("Value") + std::to_string(count++));
   }
+}
+
+TEST(Json, loadJSONFailure) {
+  std::string json = R"({"array" : ][true, "Two", 3, 4.000000],)";
+  EXPECT_EXIT(cuhksz::loadJSON(json), ::testing::ExitedWithCode(1), ".* Parse: Unknown starting character .*");
+
+  json = R"({"array" : [true, "Two[】"3, 4.000000]})";
+  EXPECT_EXIT(cuhksz::loadJSON(json), ::testing::ExitedWithCode(1), ".*Array: Expected.*");
+
+  json = R"({"array", [true, "Two[】"3, 4.000000]})";
+  EXPECT_EXIT(cuhksz::loadJSON(json), ::testing::ExitedWithCode(1), ".*Object: Expected colon.*");
+
+  json = R"({"array": [true, "Two[】", 3, 4.000000]/})";
+  EXPECT_EXIT(cuhksz::loadJSON(json), ::testing::ExitedWithCode(1), ".*Object: Expected comma.*");
+
+  json = R"({"array": [true, "Two[】\u%9P", 3, 4.000000]})";
+  EXPECT_EXIT(cuhksz::loadJSON(json),
+              ::testing::ExitedWithCode(1),
+              ".*String: Expected hex character in unicode escape.*");
+
+  json = R"({"array": [trlue, "Two[】\u%9P", 3, 4.000000]})";
+  EXPECT_EXIT(cuhksz::loadJSON(json), ::testing::ExitedWithCode(1), ".*Bool: Expected 'true' or 'false', found.*");
 }
