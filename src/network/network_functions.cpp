@@ -6,17 +6,20 @@
 
 namespace cuhksz {
 
-namespace private_{
-int hexToInt(const char & x)
-{
+namespace {
+int hexToInt(const char &x) {
   int y;
-  if (x >= 'A' && x <= 'Z') y = x - 'A' + 10;
-  else if (x >= 'a' && x <= 'z') y = x - 'a' + 10;
-  else if (isdigit(x)) y = x - '0';
-  else y = 0;
+  if (x >= 'A' && x <= 'Z')
+    y = x - 'A' + 10;
+  else if (x >= 'a' && x <= 'z')
+    y = x - 'a' + 10;
+  else if (isdigit(x))
+    y = x - '0';
+  else
+    y = 0;
   return y;
 }
-}
+}  // namespace
 
 std::string urlEncode(const std::string &string) {
   std::ostringstream escaped;
@@ -46,13 +49,16 @@ std::string urlDecode(const std::string str) {
 
   size_t length = str.length();
   for (size_t i = 0; i < length; i++) {
-    if (str[i] == '+') escaped << ' ';
-    else if (str[i] == '%') {
-      int high = private_::hexToInt(str[++i]);
-      int low = private_::hexToInt(str[++i]);
+    if (str[i] == '+') {
+      escaped << ' ';
+    } else if (str[i] == '%') {
+      int high = hexToInt(str[++i]);
+      int low = hexToInt(str[++i]);
 
       escaped << (unsigned char)(high * 16 + low);
-    } else escaped << str[i];
+    } else {
+      escaped << str[i];
+    }
   }
   return escaped.str();
 }
