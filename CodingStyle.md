@@ -1,40 +1,53 @@
 # Coding Style - CUHKSZLIB
 
 ## Name
-- variable
+- variable (function parameters and `protected` fields)
 
-  Every first character in a word use uppercase, except first one. \
-  e.g. packetNum, batchSize, packetSizewarning: temporary variable should be given note
-  
+  Every first character in a word use uppercase, except first one. Local variables and `private` data fields are not limited as they are not included in document.
+
+  e.g. `packetNum`, `batchSize`, `packetSizewarning`
+
 - constant
-  
-  Every character use uppercase, use underline. \
-  e.g. MAX_DEGREE, BATSDECODER_MAXBATCH, PRECODE_RATE
 
-- type
+  The same as variable.
 
-  Every first character in a word use uppercase. \
-  e.g. SymbolType, KeyType
+- `#define` constant
 
-- function
+  Every character use uppercase, use underline (remmber to `#undef` it after use if it is not intended to be exported).
 
-  Every first character in a word use uppercase, except first one \
-  e.g. getBatch(), setDegDist()
-  
-- class
+  e.g. `MAX_DEGREE`, `BATSDECODER_MAXBATCH`, `PRECODE_RATE`
+
+- type, struct and class
 
   Every first character in a word use uppercase.
-  
+
+  e.g. `SymbolType`, `KeyType`, `Class`
+
+- function, method and method like macro
+
+  Every first character in a word use uppercase, except first one
+
+  e.g. `getBatch()`, `setDegDist()`
+
+
 - file
 
-    Class: <Classname>.h e.g. BigNum.h \
-    Package: <classname>.h  e.g. math.h
+    Class: `<Classname>.h` e.g. BigNum.h
+
+    Package: `<package>.h`  e.g. math.h
+
+    Free functions only: `<package_functions.h>` e.g. math_functions.h
+
+    Source file: use `.cpp`
+
+- header guard
+
+    CUHKSZ_PACKAGE_FILENAME
+
+    e.g. `CUHKSZ_MATH_FRACTION` for `math/Fraction.h`
 
 - namespace
 
-  cuhksz
+  `cuhksz` for **all** classes and functions
 
-- About abbreviation
-
-  Every abbreviation should be added a full name to where it define, usually in header file
-
+Please see the project code for detail, if you see some inconsistency in the source, feel free to post a pull request.

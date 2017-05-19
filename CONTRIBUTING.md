@@ -10,14 +10,14 @@ You start by forking the central repository, then clone your own repo to your di
 ## First time only setup steps:
 - login to your own github account
 - Fork the CUHKSZLib private repos into your account, aka, "your repos"
-- Clone "your repos" to local computer (DO NOT clone the alesiong/CUHKSZLib or any other repo directly)
+- Clone "your repos" to local computer (DO NOT clone the cuhkshenzhen/CUHKSZLib or any other repo directly)
 
   `git clone https://github.com/youraccount/CUHKSZLib.git`
 
 - Check current upstream repo `git remote -v`
 - Add new upstream to local repo
 
-  `git remote add upstream https://github.com/alesiong/CUHKSZLib.git`
+  `git remote add upstream https://github.com/cuhkshenzhen/CUHKSZLib.git`
 
 ## Steps when working on a new feature:
 - Merge the latest version of upstream repo to the local master branch
