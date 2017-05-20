@@ -11,9 +11,10 @@ namespace cuhksz {
 **/
 template <typename ValueType>
 class Queue {
-public:
-	typedef typename std::queue<ValueType> stlQueue;
-	typedef ValueType value_type;
+ public:
+  typedef typename std::queue<ValueType> stlQueue;
+  typedef ValueType value_type;
+
 
 	Queue();
 
@@ -26,7 +27,8 @@ public:
 	**/
 	Queue( stlQueue& stlQueue2 );
 
-	~Queue();
+
+  ~Queue();
 
 	/**
 		Assign a Queue to another Queue.
@@ -132,118 +134,118 @@ public:
 private:
 	std::queue<ValueType> privateQueue;
 	void emptyCheck() const;
+
 };
 
 template <typename ValueType>
 Queue<ValueType>::Queue() {
-	//do nothing
+  // do nothing
 }
 
 template <typename ValueType>
-Queue<ValueType>::Queue( stlQueue& stlQueue2 ) {
-	privateQueue = stlQueue2;
+Queue<ValueType>::Queue(stlQueue& stlQueue2) {
+  privateQueue = stlQueue2;
 }
 
 template <typename ValueType>
-Queue<ValueType>::~Queue(){
-	//do nothing
+Queue<ValueType>::~Queue() {
+  // do nothing
 }
 
 template <typename ValueType>
-Queue<ValueType> Queue<ValueType>::operator =(const Queue& queue2) {
-	privateQueue = queue2.privateQueue;
-	return *this;
+Queue<ValueType> Queue<ValueType>::operator=(const Queue& queue2) {
+  privateQueue = queue2.privateQueue;
+  return *this;
 }
 
 template <typename ValueType>
 ValueType& Queue<ValueType>::first() {
-	return privateQueue.front();
+  return privateQueue.front();
 }
 
 template <typename ValueType>
 const ValueType& Queue<ValueType>::first() const {
-	return privateQueue.front();
+  return privateQueue.front();
 }
 
 template <typename ValueType>
 ValueType& Queue<ValueType>::last() {
-	return privateQueue.back();
+  return privateQueue.back();
 }
 
 template <typename ValueType>
 const ValueType& Queue<ValueType>::last() const {
-	return privateQueue.back();
+  return privateQueue.back();
 }
 
 template <typename ValueType>
 int Queue<ValueType>::size() const {
-	return privateQueue.size();
+  return privateQueue.size();
 }
 
 template <typename ValueType>
 bool Queue<ValueType>::isEmpty() {
-	return privateQueue.empty();
+  return privateQueue.empty();
 }
 
 template <typename ValueType>
 void Queue<ValueType>::enqueue(const ValueType& value) {
-	privateQueue.push(value);
+  privateQueue.push(value);
 }
 
 template <typename ValueType>
 ValueType Queue<ValueType>::dequeue() {
-	emptyCheck();
-	ValueType firstElement = privateQueue.front();
-	privateQueue.pop();
-	return firstElement;
+  emptyCheck();
+  ValueType firstElement = privateQueue.front();
+  privateQueue.pop();
+  return firstElement;
 }
 
 template <typename ValueType>
 void Queue<ValueType>::clear() {
-	int size = privateQueue.size();
-	for (int i = 0; i != size; i++) {
-		privateQueue.pop();
-	}
+  int size = privateQueue.size();
+  for (int i = 0; i != size; i++) {
+    privateQueue.pop();
+  }
 }
 
 template <typename ValueType>
-bool Queue<ValueType>::operator ==(const Queue& queue2) {
-    return privateQueue == queue2.privateQueue;
+bool Queue<ValueType>::operator==(const Queue& queue2) {
+  return privateQueue == queue2.privateQueue;
 }
 
 template <typename ValueType>
-bool Queue<ValueType>::operator !=(const Queue& queue2) {
+bool Queue<ValueType>::operator!=(const Queue& queue2) {
   return privateQueue != queue2.privateQueue;
 }
 
 template <typename ValueType>
-bool Queue<ValueType>::operator <(const Queue& queue2) {
+bool Queue<ValueType>::operator<(const Queue& queue2) {
   return privateQueue < queue2.privateQueue;
 }
 
 template <typename ValueType>
-bool Queue<ValueType>::operator <=(const Queue& queue2) {
+bool Queue<ValueType>::operator<=(const Queue& queue2) {
   return privateQueue <= queue2.privateQueue;
 }
 
 template <typename ValueType>
-bool Queue<ValueType>::operator >(const Queue& queue2) {
+bool Queue<ValueType>::operator>(const Queue& queue2) {
   return privateQueue > queue2.privateQueue;
 }
 
 template <typename ValueType>
-bool Queue<ValueType>::operator >=(const Queue& queue2) {
+bool Queue<ValueType>::operator>=(const Queue& queue2) {
   return privateQueue >= queue2.privateQueue;
 }
 
 template <typename ValueType>
 void Queue<ValueType>::emptyCheck() const {
-	if (privateQueue.empty()) {
-		error("The queue is empty!");
-	}
+  if (privateQueue.empty()) {
+    error("The queue is empty!");
+  }
 }
 
-} //end namespace
+}  // namespace cuhksz
 
-
-#endif
+#endif  // CUHKSZ_CONTAINERS_QUEUE

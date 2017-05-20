@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include "math_utils/math_functions.h"
-#include "random.h"
+#include "random/UniformIntDistribution.h"
 
 TEST(UniformIntDistribution, stddev) {
   cuhksz::UniformIntDistribution ud(100);

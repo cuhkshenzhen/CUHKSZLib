@@ -9,5 +9,12 @@ namespace cuhksz {
  * @return url-safe string
  */
 std::string urlEncode(const std::string &string);
-}
-#endif //CUHKSZ_NETWORK_NETWORKFUNCTIONS
+
+/**
+ * Encode a url-safe string to its origin
+ * @param string string to decode
+ * @return string
+ */
+std::string urlDecode(const std::string str);
+}  // namespace cuhksz
+#endif  // CUHKSZ_NETWORK_NETWORKFUNCTIONS

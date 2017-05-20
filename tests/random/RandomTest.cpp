@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include "math_utils/math_functions.h"
-#include "random.h"
+#include "random/Random.h"
 
 TEST(Random, stddev) {
   cuhksz::Random r;
@@ -18,6 +18,11 @@ TEST(Random, construct_with_seed_and_setSeed) {
   r.setSeed(0);
   bool b = r.nextBool();
   EXPECT_EQ(a, b);
+}
+
+TEST(Random, dump_test_nextInt) {
+  cuhksz::Random r;
+  r.nextInt();  // just test it can run without error
 }
 
 TEST(Random, nextInt_min_max) {

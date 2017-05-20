@@ -12,9 +12,9 @@ namespace cuhksz {
 **/
 template <typename ValueType>
 class MultiSet {
-public:
-    typedef typename std::multiset<ValueType> stlMultiset;
-    typedef ValueType value_type;
+ public:
+  typedef typename std::multiset<ValueType> stlMultiset;
+  typedef ValueType value_type;
 
     MultiSet();
 
@@ -37,7 +37,8 @@ public:
     **/
     MultiSet(stlMultiset& stlMultiset2);
 
-    ~MultiSet();
+  ~MultiSet();
+
 
     /**
         Assign a MultiSet to another MultiSet.
@@ -79,8 +80,8 @@ public:
     **/
     bool contains(const ValueType& value) const;
 
-    typedef typename std::multiset<ValueType>::iterator iterator;
-    typedef typename std::multiset<ValueType>::const_iterator const_iterator;
+  typedef typename std::multiset<ValueType>::iterator iterator;
+  typedef typename std::multiset<ValueType>::const_iterator const_iterator;
 
     /**
         Return the begin iterator.
@@ -160,106 +161,105 @@ public:
 	**/
     bool operator >=(const MultiSet& multiset2);
 
-private:
-    std::multiset<ValueType> privateMultiset;
+ private:
+  std::multiset<ValueType> privateMultiset;
 };
 
 template <typename ValueType>
 MultiSet<ValueType>::MultiSet() {
-    //do nothing
+  // do nothing
 }
 
 template <typename ValueType>
 MultiSet<ValueType>::MultiSet(std::initializer_list<ValueType> init) {
-    privateMultiset = init;
+  privateMultiset = init;
 }
 
 template <typename ValueType>
 MultiSet<ValueType>::MultiSet(stlMultiset& stlMultiset2) {
-    privateMultiset = stlMultiset2;
+  privateMultiset = stlMultiset2;
 }
 
 template <typename ValueType>
 MultiSet<ValueType>::~MultiSet() {
-    //do nothing
+  // do nothing
 }
 
 template <typename ValueType>
-MultiSet<ValueType>&
-MultiSet<ValueType>::operator =(const MultiSet& multiset2) {
-    privateMultiset = multiset2.privateMultiset;
-    return *this;
+MultiSet<ValueType>& MultiSet<ValueType>::operator=(const MultiSet& multiset2) {
+  privateMultiset = multiset2.privateMultiset;
+  return *this;
 }
 
 template <typename ValueType>
 bool MultiSet<ValueType>::isEmpty() const {
-    return privateMultiset.empty();
+  return privateMultiset.empty();
 }
 
 template <typename ValueType>
 int MultiSet<ValueType>::size() const {
-    return privateMultiset.size();
+  return privateMultiset.size();
 }
 
 template <typename ValueType>
 void MultiSet<ValueType>::insert(const ValueType& value) {
-    privateMultiset.insert(value);
+  privateMultiset.insert(value);
 }
 
 template <typename ValueType>
 void MultiSet<ValueType>::erase(const ValueType& value) {
-    if (privateMultiset.find(value) == privateMultiset.end()) {
-        error("No such value in the multiset!");
-    } else {
-        privateMultiset.erase(value);
-    }
+  if (privateMultiset.find(value) == privateMultiset.end()) {
+    error("No such value in the multiset!");
+  } else {
+    privateMultiset.erase(value);
+  }
 }
 
 template <typename ValueType>
 int MultiSet<ValueType>::count(const ValueType& value) const {
-    return privateMultiset.count(value);
+  return privateMultiset.count(value);
 }
 
 template <typename ValueType>
 void MultiSet<ValueType>::clear() {
-    privateMultiset.clear();
+  privateMultiset.clear();
 }
 
 template <typename ValueType>
 bool MultiSet<ValueType>::contains(const ValueType& value) const {
-    return (privateMultiset.find(value) != privateMultiset.end())? true : false;
+  return (privateMultiset.find(value) != privateMultiset.end()) ? true : false;
 }
 
 template <typename ValueType>
-bool MultiSet<ValueType>::operator ==(const MultiSet& multiset2) {
-    return privateMultiset == multiset2.privateMultiset;
+bool MultiSet<ValueType>::operator==(const MultiSet& multiset2) {
+  return privateMultiset == multiset2.privateMultiset;
 }
 
 template <typename ValueType>
-bool MultiSet<ValueType>::operator !=(const MultiSet& multiset2) {
-    return privateMultiset != multiset2.privateMultiset;
+bool MultiSet<ValueType>::operator!=(const MultiSet& multiset2) {
+  return privateMultiset != multiset2.privateMultiset;
 }
 
 template <typename ValueType>
-bool MultiSet<ValueType>::operator <(const MultiSet& multiset2) {
-    return privateMultiset < multiset2.privateMultiset;
+bool MultiSet<ValueType>::operator<(const MultiSet& multiset2) {
+  return privateMultiset < multiset2.privateMultiset;
 }
 
 template <typename ValueType>
-bool MultiSet<ValueType>::operator <=(const MultiSet& multiset2) {
-    return privateMultiset <= multiset2.privateMultiset;
+bool MultiSet<ValueType>::operator<=(const MultiSet& multiset2) {
+  return privateMultiset <= multiset2.privateMultiset;
 }
 
 template <typename ValueType>
-bool MultiSet<ValueType>::operator >(const MultiSet& multiset2) {
-    return privateMultiset > multiset2.privateMultiset;
+bool MultiSet<ValueType>::operator>(const MultiSet& multiset2) {
+  return privateMultiset > multiset2.privateMultiset;
 }
 
 template <typename ValueType>
-bool MultiSet<ValueType>::operator >=(const MultiSet& multiset2) {
-    return privateMultiset >= multiset2.privateMultiset;
+bool MultiSet<ValueType>::operator>=(const MultiSet& multiset2) {
+  return privateMultiset >= multiset2.privateMultiset;
 }
 
-} //end namespace
+}  // namespace cuhksz
 
-#endif //CUHKSZ_CONTAINERS_MULTISET
+#endif  // CUHKSZ_CONTAINERS_MULTISET

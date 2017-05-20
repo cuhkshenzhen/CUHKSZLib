@@ -1,7 +1,7 @@
 #include <cmath>
 #include "gtest/gtest.h"
 #include "math_utils/math_functions.h"
-#include "random.h"
+#include "random/ExponentialDistribution.h"
 
 TEST(ExponentialDistribution, real_theory) {
   double lambda = 0.5;

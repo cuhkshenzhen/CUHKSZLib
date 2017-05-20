@@ -36,8 +36,6 @@ public:
 	**/
     Set(stlSet& stlSet2);
 
-    ~Set();
-
     /**
 		Assign a Set to another Set.
 	**/
@@ -72,9 +70,6 @@ public:
         Check if the Set contains the value.
     **/
     bool contains(ValueType value) const;
-
-    typedef typename std::set<ValueType>::iterator iterator;
-    typedef typename std::set<ValueType>::const_iterator const_iterator;
 
     /**
         Return the begin iterator.
@@ -154,96 +149,95 @@ public:
 	**/
     bool operator >=(const Set& set2);
 
-private:
-    std::set<ValueType> privateSet;
-
+ private:
+  std::set<ValueType> privateSet;
 };
 
-template<typename ValueType>
+template <typename ValueType>
 Set<ValueType>::Set() {
-    //do nothing
+  // do nothing
 }
 
-template<typename ValueType>
-Set<ValueType>::Set( std::initializer_list<ValueType> init ) {
-    privateSet = init;
+template <typename ValueType>
+Set<ValueType>::Set(std::initializer_list<ValueType> init) {
+  privateSet = init;
 }
 
-template<typename ValueType>
+template <typename ValueType>
 Set<ValueType>::Set(stlSet& stlSet2) {
-    privateSet = stlSet2;
+  privateSet = stlSet2;
 }
 
-template<typename ValueType>
+template <typename ValueType>
 Set<ValueType>::~Set() {
-    //do nothing
+  // do nothing
 }
 
-template<typename ValueType>
-Set<ValueType>& Set<ValueType>::operator =(const Set& set2) {
-    privateSet = set2.privateSet;
-    return *this;
+template <typename ValueType>
+Set<ValueType>& Set<ValueType>::operator=(const Set& set2) {
+  privateSet = set2.privateSet;
+  return *this;
 }
 
-template<typename ValueType>
+template <typename ValueType>
 bool Set<ValueType>::isEmpty() const {
-    return privateSet.empty();
+  return privateSet.empty();
 }
 
-template<typename ValueType>
+template <typename ValueType>
 int Set<ValueType>::size() const {
-    return privateSet.size();
+  return privateSet.size();
 }
 
-template<typename ValueType>
+template <typename ValueType>
 void Set<ValueType>::insert(const ValueType& value) {
-        privateSet.insert(value);
+  privateSet.insert(value);
 }
 
-template<typename ValueType>
+template <typename ValueType>
 void Set<ValueType>::erase(const ValueType& value) {
-        privateSet.erase(value);
+  privateSet.erase(value);
 }
 
-template<typename ValueType>
+template <typename ValueType>
 void Set<ValueType>::clear() {
-    privateSet.clear();
+  privateSet.clear();
 }
 
-template<typename ValueType>
+template <typename ValueType>
 bool Set<ValueType>::contains(ValueType value) const {
-    return (privateSet.find(value) != privateSet.end())? true : false;
+  return (privateSet.find(value) != privateSet.end()) ? true : false;
 }
 
-template<typename ValueType>
-bool Set<ValueType>::operator ==(const Set& set2) {
-    return privateSet == set2.privateSet;
+template <typename ValueType>
+bool Set<ValueType>::operator==(const Set& set2) {
+  return privateSet == set2.privateSet;
 }
 
-template<typename ValueType>
-bool Set<ValueType>::operator !=(const Set& set2) {
-    return privateSet != set2.privateSet;
+template <typename ValueType>
+bool Set<ValueType>::operator!=(const Set& set2) {
+  return privateSet != set2.privateSet;
 }
-template<typename ValueType>
-bool Set<ValueType>::operator <(const Set& set2) {
-    return privateSet < set2.privateSet;
-}
-
-template<typename ValueType>
-bool Set<ValueType>::operator <=(const Set& set2) {
-    return privateSet <= set2.privateSet;
+template <typename ValueType>
+bool Set<ValueType>::operator<(const Set& set2) {
+  return privateSet < set2.privateSet;
 }
 
-template<typename ValueType>
-bool Set<ValueType>::operator >(const Set& set2) {
-    return privateSet > set2.privateSet;
+template <typename ValueType>
+bool Set<ValueType>::operator<=(const Set& set2) {
+  return privateSet <= set2.privateSet;
 }
 
-template<typename ValueType>
-bool Set<ValueType>::operator >=(const Set& set2) {
-    return privateSet >= set2.privateSet;
+template <typename ValueType>
+bool Set<ValueType>::operator>(const Set& set2) {
+  return privateSet > set2.privateSet;
 }
 
-} //end namespace
+template <typename ValueType>
+bool Set<ValueType>::operator>=(const Set& set2) {
+  return privateSet >= set2.privateSet;
+}
 
-#endif //CUHKSZ_CONTAINERS_SET
+}  // namespace cuhksz
+
+#endif  // CUHKSZ_CONTAINERS_SET

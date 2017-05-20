@@ -7,8 +7,18 @@
 
 #include <vector>
 namespace cuhksz {
-template<typename Container, typename Func>
-std::vector<typename Container::value_type> filterContainer(Container &cont, Func func) {
+/**
+ * Apply a filter function to all elements in a function. All elements with true
+ * result will be saved.
+ * @tparam Container Container type
+ * @tparam Func Function type
+ * @param cont Container with all elements
+ * @param func Function to be applied
+ * @return Elements with true results in std::vector
+ */
+template <typename Container, typename Func>
+std::vector<typename Container::value_type> filterContainer(Container &cont,
+                                                            Func func) {
   std::vector<typename Container::value_type> ret;
   ret.reserve(cont.size());
   for (auto &v : cont) {
@@ -18,5 +28,5 @@ std::vector<typename Container::value_type> filterContainer(Container &cont, Fun
   }
   return ret;
 }
-}
-#endif //CUHKSZ_ALGORITHM_FILTER
+}  // namespace cuhksz
+#endif  // CUHKSZ_ALGORITHM_FILTER

@@ -3,4 +3,4 @@
 
 #include "network/network_functions.h"
 
-#endif //CUHKSZ_NETWORK
+#endif  // CUHKSZ_NETWORK
