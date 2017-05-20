@@ -17,66 +17,213 @@ class Vector {
   typedef typename std::vector<ValueType> stlVector;
   typedef ValueType value_type;
 
-  Vector();
-  explicit Vector(int n, ValueType value = ValueType());
-  Vector(std::initializer_list<ValueType> init);
-  Vector(stlVector& stlVector2);
+    Vector();
+
+    /**
+		Construct a Vector with n value(s).
+		Usage:
+		```
+		cuhksz::Vector<ValueType> vec(n, value);
+		```
+	**/
+    explicit Vector(int n, ValueType value = ValueType());
+
+    /**
+		Construct a Vector using a initializer_list.
+		Usage:
+		```
+		cuhksz::Vector<ValueType> vec {value1, value2};
+		```
+	**/
+    Vector(std::initializer_list<ValueType> init);
+
+    /**
+		Initialize a Vector with a stl vector.
+		Usage:
+		```
+		cuhksz::Vector<ValueType> vec(stlVector);
+		```
+	**/
+    Vector(stlVector& stlVector2);
 
   ~Vector();
 
-  const ValueType& get(int index) const;
-  ValueType& get(int index);
+    /**
+        Get the element at index.
+        Return a reference to it.
+    **/
+    ValueType& get(int index);
 
-  ValueType& first();
-  const ValueType& first() const;
+    /**
+        Get the element at index.
+        Return a const reference to it.
+    **/
+    const ValueType& get(int index) const;
 
-  ValueType& last();
-  const ValueType& last() const;
+    /**
+        Get the first element in the Vector.
+        Return a reference to that element.
+    **/
+    ValueType& first();
 
-  ValueType& operator[](int index);
-  const ValueType& operator[](int index) const;
+    /**
+        Get the first element in the Vector.
+        Return a const reference to that element.
+    **/
+	const ValueType& first() const;
 
-  bool isEmpty() const;
+    /**
+		Get the last element in the Vector.
+		Return a reference to that element.
+	**/
+	ValueType& last();
 
-  int size() const;
+    /**
+		Get the last element in the Vector.
+		Return a const reference to that element.
+	**/
+	const ValueType& last() const;
 
-  void clear();
+    /**
+		Get the element at the specified index.
+		Return a reference to that element.
+	**/
+    ValueType& operator [](int index);
 
-  void insert(int index, const ValueType& value);
+    /**
+        Get the element at the specified index.
+        Return a const reference to that element.
+    **/
+    const ValueType& operator [](int index) const;
 
-  void erase(int index);
+    /**
+        Check whether the Vector is empty.
+    **/
+    bool isEmpty() const;
 
-  void set(int index, const ValueType& value);
+    /**
+		Return the size of the Vector.
+	**/
+    int size() const;
 
-  void push(const ValueType& value);
+    /**
+        Empty the Vector.
+    **/
+    void clear();
 
-  ValueType pop();
+    /**
+		Insert value before index, it is allowed to
+		insert value at the end. It will cause error
+        if index out of range.
+	**/
+    void insert(int index, const ValueType& value);
 
-  stlVector toStlVector() { return vec; }
+    /**
+		Erase the element at index with boundary checking.
+	**/
+    void erase(int index);
 
-  operator stlVector() { return vec; }
+    /**
+		Set the value at specified index.
+	**/
+    void set(int index, const ValueType& value);
 
-  bool operator==(const Vector& v2);
-  bool operator!=(const Vector& v2);
-  bool operator<(const Vector& v2);
-  bool operator<=(const Vector& v2);
-  bool operator>(const Vector& v2);
-  bool operator>=(const Vector& v2);
+    /**
+		Push the value to the back of Vector.
+	**/
+    void push(const ValueType& value);
 
-  typedef typename std::vector<ValueType>::iterator iterator;
-  typedef typename std::vector<ValueType>::const_iterator const_iterator;
+    /**
+		Pop the value at the end of Vector. Return the value.
+	**/
+    ValueType pop();
 
-  iterator begin() { return vec.begin(); }
-  const_iterator begin() const { return vec.begin(); }
+    /**
+		Convert the Vector to stl vector explicitly.
+		Usage:
+		```
+		auto vec = Vector.toStlVector();
+		```
+	**/
+    stlVector toStlVector() {
+        return vec;
+    }
 
-  iterator end() { return vec.end(); }
+    /**
+        Convert the Vector to stl vector implicitly.
+        Usage:
+        ```
+        std::vector<ValueType> vec = Vector;
+        ```
+    **/
+    operator stlVector() { return vec; }
 
-  const_iterator end() const { return vec.end(); }
+    /**
+        Check if Vector equals to v2.
+    **/
+    bool operator ==(const Vector& v2);
 
- private:
-  std::vector<ValueType> vec;
-  void boundaryCheck(int index) const;
-  void emptyCheck() const;
+    /**
+        Check if Vector does not equal to v2.
+    **/
+    bool operator !=(const Vector& v2);
+
+    /**
+        Compare the contents of Vector and v2 lexicographically.
+    **/
+    bool operator <(const Vector& v2);
+
+    /**
+        Compare the contents of Vector and v2 lexicographically.
+    **/
+    bool operator <=(const Vector& v2);
+
+    /**
+        Compare the contents of Vector and v2 lexicographically.
+    **/
+    bool operator >(const Vector& v2);
+
+    /**
+        Compare the contents of Vector and v2 lexicographically.
+    **/
+    bool operator >=(const Vector& v2);
+
+    typedef typename std::vector<ValueType>::iterator iterator;
+    typedef typename std::vector<ValueType>::const_iterator const_iterator;
+
+    /**
+		Return the begin iterator.
+	**/
+    iterator begin() {
+      return vec.begin();
+    }
+
+    /**
+      Return the const iterator of begin.
+    **/
+    const_iterator begin() const {
+      return vec.begin();
+    }
+
+    /**
+        Return the end iterator.
+    **/
+    iterator end() {
+      return vec.end();
+    }
+
+    /**
+      Return the const iterator of end.
+    **/
+    const_iterator end() const {
+      return vec.end();
+    }
+
+private:
+    std::vector<ValueType> vec;
+    void boundaryCheck(int index) const;
+    void emptyCheck() const;
+
 };
 
 template <typename ValueType>

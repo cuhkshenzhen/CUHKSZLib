@@ -12,40 +12,114 @@ class Stack {
   typedef typename std::stack<ValueType> stlStack;
   typedef ValueType value_type;
 
-  Stack();
-  Stack(stlStack& stlStack2);
+	Stack();
+
+	/**
+		Initialize a Stack with a stl stack.
+		Usage:
+		```
+		cuhksz::Stack<ValueType> s(stlStack);
+		```
+	**/
+	Stack( stlStack& stlStack2 );
+
 
   ~Stack();
 
-  Stack operator=(const Stack& stack2);
+	/**
+		Assign a Stack to another Stack.
+	**/
+	Stack operator =(const Stack& stack2);
 
-  int size() const;
+	/**
+		Return the size of the Stack.
+	**/
+	int size() const;
 
-  ValueType& top();
-  const ValueType& top() const;
+	/**
+		Return a reference to the element on the top.
+	**/
+	ValueType& top();
 
-  bool isEmpty();
+	/**
+		Return a const reference to the element on the top.
+	**/
+	const ValueType& top() const;
 
-  void push(const ValueType& value);
+	/**
+		Check whether the Stack is empty.
+	**/
+	bool isEmpty();
 
-  ValueType pop();
+	/**
+		Push the value into the Stack.
+	**/
+	void push(const ValueType& value);
 
-  void clear();
+	/**
+		Pop a element of the Stack based on the LILO principle.
+		Return the value.
+	**/
+	ValueType pop();
 
-  stlStack toStlStack() { return privateStack; }
+	/**
+		Empty the Stack.
+	**/
+	void clear();
 
-  operator stlStack() { return privateStack; }
+	/**
+		Convert the Stack to stl stack explicitly.
+		Usage:
+		```
+		auto s = Stack.toStlStack();
+		```
+	**/
+	stlStack toStlStack() {
+		return privateStack;
+	}
 
-  bool operator==(const Stack& stack2);
-  bool operator!=(const Stack& stack2);
-  bool operator<(const Stack& stack2);
-  bool operator<=(const Stack& stack2);
-  bool operator>(const Stack& stack2);
-  bool operator>=(const Stack& stack2);
+	/**
+		Convert the Stack to stl stack implicitly.
+		Usage:
+		```
+		std::stack<ValueType> s = Stack;
+		```
+	**/
+	operator stlStack() { return privateStack; }
 
- private:
-  std::stack<ValueType> privateStack;
-  void emptyCheck() const;
+	/**
+		Check if Stack equals to stack2.
+	**/
+	bool operator ==(const Stack& stack2);
+
+	/**
+		Check if Stack does not equal to stack2.
+	**/
+    bool operator !=(const Stack& stack2);
+
+	/**
+		Compare the contents of Stack and stack2 lexicographically.
+	**/
+    bool operator <(const Stack& stack2);
+
+	/**
+		Compare the contents of Stack and stack2 lexicographically.
+	**/
+    bool operator <=(const Stack& stack2);
+
+	/**
+		Compare the contents of Stack and stack2 lexicographically.
+	**/
+    bool operator >(const Stack& stack2);
+
+	/**
+		Compare the contents of Stack and stack2 lexicographically.
+	**/
+    bool operator >=(const Stack& stack2);
+
+private:
+	std::stack<ValueType> privateStack;
+	void emptyCheck() const;
 };
 
 template <typename ValueType>
