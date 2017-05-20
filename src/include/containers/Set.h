@@ -28,10 +28,10 @@ public:
     Set( std::initializer_list<ValueType> init );
 
     /**
-		Initialize a List with a stl list.
+		Initialize a Set with a stl set.
 		Usage:
 		```
-		cuhksz::List<ValueType> li(stlList);
+		cuhksz::Set<ValueType> s(stlSet);
 		```
 	**/
     Set(stlSet& stlSet2);
