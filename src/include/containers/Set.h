@@ -70,6 +70,9 @@ public:
         Check if the Set contains the value.
     **/
     bool contains(ValueType value) const;
+    
+    typedef typename std::set<ValueType>::iterator iterator;
+    typedef typename std::set<ValueType>::const_iterator const_iterator;
 
     /**
         Return the begin iterator.
