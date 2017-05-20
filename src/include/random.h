@@ -1,10 +1,12 @@
 #ifndef CUHKSZ_RANDOM
 #define CUHKSZ_RANDOM
 
+#include "random/BernoulliDistribution.h"
 #include "random/BinomialDistribution.h"
 #include "random/ChiSquaredDistribution.h"
 #include "random/Distribution.h"
 #include "random/ExponentialDistribution.h"
+#include "random/GammaDistribution.h"
 #include "random/GeometricDistribution.h"
 #include "random/NegativeBinomialDistribution.h"
 #include "random/NormalDistribution.h"

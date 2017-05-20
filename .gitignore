@@ -41,3 +41,10 @@ cmake-build-debug/
 # CLion cache
 .idea/
 .vscode/
+
+# Document
+docs/
+
+# Visual Studio
+.vs/
+CMakeSettings.json

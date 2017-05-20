@@ -2,14 +2,14 @@
 #define CUHKSZ_GEOMETRY_POINT
 
 #include <algorithm>
-#include <iostream>
 #include <cmath>
+#include <iostream>
 
 namespace cuhksz {
 
 #define EPS 1e-6
 
-template <int N=2>
+template <int N = 2>
 class Point {
 public:
 	Point() {
@@ -158,7 +158,7 @@ public:
 		return os << ")";
 	}
 
-    // cross product
+    // TODO: cross product
 	friend double cross(const Point& v, const Point& w) {
 		static_assert(N == 2, "cross product only apply to 2D");
 		return v.elem[0] * w.elem[1] - v.elem[1] * w.elem[0];
@@ -187,5 +187,4 @@ private:
 
 }	// namespace cuhksz
 
-
-#endif // CUHKSZ_GEOMETRY_POINT
+#endif  // CUHKSZ_GEOMETRY_POINT

@@ -6,5 +6,5 @@ using namespace cuhksz;
 int main() {
   std::cout << "Casting string 12345 to ";
   std::cout << typeid(stringCast<int>("12345")).name() << std::endl;
-  std::cout << "Result: " << (int) stringCast<int>("12345") << std::endl;
+  std::cout << "Result: " << (int)stringCast<int>("12345") << std::endl;
 }

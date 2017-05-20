@@ -1,7 +1,7 @@
 #include <cmath>
 #include "gtest/gtest.h"
 #include "math_utils/math_functions.h"
-#include "random.h"
+#include "random/ExponentialDistribution.h"
 
 TEST(ExponentialDistribution, real_theory) {
   double lambda = 0.5;
@@ -22,4 +22,18 @@ TEST(ExponentialDistribution, real_theory) {
     error_sum += std::abs(real - theory) / theory;
   }
   EXPECT_LT(error_sum / 6, 0.05);
+}
+
+TEST(ExponentialDistribution, construct) {
+  cuhksz::ExponentialDistribution dist(2);
+  cuhksz::Random r(0);
+  cuhksz::Random r2(0);
+  cuhksz::ExponentialDistribution d1(r, 2);
+  cuhksz::ExponentialDistribution d2(r2, 2);
+  EXPECT_DOUBLE_EQ(d1.next(), d2.next());
+}
+
+TEST(ExponentialDistribution, lambda) {
+  cuhksz::ExponentialDistribution dist(2);
+  EXPECT_DOUBLE_EQ(dist.lambda(), 2);
 }

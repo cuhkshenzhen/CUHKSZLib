@@ -1,7 +1,7 @@
 #include <cmath>
 #include "gtest/gtest.h"
 #include "math_utils/math_functions.h"
-#include "random.h"
+#include "random/GeometricDistribution.h"
 
 TEST(GeometricDistribution, real_theory) {
   double p = 0.5;
@@ -20,4 +20,19 @@ TEST(GeometricDistribution, real_theory) {
     error_sum += std::abs(real - theory) / theory;
   }
   EXPECT_LT(error_sum / 5, 0.05);
+}
+
+TEST(GeometricDistribution, construct) {
+  cuhksz::GeometricDistribution dist;
+  cuhksz::GeometricDistribution dist2(0.2);
+  cuhksz::Random r(0);
+  cuhksz::Random r2(0);
+  cuhksz::GeometricDistribution d1(r);
+  cuhksz::GeometricDistribution d2(r2, 0.5);
+  EXPECT_EQ(d1.next(), d2.next());
+}
+
+TEST(GeometricDistribution, p) {
+  cuhksz::GeometricDistribution dist;
+  EXPECT_DOUBLE_EQ(dist.p(), 0.5);
 }

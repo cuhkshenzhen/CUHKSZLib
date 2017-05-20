@@ -1,7 +1,7 @@
 #include <cmath>
 #include "gtest/gtest.h"
 #include "math_utils/math_functions.h"
-#include "random.h"
+#include "random/PoissonDistribution.h"
 
 TEST(PoissonDistribution, real_theory) {
   double lambda = 5;
@@ -21,4 +21,25 @@ TEST(PoissonDistribution, real_theory) {
     error_sum += std::abs(real - theory) / theory;
   }
   EXPECT_LT(error_sum / 11, 0.05);
+}
+
+TEST(PoissonDistribution, construct) {
+  cuhksz::PoissonDistribution dist(2);
+  cuhksz::Random r(0);
+  cuhksz::Random r2(0);
+  cuhksz::PoissonDistribution d1(r, 3.5);
+  cuhksz::PoissonDistribution d2(r2, 3.5);
+  EXPECT_EQ(d1.next(), d2.next());
+}
+
+TEST(PoissonDistribution, lambda) {
+  cuhksz::PoissonDistribution dist(1);
+  EXPECT_DOUBLE_EQ(dist.lambda(), 1);
+}
+
+TEST(PoissonDistributionDeathTest, parameter_invalid) {
+  EXPECT_EXIT(cuhksz::PoissonDistribution(0),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
+  EXPECT_EXIT(cuhksz::PoissonDistribution(-1),
+              ::testing::ExitedWithCode(EXIT_FAILURE), "Invalid");
 }
