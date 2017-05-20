@@ -35,6 +35,8 @@ public:
 		```
 	**/
     Set(stlSet& stlSet2);
+    
+    ~Set();
 
     /**
 		Assign a Set to another Set.
