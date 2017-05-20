@@ -6,6 +6,8 @@
 
 TEST(Json, DumpJson) {
   cuhksz::JSONObject obj;
+  EXPECT_EQ(obj.dump(), "null");
+
   // Create a new Array as a field of an Object.
   obj["array"] = cuhksz::JSONObject::Array(true, "Two", 3, 4.0);
 
@@ -98,6 +100,7 @@ TEST(Json, arrayTest) {
   EXPECT_EQ((std::string)array[1], "Test1");
   EXPECT_EQ((std::string)array[2], "Test2");
   EXPECT_EQ((std::string)array[3], "Test4");
+  EXPECT_EQ((std::string)array.at(3), "Test4");
 
   // Arrays can be nested:
   cuhksz::JSONObject Array2;
@@ -105,6 +108,22 @@ TEST(Json, arrayTest) {
   Array2[2][0][1] = true;
 
   EXPECT_EQ((bool)Array2[2][0][1], true);
+  EXPECT_EQ(array.length(), 4);
+
+}
+
+TEST(Json, mapTest) {
+  cuhksz::JSONObject obj =
+      cuhksz::JSONObject::Build(cuhksz::JSONObject::Type::Object);
+
+  obj["Key0"] = "Value0";
+  obj["Key1"] = "Value1";
+  obj["Key2"] = "Value2";
+
+  EXPECT_TRUE(obj.hasKey("Key0"));
+  EXPECT_EQ((std::string)obj.at("Key2"), "Value2");
+  EXPECT_EQ((std::string)obj.at("Key1"), "Value1");
+  EXPECT_EQ(obj.size(), 3);
 }
 
 TEST(Json, primTest) {
@@ -115,8 +134,11 @@ TEST(Json, primTest) {
   EXPECT_EQ((std::string)obj, "Test String");
   obj = 2.2;
   EXPECT_NEAR((float)obj, (float)2.2, 0.0001);
+  EXPECT_NEAR(obj.toFloat(), (float)2.2, 0.0001);
+  EXPECT_NEAR(obj.toDouble(), (double)2.2, 0.0001);
   obj = 3;
   EXPECT_EQ((int)obj, 3);
+  EXPECT_EQ(obj.toInt(), 3);
 }
 
 TEST(Json, iterTest) {
@@ -167,4 +189,14 @@ TEST(Json, loadJSONFailure) {
 
   json = R"({"array": [trlue, "Two[】\u%9P", 3, 4.000000]})";
   EXPECT_EXIT(cuhksz::loadJSON(json), ::testing::ExitedWithCode(1), ".*Bool: Expected 'true' or 'false', found.*");
+}
+
+TEST(Json, loadJSONString) {
+  std::string json = R"({"array": "\\ \t \r \n \f \\\ \/ \b \u0A18 \l" })";
+  std::string expected = "{\n  \"array\" : \"\\\\ \\t \\r \\n \\f \\\\\\\\/ \\b \\\\u0A18 \\\\\"\n}";
+  EXPECT_EQ(cuhksz::loadJSON(json).dump(), expected);
+
+  json = R"(null)";
+  expected = "null";
+  EXPECT_EQ(cuhksz::loadJSON(json).dump(), expected);
 }
