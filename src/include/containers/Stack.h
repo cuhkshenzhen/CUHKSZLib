@@ -13,34 +13,105 @@ class Stack {
   typedef ValueType value_type;
 
   Stack();
+
+  /**
+          Initialize a Stack with a stl stack.
+          Usage:
+          ```
+          cuhksz::Stack<ValueType> s(stlStack);
+          ```
+  **/
   Stack(stlStack& stlStack2);
 
   ~Stack();
 
+  /**
+          Assign a Stack to another Stack.
+  **/
   Stack operator=(const Stack& stack2);
 
+  /**
+          Return the size of the Stack.
+  **/
   int size() const;
 
+  /**
+          Return a reference to the element on the top.
+  **/
   ValueType& top();
+
+  /**
+          Return a const reference to the element on the top.
+  **/
   const ValueType& top() const;
 
+  /**
+          Check whether the Stack is empty.
+  **/
   bool isEmpty();
 
+  /**
+          Push the value into the Stack.
+  **/
   void push(const ValueType& value);
 
+  /**
+          Pop a element of the Stack based on the LILO principle.
+          Return the value.
+  **/
   ValueType pop();
 
+  /**
+          Empty the Stack.
+  **/
   void clear();
 
+  /**
+          Convert the Stack to stl stack explicitly.
+          Usage:
+          ```
+          auto s = Stack.toStlStack();
+          ```
+  **/
   stlStack toStlStack() { return privateStack; }
 
+  /**
+          Convert the Stack to stl stack implicitly.
+          Usage:
+          ```
+          std::stack<ValueType> s = Stack;
+          ```
+  **/
   operator stlStack() { return privateStack; }
 
+  /**
+          Check if Stack equals to stack2.
+  **/
   bool operator==(const Stack& stack2);
+
+  /**
+          Check if Stack does not equal to stack2.
+  **/
   bool operator!=(const Stack& stack2);
+
+  /**
+          Compare the contents of Stack and stack2 lexicographically.
+  **/
   bool operator<(const Stack& stack2);
+
+  /**
+          Compare the contents of Stack and stack2 lexicographically.
+  **/
   bool operator<=(const Stack& stack2);
+
+  /**
+          Compare the contents of Stack and stack2 lexicographically.
+  **/
   bool operator>(const Stack& stack2);
+
+  /**
+          Compare the contents of Stack and stack2 lexicographically.
+  **/
   bool operator>=(const Stack& stack2);
 
  private:
