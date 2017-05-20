@@ -6,8 +6,8 @@
 
 namespace cuhksz {
 /**
-	cuhksz::Queue is a container which similar to stl queue except
-	some simplifications and modifications of interface.
+        cuhksz::Queue is a container which similar to stl queue except
+        some simplifications and modifications of interface.
 **/
 template <typename ValueType>
 class Queue {
@@ -15,126 +15,121 @@ class Queue {
   typedef typename std::queue<ValueType> stlQueue;
   typedef ValueType value_type;
 
+  Queue();
 
-	Queue();
-
-	/**
-		Initialize a Queue with a stl queue.
-		Usage:
-		```
-		cuhksz::Queue<ValueType> q(stlQueue);
-		```
-	**/
-	Queue( stlQueue& stlQueue2 );
-
+  /**
+          Initialize a Queue with a stl queue.
+          Usage:
+          ```
+          cuhksz::Queue<ValueType> q(stlQueue);
+          ```
+  **/
+  Queue(stlQueue& stlQueue2);
 
   ~Queue();
 
-	/**
-		Assign a Queue to another Queue.
-	**/
-	Queue operator =(const Queue& queue2);
+  /**
+          Assign a Queue to another Queue.
+  **/
+  Queue operator=(const Queue& queue2);
 
-	/**
-		Return a reference to the first element.
-	**/
-	ValueType& first();
+  /**
+          Return a reference to the first element.
+  **/
+  ValueType& first();
 
-	/**
-		Return a const reference to the first element.
-	**/
-	const ValueType& first() const;
+  /**
+          Return a const reference to the first element.
+  **/
+  const ValueType& first() const;
 
-	/**
-		Return a reference to the last element.
-	**/
-	ValueType& last();
+  /**
+          Return a reference to the last element.
+  **/
+  ValueType& last();
 
-	/**
-		Return a const reference to the last element.
-	**/
-	const ValueType& last() const;
+  /**
+          Return a const reference to the last element.
+  **/
+  const ValueType& last() const;
 
-	/**
-		Return the size of the Queue.
-	**/
-	int size() const;
+  /**
+          Return the size of the Queue.
+  **/
+  int size() const;
 
-	/**
-		Check whether the Queue is empty.
-	**/
-	bool isEmpty();
+  /**
+          Check whether the Queue is empty.
+  **/
+  bool isEmpty();
 
-	/**
-		Enqueue a element.
-	**/
-	void enqueue(const ValueType& value);
+  /**
+          Enqueue a element.
+  **/
+  void enqueue(const ValueType& value);
 
-	/**
-		Dequeue a element based on the FIFO principle.
-		Return the value.
-	**/
-	ValueType dequeue();
+  /**
+          Dequeue a element based on the FIFO principle.
+          Return the value.
+  **/
+  ValueType dequeue();
 
-	/**
-		Empty the Queue.
-	**/
-	void clear();
+  /**
+          Empty the Queue.
+  **/
+  void clear();
 
-	/**
-		Convert the Queue to stl queue explicitly.
-		Usage:
-		```
-		auto q = Queue.toStlQueue();
-		```
-	**/
-	stlQueue toStlQueue() {
-		return privateQueue;
-	}
+  /**
+          Convert the Queue to stl queue explicitly.
+          Usage:
+          ```
+          auto q = Queue.toStlQueue();
+          ```
+  **/
+  stlQueue toStlQueue() { return privateQueue; }
 
-	/**
-		Convert the Queue to stl queue implicitly.
-		Usage:
-		```
-		std::queue<ValueType> q = Queue;
-		```
-	**/
-	operator stlQueue() { return privateQueue; }
+  /**
+          Convert the Queue to stl queue implicitly.
+          Usage:
+          ```
+          std::queue<ValueType> q = Queue;
+          ```
+  **/
+  operator stlQueue() { return privateQueue; }
 
-	/**
-		Check if Queue equals to queue2.
-	**/
-	bool operator ==(const Queue& queue2);
+  /**
+          Check if Queue equals to queue2.
+  **/
+  bool operator==(const Queue& queue2);
 
-	/**
-		Check if Queue does not equal to queue2.
-	**/
-    bool operator !=(const Queue& queue2);
+  /**
+          Check if Queue does not equal to queue2.
+  **/
+  bool operator!=(const Queue& queue2);
 
-	/**
-		Compare the contents of Queue and queue2 lexicographically.
-	**/
-    bool operator <(const Queue& queue2);
+  /**
+          Compare the contents of Queue and queue2 lexicographically.
+  **/
+  bool operator<(const Queue& queue2);
 
-	/**
-		Compare the contents of Queue and queue2 lexicographically.
-	**/
-    bool operator <=(const Queue& queue2);
+  /**
+          Compare the contents of Queue and queue2 lexicographically.
+  **/
+  bool operator<=(const Queue& queue2);
 
-	/**
-		Compare the contents of Queue and queue2 lexicographically.
-	**/
-    bool operator >(const Queue& queue2);
+  /**
+          Compare the contents of Queue and queue2 lexicographically.
+  **/
+  bool operator>(const Queue& queue2);
 
-	/**
-		Compare the contents of Queue and queue2 lexicographically.
-	**/
-    bool operator >=(const Queue& queue2);
+  /**
+          Compare the contents of Queue and queue2 lexicographically.
+  **/
+  bool operator>=(const Queue& queue2);
 
-private:
-	std::queue<ValueType> privateQueue;
-	void emptyCheck() const;
-
+ private:
+  std::queue<ValueType> privateQueue;
+  void emptyCheck() const;
 };
 
 template <typename ValueType>
