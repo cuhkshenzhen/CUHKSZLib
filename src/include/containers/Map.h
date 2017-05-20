@@ -182,11 +182,6 @@ class Map {
 	**/
     bool operator >=(const Map& map2);
 
-private:
-	std::map<KeyType, ValueType> privateMap;
-	void keyCheck(const KeyType& key ) const;
-
-
  private:
   std::map<KeyType, ValueType> privateMap;
   void keyCheck(const KeyType& key) const;
