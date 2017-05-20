@@ -7,8 +7,8 @@
 
 namespace cuhksz {
 /**
-	cuhksz::MultiMap is a container which similar to stl multimap except
-	some simplifications and modifications of interface.
+        cuhksz::MultiMap is a container which similar to stl multimap except
+        some simplifications and modifications of interface.
 **/
 
 template <typename KeyType, typename ValueType>
@@ -18,154 +18,143 @@ class MultiMap {
   typedef std::multimap<KeyType, ValueType> stlMultimap;
   typedef ValueType value_type;
 
-    MultiMap();
+  MultiMap();
 
-    /**
-		Construct a MultiMap using a initializer_list.
-        A key can be mapped to more than one value.
-		Usage:
-		```
-		cuhksz::MultiMap<KeyType, ValueType> multim {
-		{key1, value1},
-        {key1, value2},
-        {key2, value3},
-	 	};
-		```
-	**/
-    MultiMap( std::initializer_list<StdValueType> init );
+  /**
+              Construct a MultiMap using a initializer_list.
+      A key can be mapped to more than one value.
+              Usage:
+              ```
+              cuhksz::MultiMap<KeyType, ValueType> multim {
+              {key1, value1},
+      {key1, value2},
+      {key2, value3},
+              };
+              ```
+      **/
+  MultiMap(std::initializer_list<StdValueType> init);
 
-    /**
-        Initialize a MultiMap with a stl multimap.
-        Usage:
-        ```
-        cuhksz::MultiMap<KeyType, ValueType> multim(stlMultimap);
-        ```
-    **/
-    MultiMap( stlMultimap& stlMultimap2 );
+  /**
+      Initialize a MultiMap with a stl multimap.
+      Usage:
+      ```
+      cuhksz::MultiMap<KeyType, ValueType> multim(stlMultimap);
+      ```
+  **/
+  MultiMap(stlMultimap& stlMultimap2);
 
   ~MultiMap();
 
-    /**
-		Assign a MultiMap to another MultiMap.
-	**/
-    MultiMap& operator =(MultiMap& multimap2);
+  /**
+              Assign a MultiMap to another MultiMap.
+      **/
+  MultiMap& operator=(MultiMap& multimap2);
 
-    /**
-		Check if the MultiMap is empty.
-	**/
-    bool isEmpty() const;
+  /**
+              Check if the MultiMap is empty.
+      **/
+  bool isEmpty() const;
 
-    /**
-        Return the size of the MultiMap.
-    **/
-    int size() const;
+  /**
+      Return the size of the MultiMap.
+  **/
+  int size() const;
 
-    /**
-		Empty the MultiMap.
-	**/
-    void clear();
+  /**
+              Empty the MultiMap.
+      **/
+  void clear();
 
-    /**
-        Erase the value with correspond key.
-    **/
-    void erase(const KeyType& key);
+  /**
+      Erase the value with correspond key.
+  **/
+  void erase(const KeyType& key);
 
-    /**
-        Return the number of value with correspond key.
-    **/
-    int count(const KeyType& key) const;
+  /**
+      Return the number of value with correspond key.
+  **/
+  int count(const KeyType& key) const;
 
   typedef typename std::multimap<KeyType, ValueType>::iterator iterator;
   typedef
       typename std::multimap<KeyType, ValueType>::const_iterator const_iterator;
 
-    /**
-		Return a begin iterator.
-	**/
-    iterator begin() {
-        return privateMultimap.begin();
-    }
+  /**
+              Return a begin iterator.
+      **/
+  iterator begin() { return privateMultimap.begin(); }
 
-    /**
-        Return a const iterator.
-    **/
-    const_iterator begin() const {
-        return privateMultimap.begin();
-    }
+  /**
+      Return a const iterator.
+  **/
+  const_iterator begin() const { return privateMultimap.begin(); }
 
-    /**
-        Return a end iterator.
-    **/
-    iterator end() {
-        return privateMultimap.end();
-    }
+  /**
+      Return a end iterator.
+  **/
+  iterator end() { return privateMultimap.end(); }
 
-    /**
-        Return a const iterator.
-    **/
-    const_iterator end() const {
-        return privateMultimap.end();
-    }
+  /**
+      Return a const iterator.
+  **/
+  const_iterator end() const { return privateMultimap.end(); }
 
-    /**
-        Return Set of value with correspond key.
-        If the key does not exist, return a empty Set.
-    **/
-    Set<ValueType> find(const KeyType& key);
+  /**
+      Return Set of value with correspond key.
+      If the key does not exist, return a empty Set.
+  **/
+  Set<ValueType> find(const KeyType& key);
 
-    /**
-		Convert the MultiMap to stl multimap explicitly.
-		Usage:
-		```
-		auto multim = MultiMap.toStlMultimap();
-		```
-	**/
-    stlMultimap toStlMultimap() {
-        return privateMultimap;
-    }
+  /**
+              Convert the MultiMap to stl multimap explicitly.
+              Usage:
+              ```
+              auto multim = MultiMap.toStlMultimap();
+              ```
+      **/
+  stlMultimap toStlMultimap() { return privateMultimap; }
 
-    /**
-		Convert the MultiMap to stl multimap implicitly.
-		Usage:
-		```
-		std::multimap<KeyType, ValueType> multim = MultiMap;
-		```
-	**/
-    operator stlMultimap() { return privateMultimap; }
+  /**
+              Convert the MultiMap to stl multimap implicitly.
+              Usage:
+              ```
+              std::multimap<KeyType, ValueType> multim = MultiMap;
+              ```
+      **/
+  operator stlMultimap() { return privateMultimap; }
 
-    /**
-		Check if MultiMap equals to multimap2.
-	**/
-    bool operator ==(const MultiMap& multimap2);
+  /**
+              Check if MultiMap equals to multimap2.
+      **/
+  bool operator==(const MultiMap& multimap2);
 
-    /**
-        Check if MultiMap does not equal to multimap2.
-    **/
-    bool operator !=(const MultiMap& multimap2);
+  /**
+      Check if MultiMap does not equal to multimap2.
+  **/
+  bool operator!=(const MultiMap& multimap2);
 
-    /**
-        Compare the contents of MultiMap and multimap2 lexicographically.
-    **/
-    bool operator <(const MultiMap& multimap2);
+  /**
+      Compare the contents of MultiMap and multimap2 lexicographically.
+  **/
+  bool operator<(const MultiMap& multimap2);
 
-    /**
-        Compare the contents of MultiMap and multimap2 lexicographically.
-    **/
-    bool operator <=(const MultiMap& multimap2);
+  /**
+      Compare the contents of MultiMap and multimap2 lexicographically.
+  **/
+  bool operator<=(const MultiMap& multimap2);
 
-    /**
-        Compare the contents of MultiMap and multimap2 lexicographically.
-    **/
-    bool operator >(const MultiMap& multimap2);
+  /**
+      Compare the contents of MultiMap and multimap2 lexicographically.
+  **/
+  bool operator>(const MultiMap& multimap2);
 
-    /**
-        Compare the contents of MultiMap and multimap2 lexicographically.
-    **/
-    bool operator >=(const MultiMap& multimap2);
+  /**
+      Compare the contents of MultiMap and multimap2 lexicographically.
+  **/
+  bool operator>=(const MultiMap& multimap2);
 
-private:
-    std::multimap<KeyType, ValueType> privateMultimap;
-    
+ private:
+  std::multimap<KeyType, ValueType> privateMultimap;
 };
 
 template <typename KeyType, typename ValueType>
@@ -174,8 +163,9 @@ MultiMap<KeyType, ValueType>::MultiMap() {
 }
 
 template <typename KeyType, typename ValueType>
-MultiMap<KeyType, ValueType>::MultiMap( std::initializer_list<StdValueType> init) {
-    privateMultimap = init;
+MultiMap<KeyType, ValueType>::MultiMap(
+    std::initializer_list<StdValueType> init) {
+  privateMultimap = init;
 }
 
 template <typename KeyType, typename ValueType>

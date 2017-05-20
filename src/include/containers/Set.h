@@ -7,152 +7,142 @@
 
 namespace cuhksz {
 /**
-	cuhksz::Set is a container which similar to stl set except
-	some simplifications and modifications of interface.
+        cuhksz::Set is a container which similar to stl set except
+        some simplifications and modifications of interface.
 **/
-template<typename ValueType>
+template <typename ValueType>
 class Set {
-public:
-    typedef typename std::set<ValueType> stlSet;
-    typedef ValueType value_type;
+ public:
+  typedef typename std::set<ValueType> stlSet;
+  typedef ValueType value_type;
 
-    Set();
+  Set();
 
-    /**
-        Construct a Set using a initializer_list.
-        Usage:
-        ```
-        cuhksz::Set<ValueType> s {value1, value2};
-        ```
-    **/
-    Set( std::initializer_list<ValueType> init );
+  /**
+      Construct a Set using a initializer_list.
+      Usage:
+      ```
+      cuhksz::Set<ValueType> s {value1, value2};
+      ```
+  **/
+  Set(std::initializer_list<ValueType> init);
 
-    /**
-		Initialize a Set with a stl set.
-		Usage:
-		```
-		cuhksz::Set<ValueType> s(stlSet);
-		```
-	**/
-    Set(stlSet& stlSet2);
-    
-    ~Set();
+  /**
+              Initialize a Set with a stl set.
+              Usage:
+              ```
+              cuhksz::Set<ValueType> s(stlSet);
+              ```
+      **/
+  Set(stlSet& stlSet2);
 
-    /**
-		Assign a Set to another Set.
-	**/
-    Set& operator =(const Set& set2);
+  ~Set();
 
-    /**
-        Check whether the Set is empty.
-    **/
-    bool isEmpty() const;
+  /**
+              Assign a Set to another Set.
+      **/
+  Set& operator=(const Set& set2);
 
-    /**
-		Return the size of the Set.
-	**/
-    int size() const;
+  /**
+      Check whether the Set is empty.
+  **/
+  bool isEmpty() const;
 
-    /**
-		Insert the value into the Set.
-	**/
-    void insert(const ValueType& value);
+  /**
+              Return the size of the Set.
+      **/
+  int size() const;
 
-    /**
-        Erase the value in the Set.
-    **/
-    void erase(const ValueType& value);
+  /**
+              Insert the value into the Set.
+      **/
+  void insert(const ValueType& value);
 
-    /**
-        Empty the Set.
-    **/
-    void clear();
+  /**
+      Erase the value in the Set.
+  **/
+  void erase(const ValueType& value);
 
-    /**
-        Check if the Set contains the value.
-    **/
-    bool contains(ValueType value) const;
-    
-    typedef typename std::set<ValueType>::iterator iterator;
-    typedef typename std::set<ValueType>::const_iterator const_iterator;
+  /**
+      Empty the Set.
+  **/
+  void clear();
 
-    /**
-        Return the begin iterator.
-    **/
-    iterator begin() {
-        return privateSet.begin();
-    }
+  /**
+      Check if the Set contains the value.
+  **/
+  bool contains(ValueType value) const;
 
-    /**
-      Return the const iterator of begin.
-    **/
-    const_iterator begin() const {
-        return privateSet.begin();
-    }
+  typedef typename std::set<ValueType>::iterator iterator;
+  typedef typename std::set<ValueType>::const_iterator const_iterator;
 
-    /**
-        Return the end iterator.
-    **/
-    iterator end() {
-        return privateSet.end();
-    }
+  /**
+      Return the begin iterator.
+  **/
+  iterator begin() { return privateSet.begin(); }
 
-    /**
-      Return the const iterator of end.
-    **/
-    const_iterator end() const {
-        return privateSet.end();
-    }
+  /**
+    Return the const iterator of begin.
+  **/
+  const_iterator begin() const { return privateSet.begin(); }
 
-    /**
-        Convert the Set to stl set explicitly.
-        Usage:
-        ```
-        auto s = Set.toStlSet();
-        ```
-    **/
-    stlSet toStlSet() {
-        return privateSet;
-    }
+  /**
+      Return the end iterator.
+  **/
+  iterator end() { return privateSet.end(); }
 
-    /**
-		Convert the Set to stl set implicitly.
-		Usage:
-		```
-		std::set<ValueType> s = Set;
-		```
-	**/
-    operator stlSet() { return privateSet; }
+  /**
+    Return the const iterator of end.
+  **/
+  const_iterator end() const { return privateSet.end(); }
 
-    /**
-        Check if Set equals to set2.
-    **/
-    bool operator ==(const Set& set2);
+  /**
+      Convert the Set to stl set explicitly.
+      Usage:
+      ```
+      auto s = Set.toStlSet();
+      ```
+  **/
+  stlSet toStlSet() { return privateSet; }
 
-    /**
-        Check if Set does not equal to set2.
-    **/
-    bool operator !=(const Set& set2);
+  /**
+              Convert the Set to stl set implicitly.
+              Usage:
+              ```
+              std::set<ValueType> s = Set;
+              ```
+      **/
+  operator stlSet() { return privateSet; }
 
-    /**
-		Compare the contents of Set and set2 lexicographically.
-	**/
-    bool operator <(const Set& set2);
+  /**
+      Check if Set equals to set2.
+  **/
+  bool operator==(const Set& set2);
 
-    /**
-		Compare the contents of Set and set2 lexicographically.
-	**/
-    bool operator <=(const Set& set2);
+  /**
+      Check if Set does not equal to set2.
+  **/
+  bool operator!=(const Set& set2);
 
-    /**
-		Compare the contents of Set and set2 lexicographically.
-	**/
-    bool operator >(const Set& set2);
+  /**
+              Compare the contents of Set and set2 lexicographically.
+      **/
+  bool operator<(const Set& set2);
 
-    /**
-		Compare the contents of Set and set2 lexicographically.
-	**/
-    bool operator >=(const Set& set2);
+  /**
+              Compare the contents of Set and set2 lexicographically.
+      **/
+  bool operator<=(const Set& set2);
+
+  /**
+              Compare the contents of Set and set2 lexicographically.
+      **/
+  bool operator>(const Set& set2);
+
+  /**
+              Compare the contents of Set and set2 lexicographically.
+      **/
+  bool operator>=(const Set& set2);
 
  private:
   std::set<ValueType> privateSet;

@@ -86,15 +86,3 @@ You can also download our prebuilt library in the Release section on Github. The
 If you are using IDEs other than Visual Studio, you can find the project file in `ide-project-files` directory. Currently we support CLion and Qt Creator. You need to copy the `ide-project-files/src` to your project directory.
 
 For example, you are using Qt Creator with MinGW32 on Windows. You copy the contents of `ide-project-files/qt` directory to anywhere you like, say `my-project`. Then you also need to copy `ide-project-files/src` to `myproject` directory, so that `my-project` now has a `.pro` file and a `src` directory. Now you can download the prebuilt library: `windows-x86-mingw.zip` and unzip the contents to `my-project`.
-
-## FAQ
-1. Which prebuilt library should I choose?
-> The release files are named as `os-(platform)-compiler`. So you need first to choose according to your operating system. Then if you are using windows, choose the platform(x86 for 32 bit and x64 for 64 bit) according to the **compiler** you use (not the system). (By the way, for macOS and Linux, all are for 64 bit) Finally of course, choose the compiler according to your compiler. A simple list:
-
-| Environment                 | Package to use        |
-|-----------------------------|-----------------------|
-| Linux (default)             | linux-gcc             |
-| macOS (default)             | macos-clang           |
-| Visual Studio 2015 on win32 | windows-x86-msvc-2015 |
-| Visual Studio 2015 on win64 | windows-x64-msvc-2015 |
-| Qt Creator with MinGW32     | windows-x86-mingw     |
