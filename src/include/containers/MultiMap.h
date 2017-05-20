@@ -172,11 +172,6 @@ MultiMap<KeyType, ValueType>::MultiMap() {
 }
 
 template <typename KeyType, typename ValueType>
-MultiMap<KeyType, ValueType>::MultiMap(const MultiMap& other) {
-    privateMultimap = other.privateMultimap;
-}
-
-template <typename KeyType, typename ValueType>
 MultiMap<KeyType, ValueType>::MultiMap( std::initializer_list<StdValueType> init) {
     privateMultimap = init;
 }
