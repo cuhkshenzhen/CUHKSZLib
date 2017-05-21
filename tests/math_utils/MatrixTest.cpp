@@ -25,6 +25,9 @@ TEST(Matrix, initialize) {
 
     B = A;
     EXPECT_TRUE(A == B);
+
+    cuhksz::Matrix<int> C(A);
+    EXPECT_TRUE(C == A);
 }
 
 TEST(Matrix, addition) {
@@ -107,7 +110,7 @@ TEST(Matrix, subtraction) {
     EXPECT_TRUE(C == D);
 }
 
-TEST(Matrix, multiple) {
+TEST(Matrix, multiplication) {
     std::vector<std::vector<int> > a, b, c;
     a.clear(), b.clear(), c.clear();
 
