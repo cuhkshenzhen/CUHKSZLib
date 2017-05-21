@@ -3,7 +3,7 @@
 namespace cuhksz {
 
 Node::Node(int id, int val) : id(id), val(val) {
-    fa = NULL;
+    fa = nullptr;
     son.clear();
 }
 
@@ -20,7 +20,7 @@ Node* Node::getAncestor(int level) {
 
 void Tree::setRoot(Node* newRoot) {
     root = newRoot;
-    root->setFa(NULL);
+    root->setFa(nullptr);
     root->setHeight(0);
 }
 
