@@ -33,6 +33,8 @@ private:
     double r;
 };
 
+#undef PI
+
 }  // namespace cuhksz
 
 #endif  // CUHKSZ_GEOMETRY_CIRCLE
