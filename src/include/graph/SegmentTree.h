@@ -41,7 +41,7 @@ class SegmentTree {
 template <typename ValueType>
 SegmentTree<ValueType>::SegmentTree(std::vector<ValueType>& v) {
   size = v.size();
-  for (int i = 0; i < size * 3; i++) {
+  for (int i = 0; i < size * 4; i++) {
     minVal.push_back(v[0]);
     maxVal.push_back(v[0]);
     sumVal.push_back(v[0]);
