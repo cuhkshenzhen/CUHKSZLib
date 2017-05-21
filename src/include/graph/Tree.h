@@ -6,49 +6,47 @@
 namespace cuhksz {
 
 class Node {
-public:
-    explicit Node(int id) : Node(id, 0) {}
-    Node(int id, int val);
+ public:
+  explicit Node(int id) : Node(id, 0) {}
+  Node(int id, int val);
 
-    ~Node();
+  ~Node();
 
-    int getVal() { return val; }
-    Node* getFa() { return fa; }
-    std::vector<Node*> getSon() { return son; }
-    void setFa(Node* newFa) { fa = newFa; }
-    void addSon(Node* newSon) { son.push_back(newSon); }
-    int getHeight() { return height; }
-    void setHeight(int h) { height = h; }
-    Node* getAncestor(int level);
-    int getDegree() { return son.size(); }
-    int getID() { return id; }
+  int getVal() { return val; }
+  Node* getFa() { return fa; }
+  std::vector<Node*> getSon() { return son; }
+  void setFa(Node* newFa) { fa = newFa; }
+  void addSon(Node* newSon) { son.push_back(newSon); }
+  int getHeight() { return height; }
+  void setHeight(int h) { height = h; }
+  Node* getAncestor(int level);
+  int getDegree() { return son.size(); }
+  int getID() { return id; }
 
-    std::vector<Node*> ancestor;    // power 2 ancestor
+  std::vector<Node*> ancestor;  // power 2 ancestor
 
-private:
-    Node* fa;
-    std::vector<Node*> son;
-    int id;
-    int val;
-    int height;
+ private:
+  Node* fa;
+  std::vector<Node*> son;
+  int id;
+  int val;
+  int height;
 };
 
 class Tree {
-public:
-    void setRoot(Node* newRoot);
-    Node* getRoot() { return root; }
-    void addNode(Node* node, Node* fa);
+ public:
+  void setRoot(Node* newRoot);
+  Node* getRoot() { return root; }
+  void addNode(Node* node, Node* fa);
 
-    Node* LCA(Node* x, Node* y);
-    int getDistance(Node* x, Node* y);
+  Node* LCA(Node* x, Node* y);
+  int getDistance(Node* x, Node* y);
 
-private:
-    Node* root;
-    std::vector<Node*> nodes;
+ private:
+  Node* root;
+  std::vector<Node*> nodes;
 };
 
+}  // namespace cuhksz
 
-
-}
-
-#endif // CUHKSZ_GRAPH_TREE
+#endif  // CUHKSZ_GRAPH_TREE

@@ -1,4 +1,5 @@
 #include <string>
+#include <vector>
 
 #include "json/Json.h"
 #include "string_utils/StringCast.h"
