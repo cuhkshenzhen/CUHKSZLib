@@ -1,4 +1,4 @@
-#ifndef CHUKSZ_GRAPH_SEGMENT_TREE
+#ifndef CUHKSZ_GRAPH_SEGMENT_TREE
 #define CUHKSZ_GRAPH_SEGMENT_TREE
 
 #include <vector>
@@ -10,16 +10,20 @@ template <typename ValueType>
 class SegmentTree {
 public:
     SegmentTree(std::vector<ValueType>& v);
-    ~SegmentTree();
 
     void init(std::vector<ValueType>& v, int l, int r, int o);
-    ValueType queryMax(int lv, int rv, int l = 0, int r = size - 1, int o = 1);
-    ValueType queryMin(int lv, int rv, int l = 0, int r = size - 1, int o = 1);
-    ValueType querySum(int lv, int rv, int l = 0, int r = size - 1, int o = 1);
-    void addInterval(int lv, int rv, ValueType x, int l = 0, int r = size - 1, int o = 1);
-    void mulInterval(int lv, int rv, ValueType x, int l = 0, int r = size - 1, int o = 1);
+    ValueType queryMax(int lv, int rv);
+    ValueType queryMax(int lv, int rv, int l, int r, int o);
+    ValueType queryMin(int lv, int rv);
+    ValueType queryMin(int lv, int rv, int l, int r, int o);
+    ValueType querySum(int lv, int rv);
+    ValueType querySum(int lv, int rv, int l, int r, int o);
+    void addInterval(int lv, int rv, ValueType x);
+    void addInterval(int lv, int rv, ValueType x, int l, int r, int o);
+    void mulInterval(int lv, int rv, ValueType x);
+    void mulInterval(int lv, int rv, ValueType x, int l, int r, int o);
 
-private:
+// private:
     std::vector<ValueType> minVal;
     std::vector<ValueType> maxVal;
     std::vector<ValueType> sumVal;
@@ -29,7 +33,7 @@ private:
     std::vector<bool> hasMulFlag;
     int size;
 
-    void update(int o);
+    void update(int o, int l, int r);
 };
 
 template <typename ValueType>
@@ -39,6 +43,8 @@ SegmentTree<ValueType>::SegmentTree(std::vector<ValueType>& v) {
         minVal.push_back(v[0]);
         maxVal.push_back(v[0]);
         sumVal.push_back(v[0]);
+        hasAddFlag.push_back(false);
+        hasMulFlag.push_back(false);
     }
     init(v, 0, size - 1, 1);
 }
@@ -109,6 +115,13 @@ void SegmentTree<ValueType>::update(int o, int l, int r) {
 
 }
 
+
+template <typename ValueType>
+ValueType SegmentTree<ValueType>::queryMax(int lv, int rv) {
+    return queryMax(lv, rv, 0, size - 1, 1);
+}
+
+
 template <typename ValueType>
 ValueType SegmentTree<ValueType>::queryMax(int lv, int rv, int l, int r, int o) {
     update(o, l, r);
@@ -122,6 +135,11 @@ ValueType SegmentTree<ValueType>::queryMax(int lv, int rv, int l, int r, int o) 
 }
 
 template <typename ValueType>
+ValueType SegmentTree<ValueType>::queryMin(int lv, int rv) {
+    return queryMin(lv, rv, 0, size - 1, 1);
+}
+
+template <typename ValueType>
 ValueType SegmentTree<ValueType>::queryMin(int lv, int rv, int l, int r, int o) {
     update(o, l, r);
     if (lv <= l && rv >= r)
@@ -130,7 +148,12 @@ ValueType SegmentTree<ValueType>::queryMin(int lv, int rv, int l, int r, int o) 
     int ls = o << 1, rs = (o << 1) | 1;
     if (rv <= mid) return queryMin(lv, rv, l, mid, ls);
     if (lv > mid) return queryMin(lv, rv, mid + 1, r, rs);
-    return std::max(queryMin(lv, rv, l, mid, ls), queryMin(lv, rv, mid + 1, r, rs));
+    return std::min(queryMin(lv, rv, l, mid, ls), queryMin(lv, rv, mid + 1, r, rs));
+}
+
+template <typename ValueType>
+ValueType SegmentTree<ValueType>::querySum(int lv, int rv) {
+    return querySum(lv, rv, 0, size - 1, 1);
 }
 
 template <typename ValueType>
@@ -142,7 +165,12 @@ ValueType SegmentTree<ValueType>::querySum(int lv, int rv, int l, int r, int o) 
     int ls = o << 1, rs = (o << 1) | 1;
     if (rv <= mid) return querySum(lv, rv, l, mid, ls);
     if (lv > mid) return querySum(lv, rv, mid + 1, r, rs);
-    return std::max(querySum(lv, rv, l, mid, ls), querySum(lv, rv, mid + 1, r, rs));
+    return querySum(lv, rv, l, mid, ls) + querySum(lv, rv, mid + 1, r, rs);
+}
+
+template <typename ValueType>
+void SegmentTree<ValueType>::addInterval(int lv, int rv, ValueType x) {
+    addInterval(lv, rv, x, 0, size - 1, 1);
 }
 
 template <typename ValueType>
@@ -158,6 +186,13 @@ void SegmentTree<ValueType>::addInterval(int lv, int rv, ValueType x, int l, int
     if (lv <= mid) addInterval(lv, rv, x, l, mid, ls);
     if (rv > mid) addInterval(lv, rv, x, mid + 1, r, rs);
 }
+
+
+template <typename ValueType>
+void SegmentTree<ValueType>::mulInterval(int lv, int rv, ValueType x) {
+    mulInterval(lv, rv, x, 0, size - 1, 1);
+}
+
 
 template <typename ValueType>
 void SegmentTree<ValueType>::mulInterval(int lv, int rv, ValueType x, int l, int r, int o) {

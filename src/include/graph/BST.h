@@ -14,11 +14,10 @@ public:
     void setVal(int newVal) { val = newVal; }
 
     friend class BST;
+
+private:
     BSTNode* ch[2];
     BSTNode* fa;
-private:
-
-
     int rank;
     int val;
 };
@@ -32,12 +31,12 @@ public:
     BSTNode* pre(BSTNode* x);
     BSTNode* suf(BSTNode* x);
 
+
+private:
+    // c = 0 for left_rotate
     BSTNode* root;
     void rotate(BSTNode* x, int c);
     void splay(BSTNode* x);
-private:
-    // c = 0 for left_rotate
-
 
 
 };
