@@ -44,9 +44,13 @@ public:
     }
 
 	// elem can be change directly
-	double& operator[](int const &index) const {
+	double& operator[](int const index) {
 		return elem[index];
 	}
+
+    double operator[](int const index) const {
+        return elem[index];
+    }
 
 	// TODO: what about init a null Point then assign to elem[i] + other.elem[i]
 	Point operator+(Point const &other) const {
@@ -158,6 +162,13 @@ public:
 			os << ", " << self.elem[i];
 		return os << ")";
 	}
+
+    friend double dot(const Point& v, const Point& w) {
+        double ret = 0.0;
+        for (int i = 0; i < N; i ++)
+            ret += v[i] * w[i];
+        return ret;
+    }
 
     // TODO: cross product
 	friend double cross(const Point& v, const Point& w) {
