@@ -1,7 +1,3 @@
-**Under Development**
-
-**Pull requests other from the maintainers will be closed**
-
 # CUHKSZ C++ Library
 
 [![Build Status](https://travis-ci.org/cuhkshenzhen/CUHKSZLib.svg?branch=master)](https://travis-ci.org/cuhkshenzhen/CUHKSZLib)
@@ -86,3 +82,5 @@ You can also download our prebuilt library in the Release section on Github. The
 If you are using IDEs other than Visual Studio, you can find the project file in `ide-project-files` directory. Currently we support CLion and Qt Creator. You need to copy the `ide-project-files/src` to your project directory.
 
 For example, you are using Qt Creator with MinGW32 on Windows. You copy the contents of `ide-project-files/qt` directory to anywhere you like, say `my-project`. Then you also need to copy `ide-project-files/src` to `myproject` directory, so that `my-project` now has a `.pro` file and a `src` directory. Now you can download the prebuilt library: `windows-x86-mingw.zip` and unzip the contents to `my-project`.
+
+### [FAQ](https://github.com/cuhkshenzhen/CUHKSZLib/wiki/FAQ)
