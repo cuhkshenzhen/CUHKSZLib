@@ -1,4 +1,5 @@
 #include <string>
+#include <vector>
 
 #include "json/Json.h"
 #include "string_utils/StringCast.h"
@@ -114,7 +115,6 @@ TEST(Json, arrayTest) {
 
   array = cuhksz::loadJSON("[]");
   EXPECT_EQ(array.length(), 0);
-
 }
 
 TEST(Json, mapTest) {
@@ -197,8 +197,7 @@ TEST(JsonDeathTest, loadJSONFailure) {
               " Parse: Unknown starting character ");
 
   json = R"({"array" : [true, "Two["3, 4.000000]})";
-  EXPECT_EXIT(cuhksz::loadJSON(json), ::testing::ExitedWithCode(1),
-              "Expected");
+  EXPECT_EXIT(cuhksz::loadJSON(json), ::testing::ExitedWithCode(1), "Expected");
 
   json = R"({"array", [true, "Two["3, 4.000000]})";
   EXPECT_EXIT(cuhksz::loadJSON(json), ::testing::ExitedWithCode(1),
@@ -231,30 +230,29 @@ TEST(JsonDeathTest, loadJSONFailure) {
 
 TEST(Json, loadJSONString) {
   std::string json = R"({"array": "\\ \t \r \n \f \\\ \/ \b \u0A18 \l" })";
-  std::string expected = "{\n  \"array\" : \"\\\\ \\t \\r \\n \\f \\\\\\\\/ \\b \\\\u0A18 \\\\\"\n}";
+  std::string expected =
+      "{\n  \"array\" : \"\\\\ \\t \\r \\n \\f \\\\\\\\/ \\b \\\\u0A18 "
+      "\\\\\"\n}";
   EXPECT_EQ(cuhksz::loadJSON(json).dump(), expected);
 
   json = R"(null)";
   expected = "null";
   EXPECT_EQ(cuhksz::loadJSON(json).dump(), expected);
 
-
   EXPECT_EQ(cuhksz::loadJSON("{}").dump(), "{\n\n}");
   EXPECT_EQ(cuhksz::loadJSON("[]").dump(), "[]");
 }
 
-
 TEST(Json, loadJSONNumber) {
-  std::vector<std::string> jsonVector = {
-      "1.00",
-      "100",
-      "1.234"
-  };
+  std::vector<std::string> jsonVector = {"1.00", "100", "1.234"};
 
-  for (std::string json: jsonVector) {
-    EXPECT_NEAR(cuhksz::stringCast<double>(cuhksz::loadJSON(json).dump())(), cuhksz::stringCast<double>(json), 0.0001);
+  for (std::string json : jsonVector) {
+    EXPECT_NEAR(cuhksz::stringCast<double>(cuhksz::loadJSON(json).dump())(),
+                cuhksz::stringCast<double>(json), 0.0001);
   }
 
-  EXPECT_NEAR(cuhksz::stringCast<double>(cuhksz::loadJSON("1.20E+2").dump())(), 120, 0.0001);
-  EXPECT_NEAR(cuhksz::stringCast<double>(cuhksz::loadJSON("1.20E-2").dump())(), 0.012, 0.0001);
+  EXPECT_NEAR(cuhksz::stringCast<double>(cuhksz::loadJSON("1.20E+2").dump())(),
+              120, 0.0001);
+  EXPECT_NEAR(cuhksz::stringCast<double>(cuhksz::loadJSON("1.20E-2").dump())(),
+              0.012, 0.0001);
 }

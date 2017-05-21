@@ -15,6 +15,6 @@ std::string urlEncode(const std::string &string);
  * @param string string to decode
  * @return string
  */
-std::string urlDecode(const std::string str);
+std::string urlDecode(const std::string string);
 }  // namespace cuhksz
 #endif  // CUHKSZ_NETWORK_NETWORKFUNCTIONS
