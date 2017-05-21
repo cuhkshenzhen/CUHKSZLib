@@ -4,11 +4,13 @@ namespace cuhksz {
 
 void BST::rotate(BSTNode* x, int c) {
     BSTNode* y = x->fa;
-    y->ch[!c] = y->ch[c];
-    if (x->ch[0] != nullptr) x->ch[0]->fa = y;
+    y->ch[!c] = x->ch[c];
+    if (x->ch[c] != nullptr) x->ch[c]->fa = y;
     x->fa = y->fa;
-    if (y->fa->ch[0] == y) y->fa->ch[0] = x;
-    else y->fa->ch[1] = x;
+    if (y->fa != nullptr) {
+        if (y->fa->ch[0] == y) y->fa->ch[0] = x;
+        else y->fa->ch[1] = x;
+    }
     y->fa = x, x->ch[c] = y;
     if (y == root) root = x;
 }
