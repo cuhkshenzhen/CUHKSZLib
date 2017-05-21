@@ -4,6 +4,10 @@
 #include <vector>
 namespace cuhksz {
 
+/**
+ * Base class for Zip function. Refer to CUHKSZ::zip function for usage.
+ * @tparam T container type
+ */
 template <typename T>
 class Zip {
  public:
