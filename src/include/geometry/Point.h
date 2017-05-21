@@ -2,6 +2,7 @@
 #define CUHKSZ_GEOMETRY_POINT
 
 #include <algorithm>
+#include <cstring>
 #include <cmath>
 #include <iostream>
 
@@ -11,140 +12,193 @@ namespace cuhksz {
 
 template <int N = 2>
 class Point {
- public:
-  Point() { memset(element, 0, N * sizeof(double)); }
+public:
+	Point() {
+		std::memset(elem, 0, N * sizeof(double));
+	}
 
-  explicit Point(double const x) {
-    element[0] = x;
-    static_assert(N == 1, "X constructor only usable in 1D");
-  }
+	explicit Point(double const x) {
+		elem[0] = x;
+		static_assert(N == 1, "X constructor only usable in 1D");
+	}
 
-  Point(double const x, double const y) {
-    element[0] = x, element[1] = y;
-    static_assert(N == 2, "XY constructor only usable in 2D");
-  }
+	Point(double const x, double const y) {
+		elem[0] = x, elem[1] = y;
+		static_assert(N == 2, "XY constructor only usable in 2D");
+	}
 
-  Point(double const x, double const y, double const z) {
-    element[0] = x, element[1] = y, element[2] = z;
-    static_assert(N == 3, "XYZ constructor only usable in 3D");
-  }
+	Point(double const x, double const y, double const z) {
+		elem[0] = x, elem[1] = y, elem[2] = z;
+		static_assert(N == 3, "XYZ constructor only usable in 3D");
+	}
 
-  ~Point() {}
+    Point(const Point& src) {
+        std::memcpy(elem, src.elem, N * sizeof(double));
+    }
 
-  // element can be change directly
-  double &operator[](int const &index) const { return element[index]; }
+	~Point() { }
 
-  // TODO: what about init a null Point then assign to element[i] +
-  // other.element[i]
-  Point &operator+(Point const &other) const {
-    Point ret(this);
-    for (int i = 0; i < N; i++) ret.element[i] += other.element[i];
-    return ret;
-  }
+    Point& operator=(const Point& src) {
+        std::memcpy(elem, src.elem, N * sizeof(double));
+        return *this;
+    }
 
-  Point &operator-(Point const &other) const {
-    Point ret(this);
-    for (int i = 0; i < N; i++) ret.element[i] -= other.element[i];
-    return ret;
-  }
+	// elem can be change directly
+	double& operator[](int const index) {
+		return elem[index];
+	}
 
-  Point &operator+=(Point const &other) {
-    for (int i = 0; i < N; i++) element[i] += other.element[i];
-    return *this;
-  }
+    double operator[](int const index) const {
+        return elem[index];
+    }
 
-  Point &operator-=(Point const &other) {
-    for (int i = 0; i < N; i++) element[i] -= other.element[i];
-    return *this;
-  }
+	// TODO: what about init a null Point then assign to elem[i] + other.elem[i]
+	Point operator+(Point const &other) const {
+		Point& ret = *(new Point);
+		for (int i = 0; i < N; i ++)
+			ret.elem[i] = elem[i] + other.elem[i];
+		return ret;
+	}
 
-  // dot product
-  double operator*(Point const &other) const {
-    double ret = 0.0;
-    for (int i = 0; i < N; i++) ret += element[i] * other.element[i];
-    return ret;
-  }
+	Point operator-(Point const &other) const {
+		Point& ret = *(new Point);
+		for (int i = 0; i < N; i ++)
+			ret.elem[i] = elem[i] - other.elem[i];
+		return ret;
+	}
 
-  Point &operator*(double const &constant) const {
-    Point ret(this);
-    for (int i = 0; i < N; i++) ret.element[i] *= constant;
-    return ret;
-  }
+	Point& operator+=(Point const &other) {
+		for (int i = 0; i < N; i ++)
+			elem[i] += other.elem[i];
+        return *this;
+	}
 
-  friend Point operator*(double const &constant, Point const &self) {
-    return self * constant;
-  }
+	Point& operator-=(Point const &other) {
+		for (int i = 0; i < N; i ++)
+			elem[i] -= other.elem[i];
+        return *this;
+	}
 
-  Point &operator*=(double const &constant) {
-    for (int i = 0; i < N; i++) element[i] *= constant;
-    return *this;
-  }
+	// dot product
+	double operator*(Point const &other) const {
+		double ret = 0.0;
+		for (int i = 0; i < N; i ++)
+			ret += elem[i] * other.elem[i];
+		return ret;
+	}
 
-  Point &operator/(double const &constant) const {
-    Point ret(this);
-    for (int i = 0; i < N; i++) ret.element[i] /= constant;
-    return ret;
-  }
+	Point operator*(double const &constant) const {
+		Point& ret = *(new Point);
+		for (int i = 0; i < N; i ++)
+			ret.elem[i] = elem[i] * constant;
+		return ret;
+	}
 
-  Point &operator/=(double const &constant) {
-    for (int i = 0; i < N; i++) element[i] /= constant;
-    return *this;
-  }
+    friend Point operator*(double const &constant, Point const &self) {
+        return self * constant;
+    }
 
-  bool operator==(Point const &other) const {
-    for (int i = 0; i < N; i++)
-      if (fabs(element[i] - other.element[i]) < EPS) return false;
-    return true;
-  }
+	Point& operator*=(double const &constant) {
+		for (int i = 0; i < N; i ++)
+			elem[i] *= constant;
+        return *this;
+	}
 
-  bool operator!=(Point const &other) const { return !(*this == other); }
+	Point operator/(double const &constant) const {
+		Point& ret = *(new Point);
+		for (int i = 0; i < N; i ++)
+			ret.elem[i] = elem[i] / constant;
+		return ret;
+	}
 
-  bool operator<(Point const &other) const {
-    for (int i = 0; i < N; i++)
-      if (element[i] != other.element[i]) return element[i] < other.element[i];
-    return false;
-  }
+	Point& operator/=(double const &constant) {
+		for (int i = 0; i < N; i ++)
+			elem[i] /= constant;
+        return *this;
+	}
 
-  bool operator<=(Point const &other) const {
-    for (int i = 0; i < N; i++)
-      if (element[i] != other.element[i]) return element[i] < other.element[i];
-    return true;
-  }
+	bool operator==(Point const &other) const {
+		for (int i = 0; i < N; i ++)
+			if (std::fabs(elem[i] - other.elem[i]) > EPS)
+				return false;
+		return true;
+	}
 
-  bool operator>(Point const &other) const {
-    for (int i = 0; i < N; i++)
-      if (element[i] != other.element[i]) return element[i] > other.element[i];
-    return false;
-  }
+	bool operator!=(Point const &other) const {
+		return !(*this == other);
+	}
 
-  bool operator>=(Point const &other) const {
-    for (int i = 0; i < N; i++)
-      if (element[i] != other.element[i]) return element[i] > other.element[i];
-    return true;
-  }
+	bool operator<(Point const &other) const {
+		for (int i = 0; i < N; i ++)
+			if (elem[i] != other.elem[i])
+				return elem[i] < other.elem[i];
+		return false;
+	}
 
-  // cross product
-  double operator^(Point const other) const {
-    static_assert(N == 2, "cross product only apply to 2D");
-    return element[0] * other.element[1] - element[1] * other.element[0];
-  }
+	bool operator<=(Point const &other) const {
+		for (int i = 0; i < N; i ++)
+			if (elem[i] != other.elem[i])
+				return elem[i] < other.elem[i];
+		return true;
+	}
 
-  friend std::ostream &operator<<(std::ostream &os, Point const self) {
-    os << "(" << self.element[0];
-    for (int i = 1; i < N; i++) os << ", " << self.element[i];
-    return os << ")";
-  }
+	bool operator>(Point const &other) const {
+		for (int i = 0; i < N; i ++)
+			if (elem[i] != other.elem[i])
+				return elem[i] > other.elem[i];
+		return false;
+	}
 
-  double len() {
-    double ret = 0.0;
-    for (int i = 0; i < N; i++) ret += element[i] * element[i];
-    return sqrt(ret);
-  }
+	bool operator>=(Point const &other) const {
+		for (int i = 0; i < N; i ++)
+			if (elem[i] != other.elem[i])
+				return elem[i] > other.elem[i];
+		return true;
+	}
 
- private:
-  double element[N];  // coordinates
+	friend std::ostream& operator<<(std::ostream& os, Point const self) {
+		os << "(" << self.elem[0];
+		for (int i = 1; i < N; i ++)
+			os << ", " << self.elem[i];
+		return os << ")";
+	}
+
+    friend double dot(const Point& v, const Point& w) {
+        double ret = 0.0;
+        for (int i = 0; i < N; i ++)
+            ret += v[i] * w[i];
+        return ret;
+    }
+
+    // TODO: cross product
+	friend double cross(const Point& v, const Point& w) {
+		static_assert(N == 2, "cross product only apply to 2D");
+		return v.elem[0] * w.elem[1] - v.elem[1] * w.elem[0];
+	}
+
+	double len() {
+		double ret = 0.0;
+		for (int i = 0; i < N; i ++)
+			ret += elem[i] * elem[i];
+		return sqrt(ret);
+	}
+
+    void normalize() {
+        double l = len();
+        for (int i = 0; i < N; i ++)
+            elem[i] /= l;
+    }
+
+private:
+	double elem[N];	// coordinates
 };
 
-}  // namespace cuhksz
+// #define GVector Point
+template <int N>
+using GVector = Point<N>;
+
+#undef EPS
+
+}	// namespace cuhksz
 
 #endif  // CUHKSZ_GEOMETRY_POINT

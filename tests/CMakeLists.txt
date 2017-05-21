@@ -9,8 +9,10 @@ aux_source_directory(./containers CONTAINERS_TESTS)
 aux_source_directory(./base64 BASE64_TESTS)
 aux_source_directory(./string_utils STRING_UTILS_TESTS)
 aux_source_directory(./algorithm ALGORITHM_TESTS)
+aux_source_directory(./graph GRAPH_TESTS)
+aux_source_directory(./geometry GEOMETRY_TESTS)
 
-add_executable(test_all ${TESTS} ${RANDOM_TESTS} ${MATHUTILS_TESTS} ${NETWORK_TESTS} ${JSON_TESTS} ${BASE64_TESTS} ${ALGORITHM_TESTS} ${STRING_UTILS_TESTS} ${CONTAINERS_TESTS})
+add_executable(test_all ${TESTS} ${RANDOM_TESTS} ${MATHUTILS_TESTS} ${NETWORK_TESTS} ${JSON_TESTS} ${BASE64_TESTS} ${ALGORITHM_TESTS} ${STRING_UTILS_TESTS} ${CONTAINERS_TESTS} ${GRAPH_TESTS} ${GEOMETRY_TESTS})
 
 target_link_libraries(test_all gtest gtest_main cuhkszlib)
 
