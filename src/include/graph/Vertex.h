@@ -10,7 +10,7 @@ class Edge;
 class Vertex {
 public:
     Vertex();
-    Vertex(int val);
+    explicit Vertex(int val);
     Vertex(const Vertex& src);
     ~Vertex();
 

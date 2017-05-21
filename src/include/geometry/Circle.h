@@ -11,8 +11,8 @@ namespace cuhksz {
 class Circle {
 public:
     Circle() : O(Point<2>(0, 0)), r(1.0) { }
-    Circle(double r) : O(Point<2>(0, 0)), r(r) { }
-    Circle(Point<2> O) : O(O), r(1.0) { }
+    explicit Circle(double r) : O(Point<2>(0, 0)), r(r) { }
+    explicit Circle(Point<2> O) : O(O), r(1.0) { }
     Circle(Point<2> O, double r) : O(O), r(r) { }
     ~Circle() { }
 

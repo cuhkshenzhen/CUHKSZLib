@@ -7,7 +7,7 @@ namespace cuhksz {
 
 class Node {
 public:
-    Node(int id) : Node(id, 0) {}
+    explicit Node(int id) : Node(id, 0) {}
     Node(int id, int val);
 
     ~Node();

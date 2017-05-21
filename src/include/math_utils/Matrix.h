@@ -14,7 +14,7 @@ namespace cuhksz {
 
 class Matrix {
 public:
-    Matrix(int n) : row(n), col(n) {
+    explicit Matrix(int n) : row(n), col(n) {
         elem = new double*[row];
         for (int i = 0; i < row; i ++) {
             elem[i] = new double[col];
