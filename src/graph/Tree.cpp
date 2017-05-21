@@ -11,7 +11,7 @@ Node::~Node() { }
 
 Node* Node::getAncestor(int level) {
     Node* cur = this;
-    for (int i = 0; level <= (1 << i); i ++)
+    for (int i = 0; level >= (1 << i); i ++)
         if (level & (1 << i))
             cur = cur->ancestor[i];
 
@@ -38,8 +38,9 @@ void Tree::addNode(Node* node, Node* fa) {
 
 Node* Tree::LCA(Node* x, Node* y) {
     int hx = x->getHeight(), hy = y->getHeight();
-    if (hx < hy) x = x->getAncestor(hy - hx);
-    else y = y->getAncestor(hx - hy);
+    if (hx < hy) y = y->getAncestor(hy - hx);
+    else x = x->getAncestor(hx - hy);
+    if (x == y) return x;
     for (int i = x->ancestor.size() - 1; i >= 0; i --) {
         if (x->ancestor[i] != y->ancestor[i]) {
             x = x->ancestor[i], y = y->ancestor[i];

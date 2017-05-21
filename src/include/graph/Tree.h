@@ -36,6 +36,7 @@ private:
 class Tree {
 public:
     void setRoot(Node* newRoot);
+    Node* getRoot() { return root; }
     void addNode(Node* node, Node* fa);
 
     Node* LCA(Node* x, Node* y);
