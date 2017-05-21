@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstring>
 
 namespace cuhksz {
 
@@ -12,7 +13,7 @@ template<int MAX_SIZE>
 class BigNum {
 public:
     BigNum() {
-        memset(elem, 0, MAX_SIZE * sizeof(int));
+        std::memset(elem, 0, MAX_SIZE * sizeof(int));
         sign = 1;
         len = 0;
     }
@@ -20,7 +21,7 @@ public:
     BigNum(const long long x) {
         len = 0;
         sign = x < 0 ? -1 : 1;
-        memset(elem, 0, MAX_SIZE * sizeof(int));
+        std::memset(elem, 0, MAX_SIZE * sizeof(int));
         for (long long i = std::abs(x); i; i /= BigNum::base)
             elem[len ++] = i % BigNum::base;
     }
@@ -28,31 +29,35 @@ public:
     BigNum(const std::string & s) {
         sign = s[0] == '-' ? -1 : 1;
         len = 0;
-        memset(elem, 0, MAX_SIZE * sizeof(int));
+        std::memset(elem, 0, MAX_SIZE * sizeof(int));
         for (int i = s.size() - 1; i >= BigNum::order - 1 + (s[0] == '-'); i -= BigNum::order)
-            elem[len ++] = s.substr(i - BigNum::order + 1, BigNum::order);
+            elem[len ++] = std::stoi(s.substr(i - BigNum::order + 1, BigNum::order));
         if ((s.size() - (s[0] == '-')) % BigNum::order)
-            elem[len ++] = s.substr((s[0] == '-'), (s.size() - (s[0] == '-')) % BigNum::order);
+            elem[len ++] = std::stoi(s.substr((s[0] == '-'), (s.size() - (s[0] == '-')) % BigNum::order));
     }
 
     BigNum(const BigNum &src) {
         sign = src.sign;
         len = src.len;
-        memcpy(elem, src.elem, len * sizeof(int));
+        std::memcpy(elem, src.elem, len * sizeof(int));
     }
 
     ~BigNum() { }
 
     // allocation
-    BigNum& operator= (const BigNum& src) const {
+    BigNum& operator= (const BigNum& src) {
         sign = src.sign;
         len = src.len;
-        memcpy(elem, src.elem, len * sizeof(int));
+        std::memcpy(elem, src.elem, len * sizeof(int));
         return *this;
     }
 
     // index
-    int& operator[] (const int index) const {
+    int& operator[] (const int index) {
+        return elem[index];
+    }
+
+    int operator[] (const int index) const {
         return elem[index];
     }
 
@@ -88,7 +93,7 @@ public:
     }
 
     // addition
-    BigNum& operator+ (const BigNum& other) const {
+    BigNum operator+ (const BigNum& other) const {
         BigNum ret;
         if (sign == other.sign) {
             ret = add(*this, other);
@@ -101,7 +106,7 @@ public:
         return ret;
     }
 
-    BigNum& operator+ (const long long smallNum) const {
+    BigNum operator+ (const long long smallNum) const {
         BigNum ret, other = BigNum(smallNum);
         if (sign == other.sign) {
             ret = add(*this, other);
@@ -140,7 +145,7 @@ public:
     }
 
     // subtraction
-    BigNum& operator- (const BigNum& other) const {
+    BigNum operator- (const BigNum& other) const {
         BigNum ret;
         if (sign == other.sign) {
             if (sign < 0)
@@ -154,7 +159,7 @@ public:
         return ret;
     }
 
-    BigNum& operator- (const long long smallNum) const {
+    BigNum operator- (const long long smallNum) const {
         BigNum ret, other = BigNum(smallNum);
         if (sign == other.sign) {
             if (sign < 0)
@@ -196,12 +201,12 @@ public:
     }
 
     // multiplication
-    BigNum& operator* (const BigNum& other) const {
+    BigNum operator* (const BigNum& other) const {
         BigNum ret = mul(*this, other);
         return ret;
     }
 
-    BigNum& operator* (const long long smallNum) const {
+    BigNum operator* (const long long smallNum) const {
         BigNum ret, other = BigNum(smallNum);
         ret = mul(*this, other);
         return ret;
@@ -219,7 +224,7 @@ public:
     }
 
     // other
-    BigNum& operator- () const {
+    BigNum operator- () const {
         BigNum ret = *this;
         ret.sign = -ret.sign;
         return ret;
@@ -257,7 +262,7 @@ public:
         return 0;
     }
 
-    friend BigNum& add(const BigNum& a, const BigNum& b) {
+    friend BigNum add(const BigNum& a, const BigNum& b) {
         BigNum ret;
         ret.len = std::max(a.len, b.len);
         for (int i = 0; i < ret.len; i ++)
@@ -272,17 +277,17 @@ public:
         return ret;
     }
 
-    friend BigNum& sub(const BigNum& a, const BigNum& b) {
-        BigNum ret, *l, *s;
-
+    friend BigNum sub(const BigNum& a, const BigNum& b) {
+        BigNum ret;
         if (cmp(a, b, true) < 0) {
-            l = &b, s = &a;
+            ret = sub(b, a);
             ret.sign = -1;
-        } else l = &a, s = &b;
+            return ret;
+        }
 
-        ret.len = l->len;
+        ret.len = a.len;
         for (int i = 0; i < ret.len; i ++)
-            ret[i] = (*l)[i] - (*s)[i];
+            ret[i] = a[i] - b[i];
         for (int i = 0; i < ret.len; i ++)
             if (ret[i] < 0) {
                 ret[i] += BigNum::base;
@@ -292,7 +297,7 @@ public:
         return ret;
     }
 
-    friend BigNum& mul(const BigNum& a, const BigNum& b) {
+    friend BigNum mul(const BigNum& a, const BigNum& b) {
         BigNum ret;
         if (a.len == 0 || b.len == 0)
             return ret;
@@ -323,8 +328,8 @@ public:
     std::string toString() const {
         std::string s;
         if (sign < 0) s += "-";
-        for (int i = len - 1, j = 0; i >= 0; i --, j ++)
-            s[j] += std::to_string(elem[i]);
+        for (int i = len - 1; i >= 0; i --)
+            s += std::to_string(elem[i]);
         return s;
     }
 
@@ -346,7 +351,7 @@ template<int MAX_SIZE>
 int BigNum<MAX_SIZE>::base = 10;
 
 template<int MAX_SIZE>
-int BigNum<MAX_SIZE>::order = 1;
+int BigNum<MAX_SIZE>::order = 1;    // 10 ^ 1
 
 }	// namespace cuhksz
 
