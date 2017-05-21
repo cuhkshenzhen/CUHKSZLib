@@ -6,6 +6,10 @@
 #include "utils/error.h"
 
 namespace cuhksz {
+/**
+        cuhksz::Map is a container which similar to stl map except
+        some simplifications and modifications of interface.
+**/
 
 template <typename KeyType, typename ValueType>
 class Map {
@@ -15,48 +19,156 @@ class Map {
   typedef ValueType value_type;
 
   Map();
+
+  /**
+          Construct a Map using a initializer_list.
+          Usage:
+          ```
+          cuhksz::Map<KeyType, ValueType> m {
+          {key1, value1},
+          {key2, value2},
+          };
+          ```
+  **/
   Map(std::initializer_list<StdValueType> init);
+
+  /**
+          Initialize a Map with a stl map.
+          Usage:
+          ```
+          cuhksz::Map<KeyType, ValueType> m(stlMap);
+          ```
+  **/
   Map(stlMap& stlMap2);
 
   ~Map();
 
+  /**
+          Assign a Map to another Map.
+  **/
   Map& operator=(Map& map2);
 
+  /**
+          Get the value with correspond key.
+          It will cause error if the key does not exist.
+          Return a reference to the value.
+  **/
   ValueType& get(const KeyType& key);
+
+  /**
+          Get the value with correspond key.
+          It will cause error if the key does not exist.
+          Return a const reference to the value.
+  **/
   const ValueType& get(const KeyType& key) const;
 
+  /**
+          Set the value with correspond key.
+          If the key doesn't exist, it will create a
+          new key-value pair.
+  **/
   void set(const KeyType& key, const ValueType& value);
 
+  /**
+          Return a reference to the value with correspond key.
+          If the key does not exist, it will create a new key-value pair.
+  **/
   ValueType& operator[](const KeyType& key);
 
+  /**
+          Check if the Map is empty.
+  **/
   bool isEmpty() const;
 
+  /**
+          Return the size of the Map.
+  **/
   int size() const;
 
+  /**
+          Empty the Map.
+  **/
   void clear();
 
+  /**
+          Erase the value with correspond key.
+  **/
   void erase(const KeyType& key);
 
+  /**
+          Check if the Map contains the key.
+  **/
   bool contains(const KeyType& key);
 
   typedef typename std::map<KeyType, ValueType>::iterator iterator;
   typedef typename std::map<KeyType, ValueType>::const_iterator const_iterator;
 
+  /**
+          Return a begin iterator.
+  **/
   iterator begin() { return privateMap.begin(); }
+
+  /**
+          Return a const iterator.
+  **/
   const_iterator begin() const { return privateMap.begin(); }
 
+  /**
+          Return a end iterator.
+  **/
   iterator end() { return privateMap.end(); }
+
+  /**
+          Return a const iterator.
+  **/
   const_iterator end() const { return privateMap.end(); }
 
+  /**
+          Convert the Map to stl map explicitly.
+          Usage:
+          ```
+          auto m = Map.toStlMap();
+          ```
+  **/
   stlMap toStlMap() { return privateMap; }
 
+  /**
+          Convert the Map to stl map implicitly.
+          Usage:
+          ```
+          std::map<KeyType, ValueType> m = Map;
+          ```
+  **/
   operator stlMap() { return privateMap; }
 
+  /**
+          Check if Map equals to map2.
+  **/
   bool operator==(const Map& map2);
+
+  /**
+          Check if Map does not equal to map2.
+  **/
   bool operator!=(const Map& map2);
+
+  /**
+          Compare the contents of Map and map2 lexicographically.
+  **/
   bool operator<(const Map& map2);
+
+  /**
+          Compare the contents of Map and map2 lexicographically.
+  **/
   bool operator<=(const Map& map2);
+
+  /**
+          Compare the contents of Map and map2 lexicographically.
+  **/
   bool operator>(const Map& map2);
+
+  /**
+          Compare the contents of Map and map2 lexicographically.
+  **/
   bool operator>=(const Map& map2);
 
  private:

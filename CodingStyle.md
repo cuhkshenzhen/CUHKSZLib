@@ -50,4 +50,7 @@
 
   `cuhksz` for **all** classes and functions
 
+  Exception:
+  use `cuhksz::private_` if you have to write some classes/functions in the headers that are not intended to be exported  (like class templates)
+
 Please see the project code for detail, if you see some inconsistency in the source, feel free to post a pull request.

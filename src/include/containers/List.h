@@ -6,6 +6,10 @@
 #include "utils/error.h"
 
 namespace cuhksz {
+/**
+        cuhksz::List is a container which similar to stl list except
+        some simplifications of interface.
+**/
 
 template <typename ValueType>
 class List {
@@ -14,71 +18,215 @@ class List {
   typedef ValueType value_type;
 
   List();  // constructor
+
+  /**
+          Construct a List with n value(s).
+          Usage:
+          ```
+          cuhksz::List<ValueType> li(n, value);
+          ```
+  **/
   explicit List(int n, ValueType value = ValueType());
+
+  /**
+          Construct a List using a initializer_list.
+          Usage:
+          ```
+          cuhksz::List<ValueType> li {value1, value2};
+          ```
+  **/
   List(std::initializer_list<ValueType> init);
+
+  /**
+          Initialize a List with a stl list.
+          Usage:
+          ```
+          cuhksz::List<ValueType> li(stlList);
+          ```
+  **/
   List(stlList& stlList2);
 
   ~List();  // deconstructor
 
+  /**
+          Assign a List to another List.
+  **/
   List& operator=(const List& list2);
 
+  /**
+          Get the first element in the List.
+          Return a reference to that element.
+  **/
   ValueType& first();
+
+  /**
+          Get the first element in the List.
+          Return a const reference to that element.
+  **/
   const ValueType& first() const;
 
+  /**
+          Get the last element in the List.
+          Return a reference to that element.
+  **/
   ValueType& last();
+
+  /**
+          Get the last element in the List.
+          Return a const reference to that element.
+  **/
   const ValueType& last() const;
 
+  /**
+          Get the element at the specified index.
+          Return a reference to that element.
+  **/
   ValueType& operator[](int index);
+
+  /**
+          Get the element at the specified index.
+          Return a const reference to that element.
+  **/
   const ValueType& operator[](int index) const;
 
+  /**
+          Check whether the List is empty.
+  **/
   bool isEmpty() const;
 
+  /**
+          Return the size of the List.
+  **/
   int size() const;
 
+  /**
+          Empty the List.
+  **/
   void clear();
 
+  /**
+          Insert value before index, it is allowed to
+          insert value at the end. It will cause error
+          if index out of range.
+  **/
   void insert(int index, ValueType value);
 
+  /**
+          Erase the element at index with boundary checking.
+  **/
   void erase(int index);
 
+  /**
+          Push the value to the end.
+  **/
   void push(const ValueType& value);
+
+  /**
+          Push the value to the front.
+  **/
   void push_front(const ValueType& value);
 
+  /**
+          Return and remove the last element.
+  **/
   ValueType pop();
+
+  /**
+          Return and remove the first element.
+  **/
   ValueType pop_front();
 
+  /**
+          Sort the List.
+  **/
   void sort();
 
+  /**
+          Reverse the List.
+  **/
   void reverse();
 
+  /**
+          Merge List with list2.
+  **/
   void merge(List& list2);
 
+  /**
+          Convert the List to stl list explicitly.
+          Usage:
+          ```
+          auto li = List.toStlList();
+          ```
+  **/
   stlList toStlList() { return privateList; }
 
+  /**
+          Convert the List to stl list implicitly.
+          Usage:
+          ```
+          std::list<ValueType> li = List;
+          ```
+  **/
   operator stlList() const { return privateList; }
 
+  /**
+          Check if List equals to list2.
+  **/
   bool operator==(const List& list2);
+
+  /**
+          Check if List does not equal to list2.
+  **/
   bool operator!=(const List& list2);
+
+  /**
+          Compare the contents of List and list2 lexicographically.
+  **/
   bool operator<(const List& list2);
+
+  /**
+          Compare the contents of List and list2 lexicographically.
+  **/
   bool operator<=(const List& list2);
+
+  /**
+          Compare the contents of List and list2 lexicographically.
+  **/
   bool operator>(const List& list2);
+
+  /**
+          Compare the contents of List and list2 lexicographically.
+  **/
   bool operator>=(const List& list2);
 
   typedef typename std::list<ValueType>::const_iterator const_iterator;
   typedef typename std::list<ValueType>::iterator iterator;
 
+  /**
+          Return the begin iterator.
+  **/
   iterator begin() { return privateList.begin(); }
 
+  /**
+Return the const iterator of begin.
+**/
   const_iterator begin() const { return privateList.begin(); }
 
+  /**
+          Return the end iterator.
+  **/
   iterator end() { return privateList.end(); }
 
+  /**
+Return the const iterator of end.
+**/
   const_iterator end() const { return privateList.end(); }
 
  private:
   std::list<ValueType> privateList;
   void boundaryCheck(int index) const;
   void emptyCheck() const;
+
 };  // end list class
 
 /*-------Implementation-------*/
