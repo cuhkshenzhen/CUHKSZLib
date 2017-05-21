@@ -25,7 +25,7 @@ public:
     }
 
     Point<2> getPoint(double rad) {
-        return O + Vector<2>(r * std::cos(rad), r * std::sin(rad));
+        return O + GVector<2>(r * std::cos(rad), r * std::sin(rad));
     }
 
 private:

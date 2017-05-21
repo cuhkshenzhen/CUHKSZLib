@@ -48,14 +48,14 @@ public:
 	}
 
 	// TODO: what about init a null Point then assign to elem[i] + other.elem[i]
-	Point& operator+(Point const &other) const {
+	Point operator+(Point const &other) const {
 		Point& ret = *(new Point);
 		for (int i = 0; i < N; i ++)
 			ret.elem[i] = elem[i] + other.elem[i];
 		return ret;
 	}
 
-	Point& operator-(Point const &other) const {
+	Point operator-(Point const &other) const {
 		Point& ret = *(new Point);
 		for (int i = 0; i < N; i ++)
 			ret.elem[i] = elem[i] - other.elem[i];
@@ -82,7 +82,7 @@ public:
 		return ret;
 	}
 
-	Point& operator*(double const &constant) const {
+	Point operator*(double const &constant) const {
 		Point& ret = *(new Point);
 		for (int i = 0; i < N; i ++)
 			ret.elem[i] = elem[i] * constant;
@@ -99,7 +99,7 @@ public:
         return *this;
 	}
 
-	Point& operator/(double const &constant) const {
+	Point operator/(double const &constant) const {
 		Point& ret = *(new Point);
 		for (int i = 0; i < N; i ++)
 			ret.elem[i] = elem[i] / constant;
@@ -181,7 +181,7 @@ private:
 	double elem[N];	// coordinates
 };
 
-#define Vector Point
+#define GVector Point
 
 #undef EPS
 
