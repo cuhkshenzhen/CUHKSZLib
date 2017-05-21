@@ -30,8 +30,8 @@ JSONObject parse_object(const std::string &str, size_t &offset) {
     JSONObject Key = parse_next(str, offset);
     skip_whitespaces(str, offset);
     if (str[offset] != ':') {
-      error("Object: Expected colon, found '" +
-           std::string(1, str[offset]) + "'");
+      error("Object: Expected colon, found '" + std::string(1, str[offset]) +
+          "'");
       break;
     }
     skip_whitespaces(str, ++offset);
@@ -46,8 +46,8 @@ JSONObject parse_object(const std::string &str, size_t &offset) {
       ++offset;
       break;
     } else {
-      error("Object: Expected comma, found '" +
-            std::string(1, str[offset]) + "'");
+      error("Object: Expected comma, found '" + std::string(1, str[offset]) +
+          "'");
       break;
     }
   }
@@ -78,7 +78,7 @@ JSONObject parse_array(const std::string &str, size_t &offset) {
       break;
     } else {
       error("Array: Expected ',' or ']', found '" +
-            std::string(1, str[offset]) + "'");
+          std::string(1, str[offset]) + "'");
     }
   }
 
@@ -125,11 +125,12 @@ JSONObject parse_string(const std::string &str, size_t &offset) {
             } else {
               error(
                   "String: Expected hex character in unicode escape, found '" +
-                  std::string(1, c) + "'");
+                      std::string(1, c) + "'");
             }
           }
           offset += 4;
-        } break;
+        }
+          break;
         default:
           val += '\\';
           break;
@@ -161,32 +162,36 @@ JSONObject parse_number(const std::string &str, size_t &offset) {
     }
   }
   if (c == 'E' || c == 'e') {
+    if (offset == str.length()) {
+      error("Number: Expected a number for exponent, nothing remaining.");
+    }
     c = str[offset++];
     if (c == '-') {
-      ++offset;
       exp_str += '-';
     }
     while (true) {
-      c = str[offset++];
+      c = str[offset];
+
       if (c >= '0' && c <= '9') {
         exp_str += c;
-      } else if (!isspace(c) && c != ',' && c != ']' && c != '}') {
+      } else if (!isspace(c) && c != ',' && c != ']' && c != '}' && c != 0) {
         error("Number: Expected a number for exponent, found '" +
-              std::string(1, c) + "'");
+            std::string(1, c) + "'");
       } else {
         break;
       }
+      offset++;
     }
-    exp = cuhksz::stringCast<int>(exp_str);
-  } else if (!isspace(c) && c != ',' && c != ']' && c != '}') {
+    exp = cuhksz::stringCast<double>(exp_str);
+  } else if (!isspace(c) && c != ',' && c != ']' && c != '}' && c != 0) {
     error("Number: unexpected character '" + std::string(1, c) + "'");
   }
-  --offset;
+  if (c != 0) --offset;
 
   if (isDouble)
-    Number = (int)cuhksz::stringCast<int>(val) * std::pow(10, exp);
+    Number = (double)cuhksz::stringCast<double>(val) * std::pow(10, exp);
   else if (!exp_str.empty())
-    Number = (int)cuhksz::stringCast<int>(val) * std::pow(10, exp);
+    Number = (double)cuhksz::stringCast<double>(val) * std::pow(10, exp);
   else
     Number = (int)cuhksz::stringCast<int>(val);
   return Number;
@@ -200,7 +205,7 @@ JSONObject parse_bool(const std::string &str, size_t &offset) {
     Bool = false;
   } else {
     error("Bool: Expected 'true' or 'false', found '" + str.substr(offset, 5) +
-          "'");
+        "'");
   }
   offset += (Bool.toBool() ? 4 : 5);
   return Bool;
@@ -208,8 +213,7 @@ JSONObject parse_bool(const std::string &str, size_t &offset) {
 
 JSONObject parse_null(const std::string &str, size_t &offset) {
   JSONObject Null;
-  if (str.substr(offset, 4) != "null")
-    error("Null: Expected 'null', found '" + str.substr(offset, 4) + "'");
+  if (str.substr(offset, 4) != "null") error("Null: Expected 'null', found '" + str.substr(offset, 4) + "'");
   offset += 4;
   return Null;
 }
@@ -295,7 +299,8 @@ void JSONObject::clearData() {
     case Type::String:
       delete Data.String;
       break;
-    default: {}
+    default: {
+    }
   }
 }
 
@@ -388,8 +393,8 @@ bool JSONObject::hasKey(const std::string &key) const {
 
 int JSONObject::size() const {
   return (int)(objType == Type::Object
-                   ? Data.Map->size()
-                   : objType == Type::Array ? Data.List->size() : -1);
+               ? Data.Map->size()
+               : objType == Type::Array ? Data.List->size() : -1);
 }
 
 std::string JSONObject::toString() const {
