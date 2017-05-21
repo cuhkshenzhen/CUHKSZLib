@@ -3,10 +3,18 @@
 
 namespace cuhksz {
 
-struct BSTNode {
+class BSTNode {
+public:
     BSTNode(int k, int v) : rank(k), val(v) {
         ch[0] = ch[1] = fa = nullptr;
     }
+
+    int getVal() { return val; }
+    int getRank() { return rank; }
+    void setVal(int newVal) { val = newVal; }
+
+    friend class BST;
+private:
     BSTNode* ch[2];
     BSTNode* fa;
     int rank;
