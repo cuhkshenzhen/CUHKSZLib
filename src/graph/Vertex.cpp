@@ -33,9 +33,6 @@ Vertex::Vertex(const Vertex& src) {
 }
 
 Vertex::~Vertex() {
-    for (std::list<Edge*>::iterator it = inEdges.begin(); it != inEdges.end(); ++ it)
-        if (*it != nullptr)
-            delete *it;
     for (std::list<Edge*>::iterator it = outEdges.begin(); it != outEdges.end(); ++ it)
         if (*it != nullptr)
             delete *it;
