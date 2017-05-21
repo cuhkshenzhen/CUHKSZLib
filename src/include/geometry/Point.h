@@ -2,6 +2,7 @@
 #define CUHKSZ_GEOMETRY_POINT
 
 #include <algorithm>
+#include <cstring>
 #include <cmath>
 #include <iostream>
 
@@ -13,7 +14,7 @@ template <int N = 2>
 class Point {
 public:
 	Point() {
-		memset(elem, 0, N * sizeof(double));
+		std::memset(elem, 0, N * sizeof(double));
 	}
 
 	explicit Point(double const x) {
@@ -32,13 +33,13 @@ public:
 	}
 
     Point(const Point& src) {
-        memcpy(elem, src.elem, N * sizeof(double));
+        std::memcpy(elem, src.elem, N * sizeof(double));
     }
 
 	~Point() { }
 
     Point& operator=(const Point& src) {
-        memcpy(elem, src.elem, N * sizeof(double));
+        std::memcpy(elem, src.elem, N * sizeof(double));
         return *this;
     }
 
