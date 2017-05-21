@@ -3,8 +3,6 @@
 
 #include <list>
 
-#include "graph/Edge.h"
-
 namespace cuhksz {
 
 class Edge;

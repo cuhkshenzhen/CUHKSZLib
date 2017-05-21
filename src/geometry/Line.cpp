@@ -2,6 +2,8 @@
 
 #include "geometry/Line.h"
 
+#define EPS 1e-6
+
 namespace {
 
 int dcmp(double x) {
@@ -12,8 +14,6 @@ int dcmp(double x) {
 }
 
 namespace cuhksz {
-
-#define EPS 1e-6
 
 Line::Line(Point<2> A, GVector<2> v) : A(A), v(v) { }
 
@@ -52,6 +52,6 @@ double disToSegment(Point<2> P, Line l) {
     else return std::fabs(cross(v1, v2) / v1.len());
 }
 
-#undef EPS
-
 }
+
+#undef EPS
