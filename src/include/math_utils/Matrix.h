@@ -7,26 +7,31 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
+#include <vector>
 
 namespace cuhksz {
 
-#define EPS 1e-6
-
+template <typename ValueType>
 class Matrix {
 public:
-    explicit Matrix(int n) : row(n), col(n) {
-        elem = new double*[row];
+    explicit Matrix(int n) : Matrix(n, n) { }
+
+    Matrix(int n, int m) : row(n), col(m) {
+        elem = new ValueType*[row];
         for (int i = 0; i < row; i ++) {
-            elem[i] = new double[col];
-            memset(elem[i], 0, col * sizeof(double));
+            elem[i] = new ValueType[col];
+            std::memset(elem[i], 0, col * sizeof(ValueType));
         }
     }
 
-    Matrix(int n, int m) : row(n), col(m) {
-        elem = new double*[row];
+    Matrix(std::vector<std::vector<int> > ini) {
+        row = ini.size();
+        col = ini[0].size();
+        elem = new ValueType*[row];
         for (int i = 0; i < row; i ++) {
-            elem[i] = new double[col];
-            memset(elem[i], 0, col * sizeof(double));
+            elem[i] = new ValueType[col];
+            for (int j = 0; j < col; j ++)
+                elem[i][j] = ini[i][j];
         }
     }
 
@@ -41,12 +46,13 @@ public:
     // allocation
     Matrix& operator= (const Matrix& src) {
         if (this == &src) return *this;
-        clear(), deepCopy(src);
+        clear();
+        deepCopy(src);
         return *this;
     }
 
     // index
-    double* operator[] (int i) const {
+    ValueType* operator[] (int i) const {
         return elem[i];
     }
 
@@ -55,7 +61,21 @@ public:
         return os;
     }
 
-    Matrix& operator* (const Matrix& other) const {
+    bool operator== (const Matrix& other) const {
+        if (row != other.row || col != other.col)
+            return false;
+        for (int i = 0; i < row; i ++)
+            for (int j = 0; j < col; j ++)
+                if ((*this)[i][j] != other[i][j])
+                    return false;
+        return true;
+    }
+
+    bool operator!= (const Matrix& other) const {
+        return !this->operator==(other);
+    }
+
+    Matrix operator* (const Matrix& other) const {
         assert(col == other.row);
         Matrix* ret = new Matrix(row, other.col);
         for (int i = 0; i < ret->row; i ++)
@@ -77,13 +97,13 @@ public:
         return *this;
     }
 
-    Matrix& operator+ (const Matrix& other) const {
+    Matrix operator+ (const Matrix& other) const {
         assert(row == other.row && col == other.col);
-        Matrix* ret = new Matrix(row, col);
+        Matrix ret(row, col);
         for (int i = 0; i < row; i ++)
             for (int j = 0; j < col; j ++)
-                (*ret)[i][j] = (*this)[i][j] + other[i][j];
-        return *ret;
+                ret[i][j] = (*this)[i][j] + other[i][j];
+        return ret;
     }
 
     Matrix& operator+= (const Matrix& other) {
@@ -94,13 +114,13 @@ public:
         return *this;
     }
 
-    Matrix& operator- (const Matrix& other) const {
+    Matrix operator- (const Matrix& other) const {
         assert(row == other.row && col == other.col);
-        Matrix* ret = new Matrix(row, col);
+        Matrix ret(row, col);
         for (int i = 0; i < row; i ++)
             for (int j = 0; j < col; j ++)
-                (*ret)[i][j] = (*this)[i][j] - other[i][j];
-        return *ret;
+                ret[i][j] = (*this)[i][j] - other[i][j];
+        return ret;
     }
 
     Matrix& operator-= (const Matrix& other) {
@@ -119,8 +139,12 @@ public:
 
     void deepCopy(const Matrix& src) {
         row = src.row, col = src.col;
-        for (int i = 0; i < row; i ++)
-            memcpy((*this)[i], src[i], col * sizeof(double));
+        elem = new ValueType*[row];
+        for (int i = 0; i < row; i ++) {
+            elem[i] = new ValueType[col];
+            for (int j = 0; j < col; j ++)
+                elem[i][j] = src[i][j];
+        }
     }
 
     friend Matrix& idMat(int n) {
@@ -148,7 +172,7 @@ public:
             while (r < col) {
                 nonZeroRow = -1;
                 for (int j = i; j < row; j ++)
-                    if (std::fabs(A[j][r]) >= EPS) {
+                    if (A[j][r] != 0) {
                         nonZeroRow = j;
                         break;
                     }
@@ -186,7 +210,7 @@ public:
     }
 
 private:
-    double** elem;
+    ValueType** elem;
     int row;
     int col;
 };

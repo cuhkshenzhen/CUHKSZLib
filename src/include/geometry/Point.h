@@ -182,7 +182,9 @@ private:
 	double elem[N];	// coordinates
 };
 
-#define GVector Point
+// #define GVector Point
+template <int N>
+using GVector = Point<N>;
 
 #undef EPS
 
