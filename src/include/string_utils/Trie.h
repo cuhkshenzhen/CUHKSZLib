@@ -169,7 +169,7 @@ class Trie {
           : index_(index), str_(str) {}
       iterator(const iterator& iter) : index_(iter.index_), str_(iter.str_) {}
 
-      int operator*() {
+      int operator*() const {
         auto ch = (*str_)[index_];
         return mapChar(ch);
       }
@@ -179,11 +179,11 @@ class Trie {
         return *this;
       }
 
-      bool operator==(const iterator& iter) {
+      bool operator==(const iterator& iter) const {
         return str_ == iter.str_ && index_ == iter.index_;
       }
 
-      bool operator!=(const iterator& iter) { return !(*this == iter); }
+      bool operator!=(const iterator& iter) const { return !(*this == iter); }
 
      private:
       std::size_t index_;
@@ -236,7 +236,7 @@ class Trie {
       return *this;
     }
 
-    bool operator==(const iterator& iter) {
+    bool operator==(const iterator& iter) const {
       if (end_ || iter.end_) {
         if (end_ && iter.end_) {
           return true;
@@ -248,7 +248,7 @@ class Trie {
              buffer_ == iter.buffer_;
     }
 
-    bool operator!=(const iterator& iter) { return !(*this == iter); }
+    bool operator!=(const iterator& iter) const { return !(*this == iter); }
 
    private:
     Trie* trie_;
