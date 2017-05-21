@@ -41,19 +41,3 @@ TEST(SegmentTree, querySum) {
   EXPECT_EQ(T.querySum(1, 2), 12);
   EXPECT_EQ(T.querySum(1, 3), 10);
 }
-
-TEST(SegmentTree, addInterval) {
-  std::vector<int> v;
-  for (int i = 0; i < 4; i++) v.push_back(i);
-  cuhksz::SegmentTree<int> T(v);
-  T.addInterval(1, 2, 1);
-  EXPECT_EQ(T.queryMax(1, 2), 3);
-}
-
-TEST(SegmentTree, mulInterval) {
-  std::vector<int> v;
-  for (int i = 0; i < 4; i++) v.push_back(i);
-  cuhksz::SegmentTree<int> T(v);
-  T.mulInterval(1, 2, 2);
-  EXPECT_EQ(T.queryMax(1, 2), 4);
-}
