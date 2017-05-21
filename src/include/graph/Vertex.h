@@ -12,12 +12,12 @@ class Edge;
 class Vertex {
 public:
     Vertex();
-    Vertex(int value);
+    Vertex(int val);
     Vertex(const Vertex& src);
     ~Vertex();
 
-    int getVal() { return value; }
-    void setVal(int newVal) { value = newVal; }
+    int getVal() { return val; }
+    void setVal(int newVal) { val = newVal; }
     bool isValid() { return use; }
     void setValid() { use = true; }
     void setInvalid() { use = false; }
@@ -28,7 +28,7 @@ public:
     bool operator!= (const Vertex& src) const;
     bool operator< (const Vertex& src) const; // for sort
 
-    void addEdge(Vertex& to, int value=0);
+    void addEdge(Vertex& to, int val=0);
     int getInDegree() { return inEdges.size(); }
     int getOutDegree() { return outEdges.size(); }
 
@@ -36,7 +36,7 @@ public:
     std::list<Edge*> outEdges;
 
 private:
-    int value;
+    int val;
     bool use;
     int id;
     static int nextVertexID;
