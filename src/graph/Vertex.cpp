@@ -6,14 +6,14 @@ namespace cuhksz {
 int Vertex::nextVertexID = 0;
 
 Vertex::Vertex() {
-    val = 0;
+    value = 0;
     use = true;
     id = Vertex::nextVertexID ++;
     inEdges.clear();
     outEdges.clear();
 }
 
-Vertex::Vertex(int val) : val(val) {
+Vertex::Vertex(int value) : value(value) {
     use = true;
     id = Vertex::nextVertexID ++;
     inEdges.clear();
@@ -21,7 +21,7 @@ Vertex::Vertex(int val) : val(val) {
 }
 
 Vertex::Vertex(const Vertex& src) {
-    val = src.val;
+    value = src.value;
     use = src.use;
     id = Vertex::nextVertexID ++;
     inEdges.clear();
@@ -44,7 +44,7 @@ Vertex::~Vertex() {
 }
 
 Vertex& Vertex::operator= (const Vertex& src) {
-    val = src.val;
+    value = src.value;
     use = src.use;
     inEdges.clear();
     outEdges.clear();
@@ -64,11 +64,11 @@ bool Vertex::operator!= (const Vertex& src) const {
 }
 
 bool Vertex::operator< (const Vertex& src) const {
-    return val < src.val;
+    return value < src.value;
 }
 
-void Vertex::addEdge(Vertex& to, int val) {
-    Edge* e = new Edge(this, &to, val);
+void Vertex::addEdge(Vertex& to, int value) {
+    Edge* e = new Edge(this, &to, value);
     outEdges.push_back(e);
     to.inEdges.push_back(e);
 }
