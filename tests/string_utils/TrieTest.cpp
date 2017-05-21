@@ -26,7 +26,7 @@ TEST(Trie, custom_mapper) {
 
 TEST(Trie, insert_and_contain) {
   cuhksz::Trie trie;
-  std::vector<std::string> strs = {"ba", "bac", "be", "bae"};
+  std::vector<std::string> strs = {"ba", "bac", "be", "bae", "cea", "ce"};
   for (auto& s : strs) {
     trie.insert(s);
   }
@@ -61,6 +61,18 @@ TEST(Trie, travel) {
   }
 }
 
+TEST(Trie, iterator) {
+  cuhksz::Trie trie;
+  std::vector<std::string> strs = {"ba", "bac", "bae", "be"};
+  for (auto& s : strs) {
+    trie.insert(s);
+  }
+  auto it = trie.begin();
+  auto it2 = it;
+  ++it;
+  EXPECT_NE(it, it2);
+}
+
 TEST(Trie, size) {
   cuhksz::Trie trie;
   EXPECT_EQ(trie.size(), 0);
@@ -76,6 +88,11 @@ TEST(Trie, size) {
   EXPECT_EQ(trie.size(), 1);
   trie.remove("bca");
   EXPECT_EQ(trie.size(), 0);
+  trie.insert("a");
+  trie.insert("abc");
+  trie.remove("abe");
+  trie.remove("a");
+  EXPECT_EQ(trie.size(), 1);
 }
 
 TEST(TrieDeathTest, unsupport_characters) {
