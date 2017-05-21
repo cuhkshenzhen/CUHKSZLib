@@ -8,7 +8,6 @@ namespace cuhksz {
 class Line {
 public:
     Line(Point<2> A, GVector<2> v);
-    // Line(Point<2> A, Point<2> B);
     Line(const Line& src);
     ~Line();
 
@@ -24,12 +23,6 @@ private:
     Point<2> A;
     GVector<2> v;
 };
-
-Point<2> getIntersection(const Line& l1, const Line& l2);
-
-double disToLine(Point<2> P, Line l);
-
-double disToSegment(Point<2> P, Line l);
 
 }
 

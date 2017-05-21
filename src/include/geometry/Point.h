@@ -119,7 +119,7 @@ public:
 
 	bool operator==(Point const &other) const {
 		for (int i = 0; i < N; i ++)
-			if (fabs(elem[i] - other.elem[i]) < EPS)
+			if (std::fabs(elem[i] - other.elem[i]) > EPS)
 				return false;
 		return true;
 	}

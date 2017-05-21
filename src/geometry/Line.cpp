@@ -17,10 +17,6 @@ namespace cuhksz {
 
 Line::Line(Point<2> A, GVector<2> v) : A(A), v(v) { }
 
-// Line::Line(Point<2> A, Point<2> B) : A(A) {
-//     v = B - A;
-// }
-
 Line::Line(const Line& src) {
     A = src.A;
     v = src.v;
